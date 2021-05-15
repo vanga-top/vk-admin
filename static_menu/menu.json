@@ -1,0 +1,90 @@
+[{
+		"menu_id": "pages_1",
+		"name": "",
+		"hiddenMenu": true,
+		"children": [{
+				"menu_id": "pages_index",
+				"name": "首页",
+				"url": "/",
+				"fixed": true
+			},
+			{
+				"name": "登录注册",
+				"children": [{
+						"menu_id": "pages_login",
+						"name": "登录",
+						"url": "/pages/login/index",
+						"hiddenTab": true
+					},
+					{
+						"menu_id": "pages_register",
+						"name": "注册",
+						"url": "/pages/login/register",
+						"hiddenTab": true
+					},
+					{
+						"menu_id": "pages_retrieve",
+						"name": "密码找回",
+						"url": "/pages/login/retrieve",
+						"hiddenTab": true
+					}
+				]
+			},
+			{
+				"menu_id": "pages_2",
+				"name": "异常页面",
+				"icon": "el-icon-warning-outline",
+				"children": [{
+						"menu_id": "pages_403",
+						"name": "403",
+						"url": "/pages_plugs/error/403",
+						"hiddenTab": true
+					},
+					{
+						"menu_id": "pages_404",
+						"name": "404",
+						"url": "/pages_plugs/error/404",
+						"hiddenTab": true
+					},
+					{
+						"menu_id": "pages_500",
+						"name": "500",
+						"url": "/pages_plugs/error/500",
+						"hiddenTab": true
+					}
+				]
+			}
+		]
+	},
+	{
+		"menu_id": "system_uni",
+		"name": "系统设置",
+		"icon": "el-icon-s-tools",
+		"sort": 110,
+		"children": [{
+				"menu_id": "pages_plugs-system_uni-opendb-global-data",
+				"name": "系统缓存管理",
+				"icon": "",
+				"url": "/pages_plugs/system_uni/opendb-global-data"
+			},
+			{
+				"menu_id": "pages_plugs-system_uni-opendb-components-dynamic",
+				"name": "动态组件数据",
+				"icon": "",
+				"url": "/pages_plugs/system_uni/opendb-components-dynamic"
+			},
+			{
+				"menu_id": "pages_plugs-system_uni-uni-id-log",
+				"name": "用户登录日志",
+				"icon": "",
+				"url": "/pages_plugs/system_uni/uni-id-log"
+			},
+			{
+				"menu_id": "pages_plugs-system_uni-opendb-admin-log",
+				"name": "系统操作日志",
+				"icon": "",
+				"url": "/pages_plugs/system_uni/opendb-admin-log"
+			}
+		]
+	}
+]

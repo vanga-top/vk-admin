@@ -1,0 +1,22 @@
+# Mac
+.DS_Store
+**/.DS_Store
+
+# vim/vi
+*.swp
+
+# JavaScript
+node_modules/
+.node_modules/
+.eslintcache
+unpackage/
+.DS_Storer
+router.param.json
+uni-admin.param.json
+dev-script/
+.vscode
+.hbuilderx
+
+
+# python
+*.pyc
