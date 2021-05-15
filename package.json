@@ -3,22 +3,19 @@
 	"name": "vk-unicloud-admin",
 	"version": "1.0.0",
 	"displayName": "【开箱即用】vk-unicloud-admin - 快速开发框架 - 一个更容易上手的admin框架",
-	"description": "vk-unicloud-admin 是基于 unicloud + uni-id + element + vk-unicloud-router 的一套快速PC admin完整开发框架。内置丰富的API，Ta可以让你开发事半功倍。",
+	"description": "vk-unicloud-admin是基于unicloud+uni-id+element+vk-unicloud-router的一套快速PC admin完整开发框架。丰富的API可以让你开发事半功倍。",
 	"keywords": [
-		"vk-unicloud-admin",
-		"vk云开发",
-		"element、uni-id、vk-unicloud-router",
-		"内置众多API、工具包",
-		"PC admin"
-	],
+        "vk-unicloud-admin",
+        "vk云开发",
+        "element、uni-id、vk-unicloud-router",
+        "内置众多API、工具包",
+        "PC-admin"
+    ],
 	"main": "main.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/dcloudio/uni-template-admin.git"
-	},
+	"repository": "",
 	"author": "VK",
 	"license": "Apache",
 	"homepage": "https://github.com/dcloudio/uni-template-admin#readme",
@@ -26,5 +23,69 @@
 		"element-ui": "^2.15.1",
 		"umy-ui": "^1.1.6",
 		"vk-unicloud-admin-ui": "1.0.1"
-	}
+	},
+	"engines": {
+		"HBuilderX": "^3.1.10"
+    },
+    "dcloudext": {
+        "category": [
+            "uniCloud",
+            "云端一体项目模板"
+        ],
+        "sale": {
+            "regular": {
+                "price": "0.00"
+            },
+            "sourcecode": {
+                "price": "0.00"
+            }
+        },
+        "contact": {
+            "qq": "370725567"
+        },
+        "declaration": {
+            "ads": "无",
+            "data": "插件不采集任何数据",
+            "permissions": "无"
+        },
+        "npmurl": ""
+    },
+    "uni_modules": {
+        "platforms": {
+            "cloud": {
+                "tcb": "y",
+                "aliyun": "y"
+            },
+            "client": {
+                "App": {
+                    "app-vue": "n",
+                    "app-nvue": "n"
+                },
+                "H5-mobile": {
+                    "Safari": "n",
+                    "Android Browser": "n",
+                    "微信浏览器(Android)": "n",
+                    "QQ浏览器(Android)": "n"
+                },
+                "H5-pc": {
+                    "Chrome": "y",
+                    "IE": "u",
+                    "Edge": "y",
+                    "Firefox": "y",
+                    "Safari": "y"
+                },
+                "小程序": {
+                    "微信": "n",
+                    "阿里": "n",
+                    "百度": "n",
+                    "字节跳动": "n",
+                    "QQ": "n"
+                },
+                "快应用": {
+                    "华为": "n",
+                    "联盟": "n"
+                }
+            }
+        }
+    }
 }
