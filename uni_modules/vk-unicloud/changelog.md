@@ -1,3 +1,8 @@
+## 2.0.2（2021-05-16）
+###  更新内容
+#### 【优化】修复验证码发送的已知bug
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+
 ## 2.0.1（2021-05-15）
 ###  更新内容
 #### 【优化】用户角色权限，支持admin使用 [点击查看](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=4003879&doc_id=975983)

@@ -114,7 +114,8 @@ export default {
 							}
 						}
 						formData.permissionList = allCheckedKeys;
-						let menuNum = vk.pubfn.getData(that.data,"info.stats_count_info.type[0]",0);
+						let menuNum = vk.pubfn.getData(that.data,"info.stats_count_info.type[0].count",0);
+						if(typeof menuNum !== "number") menuNum = 0;
 						let list = vk.pubfn.treeToArray(that.data.treeData, {
 							id:"permission_id",
 							parent_id:"parent_id",

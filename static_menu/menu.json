@@ -1,7 +1,7 @@
 [{
 		"menu_id": "pages_1",
 		"name": "",
-		"hiddenMenu": true,
+		"hidden_menu": true,
 		"children": [{
 				"menu_id": "pages_index",
 				"name": "首页",
@@ -14,19 +14,19 @@
 						"menu_id": "pages_login",
 						"name": "登录",
 						"url": "/pages/login/index",
-						"hiddenTab": true
+						"hidden_tab": true
 					},
 					{
 						"menu_id": "pages_register",
 						"name": "注册",
 						"url": "/pages/login/register",
-						"hiddenTab": true
+						"hidden_tab": true
 					},
 					{
 						"menu_id": "pages_retrieve",
 						"name": "密码找回",
 						"url": "/pages/login/retrieve",
-						"hiddenTab": true
+						"hidden_tab": true
 					}
 				]
 			},
@@ -38,19 +38,19 @@
 						"menu_id": "pages_403",
 						"name": "403",
 						"url": "/pages_plugs/error/403",
-						"hiddenTab": true
+						"hidden_tab": true
 					},
 					{
 						"menu_id": "pages_404",
 						"name": "404",
 						"url": "/pages_plugs/error/404",
-						"hiddenTab": true
+						"hidden_tab": true
 					},
 					{
 						"menu_id": "pages_500",
 						"name": "500",
 						"url": "/pages_plugs/error/500",
-						"hiddenTab": true
+						"hidden_tab": true
 					}
 				]
 			}

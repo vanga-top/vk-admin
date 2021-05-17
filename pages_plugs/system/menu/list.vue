@@ -115,10 +115,16 @@
 						{ key:"comment", title:"备注", type:"text", width:200, align:"left" },
 						{ key:"permission", title:"菜单内置权限表", type:"text", width:120, defaultValue:"无" },
 						// 对应的权限是否启用
-						{ key:"enable", title:"是否启用", type:"tag",
+						{ key:"enable", title:"是否启用", type:"tag", defaultValue:false,
 							data:[
 								{ value:true, label:"启用", tagType:"success" },
 								{ value:false, label:"禁用", tagType:"danger" },
+							]
+						},
+						{ key:"hidden_menu", title:"是否隐藏", type:"tag", defaultValue:false,
+							data:[
+								{ value:true, label:"隐藏", tagType:"danger" },
+								{ value:false, label:"显示", tagType:"success" },
 							]
 						},
 						{ key:"sort", title:"排序值", type:"text", width:120 },
@@ -169,6 +175,9 @@
 							},
 							{ key:"enable", title:"是否启用", type:"switch",
 								tips:"当关闭时，菜单将失效，再次启用时，菜单会恢复。"
+							},
+							{ key:"hidden_menu", title:"是否隐藏", type:"switch",
+								tips:"当设为true时，菜单不显示在左侧菜单列表中。"
 							},
 						],
 						// 表单对应的验证规则

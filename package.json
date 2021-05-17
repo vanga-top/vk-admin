@@ -1,31 +1,31 @@
 {
-	"id": "vk-unicloud-admin",
-	"name": "vk-unicloud-admin",
-	"version": "1.0.0",
-	"displayName": "【开箱即用】vk-unicloud-admin - 快速开发框架 - 一个更容易上手的admin框架",
-	"description": "vk-unicloud-admin是基于unicloud+uni-id+element+vk-unicloud-router的一套快速PC admin完整开发框架。丰富的API可以让你开发事半功倍。",
-	"keywords": [
+    "id": "vk-unicloud-admin",
+    "name": "vk-unicloud-admin",
+    "version": "1.0.1",
+    "displayName": "【开箱即用】vk-unicloud-admin - 快速开发框架 - 一个更容易上手的admin框架",
+    "description": "vk-unicloud-admin是基于unicloud+uni-id+element+vk-unicloud-router的一套快速PC admin完整开发框架。丰富的API可以让你开发事半功倍。",
+    "keywords": [
         "vk-unicloud-admin",
         "vk云开发",
         "element、uni-id、vk-unicloud-router",
         "内置众多API、工具包",
-        "PC-admin"
+        "支持表单可视化拖拽生成代码"
     ],
-	"main": "main.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": "",
-	"author": "VK",
-	"license": "Apache",
-	"homepage": "https://github.com/dcloudio/uni-template-admin#readme",
-	"dependencies": {
-		"element-ui": "^2.15.1",
-		"umy-ui": "^1.1.6",
-		"vk-unicloud-admin-ui": "1.0.1"
-	},
-	"engines": {
-		"HBuilderX": "^3.1.10"
+    "main": "main.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": "",
+    "author": "VK",
+    "license": "Apache",
+    "homepage": "https://github.com/dcloudio/uni-template-admin#readme",
+    "dependencies": {
+        "element-ui": "^2.15.1",
+        "umy-ui": "^1.1.6",
+        "vk-unicloud-admin-ui": "^1.0.4"
+    },
+    "engines": {
+        "HBuilderX": "^3.1.10"
     },
     "dcloudext": {
         "category": [
@@ -62,10 +62,10 @@
                     "app-nvue": "n"
                 },
                 "H5-mobile": {
-                    "Safari": "n",
-                    "Android Browser": "n",
-                    "微信浏览器(Android)": "n",
-                    "QQ浏览器(Android)": "n"
+                    "Safari": "u",
+                    "Android Browser": "u",
+                    "微信浏览器(Android)": "u",
+                    "QQ浏览器(Android)": "u"
                 },
                 "H5-pc": {
                     "Chrome": "y",

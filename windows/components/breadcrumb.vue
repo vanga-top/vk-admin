@@ -4,7 +4,7 @@
 			<view
 				v-for="(item, index) in vk.getVuex('$app.menuMap')"
 				:key="index"
-				@click="vk.navigateTo(item.url)"
+				@click="pageTo(item)"
 				class="top-bar"
 			>
 				<view class="item-content" v-if="item.name">
@@ -26,7 +26,14 @@ export default {
 		return {};
 	},
 	mounted() {},
-	methods: {},
+	methods: {
+		pageTo(item={}){
+			let { vk } = this;
+			if(item.url){
+				vk.navigateTo(item.url);
+			}
+		}
+	},
 	watch: {},
 	// 过滤器
 	filters: {},

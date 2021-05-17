@@ -30,7 +30,8 @@ module.exports = {
 			icon,
 			sort = 0,
 			parent_id,
-			enable = true
+			enable = true,
+			hidden_menu
 		} = data;
 		// 参数合法校验开始-----------------------------------------------------------
 		let formRulesRes = await formRules.update(event);
@@ -46,7 +47,8 @@ module.exports = {
 			icon,
 			sort,
 			parent_id,
-			enable
+			enable,
+			hidden_menu
 		};
 		// 检测parent_id是否不存在
 		if(vk.pubfn.isNotNull(parent_id)){

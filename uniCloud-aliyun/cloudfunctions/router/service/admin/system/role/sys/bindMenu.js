@@ -16,13 +16,31 @@ module.exports = {
 		let { customUtil, uniID, config, pubFun, vk, db, _ } = util;
 		let { uid } = data;
 		let res = { code: 0, msg: '' };
-		// 业务逻辑开始----------------------------------------------------------- 
+		// 业务逻辑开始-----------------------------------------------------------
 		let { role_id, menuList, reset, addPermission } = data;
 		res = await vk.system.sysDao.roleBindMenu({
 			role_id,
 			menuList,
 			reset,
 			addPermission
+		});
+		let dbName = "uni-id-roles";
+		let roleInfo = await vk.baseDao.findByWhereJson({
+			dbName,
+			whereJson: {
+				role_id,
+			}
+		});
+		let count = roleInfo.menu ? roleInfo.menu.length : 0;
+		// 修改stats_count_info统计信息
+		await vk.baseDao.update({
+			dbName,
+			whereJson: {
+				role_id,
+			},
+			dataJson: {
+				["stats_count_info.type.0.count"] : count
+			}
 		});
 		return res;
 	}
