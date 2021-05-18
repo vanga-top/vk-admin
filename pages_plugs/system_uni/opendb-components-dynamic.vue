@@ -35,7 +35,7 @@
 		<vk-data-dialog
 			v-model="form1.props.show"
 			:title="form1.props.title"
-			width="500px"
+			width="800px"
 			mode="form"
 		>
 			<vk-data-form

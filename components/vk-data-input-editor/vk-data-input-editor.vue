@@ -218,7 +218,8 @@
 			onEditorReady() {
 				let that = this;
 				let { value, editorId } = that;
-				uni.createSelectorQuery().select('#'+editorId).context((res) => {
+				const query = uni.createSelectorQuery().in(that);
+				query.select('#'+editorId).context((res) => {
 					if(res){
 						that.editorCtx = res.context;
 						if(value){
@@ -255,21 +256,23 @@
 				})
 			},
 			clear() {
+				let that = this;
 				let disabled = that.disabledFn();
 				if(disabled) return false;
-				this.editorCtx.clear({
+				that.editorCtx.clear({
 					success: function(res) {
 						// console.log("clear success")
 					}
 				})
 			},
 			removeFormat() {
+				let that = this;
 				let disabled = that.disabledFn();
 				if(disabled) return false;
-				this.editorCtx.removeFormat();
+				that.editorCtx.removeFormat();
 				// 将文本颜色和背景颜色变化原来的颜色
-				this.style_obj["--bg_color"] = "#000000";
-				this.style_obj["--text_color"] = "#000000";
+				that.style_obj["--bg_color"] = "#000000";
+				that.style_obj["--text_color"] = "#000000";
 			},
 			insertDate() {
 				/*
@@ -307,73 +310,79 @@
 				})
 			},
 			text_color(){
+				let that = this;
 				// 关闭字号大小和字体粗细
-				this.style_obj["--header_display"] = 0;
-				this.style_obj["--font_size_display"] = 0;
-				this.style_obj["--bg_opacity"] = 0;
+				that.style_obj["--header_display"] = 0;
+				that.style_obj["--font_size_display"] = 0;
+				that.style_obj["--bg_opacity"] = 0;
 
-				if(this.style_obj["--text_opacity"]){
-					this.style_obj["--text_opacity"] = 0;
+				if(that.style_obj["--text_opacity"]){
+					that.style_obj["--text_opacity"] = 0;
 				}else{
-					this.style_obj["--text_opacity"] = 1;
+					that.style_obj["--text_opacity"] = 1;
 				};
 			},
 			change_text_color(index){
-				let color = this.choice_color_list[index];
-				this.editorCtx.format("color", color);
-				this.style_obj["--text_opacity"] = 0;
+				let that = this;
+				let color = that.choice_color_list[index];
+				that.editorCtx.format("color", color);
+				that.style_obj["--text_opacity"] = 0;
 				if(color === "#ffffff"){
-					this.style_obj["--text_color"] = "#efebeb";
+					that.style_obj["--text_color"] = "#efebeb";
 				}else{
-					this.style_obj["--text_color"] = color;
+					that.style_obj["--text_color"] = color;
 				};
 			},
 			bg_color(){
+				let that = this;
 				// 关闭字号大小和字体粗细
-				this.style_obj["--header_display"] = 0;
-				this.style_obj["--font_size_display"] = 0;
-				this.style_obj["--text_opacity"] = 0;
+				that.style_obj["--header_display"] = 0;
+				that.style_obj["--font_size_display"] = 0;
+				that.style_obj["--text_opacity"] = 0;
 
-				if(this.style_obj["--bg_opacity"]){
-					this.style_obj["--bg_opacity"] = 0;
+				if(that.style_obj["--bg_opacity"]){
+					that.style_obj["--bg_opacity"] = 0;
 				}else{
-					this.style_obj["--bg_opacity"] = 1;
+					that.style_obj["--bg_opacity"] = 1;
 				};
 			},
 			change_bg_color(index){
-				let color = this.choice_color_list[index];
-				this.editorCtx.format("backgroundColor", color);
-				this.style_obj["--bg_opacity"] = 0;
+				let that = this;
+				let color = that.choice_color_list[index];
+				that.editorCtx.format("backgroundColor", color);
+				that.style_obj["--bg_opacity"] = 0;
 				if(color === "#ffffff"){
-					this.style_obj["--bg_color"] = "#efebeb";
+					that.style_obj["--bg_color"] = "#efebeb";
 				}else{
-					this.style_obj["--bg_color"] = color;
+					that.style_obj["--bg_color"] = color;
 				};
 			},
 			// 是否显示字粗细
 			trade_name(){
+				let that = this;
 				// 关闭字号大小和颜色面板
-				this.style_obj["--font_size_display"] = 0;
-				this.style_obj["--text_opacity"] = 0;
-				this.style_obj["--bg_opacity"] = 0;
+				that.style_obj["--font_size_display"] = 0;
+				that.style_obj["--text_opacity"] = 0;
+				that.style_obj["--bg_opacity"] = 0;
 
-				if(this.style_obj["--header_display"]){
-					this.style_obj["--header_display"] = 0;
+				if(that.style_obj["--header_display"]){
+					that.style_obj["--header_display"] = 0;
 				}else{
-					this.style_obj["--header_display"] = 1;
+					that.style_obj["--header_display"] = 1;
 				};
 			},
 			// 是否显示字号
 			change_font(){
+				let that = this;
 				// 关闭字体粗细和颜色面板
-				this.style_obj["--header_display"] = 0;
-				this.style_obj["--text_opacity"] = 0;
-				this.style_obj["--bg_opacity"] = 0;
+				that.style_obj["--header_display"] = 0;
+				that.style_obj["--text_opacity"] = 0;
+				that.style_obj["--bg_opacity"] = 0;
 
-				if(this.style_obj["--font_size_display"]){
-					this.style_obj["--font_size_display"] = 0;
+				if(that.style_obj["--font_size_display"]){
+					that.style_obj["--font_size_display"] = 0;
 				}else{
-					this.style_obj["--font_size_display"] = 1;
+					that.style_obj["--font_size_display"] = 1;
 				};
 			},
 			// 选着字号大小
@@ -386,7 +395,8 @@
 			},
 			// 确认时间
 			determine_time(){
-				const date = this.formatDate;
+				let that = this;
+				const date = that.formatDate;
 				let year = date.getFullYear();
 				let month = date.getMonth() + 1;
 				let day = date.getDate();
@@ -403,27 +413,28 @@
 					str = "中午";
 				};
 				let week = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"][date.getDay()];
-				this.editorCtx.insertText({
+				that.editorCtx.insertText({
 					text: `${year}年${month}月${day}日${week}${str}${hour}时${minute}分${second}秒`
 				});
 			},
 			// 关闭弹出层了
 			close_popup(){
+				let that = this;
 				// 隐藏背景颜色面板
-				if(this.style_obj["--bg_opacity"]) {
-					this.style_obj["--bg_opacity"] = 0;
+				if(that.style_obj["--bg_opacity"]) {
+					that.style_obj["--bg_opacity"] = 0;
 				};
 				// 隐藏文本颜色面板
-				if(this.style_obj["--text_opacity"]) {
-					this.style_obj["--text_opacity"] = 0;
+				if(that.style_obj["--text_opacity"]) {
+					that.style_obj["--text_opacity"] = 0;
 				};
 				// 隐藏字体大小
-				if(this.style_obj["--font_size_display"]){
-					this.style_obj["--font_size_display"] = 0;
+				if(that.style_obj["--font_size_display"]){
+					that.style_obj["--font_size_display"] = 0;
 				};
 				// 隐藏字体粗细
-				if(this.style_obj["--header_display"]){
-					this.style_obj["--header_display"] = 0;
+				if(that.style_obj["--header_display"]){
+					that.style_obj["--header_display"] = 0;
 				};
 			},
 			// 获取指定的父组件

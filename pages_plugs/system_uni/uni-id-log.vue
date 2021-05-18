@@ -42,7 +42,7 @@ export default {
 				action: "admin/system_uni/uni-id-log/sys/getList",
 				// 表格字段显示规则
 				columns: [
-					{ key: "user_id", title: "用户ID", type: "text", width: 120 },
+					{ key: "user_id", title: "用户ID", type: "text", width: 180 },
 					{ key: "ip", title: "ip地址", type: "text", width: 150 },
 					{ key: "type", title: "日志类型", type: "text", width: 120 },
 					{ key: "os", title: "操作系统", type: "text", width: 120 },

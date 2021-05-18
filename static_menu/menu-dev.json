@@ -111,6 +111,12 @@
 						"url": "/pages_template/components/input/input-percentage"
 					},
 					{
+						"menu_id": "vk-data-input-json",
+						"name": "JSON编辑器",
+						"icon": "",
+						"url": "/pages_template/components/input/input-json"
+					},
+					{
 						"menu_id": "vk-data-input-province",
 						"name": "省份选择器",
 						"icon": "",

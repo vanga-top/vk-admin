@@ -37,7 +37,7 @@
 		<vk-data-dialog
 			v-model="form1.props.show"
 			:title="form1.props.title"
-			width="500px"
+			width="800px"
 			mode="form"
 		>
 			<vk-data-form
@@ -112,7 +112,7 @@ export default {
 					// 表单字段显示规则
 					columns: [
 						{ key: "key", title: "健名", type: "text", placeholder: "请输入健名" },
-						{ key: "value", title: "健值", type: "textarea", placeholder: "请输入健值" },
+						{ key: "value", title: "健值", type: "json", placeholder: "请输入健值" },
 						{ key: "comment", title: "备注", type: "textarea", placeholder: "请输入备注" }
 					],
 					// 表单验证规则

@@ -294,7 +294,7 @@
 							// 特殊类型
 							{ key:"", title:"特殊类型", type:"bar-title" },
 							{ key:"editor", title:"富文本类型", type:"editor", width:"1000px" },
-							// { key:"json", title:"json类型", type:"json", tips:"json类型当前有bug" },
+							{ key:"json", title:"json类型", type:"json" },
 						  {
 								key:"object", title:"object类型", type:"object",
 								columns:[
