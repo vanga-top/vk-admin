@@ -77,11 +77,6 @@
     },
     "h5" : {
         "template" : "template.h5.html",
-        "optimization" : {
-            "treeShaking" : {
-                "enable" : true
-            }
-        },
         "router" : {
             "mode" : "hash",
             "base" : "admin"
