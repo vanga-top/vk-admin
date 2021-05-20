@@ -219,7 +219,7 @@ export default {
 		uni.vk.toast("请在APP中使用本机号码一键登录","none");
 		// #endif
 	},
-	
+
 	/**
 	 * 绑定邮箱
 	 * data 请求参数 说明
@@ -557,6 +557,15 @@ export default {
 		return callFunction({
 			...obj,
 			url: 'user/kh/getMenu'
+		});
+	},
+	/**
+	 * 添加文件上传记录
+	 */
+	addUploadRecord(obj = {}) {
+		return callFunction({
+			...obj,
+			url: 'user/kh/addUploadRecord'
 		});
 	}
 };

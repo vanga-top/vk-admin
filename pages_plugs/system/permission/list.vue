@@ -105,7 +105,7 @@
 						{ key:"level", title:"权限级别", type:"tag", width:100,
 							data: levelDate
 						},
-						{ key:"sort", title:"排序值", type:"text", width:80 },
+						{ key:"sort", title:"排序值", type:"number", width:80 },
 						// 对应的权限是否启用
 						{ key:"enable", title:"是否启用", type:"tag",
 							data:[
@@ -159,7 +159,7 @@
 								data:matchModeData,
 								tips:"选择合适的匹配模式"
 							},
-							{ key:"sort", title:"排序值", type:"text", tips:"越小越显示在前面" },
+							{ key:"sort", title:"排序值", type:"number", tips:"越小越显示在前面" },
 							{ key:"parent_id", title:"父级标识", type:"text", tips:"分级的permission_id" },
 							{ key:"comment", title:"备注", type:"textarea",maxlength:"99",showWordLimit:true,autosize:{ minRows: 2, maxRows: 10 },
 								tips:"设置一个备注来更详细的描述此权限的含义"

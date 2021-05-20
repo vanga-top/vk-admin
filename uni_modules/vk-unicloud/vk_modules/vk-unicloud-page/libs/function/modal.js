@@ -5,7 +5,7 @@ export default {
 	/**
 	vk.alert("内容");
 	vk.alert("内容","提示","好的",function(){
-		
+
 	});
 	 */
 	alert:function (a,b,c,d) {
@@ -52,7 +52,7 @@ export default {
 	/**
 	vk.confirm("内容","提示","确定","取消",function(res){
 		if(res.confirm){
-					
+
 		}
 	});
 	 */
@@ -113,14 +113,32 @@ export default {
 			mask = c;
 			duration = d;
 			fn = e;
-		} else if (typeof d === 'function') {
-			mask = c;
-			fn = d;
-		} else if (typeof c === 'function') {
-		  fn = c;
+		} else if (d) {
+			if(typeof d === 'function'){
+				fn = d;
+			}else if(typeof d === 'number'){
+				duration = d;
+			}else if(typeof d === 'boolean'){
+				mask = d;
+			}
+			if(typeof c === 'function'){
+				fn = c;
+			}else if(typeof c === 'number'){
+				duration = c;
+			}else if(typeof c === 'boolean'){
+				mask = c;
+			}
+		} else if (c) {
+			if(typeof c === 'function'){
+				fn = c;
+			}else if(typeof c === 'number'){
+				duration = c;
+			}else if(typeof c === 'boolean'){
+				mask = c;
+			}
 		} else if (typeof b === 'function') {
 		  fn = b;
-		} 
+		}
 		if (b != undefined && typeof b !== 'function') {
 			if (b == "ok") b = "success";
 			if (b == "success" || b == "loading" || b == "none"){
@@ -140,7 +158,7 @@ export default {
 					fn(res);
 				}
 			}
-		}); 
+		});
 	},
 	/**
 	 * 操作菜单
@@ -150,9 +168,9 @@ export default {
 	 	color:"rgb(0, 0, 0)",
 	 	success:function(res){
 	 		if(res.index==0){
-	 			
+
 	 		}else if(res.index==1){
-	 			
+
 	 		}
 	 	}
 	 });

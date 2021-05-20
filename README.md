@@ -18,12 +18,14 @@
 
 ##### 框架体验地址
 
-[点击进入框架体验地址](https://vkunicloud.fsq.pub/admin/)
+[点击进入『框架体验地址』](https://vkunicloud.fsq.pub/admin/)
 
 #### 体验账号：
 ##### 高级管理员：test11（账号）123456（密码）可以执行绝大部分功能
 ##### 初级管理员：test12（账号）123456（密码）只能执行查询功能
 ##### 无权限用户：test13（账号）123456（密码）无admin登录权限
+
+[点击体验『表单可视化生成器』](https://vkunicloud.fsq.pub/vk-form-visualizer/)
 
 ## 1、什么是 `vk-unicloud-admin` ?
 

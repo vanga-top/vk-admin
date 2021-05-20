@@ -127,7 +127,7 @@
 								{ value:false, label:"显示", tagType:"success" },
 							]
 						},
-						{ key:"sort", title:"排序值", type:"text", width:120 },
+						{ key:"sort", title:"排序值", type:"number", width:120 },
 						{ key:"parent_id", title:"父级菜单Id", type:"text", width:120, align:"left" },
 					],
 					// 多选框选中的值
@@ -189,6 +189,9 @@
 							name:[
 								{ required:true, message:'菜单名称不能为空', trigger:'blur' },
 							],
+							sort:[
+								{ type:'number', message:'排序值必须为数字'}
+							]
 						},
 						// add 代表添加 update 代表修改
 						formType:'',

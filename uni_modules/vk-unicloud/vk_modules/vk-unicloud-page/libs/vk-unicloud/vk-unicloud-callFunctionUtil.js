@@ -321,14 +321,16 @@ class CallFunctionUtil {
 				fail,
 				complete,
 				type,
-				provider
+				provider,
+				file = {},
+				needSave = false
 			} = obj;
-			if(type && !provider) provider = type;
-			if(!provider){
-				let	aliyunOSS = vk.pubfn.getData(config, "service.aliyunOSS");
-				if(aliyunOSS && aliyunOSS.isDefault){
+			if (type && !provider) provider = type;
+			if (!provider) {
+				let aliyunOSS = vk.pubfn.getData(config, "service.aliyunOSS");
+				if (aliyunOSS && aliyunOSS.isDefault) {
 					provider = "aliyun";
-				}else{
+				} else {
 					provider = "unicloud";
 				}
 			}
@@ -363,6 +365,18 @@ class CallFunctionUtil {
 						.stringify(res)) : res;
 					if (title) vk.hideLoading();
 					if (typeof success == "function") success(res);
+					if (needSave) {
+						// 保存文件记录到数据库
+						vk.userCenter.addUploadRecord({
+							data: {
+								url: res.fileID,
+								name: file.name,
+								size: file.size,
+								file_id: res.fileID,
+								provider
+							}
+						});
+					}
 				},
 				fail(err) {
 					if (title) vk.hideLoading();
@@ -380,14 +394,17 @@ class CallFunctionUtil {
 						let colorArr = config.logger.colorArr;
 						let colorStr = colorArr[counterNum % colorArr.length];
 						counterNum++;
-						console.log("%c--------【开始】【文件上传】--------", 'color: ' + colorStr +';font-size: 12px;font-weight: bold;');
+						console.log("%c--------【开始】【文件上传】--------", 'color: ' + colorStr +
+							';font-size: 12px;font-weight: bold;');
 						console.log("【本地文件】: ", Logger.filePath);
 						console.log("【返回数据】: ", Logger.result);
 						console.log("【预览地址】: ", Logger.result.fileID);
 						console.log("【上传耗时】: ", Logger.runTime, "毫秒");
-						console.log("【上传时间】: ", vk.pubfn.timeFormat(Logger.startTime,"yyyy-MM-dd hh:mm:ss"));
+						console.log("【上传时间】: ", vk.pubfn.timeFormat(Logger.startTime,
+							"yyyy-MM-dd hh:mm:ss"));
 						if (Logger.error) console.error("【error】:", Logger.error);
-						console.log("%c--------【结束】【文件上传】--------", 'color: ' + colorStr +';font-size: 12px;font-weight: bold;');
+						console.log("%c--------【结束】【文件上传】--------", 'color: ' + colorStr +
+							';font-size: 12px;font-weight: bold;');
 					}
 					if (typeof complete == "function") complete();
 				}
@@ -421,7 +438,7 @@ class CallFunctionUtil {
 					$url: url,
 					data: data
 				},
-				success(res={}) {
+				success(res = {}) {
 					that.callFunctionSuccess({
 						res: res.result,
 						params: obj,
@@ -483,7 +500,7 @@ class CallFunctionUtil {
 					data: data,
 					uniIdToken: uniIdToken
 				},
-				success(res={}) {
+				success(res = {}) {
 					that.callFunctionSuccess({
 						res: res.data,
 						params: obj,
@@ -519,10 +536,10 @@ class CallFunctionUtil {
 		let config = that.config;
 		let {
 			res = {},
-			params,
-			Logger,
-			resolve,
-			reject
+				params,
+				Logger,
+				resolve,
+				reject
 		} = obj;
 		let {
 			title,
@@ -540,8 +557,8 @@ class CallFunctionUtil {
 			if (typeof success == "function") success(res);
 			resolve(res);
 		} else if ([1301, 1302, 30201, 30202, 30203, 30204].indexOf(code) > -1 && res.msg.indexOf("token") > -1) {
-			let { tokenExpiredAutoDelete=true } = config;
-			if(tokenExpiredAutoDelete) that.deleteToken();
+			let { tokenExpiredAutoDelete = true } = config;
+			if (tokenExpiredAutoDelete) that.deleteToken();
 			// 跳转到页面页面
 			if (typeof that.interceptor.login === "function") {
 				that.interceptor.login({
@@ -567,9 +584,9 @@ class CallFunctionUtil {
 		let config = that.config;
 		let {
 			res = {},
-			params,
-			Logger,
-			reject
+				params,
+				Logger,
+				reject
 		} = obj;
 		let {
 			title,
@@ -581,7 +598,7 @@ class CallFunctionUtil {
 		} = params;
 
 		if (typeof noAlert !== "undefined") needAlert = !noAlert;
-		if (typeof needAlert === "undefined"){
+		if (typeof needAlert === "undefined") {
 			needAlert = (typeof fail === "function") ? false : true;
 		}
 		if (errorToast) needAlert = false;
@@ -637,8 +654,8 @@ class CallFunctionUtil {
 		let config = that.config;
 		let {
 			res = {},
-			params,
-			Logger
+				params,
+				Logger
 		} = obj;
 		let {
 			name,
