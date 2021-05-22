@@ -22,9 +22,7 @@ module.exports = {
 		res = await vk.baseDao.getTableData({
 			dbName,
 			data,
-			sortArr: [
-				{ "name": "register_date", "type": "desc" }
-			]
+			sortArr: [{ "name": "register_date", "type": "desc" }]
 		});
 		// 业务逻辑结束-----------------------------------------------------------
 		return res;
