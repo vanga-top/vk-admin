@@ -78,7 +78,8 @@
 							// 选择型字段
 							{ key:"", title:"选择型字段", type:"bar-title" },
 							{
-								key:"radio1", title:"radio类型1", type:"radio" ,
+								key:"radio1", title:"radio类型1", type:"radio",
+								itemWidth:80,
 								data:[
 									{ value:1, label:"选项1" },
 									{ value:2, label:"选项2" }
@@ -86,22 +87,25 @@
 							},
 							{
 								key:"checkbox1", title:"checkbox类型1", type:"checkbox",
+								itemWidth:80,
 								data:[
 									{ value:1, label:"选项1" },
 									{ value:2, label:"选项2" }
 								]
 							},
 							{
-								key:"radio2", title:"radio类型2", type:"radio" ,
+								key:"radio2", title:"radio类型2", type:"radio",
 								border:true,
+								itemWidth:80,
 								data:[
 									{ value:1, label:"选项1" },
 									{ value:2, label:"选项2" }
 								]
 							},
 							{
-								key:"checkbox2", title:"checkbox类型2", type:"checkbox" ,
+								key:"checkbox2", title:"checkbox类型2", type:"checkbox",
 								border:true,
+								itemWidth:80,
 								data:[
 									{ value:1, label:"选项1" },
 									{ value:2, label:"选项2" }

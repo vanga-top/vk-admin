@@ -56,7 +56,8 @@ export default {
 			form1: {
 				// 表单请求数据，此处可以设置默认值
 				data: {
-					mode: 1
+					mode: 1,
+					jsonType: 1
 				},
 				// 表单属性
 				props: {
@@ -64,7 +65,15 @@ export default {
 					action: "admin/system/menu/sys/adds",
 					// 表单字段显示规则
 					columns: [
-						{ key:"parent_id", title:"父级菜单Id", type:"text" },
+						{ key: "jsonType", title: "json类型", type: "radio",
+							data: [
+								{ value: 1, label: "树形结构" },
+								{ value: 2, label: "数组结构" },
+							]
+						},
+						{ key:"parent_id", title:"父级菜单Id", type:"text",
+							showRule:"jsonType=1"
+						},
 						{ key: "mode", title: "重复标识是否覆盖", type: "radio",
 							data: [
 								{ value: 1, label: "覆盖" },
@@ -88,20 +97,22 @@ export default {
 					// 是否显示表单1 的弹窗
 					show: false,
 					labelWidth:"140px",
-					beforeAction(){
+					beforeAction(formData){
 						try {
-							let menus = JSON.parse(that.form1.data.menus);
+							let menus = JSON.parse(formData.menus);
 							if(Object.prototype.toString.call(menus) === '[object Object]'){
 								menus = [menus];
 							}
-							menus.map((item, index) => {
-								item.parent_id = that.form1.data.parent_id;
-							});
-							menus = vk.pubfn.treeToArray(menus,{
-							  id:"menu_id",
-							  parent_id:"parent_id",
-							  children:"children"
-							});
+							if(formData.jsonType == 1){
+								menus.map((item, index) => {
+									item.parent_id = formData.parent_id;
+								});
+								menus = vk.pubfn.treeToArray(menus,{
+								  id:"menu_id",
+								  parent_id:"parent_id",
+								  children:"children"
+								});
+							}
 							return {
 								menus
 							};

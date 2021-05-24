@@ -1,0 +1,72 @@
+## 万能表单使用方式
+#### 下拉选择方式
+#### 应用场景：数据量不大时使用。
+```js
+{
+  key:"category_ids1", title:"远程select（单选）", type:"remote-select", placeholder:"请选择分类",
+  action:"admin/select/kh/categorys",
+  props:{ list:"rows", value:"_id", label:"name" },
+  showAll:true
+}
+```
+
+#### 远程搜索方式
+#### 应用场景：数据量很大，不方便一次性全部加载时使用。
+```js
+{
+  key:"user_id", title:"用户选择器", type:"remote-select", placeholder:"请输入用户账号/昵称",
+  action:"admin/select/kh/user",
+}
+```
+
+
+## API
+
+### 属性
+
+[点击查看『公共属性』](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=4051177&doc_id=975983)
+
+### 组件属性
+
+| 参数             | 说明                           | 类型    | 默认值  | 可选值 |
+|------------------|-------------------------------|---------|--------|-------|
+| data            | 静态模式数据源 | Array  | - | -  |
+| action          | 动态模式 - 远程请求的云函数地址 | String  | - | -  |
+| props          | 数据源的属性匹配规则 | Object  | { list:'list', value:'value', label:'label' } | -  |
+| showAll           | 是否一开始就全部加载 | Boolean  | false | true  |
+| multiple        | 是否允许多选 | Boolean  | false | true  |
+| limit        | 最多可选数量 | Number  | - | -  |
+| loadingText          | 远程加载时显示的文字 | String  | 加载中| -  |
+| noMatchText          | 搜索条件无匹配时显示的文字 | String  | 无匹配数据| -  |
+| noDataText          | 选项为空时显示的文字 | String  | 无数据| -  |
+
+## 万能表格使用方式
+
+#### 暂无，请通过连表查询方式获取数据。
+
+
+## template 使用方式
+## 下拉选择方式
+#### 应用场景：数据量不大时使用。
+```html
+<vk-data-input-remote-select
+  v-model="form1.category_ids"
+  placeholder="请选择分类"
+  action="admin/select/kh/categorys"
+  :props="{ list: 'rows', value: '_id', label: 'name' }"
+  width="300px"
+  show-all
+  multiple
+  :limit="3"
+></vk-data-input-remote-select>
+```
+#### 远程搜索方式
+#### 应用场景：数据量很大，不方便一次性全部加载时使用。
+```html
+<vk-data-input-remote-select
+  v-model="form1.user_id"
+  placeholder="请输入用户名"
+  action="admin/select/kh/user"
+  width="300px"
+></vk-data-input-remote-select>
+```
