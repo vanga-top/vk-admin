@@ -2,9 +2,9 @@
  * 函数 - 页面导航
  */
 var config;
-try{
+try {
 	config = require('@/app.config.js');
-}catch(e){
+} catch (e) {
 	config = {};
 }
 
@@ -18,25 +18,25 @@ var util = {};
  */
 util.navigateTo = function(obj) {
 	let vk = getApp().globalData.vk;
-	if(typeof obj == "string"){
+	if (typeof obj == "string") {
 		let url = obj;
 		obj = {
-			url : url
+			url: url
 		};
-	}else if(typeof obj == "undefined"){
+	} else if (typeof obj == "undefined") {
 		obj = {};
 	}
-	if(!obj.url){
+	if (!obj.url) {
 		vk.toast("url不能为空!");
 		return false;
 	}
 	util.checkNeedLogin({
-		url:obj.url,
-		success:function(res){
-			if(res.needLogin){
+		url: obj.url,
+		success: function(res) {
+			if (res.needLogin) {
 				vk.navigate.originalPage = vk.pubfn.copyObject(obj);
 				obj.url = config.login.url;
-			}else{
+			} else {
 				vk.navigate.originalPage = null;
 			}
 			util._navigateTo(obj);
@@ -53,37 +53,37 @@ util._navigateTo = function(obj) {
 	} = obj;
 	uni[mode]({
 		url: url,
-		animationType:animationType,
-		animationDuration:animationDuration,
-		events:events, // 参考 https://uniapp.dcloud.io/api/router?id=navigateto
-		success:function(){
-			if(typeof obj.success == "function") obj.success();
+		animationType: animationType,
+		animationDuration: animationDuration,
+		events: events, // 参考 https://uniapp.dcloud.io/api/router?id=navigateto
+		success: function() {
+			if (typeof obj.success == "function") obj.success();
 		},
-		fail:function(err){
-			// console.log(err);
-			if(err.errMsg.indexOf("not found")>-1){
+		fail: function(err) {
+			if (err.errMsg.indexOf("not found") > -1) {
 				let vk = getApp().globalData.vk;
 				let errUrl = vk.pubfn.getPageFullPath(url);
-				vk.toast(`页面 ${errUrl} 不存在`,"none");
+				vk.toast(`页面 ${errUrl} 不存在`, "none");
+				console.error(err);
 				return false;
 			}
 			uni.switchTab({
-				url:url,
-				success:obj.success,
-				fail:function(){
+				url: url,
+				success: obj.success,
+				fail: function() {
 					uni.redirectTo({
-						url:url,
-						success:obj.success,
-						fail:function(err){
+						url: url,
+						success: obj.success,
+						fail: function(err) {
 							console.error(err);
-							if(typeof obj.fail == "function") obj.fail();
+							if (typeof obj.fail == "function") obj.fail();
 						}
 					});
 				}
 			});
 		},
-		complete:function(){
-			if(typeof obj.complete == "function") obj.complete();
+		complete: function() {
+			if (typeof obj.complete == "function") obj.complete();
 		}
 	});
 };
@@ -123,33 +123,33 @@ util.switchTab = function(obj) {
  */
 util.navigateBack = function(obj) {
 	let vk = getApp().globalData.vk;
-	if(typeof obj == "number"){
+	if (typeof obj == "number") {
 		let delta = obj;
 		obj = {
-			delta:delta
+			delta: delta
 		};
-	}else if(typeof obj == "undefined"){
+	} else if (typeof obj == "undefined") {
 		obj = {};
 	}
 	let {
 		delta = 1,
-		animationType = "pop-out",
-		animationDuration = 300
+			animationType = "pop-out",
+			animationDuration = 300
 	} = obj;
 	uni.navigateBack({
-	  delta : delta,
-	  animationType : animationType,
-	  animationDuration : animationDuration,
-	  success:function(){
-			if(typeof obj.success == "function") obj.success();
-	  },
-	  fail:function(res){
+		delta: delta,
+		animationType: animationType,
+		animationDuration: animationDuration,
+		success: function() {
+			if (typeof obj.success == "function") obj.success();
+		},
+		fail: function(res) {
 			console.error(res);
-	  	if(typeof obj.fail == "function") obj.fail();
-	  },
-	  complete:function(){
-	  	if(typeof obj.complete == "function") obj.complete();
-	  }
+			if (typeof obj.fail == "function") obj.fail();
+		},
+		complete: function() {
+			if (typeof obj.complete == "function") obj.complete();
+		}
 	});
 };
 /**
@@ -172,38 +172,38 @@ util.originalTo = function() {
 	 pagesRule:config.checkTokenPages,
 	 success:function(res){
 		 if(res.success){
-				
+
 		 }
 	 }
  })
  */
 util.checkWildcardTest = function(obj) {
 	let vk = getApp().globalData.vk;
-	let { 
-		url, 
+	let {
+		url,
 		pagesRule
 	} = obj;
 	// ../ 转成绝对路径
 	url = vk.pubfn.getPageFullPath(url);
 	let key = false;
-	if(vk.pubfn.isNotNull(pagesRule)){
-		let { mode=0, list=[] } = pagesRule;
-		if(mode > 0){
+	if (vk.pubfn.isNotNull(pagesRule)) {
+		let { mode = 0, list = [] } = pagesRule;
+		if (mode > 0) {
 			let regExpKey = false;
 			let path = util.getPagePath(url);
-			for(let i=0; i<list.length; i++){
-			  let pageRegExp = list[i];
+			for (let i = 0; i < list.length; i++) {
+				let pageRegExp = list[i];
 				regExpKey = vk.pubfn.wildcardTest(path, pageRegExp);
 				//let regExp = new RegExp(pageRegExp);
 				//let regExpKey = regExp.test(path);
 				//console.log(regExpKey, path, pageRegExp);
-				if(regExpKey){
+				if (regExpKey) {
 					break;
 				}
 			}
-			if(mode === 1 && regExpKey){
+			if (mode === 1 && regExpKey) {
 				key = true;
-			}else if(mode === 2 && !regExpKey){
+			} else if (mode === 2 && !regExpKey) {
 				key = true;
 			}
 		}
@@ -231,14 +231,14 @@ util.checkNeedLogin = function(obj) {
 	let { url, success } = obj;
 	let needLogin = false;
 	let pagesRule = config.checkTokenPages;
-	if(pagesRule){
+	if (pagesRule) {
 		let res = util.checkWildcardTest({
-			 url,
-			 pagesRule
+			url,
+			pagesRule
 		});
-		if(res.key){
+		if (res.key) {
 			// 本地判断token有效期(联网会浪费性能)
-			if(!vk.callFunctionUtil.checkToken()){
+			if (!vk.callFunctionUtil.checkToken()) {
 				needLogin = true;
 			}
 		}
@@ -254,23 +254,23 @@ util.checkNeedLogin = function(obj) {
 util.getPagePath = function(url) {
 	let pathIndex = url.indexOf("?");
 	let path = url;
-	if(pathIndex > -1){
-		path = path.substring(0,pathIndex);
+	if (pathIndex > -1) {
+		path = path.substring(0, pathIndex);
 	}
 	return path;
 };
 
-util.paramsInit = function(obj){
+util.paramsInit = function(obj) {
 	let vk = getApp().globalData.vk;
-	if(typeof obj == "string"){
+	if (typeof obj == "string") {
 		let url = obj;
 		obj = {
-			url : url
+			url: url
 		};
-	}else if(typeof obj == "undefined"){
+	} else if (typeof obj == "undefined") {
 		obj = {};
 	}
-	if(!obj.url){
+	if (!obj.url) {
 		vk.toast("url不能为空!");
 		return false;
 	}
@@ -289,16 +289,16 @@ util.paramsInit = function(obj){
 		},
 		success(res) {
 			// 打开成功
-			
+
 		}
 	})
  */
 util.navigateToMiniProgram = function(obj) {
 	let vk = getApp().globalData.vk;
 	// #ifdef H5
-	vk.toast("不支持打开小程序","none");
+	vk.toast("不支持打开小程序", "none");
 	// #endif
-	
+
 	// #ifndef H5
 	uni.navigateToMiniProgram(obj);
 	// #endif
@@ -315,20 +315,20 @@ util.checkAllowShare = function(obj) {
 	let vk = getApp().globalData.vk;
 	let { url, success } = obj;
 	let pagesRule = config.checkSharePages || {};
-	if(pagesRule && pagesRule.mode > 0){
+	if (pagesRule && pagesRule.mode > 0) {
 		let res = util.checkWildcardTest({
-			 url,
-			 pagesRule
+			url,
+			pagesRule
 		});
 		// #ifdef MP
 		let menus = pagesRule.menus || ['shareAppMessage', 'shareTimeline'];
-		if(res.key){
+		if (res.key) {
 			//console.log("允许分享");
 			uni.showShareMenu({
 				withShareTicket: false,
 				menus
 			});
-		}else{
+		} else {
 			//console.log("禁止分享");
 			uni.hideShareMenu({
 				menus
@@ -338,6 +338,6 @@ util.checkAllowShare = function(obj) {
 	}
 };
 
- 
+
 
 export default util;

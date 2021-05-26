@@ -344,70 +344,74 @@ class CallFunctionUtil {
 			let Logger = {};
 			if (config.debug) Logger.filePath = filePath;
 			if (config.debug) Logger.startTime = new Date().getTime();
-			uniCloud.uploadFile({
-				filePath: filePath,
-				cloudPath: cloudPath,
-				fileType: fileType,
-				onUploadProgress: function(progressEvent) {
-					let percentCompleted = Math.round(
-						(progressEvent.loaded * 100) / progressEvent.total
-					);
-					if (typeof obj.onUploadProgress == "function") {
-						obj.onUploadProgress({
-							progressEvent,
-							percentCompleted,
-							progress: percentCompleted
-						});
+			return new Promise((resolve, reject) => {
+				uniCloud.uploadFile({
+					filePath: filePath,
+					cloudPath: cloudPath,
+					fileType: fileType,
+					onUploadProgress: function(progressEvent) {
+						let percentCompleted = Math.round(
+							(progressEvent.loaded * 100) / progressEvent.total
+						);
+						if (typeof obj.onUploadProgress == "function") {
+							obj.onUploadProgress({
+								progressEvent,
+								percentCompleted,
+								progress: percentCompleted
+							});
+						}
+					},
+					success(res) {
+						if (config.debug) Logger.result = typeof res == "object" ? JSON.parse(JSON
+							.stringify(res)) : res;
+						if (title) vk.hideLoading();
+						if (typeof success == "function") success(res);
+						resolve(res);
+						if (needSave) {
+							// 保存文件记录到数据库
+							vk.userCenter.addUploadRecord({
+								data: {
+									url: res.fileID,
+									name: file.name,
+									size: file.size,
+									file_id: res.fileID,
+									provider
+								}
+							});
+						}
+					},
+					fail(err) {
+						if (title) vk.hideLoading();
+						if (config.debug) Logger.error = err;
+						if (errorToast) vk.toast(JSON.stringify(err), "none");
+						if (needAlert) {
+							if (config.debug) vk.alert(JSON.stringify(err));
+						}
+						if (typeof fail == "function") fail(err);
+						reject(err);
+					},
+					complete() {
+						if (config.debug) {
+							Logger.endTime = new Date().getTime();
+							Logger.runTime = (Logger.endTime - Logger.startTime);
+							let colorArr = config.logger.colorArr;
+							let colorStr = colorArr[counterNum % colorArr.length];
+							counterNum++;
+							console.log("%c--------【开始】【文件上传】--------", 'color: ' + colorStr +
+								';font-size: 12px;font-weight: bold;');
+							console.log("【本地文件】: ", Logger.filePath);
+							console.log("【返回数据】: ", Logger.result);
+							console.log("【预览地址】: ", Logger.result.fileID);
+							console.log("【上传耗时】: ", Logger.runTime, "毫秒");
+							console.log("【上传时间】: ", vk.pubfn.timeFormat(Logger.startTime,
+								"yyyy-MM-dd hh:mm:ss"));
+							if (Logger.error) console.error("【error】:", Logger.error);
+							console.log("%c--------【结束】【文件上传】--------", 'color: ' + colorStr +
+								';font-size: 12px;font-weight: bold;');
+						}
+						if (typeof complete == "function") complete();
 					}
-				},
-				success(res) {
-					if (config.debug) Logger.result = typeof res == "object" ? JSON.parse(JSON
-						.stringify(res)) : res;
-					if (title) vk.hideLoading();
-					if (typeof success == "function") success(res);
-					if (needSave) {
-						// 保存文件记录到数据库
-						vk.userCenter.addUploadRecord({
-							data: {
-								url: res.fileID,
-								name: file.name,
-								size: file.size,
-								file_id: res.fileID,
-								provider
-							}
-						});
-					}
-				},
-				fail(err) {
-					if (title) vk.hideLoading();
-					if (config.debug) Logger.error = err;
-					if (errorToast) vk.toast(JSON.stringify(err), "none");
-					if (needAlert) {
-						if (config.debug) vk.alert(JSON.stringify(err));
-					}
-					if (typeof fail == "function") fail(err);
-				},
-				complete() {
-					if (config.debug) {
-						Logger.endTime = new Date().getTime();
-						Logger.runTime = (Logger.endTime - Logger.startTime);
-						let colorArr = config.logger.colorArr;
-						let colorStr = colorArr[counterNum % colorArr.length];
-						counterNum++;
-						console.log("%c--------【开始】【文件上传】--------", 'color: ' + colorStr +
-							';font-size: 12px;font-weight: bold;');
-						console.log("【本地文件】: ", Logger.filePath);
-						console.log("【返回数据】: ", Logger.result);
-						console.log("【预览地址】: ", Logger.result.fileID);
-						console.log("【上传耗时】: ", Logger.runTime, "毫秒");
-						console.log("【上传时间】: ", vk.pubfn.timeFormat(Logger.startTime,
-							"yyyy-MM-dd hh:mm:ss"));
-						if (Logger.error) console.error("【error】:", Logger.error);
-						console.log("%c--------【结束】【文件上传】--------", 'color: ' + colorStr +
-							';font-size: 12px;font-weight: bold;');
-					}
-					if (typeof complete == "function") complete();
-				}
+				});
 			});
 		}
 	}

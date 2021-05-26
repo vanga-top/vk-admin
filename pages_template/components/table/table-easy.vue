@@ -261,10 +261,11 @@
 			// 删除按钮
 			deleteBtn({ item, deleteFn }){
 				deleteFn({
-					action:"template/db_api/sys/delete",
+					action: "template/db_api/sys/delete",
 					data:{
 						_id: item._id
 					},
+					refresh: true
 				});
 			},
 			// 监听 - 批量操作的按钮点击事件
