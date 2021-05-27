@@ -362,7 +362,8 @@ class CallFunctionUtil {
 						}
 					},
 					success(res) {
-						if (config.debug) Logger.result = typeof res == "object" ? JSON.parse(JSON
+						if (config.debug) Logger.result = typeof res == "object" ? JSON.parse(
+							JSON
 							.stringify(res)) : res;
 						if (title) vk.hideLoading();
 						if (typeof success == "function") success(res);
@@ -700,6 +701,7 @@ class CallFunctionUtil {
 	createFileName(obj = {}) {
 		let {
 			index = 0,
+				file,
 				filePath,
 				suffix = "png"
 		} = obj;
@@ -709,7 +711,10 @@ class CallFunctionUtil {
 			if (suffixName && suffixName.length < 5) suffix = suffixName;
 		}
 		let oldName = index + "." + suffix;
-
+		if (file && file.name) {
+			let suffixName = file.name.substring(file.name.lastIndexOf(".") + 1);
+			if (suffixName && suffixName.length < 5) oldName = file.name;
+		}
 		let date = new Date();
 		let dateYYYYMMDD = vk.pubfn.timeFormat(date, "yyyy/MM/dd");
 		let dateTime = date.getTime().toString(); // 时间戳

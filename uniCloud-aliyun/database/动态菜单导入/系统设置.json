@@ -1,0 +1,33 @@
+[
+	{
+		"menu_id": "system_uni",
+		"name": "系统设置",
+		"icon": "el-icon-s-tools",
+		"sort": 110,
+		"children": [{
+				"menu_id": "pages_plugs-system_uni-opendb-global-data",
+				"name": "系统缓存管理",
+				"icon": "",
+				"url": "/pages_plugs/system_uni/opendb-global-data"
+			},
+			{
+				"menu_id": "pages_plugs-system_uni-opendb-components-dynamic",
+				"name": "动态组件数据",
+				"icon": "",
+				"url": "/pages_plugs/system_uni/opendb-components-dynamic"
+			},
+			{
+				"menu_id": "pages_plugs-system_uni-uni-id-log",
+				"name": "用户登录日志",
+				"icon": "",
+				"url": "/pages_plugs/system_uni/uni-id-log"
+			},
+			{
+				"menu_id": "pages_plugs-system_uni-opendb-admin-log",
+				"name": "系统操作日志",
+				"icon": "",
+				"url": "/pages_plugs/system_uni/opendb-admin-log"
+			}
+		]
+	}
+]

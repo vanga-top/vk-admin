@@ -1,3 +1,13 @@
+## 2.0.10（2021-05-27）
+###  更新内容
+#### 【修复】`vk.callFunctionUtil.uploadFile` 上传视频时后缀名可能会错误的问题。
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+
+## 2.0.9（2021-05-26）
+###  更新内容
+#### 【优化】`vk.baseDao.selects` 中按距离查询的逻辑 [点击查看](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=3028633&doc_id=975983)
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+
 ## 2.0.8（2021-05-25）
 ###  更新内容
 #### 【优化】`vk.baseDao.selects` 新增两个属性`getOne` 、 `getMain` [点击查看详情](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=4054561&doc_id=975983)
