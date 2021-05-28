@@ -103,8 +103,8 @@ module.exports = {
     // 业务逻辑开始-----------------------------------------------------------
     let dbName = "uni-id-users";
     res = await vk.baseDao.getTableData({
-			dbName,
-			data
+      dbName,
+      data
     });
     return res;
   }

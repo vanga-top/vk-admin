@@ -7,10 +7,9 @@
 		></vk-data-page-header>
 		<view class="page-body">
 			<view class="mt15">
-				<!-- 总平台用的 -->
 				<vk-data-input-select
 					class="width-box"
-					v-model="form1.value"
+					v-model="form1.value1"
 					:localdata='[
 						{ value:1, label:"选项1" },
 						{ value:2, label:"选项2" }
@@ -20,7 +19,34 @@
 					placeholder="请选择"
 				></vk-data-input-select>
 			</view>
-			
+
+			<view class="mt15">
+				<vk-data-input-select
+					class="width-box"
+					v-model="form1.value2"
+					:group="true"
+					:localdata='[
+						{
+							label: "分组1",
+							children:[
+								{ value:1, label:"选项1" },
+								{ value:2, label:"选项2" }
+							]
+						},
+						{
+							label: "分组2",
+							children:[
+								{ value:3, label:"选项3" },
+								{ value:4, label:"选项4" }
+							]
+						}
+					]'
+					size="small"
+					clearable
+					placeholder="请选择"
+				></vk-data-input-select>
+			</view>
+
 			<view class="mt15 tips">
 				<view class="mt15 json-view" v-if="form1">
 					<pre>
@@ -46,7 +72,7 @@
 				},
 				// 表单请求数据
 				form1:{
-					
+
 				}
 			}
 		},
@@ -89,5 +115,5 @@
 	}
 </script>
 <style lang="scss" scoped>
-	
+
 </style>

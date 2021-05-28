@@ -1,3 +1,8 @@
+## 2.0.11（2021-05-27）
+###  更新内容
+#### 【优化】`vk.baseDao.select` 也支持 `getOne` 、 `getMain` 
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+
 ## 2.0.10（2021-05-27）
 ###  更新内容
 #### 【修复】`vk.callFunctionUtil.uploadFile` 上传视频时后缀名可能会错误的问题。

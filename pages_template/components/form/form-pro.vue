@@ -18,7 +18,7 @@
 				input-width="400px"
 				@success="onFormSuccess"
 			>
-				<!-- v-slot:rate 中的 rate 对应 columns中的 key, form对应 form1.data keyName 对应 columns中的 key -->
+				<!-- v-slot:editor 中的 editor 对应 columns中的 key, form对应 form1.data keyName 对应 columns中的 key -->
 				<template v-slot:editor="{ form, keyName }">
 					<vk-data-input-editor v-model="form[keyName]" placeholder="开始输入" width="750px"></vk-data-input-editor>
 				</template>
@@ -143,6 +143,26 @@
 									{ value:2, label:"选项2" },
 									{ value:3, label:"选项3" },
 									{ value:4, label:"选项4" }
+								]
+							},
+							{
+								key:"select3", title:"select类型3", type:"select",
+								group:true,
+								data:[
+									{
+										label: "分组1",
+										children:[
+											{ value:1, label:"选项1" },
+											{ value:2, label:"选项2" }
+										]
+									},
+									{
+										label: "分组2",
+										children:[
+											{ value:3, label:"选项3" },
+											{ value:4, label:"选项4" }
+										]
+									}
 								]
 							},
 							{ key:"province", title:"province类型", type:"province" },

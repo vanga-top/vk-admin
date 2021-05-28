@@ -1,6 +1,7 @@
 [{
 		"menu_id": "components-admin",
 		"name": "VK框架 组件演示",
+		"comment":"以下菜单在正式环境不会出现!",
 		"icon": "el-icon-star-off",
 		"url": "",
 		"sort": 999,
@@ -224,6 +225,7 @@
 	{
 		"menu_id": "__demo__",
 		"name": "Element 静态功能演示",
+		"comment":"以下菜单在正式环境不会出现!",
 		"icon": "el-icon-star-off",
 		"url": "",
 		"sort": 1000,
@@ -386,6 +388,7 @@
 	{
 		"menu_id": "__utils__",
 		"name": "VK框架实用工具",
+		"comment":"以下菜单在正式环境不会出现!",
 		"icon": "el-icon-star-off",
 		"url": "",
 		"sort": 1001,
@@ -399,6 +402,7 @@
 	{
 		"menu_id": "__links__",
 		"name": "友情链接",
+		"comment":"以下菜单在正式环境不会出现!",
 		"icon": "el-icon-star-off",
 		"url": "",
 		"sort": 1002,
@@ -430,6 +434,7 @@
 	},{
 		"menu_id": "__test__",
 		"name": "测试权限用",
+		"comment":"以下菜单在正式环境不会出现!",
 		"icon": "el-icon-star-off",
 		"url": "",
 		"sort": 900,
