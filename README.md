@@ -57,43 +57,59 @@
 
 [点击查看『如何创建我的第一个带CRUD的页面』](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=4003881&doc_id=975983)
 
-## 8、云函数开发文档
+## 8、HBX代码块提示
+
+[点击查看『HBX代码块提示』](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=4019184&doc_id=975983)
+
+## 9、admin框架更新步骤指南
+
+[点击查看『admin框架更新步骤指南』](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=4023455&doc_id=975983)
+
+## 10、强制重置admin账号密码
+
+[点击查看『强制重置admin账号密码』](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=4064984&doc_id=975983)
+
+## 11、admin框架内置组件参数说明
+
+[点击查看『admin框架内置组件参数说明』](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=4050270&doc_id=975983)
+
+## 20、云函数开发文档
 
 [点击查看『云函数开发文档』](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=3379916&doc_id=975983)
 
-## 9、vk.baseDao数据库API
+## 21、vk.baseDao数据库API
 
 [点击查看『vk.baseDao』数据库API](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=3065608&doc_id=975983)
 
-## 10、数据库缓存API
+## 22、数据库缓存API
 
 [点击查看『数据库缓存API』](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=3442025&doc_id=975983)
 
-## 11、中间件开发文档
+## 23、中间件开发文档
 
 [点击查看『中间件开发文档』](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=3035637&doc_id=975983)
 
-## 12、JS API文档大全
+## 24、JS API文档大全
 
 [点击查看『JS API文档大全』](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=3268613&doc_id=975983)
 
-## 13、前端请求云函数
+## 25、前端请求云函数
 
 [点击查看『前端请求云函数』](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=2912173&doc_id=975983)
 
-## 14、配置前端非法token拦截器
+## 26、配置前端非法token拦截器
 
 [点击查看『前端请求云函数』](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=2912176&doc_id=975983)
 
-## 14、配置前端全局异常拦截器
+## 27、配置前端全局异常拦截器
 
 [点击查看『前端请求云函数』](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=3265596&doc_id=975983)
 
-## 15、vuex使用文档
+## 28、vuex使用文档
 
 [点击查看『vuex使用文档』](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=3654596&doc_id=975983)
 
-## 16、更多其他功能敬请在框架内体验
+## 29、更多其他功能敬请在框架内体验
 
 ### vk-unicloud-admin 框架研究Q群:`22466457` 如有问题或建议可以在群内讨论。
 

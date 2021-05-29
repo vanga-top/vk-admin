@@ -28,6 +28,7 @@
 				</el-dropdown>
 
 				<el-button style="margin-left: 20rpx;" type="primary" size="small" icon="el-icon-s-tools" :disabled="!table1.selectItem" @click="bindRoleBtn">角色绑定</el-button>
+				<el-button style="margin-left: 20rpx;" type="primary" size="small" icon="el-icon-warning-outline" :disabled="!table1.selectItem" @click="resetPasswordBtn">重置密码</el-button>
 			</el-row>
 		</view>
 		<!-- 自定义按钮区域结束 -->
@@ -71,7 +72,8 @@
 
 		<!-- 用户角色授权弹窗 -->
 		<bindRole v-model="formDatas.bindRole" @success="refresh"></bindRole>
-
+		<!-- 重置密码弹窗 -->
+		<resetPassword v-model="formDatas.resetPassword" @success="refresh"></resetPassword>
 		<!-- 页面内容结束 -->
 	</view>
 </template>
@@ -87,10 +89,12 @@
 	];
 
 	import bindRole from './form/bindRole'
+	import resetPassword from './form/resetPassword'
 
 	export default {
 		components:{
 			bindRole,
+			resetPassword
 		},
 		data() {
 			// 页面数据变量
@@ -172,6 +176,7 @@
 							{ key:"gender", title:"性别", type:"radio",
 								data: genderData
 							},
+							{ key:"password", title:"密码", type:"text", tips:"若密码为空，则默认为234567", show:["add"] },
 							{ key:"mobile", title:"手机号", type:"text" },
 							{ key:"comment", title:"备注", type:"textarea",
 								maxlength:"99", showWordLimit:true, autosize:{ minRows: 2, maxRows: 10 } ,
@@ -190,6 +195,9 @@
 							nickname: [
 								{ required:true, message:'昵称为必填字段', trigger:'blur' },
 								{ min:2, max:20, message:'昵称长度在 2 到 20 个字符', trigger:'blur' }
+							],
+							password: [
+								{ validator:vk.pubfn.validator("password"), message: '密码长度在6~18之间，只能包含字母、数字和下划线', trigger: 'blur' }
 							],
 							mobile:[
 							  { validator:vk.pubfn.validator("mobile"), message: '手机号格式错误', trigger: 'blur' }
@@ -290,6 +298,14 @@
 			bindRoleBtn(){
 				let item = that.getCurrentRow();
 				that.formDatas.bindRole = {
+					show:true,
+					item:item,
+				};
+			},
+			// 重置密码按钮
+			resetPasswordBtn(){
+				let item = that.getCurrentRow();
+				that.formDatas.resetPassword = {
 					show:true,
 					item:item,
 				};
