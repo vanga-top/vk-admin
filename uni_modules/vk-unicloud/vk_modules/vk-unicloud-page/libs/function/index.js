@@ -851,6 +851,7 @@ pubfn.dateDiff = function(startTime) {
 		return "";
 	}
 	if(typeof startTime == "number"){
+		if (startTime.toString().length == 10) startTime *= 1000;
 		startTime = new Date(startTime);
 		startTime = pubfn.getFullTime(startTime);
 	}if(typeof startTime == "string"){
@@ -891,6 +892,7 @@ pubfn.dateDiff2 = function(startTime) {
 		return "";
 	}
 	if(typeof startTime == "number"){
+		if (startTime.toString().length == 10) startTime *= 1000;
 		startTime = new Date(startTime);
 		startTime = pubfn.getFullTime(startTime);
 	}if(typeof startTime == "string"){
