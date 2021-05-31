@@ -506,7 +506,7 @@ export default {
 		if(!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
-			url: 'user/pub/encryptPwd',
+			url: 'user/sys/encryptPwd',
 		});
 	},
 	// 1.1.2新增

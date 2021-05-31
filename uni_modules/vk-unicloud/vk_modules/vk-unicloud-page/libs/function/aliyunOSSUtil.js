@@ -39,7 +39,8 @@ aliyunOSSUtil.uploadFile = function(obj) {
 		},
 		index = 0,
 		file = {},
-		needSave = false
+		needSave = false,
+		category_id
 	} = obj;
 	let vk = getApp().globalData.vk;
 	let fileNameObj = createFileName(obj);
@@ -83,7 +84,8 @@ aliyunOSSUtil.uploadFile = function(obj) {
 							name: file.name,
 							size: file.size,
 							file_id: res.fileID,
-							provider: "aliyun"
+							provider: "aliyun",
+							category_id
 						}
 					});
 				}

@@ -1,3 +1,8 @@
+## 2.1.1（2021-05-31）
+###  更新内容
+####【优化】`云函数URL化` 路由模式下，URL重写支持只允许部分云函数可被访问。（可以做到只暴露指定的API接口，增加URL化后的安全性）
+#### `router/util/urlrewrite.js`文件配置内容如下 [点击URL重写规则](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=3916806&doc_id=975983)
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.0.11（2021-05-27）
 ###  更新内容
 #### 【优化】`vk.baseDao.select` 也支持 `getOne` 、 `getMain` 

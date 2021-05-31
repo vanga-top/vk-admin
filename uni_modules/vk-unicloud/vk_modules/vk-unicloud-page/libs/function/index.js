@@ -189,6 +189,10 @@ pubfn.test = function (str, type){
 			return new RegExp(/^(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/).test(str);
 		case 'dateTime': //日期+时间 2014-01-01 12:00:00
 			return new RegExp(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/).test(str);
+		case 'english+number': //英文+数字
+			return new RegExp(/^[a-zA-Z0-9]*$/).test(str);
+		case 'english+number+_': //英文+数字+_
+			return new RegExp(/^[a-zA-Z0-9_]*$/).test(str);
 		case 'number': //数字
 			return new RegExp(/^[0-9]*$/).test(str);
 		case 'english': //英文
@@ -418,7 +422,7 @@ pubfn.isNullAll = function (...strS) {
  * vk.pubfn.isNotNullAll(value1,value2,value3);
  */
 pubfn.isNotNullAll = function (...strS) {
-	return !pubfn.isNullOne(strS);
+	return !pubfn.isNullOne(...strS);
 };
 /**
  * 获取对象数组中的某一个item,根据指定的键名和键值
@@ -1039,12 +1043,12 @@ pubfn.toTimeLong = function (dateString){
 	});
  */
 pubfn.getListData2 = function (obj = {}){
-	let { 
-		that, 
-		listName, 
+	let {
+		that,
+		listName,
 		listKey = "rows",
-		url, 
-		dataPreprocess, 
+		url,
+		dataPreprocess,
 		idKeyName = "_id"
 	} = obj;
 	if(listName) listKey = listName;
@@ -1146,13 +1150,13 @@ pubfn.getListData2 = function (obj = {}){
 	});
  */
 pubfn.getListData = function (obj = {}){
-	var { 
-		that, 
-		listName, 
-		listKey = "rows", 
-		url, 
-		dataPreprocess, 
-		loading 
+	var {
+		that,
+		listName,
+		listKey = "rows",
+		url,
+		dataPreprocess,
+		loading
 	} = obj;
 	if(listName) listKey = listName;
 	var { form1 = {}, data = {} } = that;
@@ -1167,7 +1171,7 @@ pubfn.getListData = function (obj = {}){
 		form1.pageIndex--;
 		return false;
 	}
-	
+
 	if(addTime) form1.addTimeLong = pubfn.toTimeLong(addTime);
 	if(endTime) form1.endTimeLong = pubfn.toTimeLong(endTime);
 	if(obj.data && JSON.stringify(obj.data) != "{}"){
@@ -1465,7 +1469,7 @@ vk.pubfn.base64ToFile({
 });
  */
 pubfn.base64ToFile = function(obj={}) {
-	let { 
+	let {
 		base64="",
 		filePath =  new Date().getTime() + '.png'
 	} = obj;

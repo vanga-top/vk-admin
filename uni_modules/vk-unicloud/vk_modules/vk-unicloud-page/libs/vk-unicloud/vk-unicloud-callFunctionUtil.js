@@ -323,7 +323,8 @@ class CallFunctionUtil {
 				type,
 				provider,
 				file = {},
-				needSave = false
+				needSave = false,
+				category_id
 			} = obj;
 			if (type && !provider) provider = type;
 			if (!provider) {
@@ -376,7 +377,8 @@ class CallFunctionUtil {
 									name: file.name,
 									size: file.size,
 									file_id: res.fileID,
-									provider
+									provider,
+									category_id
 								}
 							});
 						}
