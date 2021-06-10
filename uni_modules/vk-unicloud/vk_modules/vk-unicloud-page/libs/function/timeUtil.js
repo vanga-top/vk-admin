@@ -21,27 +21,27 @@ util.timeFormat = function(time, fmt = 'yyyy-MM-dd hh:mm:ss', targetTimezone = 8
 	}else{
 		date = time;
 	}
-	
+
 	const dif = date.getTimezoneOffset();
 	const timeDif = dif * 60 * 1000 + (targetTimezone * 60 * 60 * 1000);
 	const east8time = date.getTime() + timeDif;
-	
+
 	date = new Date(east8time);
 	let opt = {
-		"M+" : date.getMonth()+1,                 //月份   
-		"d+" : date.getDate(),                    //日   
-		"h+" : date.getHours(),                   //小时   
-		"m+" : date.getMinutes(),                 //分   
-		"s+" : date.getSeconds(),                 //秒   
-		"q+" : Math.floor((date.getMonth()+3)/3), //季度   
-		"S"  : date.getMilliseconds()             //毫秒   
+		"M+" : date.getMonth()+1,                 //月份
+		"d+" : date.getDate(),                    //日
+		"h+" : date.getHours(),                   //小时
+		"m+" : date.getMinutes(),                 //分
+		"s+" : date.getSeconds(),                 //秒
+		"q+" : Math.floor((date.getMonth()+3)/3), //季度
+		"S"  : date.getMilliseconds()             //毫秒
 	};
 	if(/(y+)/.test(fmt)){
-		fmt = fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));   
+		fmt = fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));
 	}
 	for(let k in opt){
 		if(new RegExp("("+ k +")").test(fmt)){
-			fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (opt[k]) : (("00"+ opt[k]).substr((""+ opt[k]).length))); 
+			fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (opt[k]) : (("00"+ opt[k]).substr((""+ opt[k]).length)));
 		}
 	}
 	return fmt;
@@ -61,13 +61,14 @@ util.getFullTime = function(date, type=0, targetTimezone = 8) {
 		return "";
 	}
 	if(typeof date == "number"){
+		if (date.toString().length == 10) date *= 1000;
 		date = new Date(date);
 	}
 	const dif = date.getTimezoneOffset();
 	const timeDif = dif * 60 * 1000 + (targetTimezone * 60 * 60 * 1000);
 	const east8time = date.getTime() + timeDif;
 	date = new Date(east8time);
-	
+
 	let YYYY = date.getFullYear() + '';
 	let MM = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1);
 	let DD = (date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate());
@@ -152,7 +153,7 @@ util.getCommonTime = function(date = new Date(), targetTimezone = 8) {
 	let res = {};
 	const dif = date.getTimezoneOffset();
 	const timeDif = dif * 60 * 1000 + (targetTimezone * 60 * 60 * 1000);
-	
+
 	const { year, month, day, hour, minute, second } = util.getFullTime(date, 2);
 	// 现在的时间
 	res.now = {

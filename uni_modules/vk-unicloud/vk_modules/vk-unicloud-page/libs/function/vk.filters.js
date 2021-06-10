@@ -50,4 +50,10 @@ util.priceRightFilter = function (n){
 util.percentageFilter = function (n,nullValue=" - "){
 	return pubfn.percentageFilter(n,nullValue);
 };
+// 大小过滤器 sizeFilter(1024,3,["B","KB","MB","GB"])
+util.sizeFilter = function (...obj){
+	let res = pubfn.calcSize(...obj);
+	return res.title;
+};
+
 module.exports = util;

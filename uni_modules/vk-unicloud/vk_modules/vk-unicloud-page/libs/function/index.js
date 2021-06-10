@@ -1024,6 +1024,48 @@ pubfn.toTimeLong = function (dateString){
 };
 
 /**
+ * 单位进制换算
+ * length	换算前大小
+ * arr		进制的数组,如["B","KB","MB","GB"]
+ * ary		进制,如KB-MB-GB,进制1024
+ * precision	数值精度
+ * vk.pubfn.calcSize(length,["B","KB","MB","GB"],1024,3);
+ */
+pubfn.calcSize = function (length=0, arr, ary, precision=2, showType="auto"){
+	length = parseFloat(length);
+	let size = 0;
+	let type = "";
+	if(length < ary || arr.length <= 1){
+		type = arr[0];
+		size = parseFloat(length.toFixed(precision));
+	}else{
+		for (let i = 1; i < arr.length; i++) {
+			let currentType = arr[i];
+			length = length / ary;
+			if(showType === "auto"){
+				if(length < ary){
+					type = currentType;
+					size = parseFloat(length.toFixed(precision));
+					break;
+				}
+			}else{
+				if(showType === currentType){
+					type = currentType;
+					size = parseFloat(length.toFixed(precision));
+					break;
+				}
+			}
+		}
+	}
+	return {
+		size : size,
+		type : type,
+		title : size + " " + type
+	}
+};
+
+
+/**
  * 手机端长列表分页加载数据 2.0版本
  * @params {Vue页面对象} 	that						页面数据对象this
  * @params {String} 			url							请求地址(云函数路径)

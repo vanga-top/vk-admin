@@ -148,7 +148,7 @@ class CallFunctionUtil {
 		/**
 		 * 删除请求配置中的公共请求参数
 		 * globalParamName 不传代表删除所有
-			vk.callFunctionUtil.getRequestGlobalParam(globalParamName);
+			vk.callFunctionUtil.deleteRequestGlobalParam(globalParamName);
 		 */
 		this.deleteRequestGlobalParam = (globalParamName) => {
 			let config = this.config;
@@ -313,7 +313,6 @@ class CallFunctionUtil {
 			let {
 				filePath,
 				cloudPath,
-				fileType = "image",
 				title,
 				errorToast,
 				needAlert,
@@ -326,6 +325,9 @@ class CallFunctionUtil {
 				needSave = false,
 				category_id
 			} = obj;
+			// 获取文件类型(image:图片 video:视频 other:其他)
+			let fileType = this.getFileType(obj);
+			obj.fileType = fileType;
 			if (type && !provider) provider = type;
 			if (!provider) {
 				let aliyunOSS = vk.pubfn.getData(config, "service.aliyunOSS");
@@ -378,8 +380,10 @@ class CallFunctionUtil {
 									size: file.size,
 									file_id: res.fileID,
 									provider,
-									category_id
-								}
+									category_id,
+								},
+								filePath,
+								fileType
 							});
 						}
 					},
@@ -432,7 +436,7 @@ class CallFunctionUtil {
 			complete
 		} = obj;
 		if (title) vk.showLoading(title);
-		if (loading) vk.setLoading(true);
+		if (loading) vk.setLoading(true, loading);
 		if (!name) name = config.isTest ? config.testFunctionName : config.functionName;
 		obj.name = name;
 		let Logger = {};
@@ -496,7 +500,7 @@ class CallFunctionUtil {
 		let uniIdToken = uni.getStorageSync(config.uniIdTokenKeyName);
 		let tokenExpired = uni.getStorageSync(config.uniIdTokenExpiredKeyName);
 		if (title) vk.showLoading(title);
-		if (loading) vk.setLoading(true);
+		if (loading) vk.setLoading(true, loading);
 		let promiseAction = new Promise(function(resolve, reject) {
 			if (config.debug) Logger.startTime = new Date().getTime();
 			uni.request({
@@ -555,7 +559,7 @@ class CallFunctionUtil {
 		} = params;
 
 		if (title) vk.hideLoading();
-		if (loading) vk.setLoading(false);
+		if (loading) vk.setLoading(false, loading);
 		let code = res.code;
 		if (config.debug) Logger.result = typeof res == "object" ? JSON.parse(JSON.stringify(res)) : res;
 		if (code == 0 || res.key == 1 || (code == undefined && res.uid)) {
@@ -610,7 +614,7 @@ class CallFunctionUtil {
 		}
 		if (errorToast) needAlert = false;
 		if (title) vk.hideLoading();
-		if (loading) vk.setLoading(false);
+		if (loading) vk.setLoading(false, loading);
 		let errMsg = "";
 		let sysErr = false;
 		if (typeof res.code !== "undefined") {
@@ -704,14 +708,9 @@ class CallFunctionUtil {
 		let {
 			index = 0,
 				file,
-				filePath,
-				suffix = "png"
+				filePath
 		} = obj;
-
-		if (filePath) {
-			let suffixName = filePath.substring(filePath.lastIndexOf(".") + 1);
-			if (suffixName && suffixName.length < 5) suffix = suffixName;
-		}
+		let suffix = this.getFileSuffix(obj);
 		let oldName = index + "." + suffix;
 		if (file && file.name) {
 			let suffixName = file.name.substring(file.name.lastIndexOf(".") + 1);
@@ -730,6 +729,43 @@ class CallFunctionUtil {
 		// 文件名全称(包含文件路径) = 外网域名  + 文件路径  + 文件名
 		let fileFullName = newFilePath + fileNickName;
 		return fileFullName;
+	}
+
+	getFileSuffix(obj = {}) {
+		let {
+			file,
+			filePath
+		} = obj;
+		let suffix = "png";
+		if (filePath) {
+			let suffixName = filePath.substring(filePath.lastIndexOf(".") + 1);
+			if (suffixName && suffixName.length < 5) suffix = suffixName;
+		}
+		if (file) {
+			if (file.path) {
+				let suffixName = file.path.substring(file.path.lastIndexOf(".") + 1);
+				if (suffixName && suffixName.length < 5) suffix = suffixName;
+			}
+			if (file.name) {
+				let suffixName = file.name.substring(file.name.lastIndexOf(".") + 1);
+				if (suffixName && suffixName.length < 5) suffix = suffixName;
+			}
+		}
+		return suffix;
+	}
+	getFileType(obj = {}) {
+		let {
+			file,
+			filePath
+		} = obj;
+		let fileType = "other";
+		let suffix = this.getFileSuffix(obj);
+		if (["png", "jpg", "jpeg", "gif", "bmp", "svg", "webp"].indexOf(suffix) > -1) {
+			fileType = "image";
+		} else if (["avi", "mp3", "mp4", "3gp", "mov", "rmvb", "rm", "flv", "mkv"].indexOf(suffix) > -1) {
+			fileType = "video";
+		}
+		return fileType;
 	}
 }
 export default new CallFunctionUtil

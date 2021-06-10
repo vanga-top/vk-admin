@@ -25,11 +25,15 @@ module.exports = {
 			size,
 			provider,
 			file_id,
-			category_id
+			category_id,
+			width,
+			height,
+			orientation,
+			duration
 		} = data;
 		let type = "other";
 		let suffix = url.substring(url.lastIndexOf(".") + 1).toLowerCase();
-		if (["png", "jpg", "jpeg", "gif", "bmp", "svg"].indexOf(suffix) > -1) {
+		if (["png", "jpg", "jpeg", "gif", "bmp", "svg", "webp"].indexOf(suffix) > -1) {
 			type = "image";
 		} else if (["avi", "mp3", "mp4", "3gp", "mov", "rmvb", "rm", "flv", "mkv"].indexOf(suffix) > -1) {
 			type = "video";
@@ -45,7 +49,11 @@ module.exports = {
 			original_name,
 			size,
 			file_id,
-			provider
+			provider,
+			width,
+			height,
+			orientation,
+			duration
 		};
 		if (vk.pubfn.isNotNull(category_id)) {
 			dataJson["category_id"] = category_id;

@@ -17,8 +17,8 @@ export default {
 	 * @params {String} token 注册完成自动登录之后返回的token信息
 	 * @params {String} tokenExpired token过期时间
 	 */
-	register(obj = {}){
-		if(!obj.loading && !obj.title) obj.title = "注册中...";
+	register(obj = {}) {
+		if (!obj.loading && !obj.title) obj.title = "注册中...";
 		return callFunction({
 			...obj,
 			url: 'user/pub/register'
@@ -36,7 +36,7 @@ export default {
 	 * @params {String} tokenExpired token过期时间
 	 */
 	login(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "登录中...";
+		if (!obj.loading && !obj.title) obj.title = "登录中...";
 		return callFunction({
 			...obj,
 			url: 'user/pub/login'
@@ -47,13 +47,13 @@ export default {
 	 * 若你使用了vuex，vuex内的数据需要你自己删除（通过回调函数删除，而不是写在此处）
 	 */
 	logout(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/pub/logout',
-			success(res){
+			success(res) {
 				deleteToken();
-				if(typeof obj.success == "function") obj.success(res);
+				if (typeof obj.success == "function") obj.success(res);
 			}
 		});
 	},
@@ -69,7 +69,7 @@ export default {
 	 * @params {String} msg 详细信息
 	 */
 	updatePwd(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/kh/updatePwd',
@@ -79,7 +79,7 @@ export default {
 	 * 重置密码
 	 */
 	resetPwd(obj) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/kh/resetPwd',
@@ -94,7 +94,7 @@ export default {
 	 * @params {String} msg 详细信息
 	 */
 	setAvatar(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		//obj.isRequest = true;
 		return callFunction({
 			...obj,
@@ -110,7 +110,7 @@ export default {
 	 * @params {String} msg 详细信息
 	 */
 	updateUser(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		callFunction({
 			...obj,
 			url: 'user/kh/updateUser'
@@ -124,7 +124,7 @@ export default {
 	 * @params {Object} userInfo 用户信息
 	 */
 	getCurrentUserInfo(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/kh/getMyUserInfo',
@@ -133,8 +133,8 @@ export default {
 	/**
 	 * token校验
 	 */
-	checkToken(obj = {}){
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+	checkToken(obj = {}) {
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/pub/checkToken',
@@ -149,7 +149,7 @@ export default {
 	 * @params {String} msg 详细信息
 	 */
 	bindMobile(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/kh/bindMobile',
@@ -159,7 +159,7 @@ export default {
 	 * 解绑手机号
 	 */
 	unbindMobile(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/kh/unbindMobile',
@@ -177,7 +177,7 @@ export default {
 	 * @params {String} tokenExpired token过期时间
 	 */
 	loginBySms(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "登录中...";
+		if (!obj.loading && !obj.title) obj.title = "登录中...";
 		return callFunction({
 			...obj,
 			url: 'user/pub/loginBySms'
@@ -187,7 +187,7 @@ export default {
 	 * 发送手机号验证码
 	 */
 	sendSmsCode(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/pub/sendSmsCode',
@@ -198,25 +198,25 @@ export default {
 	 */
 	loginByUniverify(obj = {}) {
 		//if(!obj.loading && !obj.title) obj.title = "登录中...";
-		if(typeof obj.needAlert === "undefined") obj.needAlert = true;
+		if (typeof obj.needAlert === "undefined") obj.needAlert = true;
 		// #ifdef APP-PLUS
 		uni.login({
 			provider: 'univerify',
 			univerifyStyle: obj.univerifyStyle,
-			success(res){
+			success(res) {
 				let dataJson = Object.assign(obj.data, res.authResult);
 				callFunction({
 					...obj,
-					data:dataJson,
+					data: dataJson,
 					url: 'user/pub/loginByUniverify',
 				});
 			},
-			fail:obj.fail,
-			complete:obj.complete,
+			fail: obj.fail,
+			complete: obj.complete,
 		});
 		// #endif
 		// #ifndef APP-PLUS
-		uni.vk.toast("请在APP中使用本机号码一键登录","none");
+		uni.vk.toast("请在APP中使用本机号码一键登录", "none");
 		// #endif
 	},
 
@@ -230,7 +230,7 @@ export default {
 	 * @params {String} msg 详细信息
 	 */
 	bindEmail(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/kh/bindEmail',
@@ -240,7 +240,7 @@ export default {
 	 * 解绑邮箱
 	 */
 	unbindEmail(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/kh/unbindEmail',
@@ -258,7 +258,7 @@ export default {
 	 * @params {String} tokenExpired token过期时间
 	 */
 	loginByEmail(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "登录中...";
+		if (!obj.loading && !obj.title) obj.title = "登录中...";
 		return callFunction({
 			...obj,
 			url: 'user/pub/loginByEmail'
@@ -268,7 +268,7 @@ export default {
 	 * 发送邮件验证码
 	 */
 	sendEmailCode(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/pub/sendEmailCode',
@@ -278,7 +278,7 @@ export default {
 	 * 设置验证码
 	 */
 	setVerifyCode(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/sys/setVerifyCode',
@@ -320,15 +320,15 @@ export default {
 	// 微信登陆
 	loginByWeixin(obj = {}) {
 		let that = this;
-		if(!obj.loading && !obj.title) obj.title = "登录中...";
-		let { data={} } = obj;
+		if (!obj.loading && !obj.title) obj.title = "登录中...";
+		let { data = {} } = obj;
 		that.getWeixinCode().then((code) => {
 			callFunction({
 				...obj,
 				url: 'user/pub/loginByWeixin',
-				data:{
+				data: {
 					...data,
-					code:code
+					code: code
 				}
 			});
 		});
@@ -338,15 +338,15 @@ export default {
 	 */
 	code2SessionWeixin(obj = {}) {
 		let that = this;
-		if(!obj.loading && typeof obj.title === "undefined") obj.title = "请求中...";
-		let { data={} } = obj;
+		if (!obj.loading && typeof obj.title === "undefined") obj.title = "请求中...";
+		let { data = {} } = obj;
 		that.getWeixinCode().then((code) => {
 			callFunction({
 				...obj,
 				url: 'user/pub/code2SessionWeixin',
-				data:{
+				data: {
 					...data,
-					code:code
+					code: code
 				}
 			});
 		});
@@ -356,15 +356,15 @@ export default {
 	 */
 	bindWeixin(obj = {}) {
 		let that = this;
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
-		let { data={} } = obj;
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		let { data = {} } = obj;
 		that.getWeixinCode().then((code) => {
 			callFunction({
 				...obj,
 				url: 'user/kh/bindWeixin',
-				data:{
+				data: {
 					...data,
-					code:code
+					code: code
 				}
 			});
 		});
@@ -373,7 +373,7 @@ export default {
 	 * 解绑微信
 	 */
 	unbindWeixin(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/kh/unbindWeixin',
@@ -383,7 +383,7 @@ export default {
 	 * 获取微信绑定的手机号(后面会支持支付宝)
 	 */
 	getPhoneNumber(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/pub/getPhoneNumber'
@@ -393,7 +393,7 @@ export default {
 	 * 通过微信小程序绑定的手机号登录
 	 */
 	loginByWeixinPhoneNumber(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "登录中...";
+		if (!obj.loading && !obj.title) obj.title = "登录中...";
 		return callFunction({
 			...obj,
 			url: 'user/pub/loginByWeixinPhoneNumber'
@@ -403,7 +403,7 @@ export default {
 	 * 生成微信小程序码
 	 */
 	getWeixinMPqrcode(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "生成中...";
+		if (!obj.loading && !obj.title) obj.title = "生成中...";
 		return callFunction({
 			...obj,
 			url: 'user/kh/getWeixinMPqrcode',
@@ -413,7 +413,7 @@ export default {
 	 * 生成微信小程序scheme码
 	 */
 	getWeixinMPscheme(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "生成中...";
+		if (!obj.loading && !obj.title) obj.title = "生成中...";
 		return callFunction({
 			...obj,
 			url: 'user/kh/getWeixinMPscheme',
@@ -422,7 +422,7 @@ export default {
 	/**
 	 * 获取支付宝code
 	 */
-	getAlipayCode(){
+	getAlipayCode() {
 		return new Promise((resolve, reject) => {
 			uni.login({
 				provider: 'alipay',
@@ -440,15 +440,15 @@ export default {
 	 */
 	loginByAlipay(obj = {}) {
 		let that = this;
-		if(!obj.loading && !obj.title) obj.title = "登录中...";
-		let { data={} } = obj;
+		if (!obj.loading && !obj.title) obj.title = "登录中...";
+		let { data = {} } = obj;
 		that.getAlipayCode().then((code) => {
 			callFunction({
 				...obj,
 				url: 'user/pub/loginByAlipay',
-				data:{
+				data: {
 					...data,
-					code:code
+					code: code
 				}
 			});
 		});
@@ -458,15 +458,15 @@ export default {
 	 */
 	code2SessionAlipay(obj = {}) {
 		let that = this;
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
-		let { data={} } = obj;
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		let { data = {} } = obj;
 		that.getAlipayCode().then((code) => {
 			callFunction({
 				...obj,
 				url: 'user/pub/code2SessionAlipay',
-				data:{
+				data: {
 					...data,
-					code:code
+					code: code
 				}
 			});
 		});
@@ -476,15 +476,15 @@ export default {
 	 */
 	bindAlipay(obj = {}) {
 		let that = this;
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
-		let { data={} } = obj;
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		let { data = {} } = obj;
 		that.getAlipayCode().then((code) => {
 			callFunction({
 				...obj,
 				url: 'user/kh/bindAlipay',
-				data:{
+				data: {
 					...data,
-					code:code
+					code: code
 				}
 			});
 		});
@@ -493,7 +493,7 @@ export default {
 	 * 解绑支付宝
 	 */
 	unbindAlipay(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/kh/unbindAlipay',
@@ -503,7 +503,7 @@ export default {
 	 * 密码加密测试(暂不用)
 	 */
 	encryptPwd(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/sys/encryptPwd',
@@ -514,7 +514,7 @@ export default {
 	 * 设置用户邀请码(自动生成)
 	 */
 	setUserInviteCode(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/kh/setUserInviteCode',
@@ -524,7 +524,7 @@ export default {
 	 * 用户接受邀请
 	 */
 	acceptInvite(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/kh/acceptInvite',
@@ -534,7 +534,7 @@ export default {
 	 * 获取接受邀请的用户清单
 	 */
 	getInvitedUser(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/kh/getInvitedUser',
@@ -544,7 +544,7 @@ export default {
 	 * 根据手机验证码重置账号密码
 	 */
 	resetPasswordByMobile(obj = {}) {
-		if(!obj.loading && !obj.title) obj.title = "请求中...";
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
 		return callFunction({
 			...obj,
 			url: 'user/pub/resetPasswordByMobile',
@@ -563,9 +563,50 @@ export default {
 	 * 添加文件上传记录
 	 */
 	addUploadRecord(obj = {}) {
-		return callFunction({
-			...obj,
-			url: 'user/kh/addUploadRecord'
-		});
+		let { fileType, filePath } = obj;
+		if (fileType === "image") {
+			uni.getImageInfo({
+				src: filePath,
+				success: function(res) {
+					return callFunction({
+						...obj,
+						url: 'user/kh/addUploadRecord',
+						data: {
+							...obj.data,
+							orientation: res.orientation,
+							width: res.width,
+							height: res.height
+						}
+					});
+				},
+				fail: function(err) {
+					console.error(err)
+				}
+			});
+		} else if (fileType === "video") {
+			uni.getVideoInfo({
+				src: filePath,
+				success: function(res) {
+					return callFunction({
+						...obj,
+						url: 'user/kh/addUploadRecord',
+						data: {
+							...obj.data,
+							duration: parseFloat(res.duration.toFixed(3)),
+							width: res.width,
+							height: res.height
+						}
+					});
+				},
+				fail: function(err) {
+					console.error(err)
+				}
+			});
+		} else {
+			return callFunction({
+				...obj,
+				url: 'user/kh/addUploadRecord'
+			});
+		}
 	}
 };

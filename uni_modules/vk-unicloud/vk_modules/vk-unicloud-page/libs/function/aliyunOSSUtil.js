@@ -33,6 +33,7 @@ vk.callFunctionUtil.uploadFile({
 aliyunOSSUtil.uploadFile = function(obj) {
 	let {
 		filePath,
+		fileType = "image",
 		name = "file",
 		header = {
 			"x-oss-forbid-overwrite": true,
@@ -86,13 +87,18 @@ aliyunOSSUtil.uploadFile = function(obj) {
 							file_id: res.fileID,
 							provider: "aliyun",
 							category_id
-						}
+						},
+						filePath,
+						fileType
 					});
 				}
 			}
 		},
 		fail: function(res) {
 			Logger.error = res;
+			if(res.errMsg && res.errMsg.indexOf('fail url not in domain list')>-1){
+				vk.toast('上传域名未在白名单中');
+			}
 			if (typeof obj.fail === "function") obj.fail(res);
 		},
 		complete: function() {
@@ -164,8 +170,7 @@ function createFileName(obj = {}) {
 	let {
 		index = 0,
 		file,
-			filePath,
-			suffix = "png"
+		filePath,
 	} = obj;
 	let vk = getApp().globalData.vk;
 	let aliyunOSS = getConfig();
@@ -173,10 +178,7 @@ function createFileName(obj = {}) {
 	let host = aliyunOSS.host;
 	let fileObj = {};
 
-	if (filePath) {
-		let suffixName = filePath.substring(filePath.lastIndexOf(".") + 1);
-		if (suffixName && suffixName.length < 5) suffix = suffixName;
-	}
+	let suffix = getFileSuffix(obj);
 	let oldName = index + "." + suffix;
 	if (file && file.name) {
 		let suffixName = file.name.substring(file.name.lastIndexOf(".") + 1);
@@ -201,6 +203,28 @@ function createFileName(obj = {}) {
 	fileObj.fileFullName = fileFullName;
 	fileObj.fileNickName = fileNickName;
 	return fileObj;
+}
+function getFileSuffix(obj = {}){
+	let {
+		file,
+		filePath
+	} = obj;
+	let suffix = "png";
+	if (filePath) {
+		let suffixName = filePath.substring(filePath.lastIndexOf(".") + 1);
+		if (suffixName && suffixName.length < 5) suffix = suffixName;
+	}
+	if(file){
+		if (file.path) {
+			let suffixName = file.path.substring(file.path.lastIndexOf(".") + 1);
+			if (suffixName && suffixName.length < 5) suffix = suffixName;
+		}
+		if (file.name) {
+			let suffixName = file.name.substring(file.name.lastIndexOf(".") + 1);
+			if (suffixName && suffixName.length < 5) suffix = suffixName;
+		}
+	}
+	return suffix;
 }
 
 function dataURLtoBlob(dataurl) {
