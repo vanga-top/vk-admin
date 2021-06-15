@@ -6,6 +6,7 @@
 				{ "path": "icons/element-icons" },
 				{ "path": "table/table-basic" },
 				{ "path": "table/table-easy" },
+        { "path": "form/form-array-object" },
 				{ "path": "form/form-basic" },
 				{ "path": "form/form-inline" },
 				{ "path": "form/form-dialog" },

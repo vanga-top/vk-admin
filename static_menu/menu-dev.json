@@ -75,6 +75,12 @@
 						"icon": "",
 						"url": "/pages_template/components/form/form-slot"
 					},
+          {
+          	"menu_id": "vk-data-form-array-object",
+          	"name": "子表单",
+          	"icon": "",
+          	"url": "/pages_template/components/form/form-array-object"
+          },
 					{
 						"menu_id": "vk-data-form-pro",
 						"name": "万能表单",

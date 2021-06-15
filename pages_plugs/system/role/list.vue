@@ -29,7 +29,7 @@
 			:columns="table1.columns"
 			:query-form-param="queryForm1"
 			:right-btns="['detail_auto','update','delete']"
-			:selection="true"
+			:selection="false"
 			:row-no="true"
 			:pagination="true"
 			@update="updateBtn"

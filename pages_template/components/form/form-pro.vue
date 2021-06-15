@@ -325,7 +325,48 @@
 									{ key:"text", title:"text类型", type:"text" },
 									{ key:"switch", title:"switch类型", type:"switch" },
 								]
-							}
+							},
+              { key:"array1", title:"数组字符串类型", type:"array<string>" },
+              { key:"array2", title:"数组数字类型", type:"array<number>" },
+              {
+                key:"array", title:"数组对象类型", type:"array<object>", itemWidth:260,
+                showAdd:true,
+                showClear:true,
+                showSort:true,
+                // 新增一行时,该行的默认值
+                defaultValue:{
+                  select1:1
+                },
+                rightBtns:['copy','delete'],
+                // 每行每个字段对应的渲染规则
+                columns:[
+                  {
+                    key:"text1", title:"昵称", type:"text",
+                    isUnique:true,
+                    rules:[
+                      { required:true, message:"该项不能为空", trigger:["change","blur"] },
+                      { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: ["change","blur"] }
+                    ]
+                  },
+                  {
+                    key:"number1", title:"数字", type:"number",
+                    rules:[
+                      { required:true, message:"该项不能为空", trigger:["change","blur"] },
+                    ]
+                  },
+                  {
+                    key:"select1", title:"select类型", type:"select",
+                    data:[
+                      { value:1, label:"选项1" },
+                      { value:2, label:"选项2" }
+                    ],
+                    rules:[
+                      { required:true, message:"该项不能为空", trigger:["change","blur"] },
+                    ]
+                  },
+                  { key:"switch", title:"switch类型", type:"switch", width:160 },
+                ]
+              }
 						],
 						// 表单验证规则
 						rules:{

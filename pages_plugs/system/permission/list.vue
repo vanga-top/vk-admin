@@ -154,7 +154,13 @@
 								tips:"起一个容易表达权限含义的名称"
 							},
 							{ key:"icon", title:"图标", type:"text", tips:"设置一个能表达权限含义的图标" },
-							{ key:"url", title:"URL", type:"array<string>", tips:"云函数路径" },
+							{
+								key:"url", title:"URL", type:"array<string>", tips:"云函数路径",
+								isUnique:true,
+								rules:[
+									{ required:true, message:"该项不能为空", trigger:["change","blur"] },
+								]
+							},
 							{ key:"match_mode", title:"匹配模式", type:"radio", width:100,
 								data:matchModeData,
 								tips:"选择合适的匹配模式"

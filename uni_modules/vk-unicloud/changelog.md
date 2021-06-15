@@ -1,3 +1,8 @@
+## 2.1.8（2021-06-12）
+###  更新内容
+####【修复】`vk.pubfn.copyObject` 若参数值为undefined则会报异常的问题。
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+
 ## 2.1.7（2021-06-10）
 ####【优化】`vk.callFunctionUtil.uploadFile` 自动识别文件类型，无需传`fileType`参数
 ####【修复】已知问题。

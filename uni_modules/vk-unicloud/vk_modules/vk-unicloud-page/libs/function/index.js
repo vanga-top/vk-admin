@@ -228,7 +228,11 @@ pubfn.objectAssign = function (obj1, obj2){
  * let newObj = vk.pubfn.copyObject(obj);
  */
 pubfn.copyObject = function (obj){
-	return JSON.parse(JSON.stringify(obj));
+	if(typeof obj !== "undefined"){
+		return JSON.parse(JSON.stringify(obj));
+	}else{
+		return obj;
+	}
 };
 /**
  * 深度克隆一个对象-没有映射关系
