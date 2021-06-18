@@ -698,7 +698,7 @@ pubfn.calcFreights = function (freightsItem, weight) {
 };
 
 /**
- * 从一个对象中取多个属性,并生成一个全新的对象
+ * 从一个对象中取多个属性,并生成一个全新的对象,会过滤空字符串,空数组,空对象
  * @params {Object} obj 对象
  * @params {Array<String>} keys 键名数组
  * vk.pubfn.getNewObject(obj, keys);

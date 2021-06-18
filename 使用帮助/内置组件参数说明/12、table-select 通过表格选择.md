@@ -7,7 +7,7 @@
   action:"admin/system/role/sys/getList",
   columns:[
     { key:"role_name", title:"角色昵称", type:"text", nameKey:true },
-    { key:"role_id", title:"角色标识", type:"text", idKey:true },
+    { key:"role_id", title:"角色标识", type:"text", idKey:true }, // idKey:true 代表此字段为主键字段，若设置show:["none"],则可以在表格中隐藏该字段的显示
     { key:"comment", title:"备注", type:"text" }
   ],
   queryColumns:[
@@ -39,6 +39,20 @@
 | cancelText      | 取消按钮的文字 | String  | 关闭 | -  |
 | submitText      | 确定按钮的文字 | String  | 确定 | -  |
 | pageSize  | 表格分页每页显示数量 | Number  | 5 | 5、10、20、50、100、500  |
+| valueFields  | 用于控制value的值由哪些字段组成 | Array  | - | - |
+
+#### 不设置 `valueFields` 时 表单绑定的值为`字符串数组形式`
+```js
+["001","002"]
+```
+#### 设置 `valueFields` 时 表单绑定的值为`对象数组形式`
+#### 如 `valueFields:["_id","nickname","mobile"]` 表单绑定的值为
+```js
+[
+  {"_id":"001","nickname":"昵称1","mobile":"手机号1"}，
+  {"_id":"002","nickname":"昵称2","mobile":"手机号2"}
+]
+```
 
 #### columns 参数详情
 | 参数             | 说明               | 类型    | 默认值  | 可选值 |

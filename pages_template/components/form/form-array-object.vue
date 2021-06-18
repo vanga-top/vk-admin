@@ -58,7 +58,8 @@
 								showSort:true,
 								// 新增一行时,该行的默认值
 								defaultValue:{
-									select1:1
+									switch:true,
+									text1:""
 								},
 								rightBtns:['copy','delete'],
 								// 每行每个字段对应的渲染规则
@@ -85,7 +86,11 @@
 										],
 										rules:[
 											{ required:true, message:"该项不能为空", trigger:["change","blur"] },
-										]
+										],
+										onChange:function(val, row, column, index){
+											// 此处演示根据选择的值动态改变text1的值,注意,此处text1必须要有默认值,即使是空字符串也行.
+											row.text1 = "昵称" + val;
+										}
 									},
 									{ key:"switch", title:"switch类型", type:"switch", width:160 },
 								]

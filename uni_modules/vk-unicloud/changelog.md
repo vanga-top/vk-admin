@@ -1,3 +1,7 @@
+## 2.1.9（2021-06-16）
+###  更新内容
+####【修复】`vk.baseDao.add` 因hbx 3.1.18版本导致的本地运行时 `_add_time_str` 错误的问题。
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.1.8（2021-06-12）
 ###  更新内容
 ####【修复】`vk.pubfn.copyObject` 若参数值为undefined则会报异常的问题。

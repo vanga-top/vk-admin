@@ -11,7 +11,8 @@
   showSort:true,
   // 新增一行时,该行的默认值
   defaultValue:{
-    select1:1
+    switch:true,
+    text1:""
   },
   rightBtns:['copy','delete'],
   // 每行每个字段对应的渲染规则
@@ -38,7 +39,11 @@
       ],
       rules:[
         { required:true, message:"该项不能为空", trigger:["change","blur"] },
-      ]
+      ],
+      onChange:function(val, row, column, index){
+        // 此处演示根据选择的值动态改变text1的值
+        row.text1 = "昵称" + val;
+      }
     },
     { key:"switch", title:"switch类型", type:"switch", width:160 },
   ]
@@ -92,6 +97,7 @@
 | allowRepeat            | 唯一值需要排除的，如[""] 排除空值 | Array  | - | -  |
 | rules            | 该项的表单验证规则 | Array  | - | -  |
 | defaultValue            | 该项的默认值 | any  | - | -  |
+| onChange            | 监听如select选项改变时触发的函数，部分组件不支持 | function(val, row, column, index)  | - | -  |
 
 ## 万能表格使用方式
 
