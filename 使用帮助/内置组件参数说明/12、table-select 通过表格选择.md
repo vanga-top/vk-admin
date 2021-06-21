@@ -40,6 +40,27 @@
 | submitText      | 确定按钮的文字 | String  | 确定 | -  |
 | pageSize  | 表格分页每页显示数量 | Number  | 5 | 5、10、20、50、100、500  |
 | valueFields  | 用于控制value的值由哪些字段组成 | Array  | - | - |
+| onChange          | function(val, formData, column, index, option) | Function  | -| -  |
+
+#### onChange 使用示例
+```js
+{
+  key: "role", title: "通过表格选择(单选)", type: "table-select", placeholder:"请选择角色",
+  action:"admin/system/role/sys/getList",
+  columns:[
+    { key:"role_name", title:"角色昵称", type:"text", nameKey:true },
+    { key:"role_id", title:"角色标识", type:"text", idKey:true }, // idKey:true 代表此字段为主键字段，若设置show:["none"],则可以在表格中隐藏该字段的显示
+    { key:"comment", title:"备注", type:"text" }
+  ],
+  queryColumns:[
+    { key: "role_name", title: "角色昵称", type: "text", width: 150, mode: "%%" },
+    { key: "role_id", title: "角色标识", type: "text", width: 150, mode: "%%" }
+  ],
+  onChange:function(val, formData, column, index, option){
+    console.log(1,val, formData, column, index, option);
+  }
+}
+```
 
 #### 不设置 `valueFields` 时 表单绑定的值为`字符串数组形式`
 ```js

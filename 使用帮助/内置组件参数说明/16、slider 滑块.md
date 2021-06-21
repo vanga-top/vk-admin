@@ -42,13 +42,9 @@
 ### marks用法
 ```html
 <template>
-  <div class="block">
-    <el-slider
-      v-model="value"
-      range
-      :marks="marks">
-    </el-slider>
-  </div>
+  <view>
+    <el-slider v-model="value" range :marks="marks"></el-slider>
+  </view>
 </template>
 
 <script>

@@ -27,9 +27,5 @@
 
 ## template 使用方式
 ```html
-<vk-data-input-money
-  v-model="form1.balance"
-  placeholder="请输入金额"
-  width="300px"
-></vk-data-input-money>
+<vk-data-input-money v-model="form1.balance" placeholder="请输入金额" width="300px"></vk-data-input-money>
 ```

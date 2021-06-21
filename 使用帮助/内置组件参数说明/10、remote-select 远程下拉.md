@@ -32,13 +32,34 @@
 |------------------|-------------------------------|---------|--------|-------|
 | data            | 静态模式数据源 | Array  | - | -  |
 | action          | 动态模式 - 远程请求的云函数地址 | String  | - | -  |
-| props          | 数据源的属性匹配规则 | Object  | { list:'list', value:'value', label:'label' } | -  |
+| props          | 数据源的属性匹配规则 | Object  | { list:'list', value:'value', label:'label' } | - |
 | showAll           | 是否一开始就全部加载 | Boolean  | false | true  |
 | multiple        | 是否允许多选 | Boolean  | false | true  |
 | limit        | 最多可选数量 | Number  | - | -  |
 | loadingText          | 远程加载时显示的文字 | String  | 加载中| -  |
 | noMatchText          | 搜索条件无匹配时显示的文字 | String  | 无匹配数据| -  |
 | noDataText          | 选项为空时显示的文字 | String  | 无数据| -  |
+| onChange          | function(val, formData, column, index, option) | Function  | -| -  |
+
+#### onChange 使用示例
+```js
+{
+  key:"user_id", title:"用户选择器", type:"remote-select", placeholder:"请输入用户账号/昵称",
+  action:"admin/select/kh/user",
+  onChange:function(val, formData, column, index, option){
+    console.log(1,val, formData, column, index, option);
+  }
+}
+```
+
+| 参数             | 说明                           | 类型    | 默认值  | 可选值 |
+|------------------|-------------------------------|---------|--------|-------|
+| val            | 表单绑定的值 | Any  | - | -  |
+| formData          | 整个表单数据源 | Object  | - | -  |
+| column          | 该组件属性 | Object  | - | - |
+| index           | 组件的索引下标 | Number  | - | -  |
+| option        | 其他参数，如选项的对象值等 | Any  | - | -  |
+
 
 ## 万能表格使用方式
 
@@ -70,3 +91,4 @@
   width="300px"
 ></vk-data-input-remote-select>
 ```
+

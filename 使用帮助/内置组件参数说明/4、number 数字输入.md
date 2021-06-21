@@ -34,20 +34,9 @@
 ## template 使用方式
 ### 普通模式 
 ```html
-<vk-data-input-number
-  v-model="form1.value2"
-  :precision="2"
-  width="300px"
-  placeholder="请输入数字"
-></vk-data-input-number>
+<vk-data-input-number v-model="form1.value2" :precision="2" width="300px" placeholder="请输入数字"></vk-data-input-number>
 ```
 ### 步进器模式
 ```html
-<vk-data-input-number-box
-  v-model="form1.value2"
-  :precision="2"
-  :step="0.01"
-  width="200px"
-  placeholder="请输入数字"
-></vk-data-input-number-box>
+<vk-data-input-number-box v-model="form1.value2" :precision="2" :step="0.01" width="200px" placeholder="请输入数字"></vk-data-input-number-box>
 ```

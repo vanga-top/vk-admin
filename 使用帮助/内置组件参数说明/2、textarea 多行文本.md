@@ -33,10 +33,5 @@
 
 ## template 使用方式
 ```html
-<el-input
-  v-model="textarea"
-  type="textarea"
-  :rows="2"
-  placeholder="请输入内容"
-></el-input>
+<el-input v-model="textarea" type="textarea" :rows="2" placeholder="请输入内容"></el-input>
 ```

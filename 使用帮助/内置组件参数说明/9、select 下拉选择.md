@@ -48,6 +48,21 @@
 | multiple        | 是否允许多选 | Boolean  | false | true  |
 | multipleLimit   | 最多可选数量 | Number  | - | -  |
 | group          | 是否需要分组 | Boolean  | false| true  |
+| onChange          | function(val, formData, column, index, option) | Function  | -| -  |
+
+#### onChange 使用示例
+```js
+{
+  key:"select1", title:"select类型1", type:"select",
+  data:[
+    { value:1, label:"选项1" },
+    { value:2, label:"选项2" }
+  ],
+  onChange:function(val, formData, column, index, option){
+    console.log(1,val, formData, column, index, option);
+  }
+}
+```
 
 ## 万能表格使用方式
 

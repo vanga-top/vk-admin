@@ -43,6 +43,21 @@
 | optionType        | 选项形状类型 | String  | default | button  |
 | border          | 是否显示边框 | Boolean  | false| true |
 | itemWidth          | 选项的统一宽度（用于排版） | Number  | - | -  |
+| onChange          | function(val, formData, column, index, option) | Function  | -| -  |
+
+#### onChange 使用示例
+```js
+{
+  key:"radio4", title:"远程radio", type:"radio",
+  border:true,
+  itemWidth:80,
+  action:"admin/select/kh/categorys",
+  props:{ list:"rows", value:"_id", label:"name" },
+  onChange:function(val, formData, column, index, option){
+    console.log(1,val, formData, column, index, option);
+  }
+}
+```
 
 ## 万能表格使用方式
 

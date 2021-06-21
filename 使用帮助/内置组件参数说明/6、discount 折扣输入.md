@@ -27,10 +27,5 @@
 
 ## template 使用方式
 ```html
-<vk-data-input-discount
-  v-model="form1.value1"
-  placeholder="请输入折扣"
-  :precision="2"
-  width="300px"
-></vk-data-input-discount>
+<vk-data-input-discount v-model="form1.value1" placeholder="请输入折扣" :precision="2" width="300px"></vk-data-input-discount>
 ```
