@@ -30,7 +30,7 @@ module.exports = {
 				login_type: "alipay",
 				user_id: res.uid,
 				context: originalParam.context
-			},util);
+			},event.util);
 		}
 		// 业务逻辑结束-----------------------------------------------------------
 		return res;

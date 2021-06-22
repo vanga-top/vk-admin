@@ -14,8 +14,7 @@ module.exports = {
 	 * @params {String} msg 详细信息
    */
 	main: async (event) => {
-		let { util } = event;
-		let { uniID } = util;
+		let {uniID} = event.util;
 		let res = {};
 		// 业务逻辑开始----------------------------------------------------------- 
 		// 绑定手机号

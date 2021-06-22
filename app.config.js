@@ -20,8 +20,11 @@ export default {
 	// let { mode, list } = config.checkTokenPages
 	checkTokenPages: {
 		/**
-		 * mode = 1 代表list内的页面需要登录
-		 * mode = 2 代表list内的页面不需要登录
+		 * 如果 mode = 0 则代表自动检测
+		 * 如果 mode = 1 则代表list内的页面需要登录，不在list内的页面不需要登录
+		 * 如果 mode = 2 则代表list内的页面不需要登录，不在list内的页面需要登录
+		 * 注意1: list内是通配符表达式，非正则表达式
+		 * 注意2: 需要使用 vk.navigateTo 代替 uni.navigateTo 进行页面跳转才会生效
 		 */
 		mode: 2,
 		list: [

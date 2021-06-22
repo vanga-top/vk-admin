@@ -3,12 +3,6 @@ module.exports = {
    * 设置用户邀请码(自动生成)
    * @url user/kh/setUserInviteCode 前端调用的url参数地址
    * @description 针对未生成邀请码的用户使用此方法生成邀请码(自动生成)
-   * @params {Object} data 请求参数
-   * @params {String} uniIdToken 用户token
-   * @params {Object} util 公共工具包
-	 * data 请求参数 说明
-	 * @params {String} uid  当前登录用户id,若用户已登录且token有效,则data中会带uid参数
-   * (此参数是后端过滤器通过token获取并添加到data中的,是可信任的)
 	 * res 返回参数说明
 	 * @params {Number} code 错误码，0表示成功
 	 * @params {String} msg 详细信息

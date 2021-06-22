@@ -72,7 +72,7 @@ module.exports = {
 					login_type: "weixinPhoneNumber",
 					user_id: res.uid,
 					context: originalParam.context
-				},util);
+				}, util);
 			}
 		}
 		// 业务逻辑结束-----------------------------------------------------------

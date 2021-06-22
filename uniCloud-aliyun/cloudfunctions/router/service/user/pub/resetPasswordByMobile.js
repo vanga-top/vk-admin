@@ -2,7 +2,6 @@ module.exports = {
 	/**
 	 * 根据手机+手机号重置密码
 	 * @url user/pub/resetPasswordByMobile 前端调用的url参数地址
-	 * @description 此函数描述
 	 * data 请求参数 说明
 	 * @params {String} password 重置后的密码
 	 * @params {String} code 验证码

@@ -520,10 +520,36 @@ pubfn.arrayObjectGetArray = function (list, key) {
  * 产生指定位数的随机数(支持任意字符,默认纯数字)
  * @params	{Number} length 数据源
  * @params	{String} str 指定的字符串中随机范围
+ * @params	{Array} arr 产生的随机数不会和此数组的任意一项重复
+ * vk.pubfn.random(6);
+ * vk.pubfn.random(6, "abcdefghijklmnopqrstuvwxyz0123456789");
+ * vk.pubfn.random(1,"12",["1","2"]);
+ */
+pubfn.random = function (length, str, arr) {
+	let s;
+	if(pubfn.isNull(arr)){
+		s = pubfn.randomFn(length, str);
+	}else{
+		let i = 0;
+		let maxForCount = 100000;
+		do {
+			i++;
+			s = pubfn.randomFn(length, str);
+		} while (arr.indexOf(s) > -1 && i < maxForCount);
+		if(i === maxForCount){
+			s = undefined;
+		}
+	}
+	return s;
+};
+/**
+ * 产生指定位数的随机数(支持任意字符,默认纯数字)
+ * @params	{Number} length 数据源
+ * @params	{String} str 指定的字符串中随机范围
  * vk.pubfn.random(6);
  * vk.pubfn.random(6, "abcdefghijklmnopqrstuvwxyz0123456789");
  */
-pubfn.random = function (length, str) {
+pubfn.randomFn = function (length, str) {
 	let s = "";
 	let list = "123456789";
 	//0123456789QWERTYUIPASDFGHJKLZXCVBNM

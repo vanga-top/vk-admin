@@ -16,8 +16,7 @@ module.exports = {
 	 * @params {String} reExpiresIn refreshToken超时时间，单位（秒）
    */
 	main: async (event) => {
-		let { util } = event;
-		let { uniID } = util;
+		let {uniID} = event.util;
 		let res = {};
 		// 业务逻辑开始----------------------------------------------------------- 
 		// 用户登录(账号+密码)

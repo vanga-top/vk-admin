@@ -8,8 +8,9 @@ module.exports = {
 	 * @params {Number} code 错误码，0表示成功
 	 * @params {String} msg 详细信息
 	 * @params {String} uid 当前token对应的用户uid
-	 * @params {String} iat 当前token创建时间
-	 * @params {String} exp 当前token过期时间
+	 * @params {Object} userInfo 当前用户信息
+	 * @params {Array} role 当前用户角色
+	 * @params {Array} permission 当前用户权限
 	 */
 	main: async (event) => {
 		let { util } = event;
