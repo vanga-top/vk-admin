@@ -23,6 +23,35 @@
   props:{ list:"rows", value:"_id", label:"name" },
 }
 ```
+#### 远程数据带参数方式1
+```js
+{
+  key:"radio4", title:"远程radio", type:"radio",
+  border:true,
+  itemWidth:80,
+  action:"admin/select/kh/categorys",
+  actionData:{
+    a:1
+  },
+  props:{ list:"rows", value:"_id", label:"name" },
+}
+```
+#### 远程数据带参数方式2
+```js
+{
+  key:"radio4", title:"远程radio", type:"radio",
+  border:true,
+  itemWidth:80,
+  action:"admin/select/kh/categorys",
+  actionData:function(){
+      return {
+      a:that.form1.data.a
+    }
+  },
+  props:{ list:"rows", value:"_id", label:"name" },
+}
+```
+
 
 
 ## API
@@ -37,6 +66,7 @@
 |------------------|-------------------------------|---------|--------|-------|
 | data            | 静态模式数据源 | Array  | - | -  |
 | action          | 动态模式 - 远程请求的云函数地址 | String  | - | -  |
+| actionData          | 动态模式 - 远程请求的云函数时的额外参数 | Object、Function  | - | -  |
 | props          | 数据源的属性匹配规则 | Object  | { list:'list', value:'value', label:'label' } | -  |
 | textColor      | 按钮形式的 Radio 激活时的文本颜色 | String  | #ffffff | -  |
 | fill      | 按钮形式的 Radio 激活时的填充色和边框色 | String  | #409EFF | -  |

@@ -232,6 +232,9 @@
 								limit:6,
 								accept:".txt,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.pdf"
 							},
+              { key:"image3", title:"从素材库多选图片", type:"file-select", placeholder:"请选择图片", fileType:"image", multiple:true, multipleLimit:5 },
+             	{ key:"image4", title:"从素材库单选图片", type:"file-select", placeholder:"请选择图片", fileType:"image" },
+              { key:"video1", title:"从素材库单选视频", type:"file-select", placeholder:"请选择视频", fileType:"video" },
 							// 日期型字段
 							{ key:"", title:"日期型字段", type:"bar-title" },
 							{ key:"date", title:"date类型", type:"date", dateType:"date", tips:"可选择年月日" },

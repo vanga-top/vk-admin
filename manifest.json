@@ -79,7 +79,7 @@
         "template" : "template.h5.html",
         "router" : {
             "mode" : "hash",
-            "base" : "admin"
+            "base" : "/admin/"
         }
     }
 }

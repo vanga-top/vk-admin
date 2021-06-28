@@ -19,14 +19,15 @@
 				{ "path": "error/404", "style": { "navigationBarTitleText": "页面不存在" } },
 				{ "path": "error/403", "style": { "navigationBarTitleText": "无权访问" } },
 				{ "path": "error/500", "style": { "navigationBarTitleText": "服务器出错了" } },
-				{ "path": "system_uni/opendb-global-data" },
-				{ "path": "system_uni/uni-id-log" },
-				{ "path": "system_uni/opendb-admin-log" },
-				{ "path": "system_uni/opendb-components-dynamic" },
 				{ "path": "system/user/list" },
 				{ "path": "system/role/list" },
 				{ "path": "system/permission/list" },
-				{ "path": "system/menu/list" }
+				{ "path": "system/menu/list" },
+        { "path": "system_uni/opendb-global-data" },
+				{ "path": "system_uni/uni-id-log" },
+				{ "path": "system_uni/opendb-admin-log" },
+				{ "path": "system_uni/opendb-components-dynamic" },
+        { "path": "system_uni/uni-id-files/list" }
 			]
 		},
 		

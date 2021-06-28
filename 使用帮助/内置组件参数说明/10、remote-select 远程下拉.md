@@ -19,6 +19,29 @@
 }
 ```
 
+#### 远程搜索带参数方式1
+```js
+{
+  key:"user_id", title:"用户选择器", type:"remote-select", placeholder:"请输入用户账号/昵称",
+  action:"admin/select/kh/user",
+  actionData:{
+    a:1
+  }
+}
+```
+
+#### 远程搜索带参数方式2
+```js
+{
+  key:"user_id", title:"用户选择器", type:"remote-select", placeholder:"请输入用户账号/昵称",
+  action:"admin/select/kh/user",
+  actionData:function(){
+    return {
+      a:that.form1.data.a
+    }
+  }
+}
+```
 
 ## API
 
@@ -32,6 +55,7 @@
 |------------------|-------------------------------|---------|--------|-------|
 | data            | 静态模式数据源 | Array  | - | -  |
 | action          | 动态模式 - 远程请求的云函数地址 | String  | - | -  |
+| actionData          | 动态模式 - 远程请求的云函数时的额外参数 | Object、Function  | - | -  |
 | props          | 数据源的属性匹配规则 | Object  | { list:'list', value:'value', label:'label' } | - |
 | showAll           | 是否一开始就全部加载 | Boolean  | false | true  |
 | multiple        | 是否允许多选 | Boolean  | false | true  |
