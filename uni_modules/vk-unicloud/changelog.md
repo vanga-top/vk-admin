@@ -1,3 +1,7 @@
+## 2.1.12（2021-06-28）
+###  更新内容
+#### 1、【修复】`user/kh/getMenu`云函数获取菜单错误的bug。
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.1.11（2021-06-22）
 ###  更新内容
 #### 1、【优化】`vk.pubfn.timeFormat` 若参数不符合规则，则原值显示。

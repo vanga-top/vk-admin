@@ -70,3 +70,5 @@
 ```
 4、导入
 5、刷新页面，点击系统设置-素材管理（如果是非admin账号，则需要授权才能看到）
+
+### 注意：前端 `vk.callFunctionUtil.uploadFile` 带参数 `needSave: true`时，上传的图片记录会保存到admin后台，可在`素材管理`中查看
