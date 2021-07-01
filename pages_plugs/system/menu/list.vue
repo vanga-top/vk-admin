@@ -164,7 +164,7 @@
 						// 表单字段显示规则
 						columns:[
 							{ key:"", title:"基础属性", type:"bar-title" },
-							{ key:"menu_id", title:"菜单标识", type:"text", tips:"设置一个能表达唯一含义的标识"},
+							{ key:"menu_id", title:"菜单标识", type:"text", tips:"设置一个能表达唯一含义的标识", show:["add"] },
 							{ key:"name", title:"菜单名称", type:"text", tips:"设置菜单的名称" },
 							{ key:"icon", title:"图标", type:"text", tips:"设置一个能表达权限含义的图标" },
 							{ key:"url", title:"URL", type:"text", tips:"页面路径，本地路径需以 / 开头 网络路径需带http:// 或 https://" },

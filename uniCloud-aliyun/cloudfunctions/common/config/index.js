@@ -2,7 +2,7 @@ module.exports = {
 	"uni":{
 		"passwordSecret": "passwordSecret-demo",// 加密密码所用的密钥，修改会导致所用户之前的密码失效。如一定要修改，请查看https://uniapp.dcloud.io/uniCloud/uni-id?id=modifysecret
 		"tokenSecret": "tokenSecret-demo",			// 生成token所用的密钥，修改会导致所有用户之前的token失效。
-		"tokenExpiresIn": 1209600,							// 全平台token过期时间，未指定过期时间的平台会使用此值，1209600代表14天
+		"tokenExpiresIn": 604800,								// 全平台token过期时间，未指定过期时间的平台会使用此值，604800代表7天
 		"tokenExpiresThreshold": 3600,					// 新增于uni-id 1.1.7版本，checkToken时如果token有效期小于此值则自动获取新token，如果不配置此参数则不开启自动获取新token功能
 		"passwordErrorLimit": 6,								// 密码错误最大重试次数
 		"bindTokenToDevice": false,							// 是否将token和设备绑定，设置为true会进行ua校验
@@ -10,7 +10,7 @@ module.exports = {
 		"autoSetInviteCode": true,							// 是否在用户注册时自动设置邀请码
 		"forceInviteCode": false,								// 是否强制用户注册时必填邀请码，默认为false（需要注意的是目前只有短信验证码注册才可以填写邀请码）
 		"app-plus": {
-			"tokenExpiresIn": 2592000, 						// app端 token过期时间
+			"tokenExpiresIn": 604800, 						// app端 token过期时间
 			"oauth" : {
 				// App微信登录所用到的appid、appsecret需要在微信开放平台获取，注意：不是公众平台而是开放平台
 				"weixin" : {

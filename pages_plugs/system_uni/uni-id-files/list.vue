@@ -58,8 +58,9 @@
 
 					<view :src="item.url" class="other-icon" v-else>
 						<vk-data-icon name="el-icon-document" size="80" color="#d5d5de"></vk-data-icon>
+						<view class="size">{{ item.size | sizeFilter(["B","KB","MB","GB"],1024,1) }}</view>
+						<view class="suffix">{{ item.original_name | suffixFilter }}</view>
 					</view>
-					<!-- <view class="suffix">{{ item.original_name | suffixFilter }}</view> -->
 				</view>
 				<view class="tips">
 					<text class="title">{{ item.display_name }}</text>

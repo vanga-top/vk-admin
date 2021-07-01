@@ -42,6 +42,20 @@
   }
 }
 ```
+#### 数据预处理
+```js
+{
+  key:"user_id", title:"用户选择器", type:"remote-select", placeholder:"请输入用户账号/昵称",
+  action:"你的云函数",
+  props:{ list:"rows", value:"_id", label:"name" },
+  dataPreprocess:function(list){
+    list.map((item, index) => {
+      item.name = `${item.name}(${item._id})`
+    });
+    return list;
+  }
+}
+```
 
 ## API
 
@@ -57,6 +71,7 @@
 | action          | 动态模式 - 远程请求的云函数地址 | String  | - | -  |
 | actionData          | 动态模式 - 远程请求的云函数时的额外参数 | Object、Function  | - | -  |
 | props          | 数据源的属性匹配规则 | Object  | { list:'list', value:'value', label:'label' } | - |
+| dataPreprocess          | 动态模式 - 云函数返回的数据进行预处理 | function(list)  | - | -  |
 | showAll           | 是否一开始就全部加载 | Boolean  | false | true  |
 | multiple        | 是否允许多选 | Boolean  | false | true  |
 | limit        | 最多可选数量 | Number  | - | -  |

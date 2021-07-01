@@ -12,8 +12,8 @@
 	>
 		<!-- 页面主体内容开始 -->
 		<image v-if="value.item.type === 'image'" :src="value.item.url" mode="widthFix" style="width: 100%;display: block;"></image>
-		<view :style="styleCom" style="margin: auto;" v-else-if="value.item.type === 'video'" v-if="value.show">
-			<video :src="value.item.url" autoplay object-fit="cover"  style="width: 100%;height: 100%;display: block;"></video>
+		<view v-else-if="value.item.type === 'video' && value.show" :style="styleCom" style="margin: auto;">
+			<video :src="value.item.url" autoplay object-fit="cover" style="width: 100%;height: 100%;display: block;"></video>
 		</view>
 		<!-- 页面主体内容结束 -->
 	</vk-data-dialog>

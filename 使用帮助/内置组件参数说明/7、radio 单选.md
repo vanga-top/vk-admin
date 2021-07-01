@@ -51,6 +51,22 @@
   props:{ list:"rows", value:"_id", label:"name" },
 }
 ```
+#### 数据预处理
+```js
+{
+  key:"radio4", title:"远程radio", type:"radio",
+  border:true,
+  itemWidth:80,
+  action:"admin/select/kh/categorys",
+  props:{ list:"rows", value:"_id", label:"name" },
+  dataPreprocess:function(list){
+    list.map((item, index) => {
+      item.name = `${item.name}(${item._id})`
+    });
+    return list;
+  }
+}
+```
 
 
 
@@ -68,6 +84,7 @@
 | action          | 动态模式 - 远程请求的云函数地址 | String  | - | -  |
 | actionData          | 动态模式 - 远程请求的云函数时的额外参数 | Object、Function  | - | -  |
 | props          | 数据源的属性匹配规则 | Object  | { list:'list', value:'value', label:'label' } | -  |
+| dataPreprocess          | 动态模式 - 云函数返回的数据进行预处理 | function(list)  | - | -  |
 | textColor      | 按钮形式的 Radio 激活时的文本颜色 | String  | #ffffff | -  |
 | fill      | 按钮形式的 Radio 激活时的填充色和边框色 | String  | #409EFF | -  |
 | optionType        | 选项形状类型 | String  | default | button  |
