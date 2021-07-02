@@ -86,6 +86,14 @@ export default {
 								{ key:"role_name", title:"角色昵称", type:"text", nameKey:true },
 								{ key:"role_id", title:"角色标识", type:"text", idKey:true }
 							],
+							formData:{
+								enable:true
+							},
+							queryColumns:[
+								{ key: "role_name", title: "角色昵称", type: "text", width: 150, mode: "%%" },
+								{ key: "role_id", title: "角色标识", type: "text", width: 150, mode: "%%" },
+								{ key: "enable", type: "text", mode: "=", hidden:true }
+							],
 							multiple:true,
 							pageSize:10, // 只有5和10可以选
 						},

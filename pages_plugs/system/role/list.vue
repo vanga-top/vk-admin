@@ -102,14 +102,6 @@
 								let str = "";
 								if(row.role_id === "admin"){
 									str = "系统内置角色 - 拥有所有权限";
-								}else if(row.role_id === "admin-lv3"){
-									str = "系统内置角色 - 拥有除【核弹级】权限外的其他所有权限";
-								}else if(row.role_id === "admin-lv2"){
-									str = "系统内置角色 - 拥有【炸弹级、子弹级】级别的权限";
-								}else if(row.role_id === "admin-lv1"){
-									str = "系统内置角色 - 拥有【子弹级】级别的权限";
-								}else if(row.role_id === "query-all"){
-									str = "系统内置角色 - 拥有所有【查询】分类且非【核弹级】的权限";
 								}else if(vk.pubfn.isNull(val)){
 									str = "该角色未赋予任何权限";
 								}else{

@@ -128,6 +128,8 @@ queryForm1:{
 | mode   |  查询模式    | String  | = | 见下方  |
 | fieldName   |  数据库字段名称，默认=key的值    | String  | key的值  | -  |
 | lastWhereJson   |  是否是连表后的where条件 | Boolean  | false | true  |
+| hidden   |  是否隐藏组件 | Boolean  | false | true  |
+
 
 #### fieldName 参数的用处
 ##### 如余额按金额范围查询
