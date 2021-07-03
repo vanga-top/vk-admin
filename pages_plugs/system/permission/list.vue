@@ -44,6 +44,8 @@
 		<!-- 添加或编辑的弹窗结束 -->
 		<!-- 修改分类 -->
 		<updateCategory v-model="formDatas.updateCategory"></updateCategory>
+		<!-- 修改等级 -->
+		<updateLevel v-model="formDatas.updateLevel"></updateLevel>
 		<!-- 页面内容结束 -->
 	</view>
 </template>
@@ -58,27 +60,14 @@
 		{ value:1, label:"通配符" },
 		{ value:2, label:"正则表达式" }
 	];
-	const curdCategoryData = [
-		{ value:1, label:"增", tagType:"success" },
-		{ value:2, label:"删", tagType:"danger" },
-		{ value:3, label:"改", tagType:"" },
-		{ value:4, label:"查", tagType:"info" },
-		{ value:5, label:"特", tagType:"warning" },
-		//{ value:0, label:"其他", tagType:"warning" },
-	];
-	const levelDate = [
-		{ value:1, label:"子弹级", tagType:"success" },
-		{ value:2, label:"炸弹级", tagType:"" },
-		{ value:3, label:"榴弹级", tagType:"warning" },
-		{ value:4, label:"核弹级", tagType:"danger" },
-		{ value:0, label:"其他", tagType:"info" },
-	];
 
 	import updateCategory from './form/updateCategory'
+	import updateLevel from './form/updateLevel'
 
 	export default {
 		components:{
 			updateCategory,
+			updateLevel
 		},
 		data() {
 			// 页面数据变量
@@ -108,10 +97,22 @@
 							}
 						},
 						{ key:"curd_category", title:"权限分类", type:"tag", width:100,
-							data: curdCategoryData
+							data: [
+								{ value:1, label:"增", tagType:"success" },
+								{ value:2, label:"删", tagType:"danger" },
+								{ value:3, label:"改", tagType:"" },
+								{ value:4, label:"查", tagType:"info" },
+								{ value:5, label:"特", tagType:"warning" },
+								//{ value:0, label:"其他", tagType:"warning" },
+							]
 						},
 						{ key:"level", title:"权限级别", type:"tag", width:100,
-							data: levelDate
+							data: [
+								{ value:1, label:"子弹级", tagType:"success" },
+								{ value:2, label:"炸弹级", tagType:"" },
+								{ value:3, label:"榴弹级", tagType:"warning" },
+								{ value:4, label:"核弹级", tagType:"danger" },
+							]
 						},
 						{ key:"sort", title:"排序值", type:"number", width:80 },
 						// 对应的权限是否启用
@@ -182,11 +183,24 @@
 							},
 							{ key:"", title:"高级属性", type:"bar-title" },
 							{ key:"curd_category", title:"权限分类", type:"radio", width:100,
-								data:curdCategoryData,
+								data:[
+									{ value:1, label:"增", tagType:"success" },
+									{ value:2, label:"删", tagType:"danger" },
+									{ value:3, label:"改", tagType:"" },
+									{ value:4, label:"查", tagType:"info" },
+									{ value:5, label:"特", tagType:"warning" },
+									{ value:0, label:"其他", tagType:"warning" },
+								],
 								tips:"给权限分一个类，方便查询和表达含义"
 							},
 							{ key:"level", title:"权限级别", type:"radio", width:100,
-								data:levelDate,
+								data:[
+									{ value:1, label:"子弹级", tagType:"success" },
+									{ value:2, label:"炸弹级", tagType:"" },
+									{ value:3, label:"榴弹级", tagType:"warning" },
+									{ value:4, label:"核弹级", tagType:"danger" },
+									{ value:0, label:"其他", tagType:"info" },
+								],
 								tips:"给权限（菜单）一个级别，方便查询和表达重要程度"
 							},
 						],
@@ -298,6 +312,10 @@
 					// 修改分类
 					let item = that.getCurrentRow(true);
 					vk.pubfn.openForm('updateCategory', { item });
+				}else if(key === "level"){
+					// 修改等级
+					let item = that.getCurrentRow(true);
+					vk.pubfn.openForm('updateLevel', { item });
 				}
 			}
 		},

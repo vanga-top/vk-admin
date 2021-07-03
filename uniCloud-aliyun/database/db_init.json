@@ -164,33 +164,6 @@
 				"permission": []
 			},
 			{
-				"_id": "002",
-				"_add_time": 1596416400000,
-				"enable":true,
-				"role_id":"admin-lv3",
-				"role_name": "高级管理员",
-				"comment":"系统内置角色 - 请勿修改",
-				"permission": []
-			},
-			{
-				"_id": "003",
-				"_add_time": 1596416400000,
-				"enable":true,
-				"role_id":"admin-lv2",
-				"role_name": "中级管理员",
-				"comment":"系统内置角色 - 请勿修改",
-				"permission": []
-			},
-			{
-				"_id": "004",
-				"_add_time": 1596416400000,
-				"enable":true,
-				"role_id":"admin-lv1",
-				"role_name": "初级管理员",
-				"comment":"系统内置角色 - 请勿修改",
-				"permission": []
-			},
-			{
 				"_id": "005",
 				"_add_time": 1596416400000,
 				"enable":true,

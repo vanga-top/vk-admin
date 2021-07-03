@@ -12,9 +12,9 @@ module.exports = {
 	 * @params {Number} sort 							排序(越大越在前面)
 	 * @params {String} parent_id 				父级id
 	 * @params {Boolean} enable 					是否启用
-	 * @params {Boolean} match_mode 			0:完整路径 1:通配符 2:正则表达式
-	 * @params {Boolean} curd_category 		0:未分类 1:增 2:删 3:改 4:查 5:特殊
-	 * @params {Boolean} level 						0:未分类 1:子弹级 2:炸弹级 3:榴弹级 4:核弹级
+	 * @params {Number} match_mode 			0:完整路径 1:通配符 2:正则表达式
+	 * @params {Number} curd_category 		0:未分类 1:增 2:删 3:改 4:查 5:特殊
+	 * @params {Number} level 						0:未分类 1:子弹级 2:炸弹级 3:榴弹级 4:核弹级
 	 * res 返回参数说明
 	 * @params {Number} code 错误码，0表示成功
 	 * @params {String} msg 详细信息

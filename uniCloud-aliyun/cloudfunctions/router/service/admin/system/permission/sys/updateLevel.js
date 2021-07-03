@@ -1,10 +1,10 @@
 module.exports = {
 	/**
-	 * 修改权限分类
-	 * @url admin/system/permission/sys/updateCategory 前端调用的url参数地址
+	 * 修改权限等级
+	 * @url admin/system/permission/sys/updateLevel 前端调用的url参数地址
 	 * data 请求参数 说明
 	 * @params {String} _id 						权限Id
-	 * @params {Number} curd_category 		0:未分类 1:增 2:删 3:改 4:查 5:特殊
+	 * @params {Number} level 						0:未分类 1:子弹级 2:炸弹级 3:榴弹级 4:核弹级
 	 * res 返回参数说明
 	 * @params {Number} code 错误码，0表示成功
 	 * @params {String} msg 详细信息
@@ -17,7 +17,7 @@ module.exports = {
 		// 业务逻辑开始-----------------------------------------------------------
 		let {
 			_id,
-			curd_category=0,
+			level=0,
 		} = data;
 		let dbName = "uni-id-permissions";
 		// 执行数据库API请求
@@ -25,7 +25,7 @@ module.exports = {
 			dbName,
 			id:_id,
 			dataJson:{
-				curd_category
+				level
 			}
 		});
 		return res;
