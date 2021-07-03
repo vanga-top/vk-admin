@@ -295,7 +295,64 @@
 				"match_mode":1,
 				"curd_category":4,
 				"level":3
-			}
+			},
+      {
+        "_id": "sys-manage",
+        "_add_time": 1596416400000,
+        "permission_id":"sys-manage",
+        "permission_name": "用户角色权限菜单",
+        "comment":"",
+        "sort": 2,
+        "enable":true
+      },
+      {
+        "_id": "sys-manage-user",
+        "_add_time": 1596416400000,
+        "permission_id":"sys-manage-user",
+        "permission_name": "系统 - 用户管理",
+        "comment":"",
+        "url": ["admin/system/user/sys/*"],
+        "sort": 1,
+        "enable":true,
+        "match_mode":1,
+        "parent_id":"sys-manage"
+      },
+      {
+        "_id": "sys-manage-role",
+        "_add_time": 1596416400000,
+        "permission_id":"sys-manage-role",
+        "permission_name": "系统 - 角色管理",
+        "comment":"",
+        "url": ["admin/system/role/sys/*"],
+        "sort": 2,
+        "enable":true,
+        "match_mode":1,
+        "parent_id":"sys-manage"
+      },
+      {
+        "_id": "sys-manage-permission",
+        "_add_time": 1596416400000,
+        "permission_id":"sys-manage-permission",
+        "permission_name": "系统 - 权限管理",
+        "comment":"",
+        "url": ["admin/system/permission/sys/*"],
+        "sort": 3,
+        "enable":true,
+        "match_mode":1,
+        "parent_id":"sys-manage"
+      },
+      {
+        "_id": "sys-manage-menu",
+        "_add_time": 1596416400000,
+        "permission_id":"sys-manage-menu",
+        "permission_name": "系统 - 菜单管理",
+        "comment":"",
+        "url": ["admin/system/menu/sys/*"],
+        "sort": 4,
+        "enable":true,
+        "match_mode":1,
+        "parent_id":"sys-manage"
+      }
 		],
 		"index": [
 			{
@@ -376,64 +433,7 @@
 				"sort": 4,
 				"parent_id":"sys-admin",
 				"enable":true
-			},
-      {
-        "_id": "sys-manage",
-        "_add_time": 1596416400000,
-        "permission_id":"sys-manage",
-        "permission_name": "用户角色权限菜单",
-        "comment":"",
-        "sort": 2,
-        "enable":true
-      },
-      {
-        "_id": "sys-manage-user",
-        "_add_time": 1596416400000,
-        "permission_id":"sys-manage-user",
-        "permission_name": "系统 - 用户管理",
-        "comment":"",
-        "url": ["admin/system/user/sys/*"],
-        "sort": 1,
-        "enable":true,
-        "match_mode":1,
-        "parent_id":"sys-manage"
-      },
-      {
-        "_id": "sys-manage-role",
-        "_add_time": 1596416400000,
-        "permission_id":"sys-manage-role",
-        "permission_name": "系统 - 角色管理",
-        "comment":"",
-        "url": ["admin/system/role/sys/*"],
-        "sort": 2,
-        "enable":true,
-        "match_mode":1,
-        "parent_id":"sys-manage"
-      },
-      {
-        "_id": "sys-manage-permission",
-        "_add_time": 1596416400000,
-        "permission_id":"sys-manage-permission",
-        "permission_name": "系统 - 权限管理",
-        "comment":"",
-        "url": ["admin/system/permission/sys/*"],
-        "sort": 3,
-        "enable":true,
-        "match_mode":1,
-        "parent_id":"sys-manage"
-      },
-      {
-        "_id": "sys-manage-menu",
-        "_add_time": 1596416400000,
-        "permission_id":"sys-manage-menu",
-        "permission_name": "系统 - 菜单管理",
-        "comment":"",
-        "url": ["admin/system/menu/sys/*"],
-        "sort": 4,
-        "enable":true,
-        "match_mode":1,
-        "parent_id":"sys-manage"
-      }
+			}
 		],
 		"index": [
 			{

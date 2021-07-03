@@ -20,6 +20,7 @@
 			@delete="deleteBtn"
 			@current-change="currentChange"
 			@selection-change="selectionChange"
+			@cell-click="cellClick"
 		></vk-data-table>
 		<!-- 表格组件结束 -->
 
@@ -41,7 +42,8 @@
 			></vk-data-form>
 		</vk-data-dialog>
 		<!-- 添加或编辑的弹窗结束 -->
-
+		<!-- 修改分类 -->
+		<updateCategory v-model="formDatas.updateCategory"></updateCategory>
 		<!-- 页面内容结束 -->
 	</view>
 </template>
@@ -61,8 +63,8 @@
 		{ value:2, label:"删", tagType:"danger" },
 		{ value:3, label:"改", tagType:"" },
 		{ value:4, label:"查", tagType:"info" },
-		{ value:5, label:"特殊", icon:"info" },
-		{ value:0, label:"其他", icon:"info" },
+		{ value:5, label:"特", tagType:"warning" },
+		//{ value:0, label:"其他", tagType:"warning" },
 	];
 	const levelDate = [
 		{ value:1, label:"子弹级", tagType:"success" },
@@ -71,7 +73,13 @@
 		{ value:4, label:"核弹级", tagType:"danger" },
 		{ value:0, label:"其他", tagType:"info" },
 	];
+
+	import updateCategory from './form/updateCategory'
+
 	export default {
+		components:{
+			updateCategory,
+		},
 		data() {
 			// 页面数据变量
 			return {
@@ -96,7 +104,7 @@
 						{ key:"match_mode", title:"匹配模式", type:"text", width:100,
 							formatter:function(val, row, column, index){
 								if(typeof val === "undefined" || row.type == 0) return "";
-								return matchModeData[val].text;
+								return matchModeData[val].label;
 							}
 						},
 						{ key:"curd_category", title:"权限分类", type:"tag", width:100,
@@ -147,13 +155,12 @@
 						// 表单字段显示规则
 						columns:[
 							{ key:"", title:"基础属性", type:"bar-title" },
-							{ key:"permission_id", title:"标识", type:"text", show:["add"],
+							{ key:"permission_id", title:"标识", type:"text", disabled:["update"],
 								tips:"全局唯一，添加后不可修改，请尽量语义化。如：user-manage、user-add"
 							},
 							{ key:"permission_name", title:"名称", type:"text",
 								tips:"起一个容易表达权限含义的名称"
 							},
-							{ key:"icon", title:"图标", type:"text", tips:"设置一个能表达权限含义的图标" },
 							{
 								key:"url", title:"URL", type:"array<string>", tips:"云函数路径",
 								isUnique:true,
@@ -165,8 +172,8 @@
 								data:matchModeData,
 								tips:"选择合适的匹配模式"
 							},
-							{ key:"sort", title:"排序值", type:"number", tips:"越小越显示在前面" },
 							{ key:"parent_id", title:"父级标识", type:"text", tips:"分级的permission_id" },
+							{ key:"sort", title:"排序值", type:"number", tips:"越小越显示在前面" },
 							{ key:"comment", title:"备注", type:"textarea",maxlength:"99",showWordLimit:true,autosize:{ minRows: 2, maxRows: 10 },
 								tips:"设置一个备注来更详细的描述此权限的含义"
 							},
@@ -201,6 +208,8 @@
 						show:false,
 					}
 				},
+				// 其他表单属性容器(请勿修改)
+				formDatas:{},
 				// 表单相关结束-----------------------------------------------------------
 
 			};
@@ -241,8 +250,8 @@
 				that.$refs.table1.refresh();
 			},
 			// 获取当前选中的行的数据
-			getCurrentRow(){
-				return that.$refs.table1.getCurrentRow();
+			getCurrentRow(key){
+				return that.$refs.table1.getCurrentRow(key);
 			},
 			// 监听 - 行的选中高亮事件
 			currentChange(val){
@@ -263,6 +272,7 @@
 				if(currentRow && currentRow.permission_id){
 					// 设置的方法
 					that.$set(that.form1.data,"parent_id", currentRow.permission_id);
+					that.$set(that.form1.data,"permission_id", currentRow.permission_id+"-");
 				}
 			},
 			// 显示修改页面
@@ -282,6 +292,14 @@
 					},
 				});
 			},
+			cellClick(row, column, cell, event){
+				let key = column.property;
+				if(key === "curd_category"){
+					// 修改分类
+					let item = that.getCurrentRow(true);
+					vk.pubfn.openForm('updateCategory', { item });
+				}
+			}
 		},
 		// 监听属性
 		watch: {

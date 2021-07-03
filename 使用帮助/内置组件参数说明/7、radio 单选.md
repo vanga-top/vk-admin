@@ -139,7 +139,7 @@
 <vk-data-input-radio
   v-model="form1.value"
   :item-width="80"
-  :action="admin/select/kh/categorys"
+  action="admin/select/kh/categorys"
   :props="{ list:'rows', value:'_id', label:'name' }"
 ></vk-data-input-radio>
 ```

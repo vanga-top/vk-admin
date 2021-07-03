@@ -54,7 +54,7 @@ export default {
 		return {
 			// 页面基础数据
 			page: {
-				title: "角色绑定",
+				title: "重置密码",
 				submitText: "绑定",
 				cancelText: "关闭",
 				showCancel: true,
@@ -69,8 +69,7 @@ export default {
 				// 表单请求数据，此处可以设置默认值
 				data: {
 					user_id: "",
-					roleList: [],
-					reset: true
+					password:""
 				},
 				// 表单属性
 				props: {
@@ -115,16 +114,17 @@ export default {
 		// 监听 - 页面打开
 		onOpen() {
 			that = this;
-			let { value } = that;
-			let { role = [], _id } = value.item;
-			that.data = value.item;
-			that.form1.props.show = true;
-			that.form1.data.user_id = _id;
-			that.form1.data.roleList = role;
+			let { item={} } = that.value;
+			let data = vk.pubfn.copyObject(item);
+			that.data = data;
+			that.form1.data = {
+				user_id: data._id,
+				password: ""
+			};
 		},
 		// 监听 - 页面关闭
 		onClose() {
-			that.resetForm();
+			//that.resetForm();
 		},
 		// 表单提交成功后
 		onFormSuccess() {
