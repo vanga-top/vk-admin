@@ -27,7 +27,7 @@ module.exports = {
 			comment,
 			allow_login_background
 		} = data;
-
+		let mobile_confirmed;
 		// 参数合法校验开始-----------------------------------------------------------
 		let formRulesRes = await formRules.update(event);
 		if (formRulesRes.code !== 0) {
@@ -49,6 +49,7 @@ module.exports = {
 			if (num > 0) {
 				return { code: -1, msg: `手机号【${mobile}】已注册!` };
 			}
+			mobile_confirmed = 1; // 设置该手机号为已验证(否则无法通过手机号进行登录)
 		}
 		// 执行数据库API请求
 		res.num = await vk.baseDao.updateById({
@@ -58,6 +59,7 @@ module.exports = {
 				nickname,
 				gender,
 				mobile,
+				mobile_confirmed,
 				comment,
 				allow_login_background
 			}

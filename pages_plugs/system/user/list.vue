@@ -11,25 +11,23 @@
 		<!-- 表格搜索组件结束 -->
 
 		<!-- 自定义按钮区域开始 -->
-		<view>
-			<el-row>
-				<el-button type="success" size="small" icon="el-icon-circle-plus-outline" @click="addBtn">添加</el-button>
-				<!-- 批量操作 -->
-				<el-dropdown v-if="table1.multipleSelection" :split-button="false"	trigger="click" @command="batchBtn">
-					<el-button type="danger" size="small" style="margin-left: 20rpx;"
-						:disabled="table1.multipleSelection.length === 0"
-					>
-						批量操作<i class="el-icon-arrow-down el-icon--right"></i>
-					</el-button>
-				  <el-dropdown-menu slot="dropdown">
-						<el-dropdown-item :command="1">账号批量解冻</el-dropdown-item>
-						<el-dropdown-item :command="2">账号批量冻结</el-dropdown-item>
-				  </el-dropdown-menu>
-				</el-dropdown>
+		<view class="vk-table-button-box">
+			<el-button type="success" size="small" icon="el-icon-circle-plus-outline" @click="addBtn">添加</el-button>
+			<!-- 批量操作 -->
+			<el-dropdown v-if="table1.multipleSelection" :split-button="false"	trigger="click" @command="batchBtn">
+				<el-button type="danger" size="small"
+					:disabled="table1.multipleSelection.length === 0"
+				>
+					批量操作<i class="el-icon-arrow-down el-icon--right"></i>
+				</el-button>
+				<el-dropdown-menu slot="dropdown">
+					<el-dropdown-item :command="1">账号批量解冻</el-dropdown-item>
+					<el-dropdown-item :command="2">账号批量冻结</el-dropdown-item>
+				</el-dropdown-menu>
+			</el-dropdown>
 
-				<el-button style="margin-left: 20rpx;" type="primary" size="small" icon="el-icon-s-tools" :disabled="!table1.selectItem" @click="bindRoleBtn">角色绑定</el-button>
-				<el-button style="margin-left: 20rpx;" type="primary" size="small" icon="el-icon-warning-outline" :disabled="!table1.selectItem" @click="resetPasswordBtn">重置密码</el-button>
-			</el-row>
+			<el-button type="primary" size="small" icon="el-icon-s-tools" :disabled="!table1.selectItem" @click="bindRoleBtn">角色绑定</el-button>
+			<el-button type="primary" size="small" icon="el-icon-warning-outline" :disabled="!table1.selectItem" @click="resetPasswordBtn">重置密码</el-button>
 		</view>
 		<!-- 自定义按钮区域结束 -->
 

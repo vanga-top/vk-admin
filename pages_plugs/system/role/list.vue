@@ -11,15 +11,10 @@
 		<!-- 表格搜索组件结束 -->
 
 		<!-- 自定义按钮区域开始 -->
-		<view>
-			<el-row>
-				<el-button type="success" size="small" icon="el-icon-circle-plus-outline" @click="addBtn">添加</el-button>
-				<el-button style="margin-left: 20rpx;" type="primary" size="small" icon="el-icon-s-tools" :disabled="!table1.selectItem"
-				 @click="bindPermissionBtn">权限赋予</el-button>
-				<!-- 菜单赋予的逻辑从这个地方开始 -->
-				<el-button style="margin-left: 20rpx;" type="danger" size="small" icon="el-icon-s-tools" :disabled="!table1.selectItem"
-				 @click="bindMenu">菜单赋予</el-button>
-			</el-row>
+		<view class="vk-table-button-box">
+			<el-button type="success" size="small" icon="el-icon-circle-plus-outline" @click="addBtn">添加</el-button>
+			<el-button type="primary" size="small" icon="el-icon-s-tools" :disabled="!table1.selectItem" @click="bindPermissionBtn">权限赋予</el-button>
+			<el-button type="danger" size="small" icon="el-icon-s-tools" :disabled="!table1.selectItem" @click="bindMenu">菜单赋予</el-button>
 		</view>
 		<!-- 自定义按钮区域结束 -->
 		<!-- 表格组件开始 -->
@@ -102,6 +97,14 @@
 								let str = "";
 								if(row.role_id === "admin"){
 									str = "系统内置角色 - 拥有所有权限";
+								}else if(row.role_id === "admin-lv3"){
+									str = "系统内置角色 - 拥有除【核弹级】权限外的其他所有权限";
+								}else if(row.role_id === "admin-lv2"){
+									str = "系统内置角色 - 拥有【炸弹级、子弹级】级别的权限";
+								}else if(row.role_id === "admin-lv1"){
+									str = "系统内置角色 - 拥有【子弹级】级别的权限";
+								}else if(row.role_id === "query-all"){
+									str = "系统内置角色 - 拥有所有【查询】分类且非【核弹级】的权限";
 								}else if(vk.pubfn.isNull(val)){
 									str = "该角色未赋予任何权限";
 								}else{
@@ -115,12 +118,6 @@
 								let str = "";
 								if(row.role_id === "admin"){
 									str = "系统内置角色 - 拥有所有菜单";
-								}else if(row.role_id === "admin-lv3"){
-									str = "系统内置角色 - 拥有除【核弹级】菜单外的其他所有菜单";
-								}else if(row.role_id === "admin-lv2"){
-									str = "系统内置角色 - 拥有【炸弹级、子弹级】级别的菜单";
-								}else if(row.role_id === "admin-lv1"){
-									str = "系统内置角色 - 拥有【子弹级】级别的菜单";
 								}else if(vk.pubfn.isNull(val)){
 									str = "该角色未赋予任何菜单";
 								}else{

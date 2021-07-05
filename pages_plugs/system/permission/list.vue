@@ -3,7 +3,7 @@
 		<!-- 页面内容开始 -->
 
 		<!-- 自定义按钮区域开始 -->
-		<view>
+		<view class="vk-table-button-box">
 			<el-button type="success" size="small" icon="el-icon-circle-plus-outline" @click="addBtn">添加</el-button>
 		</view>
 		<!-- 自定义按钮区域结束 -->
@@ -38,7 +38,7 @@
 				:form-type="form1.props.formType"
 				:columns='form1.props.columns'
 				label-width="80px"
-				@success="form1.props.show = false;refresh();"
+				@success="formSuccess"
 			></vk-data-form>
 		</vk-data-dialog>
 		<!-- 添加或编辑的弹窗结束 -->
@@ -92,7 +92,7 @@
 						{ key:"url", title:"URL", type:"text", width:250, align:"left" },
 						{ key:"match_mode", title:"匹配模式", type:"text", width:100,
 							formatter:function(val, row, column, index){
-								if(typeof val === "undefined" || row.type == 0) return "";
+								if(typeof val === "undefined" || row.type == 0 || !row.url || row.url.length == 0) return "";
 								return matchModeData[val].label;
 							}
 						},
@@ -163,7 +163,7 @@
 								tips:"起一个容易表达权限含义的名称"
 							},
 							{
-								key:"url", title:"URL", type:"array<string>", tips:"云函数路径",
+								key:"url", title:"URL", type:"array<string>", tips:"云函数路径，若该权限只是父权限分组用，点击清空即可。",
 								isUnique:true,
 								rules:[
 									{ required:true, message:"该项不能为空", trigger:["change","blur"] },
@@ -296,6 +296,20 @@
 				that.form1.props.title = '编辑';
 				that.form1.props.show = true;
 				that.form1.data = item;
+			},
+			formSuccess(){
+				that.form1.props.show = false;
+				// 下面的写法是为了部分修改完成后，减少一次再次请求数据库的查询
+				if(that.form1.props.formType === "update"){
+					let item = that.getCurrentRow(true);
+					if(item.parent_id !== that.form1.data.parent_id){
+						that.refresh();
+					}else{
+						vk.pubfn.objectAssign(item, that.form1.data);
+					}
+				}else{
+					that.refresh();
+				}
 			},
 			// 删除按钮
 			deleteBtn({ item, deleteFn }){

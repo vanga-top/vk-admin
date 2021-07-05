@@ -3,11 +3,9 @@
 		<!-- 页面内容开始 -->
 
 		<!-- 自定义按钮区域开始 -->
-		<view>
+		<view class="vk-table-button-box">
 			<el-button type="success" size="small" icon="el-icon-circle-plus-outline" @click="addBtn">添加</el-button>
-			<!-- 设置内置权限 -->
-			<el-button style="margin-left: 20rpx;" type="primary" size="small" icon="el-icon-s-tools" :disabled="!table1.selectItem"
-			 @click="bindPermissionBtn">设置内置权限</el-button>
+			<el-button type="primary" size="small" icon="el-icon-s-tools" :disabled="!table1.selectItem" @click="bindPermissionBtn">设置内置权限</el-button>
 			<el-button type="success" size="small" icon="el-icon-circle-plus-outline" @click="addMenuByJsonBtn">通过JSON批量导入菜单</el-button>
 		</view>
 		<!-- 自定义按钮区域结束 -->
@@ -41,7 +39,7 @@
 				:form-type="form1.props.formType"
 				:columns='form1.props.columns'
 				label-width="80px"
-				@success="form1.props.show = false;refresh();"
+				@success="formSuccess"
 			></vk-data-form>
 		</vk-data-dialog>
 		<!-- 添加或编辑的弹窗结束 -->
@@ -238,8 +236,8 @@
 				that.$refs.table1.refresh();
 			},
 			// 获取当前选中的行的数据
-			getCurrentRow(){
-				return that.$refs.table1.getCurrentRow();
+			getCurrentRow(key){
+				return that.$refs.table1.getCurrentRow(key);
 			},
 			// 监听 - 行的选中高亮事件
 			currentChange(val){
@@ -268,6 +266,20 @@
 				that.form1.props.title = '编辑';
 				that.form1.props.show = true;
 				that.form1.data = item;
+			},
+			formSuccess(){
+				that.form1.props.show = false;
+				// 下面的写法是为了部分修改完成后，减少一次再次请求数据库的查询
+				if(that.form1.props.formType === "update"){
+					let item = that.getCurrentRow(true);
+					if(item.parent_id !== that.form1.data.parent_id){
+						that.refresh();
+					}else{
+						vk.pubfn.objectAssign(item, that.form1.data);
+					}
+				}else{
+					that.refresh();
+				}
 			},
 			// 删除按钮
 			deleteBtn({ item, deleteFn }){
