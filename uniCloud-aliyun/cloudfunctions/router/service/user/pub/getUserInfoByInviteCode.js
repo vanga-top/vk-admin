@@ -4,7 +4,7 @@ module.exports = {
 	 * 根据邀请码获取用户社交信息
 	 * @url user/pub/getUserInfoByInviteCode 前端调用的url参数地址
 	 * data 请求参数
-	 * @params {String} code
+	 * @param {String} code
 	 */
 	main: async (event) => {
 		let { data = {}, util, originalParam } = event;

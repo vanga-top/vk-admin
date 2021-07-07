@@ -4,17 +4,17 @@ module.exports = {
    * @url user/pub/code2SessionWeixin 前端调用的url参数地址
    * @description 获取微信openid
    * data 请求参数 说明
-   * @params {String} code 微信登录返回的code
-	 * @params {String} platform 客户端类型：mp-weixin、app-plus，默认uni-id会自动取客户端类型，但是在云函数url化等场景无法取到客户端类型，可以使用此参数指定
+   * @param {String} code 微信登录返回的code
+	 * @param {String} platform 客户端类型：mp-weixin、app-plus，默认uni-id会自动取客户端类型，但是在云函数url化等场景无法取到客户端类型，可以使用此参数指定
    * res 返回参数说明
-   * @params {Number} code 错误码，0表示成功
-   * @params {String} msg 详细信息
-   * @params {String} openid 用户openid
-   * @params {String} unionid 用户unionid，可以取到此值时返回
-	 * @params {String} sessionKey 客户端为微信小程序时返回
-	 * @params {String} accessToken 客户端为APP时返回
-	 * @params {String} expiresIn 客户端为APP时返回，accessToken 接口调用凭证超时时间，单位（秒）
-	 * @params {String} refreshToken 客户端为APP时返回，用于刷新accessToken
+   * @param {Number} code 错误码，0表示成功
+   * @param {String} msg 详细信息
+   * @param {String} openid 用户openid
+   * @param {String} unionid 用户unionid，可以取到此值时返回
+	 * @param {String} sessionKey 客户端为微信小程序时返回
+	 * @param {String} accessToken 客户端为APP时返回
+	 * @param {String} expiresIn 客户端为APP时返回，accessToken 接口调用凭证超时时间，单位（秒）
+	 * @param {String} refreshToken 客户端为APP时返回，用于刷新accessToken
    */
 	main: async (event) => {
 		let { data = {}, userInfo, util, originalParam } = event;

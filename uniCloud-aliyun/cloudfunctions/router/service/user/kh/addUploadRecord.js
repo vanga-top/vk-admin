@@ -3,15 +3,15 @@ module.exports = {
 	 * 添加文件上传记录
 	 * @url user/kh/addUploadRecord 前端调用的url参数地址
 	 * data 请求参数 说明
-	 * @params {String} url					文件外网访问url
-	 * @params {String} name 				文件名
-	 * @params {Number} size				文件大小
-	 * @params {String} file_id			文件id
-	 * @params {String} provider		供应商
-	 * @params {String} category_id 分类ID
+	 * @param {String} url					文件外网访问url
+	 * @param {String} name 				文件名
+	 * @param {Number} size				文件大小
+	 * @param {String} file_id			文件id
+	 * @param {String} provider		供应商
+	 * @param {String} category_id 分类ID
 	 * res 返回参数说明
-	 * @params {Number} code 错误码，0表示成功
-	 * @params {String} msg 详细信息
+	 * @param {Number} code 错误码，0表示成功
+	 * @param {String} msg 详细信息
 	 */
 	main: async (event) => {
 		let { data = {}, userInfo, util, filterResponse, originalParam } = event;

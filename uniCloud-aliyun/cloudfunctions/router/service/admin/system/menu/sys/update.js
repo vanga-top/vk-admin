@@ -4,17 +4,17 @@ module.exports = {
    * 修改
    * @url admin/system/menu/sys/update 前端调用的url参数地址
    * data 请求参数 说明
-	 * @params {String} menu_id 					菜单Id，唯一标识
-	 * @params {String} name 							菜单名称
-	 * @params {String} comment 					备注
-	 * @params {String} url 							页面路径
-	 * @params {String} icon 							菜单图标
-	 * @params {Number} sort 							排序(越大越在前面)
-	 * @params {String} parent_id 				父级id
-	 * @params {Boolean} enable 					是否启用
+	 * @param {String} menu_id 					菜单Id，唯一标识
+	 * @param {String} name 							菜单名称
+	 * @param {String} comment 					备注
+	 * @param {String} url 							页面路径
+	 * @param {String} icon 							菜单图标
+	 * @param {Number} sort 							排序(越大越在前面)
+	 * @param {String} parent_id 				父级id
+	 * @param {Boolean} enable 					是否启用
    * res 返回参数说明
-   * @params {Number} code 错误码，0表示成功
-   * @params {String} msg 详细信息
+   * @param {Number} code 错误码，0表示成功
+   * @param {String} msg 详细信息
    */
   main: async (event) => {
 		let { data = {}, userInfo, util, filterResponse, originalParam } = event;

@@ -4,9 +4,9 @@ module.exports = {
    * @url user/kh/setUserInviteCode 前端调用的url参数地址
    * @description 针对未生成邀请码的用户使用此方法生成邀请码(自动生成)
 	 * res 返回参数说明
-	 * @params {Number} code 错误码，0表示成功
-	 * @params {String} msg 详细信息
-	 * @params {String} myInviteCode 最终设置的邀请码
+	 * @param {Number} code 错误码，0表示成功
+	 * @param {String} msg 详细信息
+	 * @param {String} myInviteCode 最终设置的邀请码
    */
 	main: async (event) => {
 		let { data = {},userInfo, util, originalParam } = event;

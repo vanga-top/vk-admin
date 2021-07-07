@@ -620,6 +620,8 @@ class CallFunctionUtil {
 		if (typeof res.code !== "undefined") {
 			if (res.msg) {
 				errMsg = res.msg;
+			} else if (res.errMsg) {
+				errMsg = res.errMsg;
 			} else if (res.message) {
 				errMsg = res.message;
 			}

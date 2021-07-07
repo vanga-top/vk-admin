@@ -3,13 +3,13 @@ module.exports = {
    * 密码加密测试
    * @url user/sys/encryptPwd 前端调用的url参数地址
    * @description 密码加密测试
-   * @params {Object} data 请求参数
-   * @params {String} uniIdToken 用户token
-   * @params {Object} util 公共工具包
+   * @param {Object} data 请求参数
+   * @param {String} uniIdToken 用户token
+   * @param {Object} util 公共工具包
 	 * res 返回参数说明
-	 * @params {Number} code 错误码，0表示成功
-	 * @params {String} msg 详细信息
-	 * @params {String} password 加密后的字符串
+	 * @param {Number} code 错误码，0表示成功
+	 * @param {String} msg 详细信息
+	 * @param {String} password 加密后的字符串
    */
 	main: async (event) => {
 		let { util } = event;

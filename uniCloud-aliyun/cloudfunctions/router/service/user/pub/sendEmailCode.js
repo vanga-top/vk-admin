@@ -8,13 +8,13 @@ module.exports = {
 	 * @url user/pub/sendEmailCode 前端调用的url参数地址
 	 * @description 发送邮箱验证码
 	 * data 请求参数 说明
-	 * @params {String} email 邮箱
-	 * @params {String} type  验证码类型
+	 * @param {String} email 邮箱
+	 * @param {String} type  验证码类型
 	 * res 返回参数说明
-	 * @params {Number} code 错误码，0表示成功
-	 * @params {String} msg 详细信息
-	 * @params {String} email 手机号  
-	 * @params {String} verifyCode 验证码
+	 * @param {Number} code 错误码，0表示成功
+	 * @param {String} msg 详细信息
+	 * @param {String} email 手机号  
+	 * @param {String} verifyCode 验证码
 	 */
 	main: async (event) => {
 		let { data = {}, util } = event;

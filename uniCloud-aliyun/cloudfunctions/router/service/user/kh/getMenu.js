@@ -4,8 +4,8 @@ module.exports = {
 	 * 获取我拥有的菜单列表
 	 * @url user/kh/getMenu 前端调用的url参数地址
 	 * res 返回参数说明
-	 * @params {Number} code 错误码，0表示成功
-	 * @params {String} msg 详细信息
+	 * @param {Number} code 错误码，0表示成功
+	 * @param {String} msg 详细信息
 	 */
 	main: async (event) => {
 		let { data = {}, userInfo, util, filterResponse, originalParam } = event;

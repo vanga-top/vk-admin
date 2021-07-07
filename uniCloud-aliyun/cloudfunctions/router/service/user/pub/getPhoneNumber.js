@@ -4,9 +4,9 @@ module.exports = {
 	 * 获取用户微信绑定的手机号
 	 * @url user/pub/getPhoneNumber 前端调用的url参数地址
 	 * data 请求参数
-	 * @params {String} encryptedData
-	 * @params {String} iv
-	 * @params {String} sessionKey
+	 * @param {String} encryptedData
+	 * @param {String} iv
+	 * @param {String} sessionKey
 	 */
 	main: async (event) => {
 		let { data = {}, userInfo, util, originalParam } = event;

@@ -3,12 +3,12 @@ module.exports = {
 	 * 修改
 	 * @url admin/system_uni/uni-id-files/files/kh/update 前端调用的url参数地址
 	 * data 请求参数 说明
-	 * @params {String} display_name 		显示在后台的文件名称
-	 * @params {String} category_id 		分类id
-	 * @params {Number} status 					0:未审核 1:已审核通过 2:审核不通过
+	 * @param {String} display_name 		显示在后台的文件名称
+	 * @param {String} category_id 		分类id
+	 * @param {Number} status 					0:未审核 1:已审核通过 2:审核不通过
 	 * res 返回参数说明
-	 * @params {Number} code 错误码，0表示成功
-	 * @params {String} msg 详细信息
+	 * @param {Number} code 错误码，0表示成功
+	 * @param {String} msg 详细信息
 	 */
 	main: async (event) => {
 		let { data = {}, userInfo, util, filterResponse, originalParam } = event;

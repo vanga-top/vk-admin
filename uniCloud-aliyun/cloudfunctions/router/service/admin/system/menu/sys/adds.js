@@ -4,11 +4,11 @@ module.exports = {
    * 批量新增
    * @url admin/system/menu/sys/adds 前端调用的url参数地址
    * data 请求参数 说明
-	 * @params {Number} mode 					模式 1 :覆盖 2:忽略
-	 * @params {Array<Object>} menus 	菜单json
+	 * @param {Number} mode 					模式 1 :覆盖 2:忽略
+	 * @param {Array<Object>} menus 	菜单json
    * res 返回参数说明
-   * @params {Number} code 错误码，0表示成功
-   * @params {String} msg 详细信息
+   * @param {Number} code 错误码，0表示成功
+   * @param {String} msg 详细信息
    */
   main: async (event) => {
 		let { data = {}, userInfo, util, filterResponse, originalParam } = event;

@@ -209,6 +209,17 @@
 									multiple:true
 								}
 							},
+              {
+                key:"cascader3", title:"云端数据级联懒加载", type:"cascader",
+                action:"admin/system/menu/sys/getCascader",
+                props:{
+                  list:"rows",
+                  value:"menu_id",
+                  label:"label",
+                  children:"children",
+                  lazy:true,
+                }
+              },
 							{ key:"switch", title:"switch类型", type:"switch" },
 							{ key:"rate", title:"评分类型", type:"rate", allowHalf:false },
 							{ key:"slider", title:"滑块类型", type:"slider" },

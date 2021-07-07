@@ -4,14 +4,14 @@ module.exports = {
    * @url user/pub/loginByWeixinPhoneNumber 前端调用的url参数地址
    * @description 用户登录(微信授权)
 	 * data 请求参数 说明
-	 * @params {String} encryptedData
-	 * @params {String} iv
-	 * @params {String} sessionKey
+	 * @param {String} encryptedData
+	 * @param {String} iv
+	 * @param {String} sessionKey
 	 * res 返回参数说明
-	 * @params {Number} code 错误码，0表示成功
-	 * @params {String} msg 详细信息
-	 * @params {String} token 登录成功之后返回的token信息
-	 * @params {String} tokenExpired token过期时间
+	 * @param {Number} code 错误码，0表示成功
+	 * @param {String} msg 详细信息
+	 * @param {String} token 登录成功之后返回的token信息
+	 * @param {String} tokenExpired token过期时间
    */
 	main: async (event) => {
 		let { data = {}, util, originalParam } = event;
@@ -53,7 +53,7 @@ module.exports = {
 						await vk.globalDataCache.del(cacheKey);
 					}
 					let mobileStr = mobile.substring(7);
-					await vk.baseDao.updateById({
+					res.userInfo = await vk.baseDao.updateById({
 						dbName:"uni-id-users",
 						id:res.uid,
 						dataJson:{
@@ -62,7 +62,8 @@ module.exports = {
 							gender,
 							wx_openid,
 							wx_unionid
-						}
+						},
+						getUpdateData:true
 					});
 				}
 				// 日志服务
@@ -72,7 +73,7 @@ module.exports = {
 					login_type: "weixinPhoneNumber",
 					user_id: res.uid,
 					context: originalParam.context
-				}, util);
+				},util);
 			}
 		}
 		// 业务逻辑结束-----------------------------------------------------------

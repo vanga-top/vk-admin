@@ -4,7 +4,7 @@ module.exports = {
 	 * 此函数名称
 	 * @url user/pub/test1 前端调用的url参数地址
 	 * data 请求参数
-	 * @params {String} params1  参数1
+	 * @param {String} params1  参数1
 	 */
 	main: async (event) => {
 		let { data = {}, userInfo, util, filterResponse, originalParam } = event;

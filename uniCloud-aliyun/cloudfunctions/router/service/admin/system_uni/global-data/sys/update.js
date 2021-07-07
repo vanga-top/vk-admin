@@ -4,13 +4,13 @@ module.exports = {
 	 * 修改
 	 * @url admin/system_uni/global-data/sys/update 前端调用的url参数地址
 	 * data 请求参数 说明
-	 * @params {String} key 			键名
-	 * @params {不限制} value 			键值
-	 * @params {不限制} comment 		备注
-	 * @params {String} _id 			id
+	 * @param {String} key 			键名
+	 * @param {不限制} value 			键值
+	 * @param {不限制} comment 		备注
+	 * @param {String} _id 			id
 	 * res 返回参数说明
-	 * @params {Number} code			错误码，0表示成功
-	 * @params {String} msg				详细信息
+	 * @param {Number} code			错误码，0表示成功
+	 * @param {String} msg				详细信息
 	 */
 	main: async (event) => {
 		let { data = {}, userInfo, util, filterResponse, originalParam } = event;

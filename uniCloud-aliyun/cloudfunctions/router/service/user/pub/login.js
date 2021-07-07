@@ -4,13 +4,13 @@ module.exports = {
 	 * @url user/pub/login 前端调用的url参数地址
 	 * @description 用户登录(账号+密码)
 	 * data 请求参数 说明
-	 * @params {String} username 用户名
-	 * @params {String} password 密码
+	 * @param {String} username 用户名
+	 * @param {String} password 密码
 	 * res 返回参数说明
-	 * @params {Number} code 错误码，0表示成功
-	 * @params {String} msg 详细信息
-	 * @params {String} token 登录成功之后返回的token信息
-	 * @params {String} tokenExpired token过期时间
+	 * @param {Number} code 错误码，0表示成功
+	 * @param {String} msg 详细信息
+	 * @param {String} token 登录成功之后返回的token信息
+	 * @param {String} tokenExpired token过期时间
 	 */
 	main: async (event) => {
 		let { data = {}, util, originalParam } = event;
@@ -33,7 +33,7 @@ module.exports = {
 				login_type: "password",
 				user_id: res.uid,
 				context: originalParam.context
-			},event.util);
+			},util);
 		}
 		// 业务逻辑结束-----------------------------------------------------------
 		return res;

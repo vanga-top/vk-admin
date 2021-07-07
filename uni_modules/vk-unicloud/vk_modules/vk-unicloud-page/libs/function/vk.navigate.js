@@ -56,8 +56,8 @@ util._navigateTo = function(obj) {
 		animationType: animationType,
 		animationDuration: animationDuration,
 		events: events, // 参考 https://uniapp.dcloud.io/api/router?id=navigateto
-		success: function() {
-			if (typeof obj.success == "function") obj.success();
+		success: function(res) {
+			if (typeof obj.success == "function") obj.success(res);
 		},
 		fail: function(err) {
 			if (err.errMsg.indexOf("not found") > -1) {
@@ -76,14 +76,14 @@ util._navigateTo = function(obj) {
 						success: obj.success,
 						fail: function(err) {
 							console.error(err);
-							if (typeof obj.fail == "function") obj.fail();
+							if (typeof obj.fail == "function") obj.fail(err);
 						}
 					});
 				}
 			});
 		},
-		complete: function() {
-			if (typeof obj.complete == "function") obj.complete();
+		complete: function(res) {
+			if (typeof obj.complete == "function") obj.complete(res);
 		}
 	});
 };

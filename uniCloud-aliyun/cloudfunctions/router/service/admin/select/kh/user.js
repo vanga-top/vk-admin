@@ -3,9 +3,10 @@ module.exports = {
    * 查询用户列表(用于后端用户选择器的搜索数据)
    * @url admin/select/kh/user 前端调用的url参数地址
    * data 请求参数 说明
+   * @param {String} searchvalue 搜索内容
    * res 返回参数说明
-   * @params {Number} code 错误码，0表示成功
-   * @params {String} msg 详细信息
+   * @param {Number} code 错误码，0表示成功
+   * @param {String} msg 详细信息
    */
   main: async (event) => {
 		let { data = {}, userInfo, util, filterResponse, originalParam } = event;

@@ -3,11 +3,11 @@ module.exports = {
 	 * 修改用户推荐人
 	 * @url admin/system/user/sys/batchUpdateInviterUid 前端调用的url参数地址
 	 * data 请求参数 说明
-	 * @params {String} user_id 		用户ID
-	 * @params {String} parent_id 修改成的用户推荐人邀请码
+	 * @param {String} user_id 		用户ID
+	 * @param {String} parent_id 修改成的用户推荐人邀请码
 	 * res 返回参数说明
-	 * @params {Number} code 错误码，0表示成功
-	 * @params {String} msg 详细信息
+	 * @param {Number} code 错误码，0表示成功
+	 * @param {String} msg 详细信息
 	 */
 	main: async (event) => {
 		let { data = {}, userInfo, util, filterResponse, originalParam } = event;
