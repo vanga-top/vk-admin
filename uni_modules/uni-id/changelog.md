@@ -1,3 +1,8 @@
+## 3.2.1（2021-07-09）
+- 撤销3.2.0版本所做的调整
+## 3.2.0（2021-07-09）
+- 【重要】支持不同端（管理端、用户端等）用户隔离 [详情](https://uniapp.dcloud.net.cn/uniCloud/uni-id?id=isolate-user)
+- 支持不同端（管理端、用户端等）配置文件隔离 [详情](https://uniapp.dcloud.net.cn/uniCloud/uni-id?id=isolate-config)
 ## 3.1.3（2021-07-08）
 - 移除插件内误传的node_modules
 ## 3.1.2（2021-07-08）

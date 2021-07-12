@@ -47,7 +47,7 @@ pubfn.setClipboardData = setClipboardData;
 /**
  * 日期格式化
  * @params {Date || Number} date 需要格式化的时间
- * vk.pubfn.timeFormat(new Date(),"yyyy:MM:dd hh:mm:ss");
+ * vk.pubfn.timeFormat(new Date(),"yyyy-MM-dd hh:mm:ss");
  */
 pubfn.timeFormat = pubfn.timeUtil.timeFormat;
 /**
@@ -198,7 +198,7 @@ pubfn.test = function (str, type){
 		case 'english': //英文
 			return new RegExp(/^[a-zA-Z]+$/).test(str);
 		case 'chinese': //中文
-			return new RegExp(/^[\\u4E00-\\u9FA5]+$/).test(str);
+			return new RegExp(/^[\u4e00-\u9fa5]+$/gi).test(str);
 		case 'lower': //小写
 			return new RegExp(/^[a-z]+$/).test(str);
 		case 'upper': //大写

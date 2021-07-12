@@ -19,6 +19,7 @@
 | formData         | 查询条件数据源 | Object  | - | -  |
 | columns          | 静态模式 - 总记录数 | Array  | - | -  |
 
+#### mode
 #### columns 中 mode 参数详情
 | 值         | 说明              
 |------------|-------------------|
@@ -125,7 +126,7 @@ queryForm1:{
 | type   |   组件类型    | String  | 无    | -  |
 | width   |  组件宽度    | Number  | 无    | -  |
 | placeholder   |   输入前的提示    | String  | - | -  |
-| mode   |  查询模式    | String  | = | 见下方  |
+| mode   |  查询模式    | String  | = |  [查看mode](#mode) |
 | fieldName   |  数据库字段名称，默认=key的值    | String  | key的值  | -  |
 | lastWhereJson   |  是否是连表后的where条件 | Boolean  | false | true  |
 | hidden   |  是否隐藏组件 | Boolean  | false | true  |

@@ -22,6 +22,7 @@
 | controlsPosition            |控制按钮位置| String  |  - | right |
 | step          | 步长 | Number|  - | - |
 | stepStrictly            | 是否必须是步长的倍数 | false | true  |
+| readonly          | 原生属性，是否只读  | boolean|  false | true |
 
 
 ## 万能表格使用方式

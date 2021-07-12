@@ -1,3 +1,7 @@
+## 2.2.1（2021-07-12）
+###  更新内容
+####【修复】连表查询时，因`lastWhereJson`而导致`getCount`错误的问题。
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.2.0（2021-07-09）
 ###  更新内容
 #### 1、【重要调整】删除了`config`公共模块，升级为`uni-config-center`模式 [点击查看升级教程](https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=4219337&doc_id=975983)

@@ -17,6 +17,7 @@
 | max            | 最大输入 | Number  | - | -  |
 | rightText          | 右侧文字后缀 | String  | % | - |
 | precision            | 精度（小数点位数） | Number  | 2 | -  |
+| readonly          | 原生属性，是否只读  | boolean|  false | true |
 
 ## 万能表格使用方式
 
