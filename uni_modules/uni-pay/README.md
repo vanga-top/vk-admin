@@ -14,9 +14,9 @@
 
 ## 示例项目使用说明
 
-1. 首先在`cloudfunctions/common/config/index.js`内填写各个平台所需的配置。
+1. 首先在`cloudfunctions/common/uni-config-center/uni-pay/config.js`内填写各个平台所需的配置。
 
-**示例项目已集成[uni-id](https://ext.dcloud.net.cn/plugin?id=2116)，需在`cloudfunctions/common/uni-id/config.json`内填写支付宝小程序、微信小程序登录相关信息**
+**示例项目已集成[uni-id](https://ext.dcloud.net.cn/plugin?id=2116)，需在`cloudfunctions/common/uni-config-center/uni-id/config.json`内填写支付宝小程序、微信小程序登录相关信息**
 
 如需开通对应平台的支付能力请参考以下文档
 

@@ -1,3 +1,6 @@
+## 1.0.14（2021-07-12）
+- 支持使用微信子商户号，[详情](https://uniapp.dcloud.net.cn/uniCloud/unipay?id=init)，感谢[studytime](https://gitee.com/studytime)
+- 修复支付宝支付传入encode后的passbackParams参数导致验签无法通过的Bug
 ## 1.0.13（2021-03-25）
 - 修复 微信退款通知解析报错的Bug
 ## 1.0.12（2021-02-03）

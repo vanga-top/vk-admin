@@ -1,3 +1,11 @@
+## 2.2.4（2021-07-12）
+###  更新内容
+####【修复】已知问题
+## 2.2.3（2021-07-12）
+###  更新内容
+####【修复】首次使用框架，上传部署后访问云函数可能会出现 `createInstance is undefined` 的问题。
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+
 ## 2.2.2（2021-07-12）
 ###  更新内容
 ####【修复】连表查询时，因`lastWhereJson`而导致`getCount`错误的问题。
