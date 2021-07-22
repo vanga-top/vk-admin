@@ -381,7 +381,7 @@
 		"triggerAssist": false,
 		"description": "获取用户信息"
 	},
-	
+
 	"setTimeout": {
 	 "prefix": "qq.",
 	 "body": [
@@ -432,5 +432,215 @@
 		],
 		"triggerAssist": false,
 		"description": "try-catch"
+	},
+	"vk.baseDao.findById": {
+	 "prefix": "baseDao.findById",
+	 "body": [
+			"let info = await vk.baseDao.findById({",
+			"\tdbName:\"$0\",",
+			"\tid:id,",
+			"\tfieldJson:{}",
+			"});"
+		],
+		"triggerAssist": false,
+		"description": "根据ID获取一条数据库数据"
+	},
+	"vk.baseDao.findByWhereJson": {
+	 "prefix": "baseDao.findByWhereJson",
+	 "body": [
+			"let info = await vk.baseDao.findByWhereJson({",
+			"\tdbName:\"$0\",",
+			"\twhereJson:{",
+			"\t\t",
+			"\t}",
+			"\tfieldJson:{}",
+			"});"
+		],
+		"triggerAssist": false,
+		"description": "根据whereJson获取一条数据库数据"
+	},
+	"vk.baseDao.count": {
+	 "prefix": "baseDao.count",
+	 "body": [
+			"res.num = await vk.baseDao.count({",
+			"\tdbName:\"$0\",",
+			"\twhereJson:{",
+			"\t\t",
+			"\t}",
+			"});"
+		],
+		"triggerAssist": false,
+		"description": "count满足条件的数据库条数"
+	},
+	"vk.baseDao.update": {
+	 "prefix": "baseDao.update",
+	 "body": [
+			"res.num = await vk.baseDao.update({",
+			"\tdbName:\"$0\",",
+			"\twhereJson:{",
+			"\t\t",
+			"\t}",
+			"\tdataJson:{",
+			"\t\t",
+			"\t}",
+			"});"
+		],
+		"triggerAssist": false,
+		"description": "修改满足条件的数据库数据"
+	},
+	"vk.baseDao.updateById": {
+	 "prefix": "baseDao.updateById",
+	 "body": [
+			"let num = await vk.baseDao.updateById({",
+			"\tdbName:\"$0\",",
+			"\tid:_id,",
+			"\tdataJson:{",
+			"\t\t",
+			"\t}",
+			"\tgetUpdateData:false",
+			"});"
+		],
+		"triggerAssist": false,
+		"description": "根据id修改数据库数据"
+	},
+	"vk.baseDao.select": {
+	 "prefix": "baseDao.select",
+	 "body": [
+			"res = await vk.baseDao.select({",
+			"\tdbName:\"$0\",",
+			"\tpageIndex:1,",
+			"\tpageSize:20,",
+			"\twhereJson:{",
+			"\t\t",
+			"\t}",
+			"\tfieldJson:{}",
+			"\tsortArr:[{ \"name\":\"_id\", \"type\":\"desc\" }],",
+			"});"
+		],
+		"triggerAssist": false,
+		"description": "根据条件获取数据库数据"
+	},
+	"vk.baseDao.selects(连表查询)": {
+	 "prefix": "baseDao.selects",
+	 "body": [
+			"res = await vk.baseDao.selects({",
+			"\tdbName:\"$0\",",
+			"\tgetCount:false,",
+			"\tpageIndex:1,",
+			"\tpageSize:20,",
+			"\t// 主表where条件",
+			"\twhereJson:{",
+			"\t\t",
+			"\t}",
+			"\t// 主表字段显示规则",
+			"\tfieldJson:{},",
+			"\t// 主表排序规则",
+			"\tsortArr:[{ \"name\":\"_id\", \"type\":\"desc\" }],",
+			"\t// 副表列表",
+			"\tforeignDB:[",
+			"\t\t{",
+			"\t\t\tdbName:\"副表表名\",",
+			"\t\t\tlocalKey:\"主表外键名\",",
+			"\t\t\tforeignKey:\"副表外键名\",",
+			"\t\t\tas:\"副表as字段\",",
+			"\t\t\tlimit:1",
+			"\t\t}",
+			"\t]",
+			"});"
+		],
+		"triggerAssist": false,
+		"description": "根据条件获取数据库数据(连表查询)"
+	},
+	"vk.baseDao.del": {
+	 "prefix": "baseDao.del",
+	 "body": [
+			"let num = await vk.baseDao.del({",
+			"\tdbName:\"$0\",",
+			"\twhereJson:{",
+			"\t\t",
+			"\t}",
+			"});"
+		],
+		"triggerAssist": false,
+		"description": "删除满足条件的数据库数据"
+	},
+	"vk.baseDao.deleteById": {
+	 "prefix": "baseDao.deleteById",
+	 "body": [
+			"let num = await vk.baseDao.deleteById({",
+			"\tdbName:\"$0\",",
+			"\tid:_id",
+			"});"
+		],
+		"triggerAssist": false,
+		"description": "根据ID删除数据库数据"
+	},
+	"vk.baseDao.add": {
+	 "prefix": "baseDao.add",
+	 "body": [
+			"let num = await vk.baseDao.add({",
+			"\tdbName:\"$0\",",
+			"\tdataJson:{",
+			"\t\t",
+			"\t}",
+			"});"
+		],
+		"triggerAssist": false,
+		"description": "添加数据库数据"
+	},
+	"vk.baseDao.adds": {
+	 "prefix": "baseDao.adds",
+	 "body": [
+			"let num = await vk.baseDao.adds({",
+			"\tdbName:\"$0\",",
+			"\tdataJson:[",
+			"\t\t",
+			"\t]",
+			"});"
+		],
+		"triggerAssist": false,
+		"description": "批量添加数据库数据"
+	},
+	"vk.baseDao.sample": {
+	 "prefix": "baseDao.sample",
+	 "body": [
+			"let num = await vk.baseDao.sample({",
+			"\tdbName:\"$0\",",
+			"\tsize:1,",
+			"\twhereJson:{",
+			"\t\t",
+			"\t}",
+			"});"
+		],
+		"triggerAssist": false,
+		"description": "随机获取数据库数据"
+	},
+	"vk.baseDao.selects(树状结构)": {
+	 "prefix": "baseDao.selects(tree)",
+	 "body": [
+			"res = await vk.baseDao.selects({",
+			"\tdbName: \"opendb-admin-menus$0\",",
+			"\tpageIndex: 1,",
+			"\tpageSize: 500,",
+			"\twhereJson:{",
+			"\t\tenable: true,",
+			"\t\tparent_id: null",
+			"\t},",
+			"\tsortArr: [{ name: \"sort\", type: \"asc\" }],",
+			"\t// 树状结构参数",
+			"\ttreeProps: {",
+			"\t\tid: \"menu_id\",",          // 唯一标识字段，默认为 _id
+			"\t\tparent_id: \"parent_id\",", // 父级标识字段，默认为 parent_id
+			"\t\tchildren: \"children\",",   // 自定义返回的下级字段名，默认为 children
+			"\t\tlevel: 3,",               // 查询返回的树的最大层级。超过设定层级的节点不会返回。默认10级，最大15，最小1
+			"\t\tlimit: 500,",            // 每一级最大返回的数据。
+			"\t\twhereJson: {",
+			"\t\t\tenable: true",
+			"\t\t}",
+			"\t}",
+			"});"
+		],
+		"triggerAssist": false,
+		"description": "获取数据并返回树状结构"
 	}
 }

@@ -16,6 +16,7 @@ uni-admin.param.json
 dev-script/
 .vscode
 .hbuilderx
+package-lock.json
 
 
 # python

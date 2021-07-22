@@ -22,6 +22,7 @@
 | 其他       | 其他参数请查看element Upload 上传组件 https://element.eleme.cn/#/zh-CN/component/upload | -  | - | -  |
 
 #### httpRequest 用法
+#### 注意：如果是上传到unicloud云储存或阿里云OSS，无需写httpRequest，框架已集成。
 ```js
 httpRequest(obj){
   let { action, file, filename, data, headers, onProgress, onSuccess, onError } = obj;
