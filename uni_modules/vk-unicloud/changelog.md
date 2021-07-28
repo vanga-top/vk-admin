@@ -1,3 +1,23 @@
+## 2.2.6（2021-07-28）
+###  更新内容
+#### 【新增】前端 `vk.callFunction` 支持请求其他服务空间的云函数
+```js
+const myCloud = uniCloud.init({
+  provider: 'aliyun',
+  spaceId: 'xxxx-yyy',
+  clientSecret: 'xxxx'
+});
+vk.callFunction({
+  url: 'template/db_api/pub/count',
+  title:'请求中...',
+  unicloud: myCloud,
+  success(data) {
+    console.log(data);
+  }
+});
+```
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+
 ## 2.2.4（2021-07-12）
 ###  更新内容
 ####【修复】已知问题

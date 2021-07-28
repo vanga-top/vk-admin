@@ -323,7 +323,8 @@ class CallFunctionUtil {
 				provider,
 				file = {},
 				needSave = false,
-				category_id
+				category_id,
+				uniCloud: myCloud
 			} = obj;
 			// 获取文件类型(image:图片 video:视频 other:其他)
 			let fileType = this.getFileType(obj);
@@ -347,8 +348,9 @@ class CallFunctionUtil {
 			let Logger = {};
 			if (config.debug) Logger.filePath = filePath;
 			if (config.debug) Logger.startTime = new Date().getTime();
+			let runCloud = myCloud ? myCloud : uniCloud;
 			return new Promise((resolve, reject) => {
-				uniCloud.uploadFile({
+				runCloud.uploadFile({
 					filePath: filePath,
 					cloudPath: cloudPath,
 					fileType: fileType,
@@ -433,7 +435,8 @@ class CallFunctionUtil {
 			loading,
 			isRequest,
 			name,
-			complete
+			complete,
+			uniCloud: myCloud
 		} = obj;
 		if (title) vk.showLoading(title);
 		if (loading) vk.setLoading(true, loading);
@@ -443,7 +446,8 @@ class CallFunctionUtil {
 		if (config.debug) Logger.params = typeof data == "object" ? JSON.parse(JSON.stringify(data)) : data;
 		let promiseAction = new Promise(function(resolve, reject) {
 			if (config.debug) Logger.startTime = new Date().getTime();
-			uniCloud.callFunction({
+			let runCloud = myCloud ? myCloud : uniCloud;
+			runCloud.callFunction({
 				name: name,
 				data: {
 					$url: url,

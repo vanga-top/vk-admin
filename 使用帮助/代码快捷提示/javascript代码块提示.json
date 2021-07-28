@@ -642,5 +642,36 @@
 		],
 		"triggerAssist": false,
 		"description": "获取数据并返回树状结构"
+	},
+	"vk.baseDao.selects(分组统计查询)": {
+	 "prefix": "baseDao.selects",
+	 "body": [
+			"res = await vk.baseDao.selects({",
+			"\tdbName: \"表名${0}\",",
+			"\tpageIndex: 1,",
+			"\tpageSize: 10,",
+			"\t// 主表where条件",
+			"\twhereJson: {",
+			"\t\t",
+			"\t},",
+			"\tgroupJson: {",
+			"\t\t_id: \"$\", // _id是分组id， $ 后面接字段名，如user_id字段进行分组",
+			"\t\tuser_id: _.$.first(\"$\"), // $ 后面接字段名，如把user_id原样输出",
+			"\t\tmoney: _.$.sum(\"$\"), // $ 后面接字段名，sum求和该字段",
+			"\t},",
+			"\tsortArr: [{ name: \"money\",type: \"desc\" }], // 对分组后的结果进行排序",
+			"\t// 副表列表",
+			"\tforeignDB: [{",
+			"\t\tdbName: \"uni-id-users\",",
+			"\t\tlocalKey: \"user_id\",",
+			"\t\tforeignKey: \"_id\",",
+			"\t\tas: \"userInfo\",",
+			"\t\tlimit: 1",
+			"\t\tfieldJson:{ token:false, password:false },",
+			"\t}]",
+			"});"
+		],
+		"triggerAssist": false,
+		"description": "分组统计查询"
 	}
 }
