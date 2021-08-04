@@ -30,6 +30,7 @@
 				<el-dropdown-menu slot="dropdown">
 					<el-dropdown-item :command="1">账号批量解冻</el-dropdown-item>
 					<el-dropdown-item :command="2">账号批量冻结</el-dropdown-item>
+					<el-dropdown-item :command="3">批量设置可登录的应用</el-dropdown-item>
 				</el-dropdown-menu>
 			</el-dropdown>
 
@@ -81,6 +82,9 @@
 		<bindRole v-model="formDatas.bindRole" @success="refresh"></bindRole>
 		<!-- 重置密码弹窗 -->
 		<resetPassword v-model="formDatas.resetPassword" @success="refresh"></resetPassword>
+		<!-- 批量设置用户允许登录的客户端 -->
+		<setAuthorizedAppLogin v-model="formDatas.setAuthorizedAppLogin" @success="refresh"></setAuthorizedAppLogin>
+
 		<!-- 页面内容结束 -->
 	</view>
 </template>
@@ -94,14 +98,17 @@
 		{ value:2, label:"女"},
 		{ value:0, label:"保密"}
 	];
+	var dcloudAppidData = [];
 
 	import bindRole from './form/bindRole'
 	import resetPassword from './form/resetPassword'
+	import setAuthorizedAppLogin from './form/setAuthorizedAppLogin'
 
 	export default {
 		components:{
 			bindRole,
-			resetPassword
+			resetPassword,
+			setAuthorizedAppLogin
 		},
 		data() {
 			// 页面数据变量
@@ -125,7 +132,8 @@
 						{ key:"appList", title:"可登录的应用", type:"html", width:220,
 							formatter: function(val, row, column, index) {
 								if(typeof row.dcloud_appid === "undefined") return "全部应用";
-								if(val.length === 0) return "未绑定任何应用";
+								if(row.dcloud_appid.length === 0) return "未绑定任何应用";
+								if(val.length === 0 && row.dcloud_appid.length > 0) return row.dcloud_appid;
 								let str = "";
 								val.map((item, index) => {
 									str += `、${item.name}`;
@@ -230,7 +238,7 @@
 								showRule:"login_appid_type=1",
 								onChange:function(val, formData, column, index, option=[]){
 									let allow_login_background = false;
-									option.map((item, index) => {
+									option.map((item={}, index) => {
 										if(item.type === "admin"){
 											allow_login_background = true;
 										}
@@ -309,10 +317,15 @@
 					url: 'admin/system/app/sys/getList',
 					data:{},
 					success:function(data){
+						dcloudAppidData = data.rows;
 						let dcloudAppidData1 = vk.pubfn.copyObject(data.rows);
 						let dcloudAppidData2 = vk.pubfn.copyObject(data.rows);
 						let index1 = vk.pubfn.getListIndex(that.form1.props.columns, "key", "dcloud_appid");
 						that.form1.props.columns[index1].data = dcloudAppidData1;
+						dcloudAppidData2.unshift({
+							appid:"___error___",
+							name:"不存在的应用"
+						});
 						dcloudAppidData2.unshift({
 							appid:"___empty-array___",
 							name:"未绑定应用"
@@ -323,6 +336,11 @@
 						});
 						let index2 = vk.pubfn.getListIndex(that.queryForm1.columns, "key", "dcloud_appid");
 						that.queryForm1.columns[index2].data = dcloudAppidData2;
+						let appids = [];
+						dcloudAppidData.map((item, index) => {
+							appids.push(item.appid);
+						});
+						that.queryForm1.formData.appids = appids;
 					}
 				});
 			},
@@ -385,6 +403,7 @@
 				switch(index){
 					case 1: that.frozen(0); break;
 					case 2: that.frozen(1); break;
+					case 3: that.setAuthorizedAppLogin(); break;
 					default: break;
 				}
 			},
@@ -425,6 +444,20 @@
 						that.refresh();
 					}
 				});
+			},
+			// 批量设置允许登录的客户端
+			setAuthorizedAppLogin(){
+				let user_ids = [];
+				that.table1.multipleSelection.map((item,index)=>{
+					user_ids.push(item._id);
+				});
+				that.formDatas.setAuthorizedAppLogin = {
+					show:true,
+					item:{
+						user_ids,
+						dcloudAppidData
+					}
+				};
 			}
 		},
 		// 监听属性
