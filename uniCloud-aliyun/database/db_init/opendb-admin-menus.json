@@ -3,3 +3,4 @@
 {"_id":"sys-admin","_add_time":1596416400000,"comment":"系统内置","enable":true,"icon":"el-icon-s-tools","menu_id":"sys-admin","name":"用户角色权限","sort":100,"url":""}
 {"_id":"sys-menus-manage","_add_time":1596416400000,"comment":"控制admin左侧菜单的显示和隐藏","enable":true,"icon":"el-icon-tickets","menu_id":"sys-menus-manage","name":"菜单管理","parent_id":"sys-admin","sort":4,"url":"/pages_plugs/system/menu/list"}
 {"_id":"sys-user-manage","_add_time":1596416400000,"comment":"1个角色可以分配多个角色","enable":true,"icon":"el-icon-s-custom","menu_id":"sys-user-manage","name":"用户管理","parent_id":"sys-admin","sort":1,"url":"/pages_plugs/system/user/list"}
+{"_id": "sys-app-manage","_add_time": 1596416400000,"menu_id":"sys-app-manage","name": "应用管理","icon":"el-icon-cloudy","url": "/pages_plugs/system/app/list","comment":"应用管理","sort": 5,"parent_id":"sys-admin","enable":true}

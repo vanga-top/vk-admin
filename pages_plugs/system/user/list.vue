@@ -1,5 +1,12 @@
 <template>
 	<view class="page-body">
+		<!-- 请不要修改此页面的代码，因为更新后会覆盖，你自己系统的用户管理不应该在这个页面上开发，你应该复制整个页面，在别的目录创建用户管理。 -->
+		<!-- 请不要修改此页面的代码，因为更新后会覆盖，你自己系统的用户管理不应该在这个页面上开发，你应该复制整个页面，在别的目录创建用户管理。 -->
+		<!-- 请不要修改此页面的代码，因为更新后会覆盖，你自己系统的用户管理不应该在这个页面上开发，你应该复制整个页面，在别的目录创建用户管理。 -->
+		<!-- 请不要修改此页面的代码，因为更新后会覆盖，你自己系统的用户管理不应该在这个页面上开发，你应该复制整个页面，在别的目录创建用户管理。 -->
+		<!-- 请不要修改此页面的代码，因为更新后会覆盖，你自己系统的用户管理不应该在这个页面上开发，你应该复制整个页面，在别的目录创建用户管理。 -->
+		<!-- 请不要修改此页面的代码，因为更新后会覆盖，你自己系统的用户管理不应该在这个页面上开发，你应该复制整个页面，在别的目录创建用户管理。 -->
+
 		<!-- 页面内容开始 -->
 
 		<!-- 表格搜索组件开始 -->
@@ -52,7 +59,8 @@
 		<vk-data-dialog
 			v-model="form1.props.show"
 			:title="form1.props.title"
-			width="500px"
+			width="580px"
+			top="4vh"
 			mode="form"
 		>
 			<vk-data-form
@@ -62,7 +70,8 @@
 				:action="form1.props.action"
 				:form-type="form1.props.formType"
 				:columns='form1.props.columns'
-				label-width="80px"
+				label-width="120px"
+				max-height="700px"
 				@success="form1.props.show = false;refresh();"
 			></vk-data-form>
 		</vk-data-dialog>
@@ -109,31 +118,45 @@
 					action:"admin/system/user/sys/getList",
 					// 表格字段显示规则
 					columns: [
-						{ key:"_id", title:"id", type:"text", width:210 },
 						{ key:"avatar", title:"头像", type:"avatar", width:80 },
-						{ key:"username", title:"用户名", type:"text", defaultValue:'未设置' },
-						{ key:"nickname", title:"昵称", type:"text", defaultValue:'未设置' },
+						{ key:"username", title:"用户名", type:"text", width:180, defaultValue:'未设置' },
+						{ key:"nickname", title:"昵称", type:"text", width:180, defaultValue:'未设置' },
 						{ key:"mobile", title:"手机号", type:"text", width:120, defaultValue:"未绑定" },
+						{ key:"appList", title:"可登录的应用", type:"html", width:220,
+							formatter: function(val, row, column, index) {
+								if(typeof row.dcloud_appid === "undefined") return "全部应用";
+								if(val.length === 0) return "未绑定任何应用";
+								let str = "";
+								val.map((item, index) => {
+									str += `、${item.name}`;
+								});
+								if(str) str = str.substring(1);
+								return str;
+							}
+						},
 						{ key:"comment", title:"备注", type:"text", width:160 },
-						{ key:"gender", title:"性别", type:"radio", width:80, defaultValue:0,
-							data:genderData
-						},
-						{ key:"status", title:"账户状态", type:"tag", width:120, defaultValue:0,
-							data:[
-								{ value:1, label:"冻结", tagType:"danger" },
-								{ value:0, label:"正常", tagType:"success" }
-							]
-						},
-						{ key:"register_date", title:"注册时间", type:"time", width:160, sortable:"custom" },
-						{ key:"last_login_date", title:"最后登录时间", type:"dateDiff", width:130, defaultValue:'从未登录过', sortable:"custom" },
-						{ key:"last_login_ip", title:"最后登录ip", type:"text", width:120, defaultValue:'从未登录过' },
-						{ key:"role", title:"角色", type:"text", width:120, defaultValue:'无' },
-						{ key:"allow_login_background", title:"允许登录后台", type:"tag", width: 120, defaultValue:false,
+						{ key:"allow_login_background", title:"允许登录后台", type:"tag", width: 140, defaultValue:false, sortable:"custom",
 							data:[
 								{ value:true, label:"允许", tagType:"success" },
 								{ value:false, label:"禁止", tagType:"danger" }
 							]
 						},
+						{ key:"status", title:"账户状态", type:"tag", width:120, defaultValue:0, sortable:"custom",
+							data:[
+								{ value:0, label:"正常", tagType:"success" },
+								{ value:1, label:"冻结", tagType:"danger" },
+								{ value:2, label:"审核中", tagType:"primary" },
+								{ value:3, label:"审核拒绝", tagType:"info" }
+							]
+						},
+						{ key:"gender", title:"性别", type:"radio", width:80, defaultValue:0, sortable:"custom",
+							data:genderData
+						},
+						{ key:"register_date", title:"注册时间", type:"time", width:160, sortable:"custom" },
+						{ key:"last_login_date", title:"最后登录时间", type:"dateDiff", width:130, defaultValue:'从未登录过', sortable:"custom" },
+						{ key:"last_login_ip", title:"最后登录ip", type:"text", width:120, defaultValue:'从未登录过' },
+						{ key:"role", title:"角色", type:"text", width:120, defaultValue:'无' },
+						{ key:"_id", title:"id", type:"text", width:210 },
 					],
 					// 多选框选中的值
 					multipleSelection:[],
@@ -146,22 +169,29 @@
 				queryForm1:{
 					// 查询表单数据源，可在此设置默认值
 					formData:{
-						allow_login_background : true,
+						dcloud_appid:""
+						//allow_login_background : true,
 					},
 					// 查询表单的字段规则 fieldName:指定数据库字段名,不填默认等于key
 					columns:[
-						{ key:"_id", title:"ID", type:"text", width:140, mode:"=" },
-						{ key:"username", title:"用户名", type:"text", width:140, mode:"%%" },
+						{ key:"dcloud_appid", title:"所属应用", type:"select", width:160, mode:"custom",
+							data:[],
+							props:{ value:"appid", label:"name" }
+						},
+						{ key:"username", title:"用户名", type:"text", width:160, mode:"%%" },
 						{ key:"nickname", title:"昵称", type:"text", width:140, mode:"%%" },
 						{ key:"mobile", title:"手机号", type:"text", width:140, mode:"%%" },
-						{ key:"register_date", title:"注册时间", type:"datetimerange", width:400, mode:"[]" },
+						{ key:"_id", title:"ID", type:"text", width:140, mode:"=" },
+						{ key:"register_date", title:"注册时间", type:"datetimerange", width:380, mode:"[]" },
 						{ key:"allow_login_background", hidden:true, mode:"=" },
 					]
 				},
 				form1: {
 					// 表单请求数据，此处可以设置默认值
 					data: {
-						gender:1,
+						gender:0,
+						login_appid_type:1,
+						allow_login_background:false
 					},
 					// 表单属性
 					props: {
@@ -176,6 +206,46 @@
 							},
 							{ key:"password", title:"密码", type:"text", tips:"若密码为空，则默认为234567", show:["add"] },
 							{ key:"mobile", title:"手机号", type:"text" },
+							{
+							  key:"login_appid_type", title:"登录权限", type:"radio",
+							  optionType:"button",
+								data:[
+									{ value:1, label:"部分应用" },
+									{ value:0, label:"全部应用" }
+							  ],
+								onChange:function(val, formData, column, index, option){
+									if(val === 1){
+										that.form1.data.allow_login_background = false
+									}else{
+										that.form1.data.allow_login_background = true;
+									}
+								}
+							},
+							{
+							  key:"dcloud_appid", title:"可登录的应用", type:"checkbox",
+							  border:true,
+							  itemWidth:100,
+								data:[],
+							  props:{ value:"appid", label:"name" },
+								showRule:"login_appid_type=1",
+								onChange:function(val, formData, column, index, option=[]){
+									let allow_login_background = false;
+									option.map((item, index) => {
+										if(item.type === "admin"){
+											allow_login_background = true;
+										}
+									});
+									if(that.form1.data.login_appid_type === 1){
+										that.form1.data.allow_login_background = allow_login_background;
+									}else{
+										that.form1.data.allow_login_background = true;
+									}
+								}
+							},
+							// {
+							// 	key:"allow_login_background", title:"允许登录后台?", type:"switch",
+							// 	tips:"只有同时设置可登录的应用有管理端以及允许登后台，该用户才能登录管理端"
+							// },
 							{ key:"comment", title:"备注", type:"textarea",
 								maxlength:"99", showWordLimit:true, autosize:{ minRows: 2, maxRows: 10 } ,
 							},
@@ -230,6 +300,31 @@
 			// 页面数据初始化函数
 			init(options) {
 				originalForms["form1"] = vk.pubfn.copyObject(that.form1);
+				that.getAppList();
+			},
+			// 获取应用列表
+			getAppList(obj){
+				// 请在store/modules/$app.js文件里增加代码 appList: lifeData.$app.appList || []
+				vk.callFunction({
+					url: 'admin/system/app/sys/getList',
+					data:{},
+					success:function(data){
+						let dcloudAppidData1 = vk.pubfn.copyObject(data.rows);
+						let dcloudAppidData2 = vk.pubfn.copyObject(data.rows);
+						let index1 = vk.pubfn.getListIndex(that.form1.props.columns, "key", "dcloud_appid");
+						that.form1.props.columns[index1].data = dcloudAppidData1;
+						dcloudAppidData2.unshift({
+							appid:"___empty-array___",
+							name:"未绑定应用"
+						});
+						dcloudAppidData2.unshift({
+							appid:"___non-existent___",
+							name:"全部应用"
+						});
+						let index2 = vk.pubfn.getListIndex(that.queryForm1.columns, "key", "dcloud_appid");
+						that.queryForm1.columns[index2].data = dcloudAppidData2;
+					}
+				});
 			},
 			// 页面跳转
 			pageTo(path) {
@@ -273,6 +368,7 @@
 				that.form1.props.formType = 'update';
 				that.form1.props.title = '编辑';
 				that.form1.props.show = true;
+				item.login_appid_type = typeof item.dcloud_appid === "undefined" ? 0 :1;
 				that.form1.data = item;
 			},
 			// 删除按钮

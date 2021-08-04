@@ -325,6 +325,18 @@
         "enable":true,
         "match_mode":1,
         "parent_id":"sys-manage"
+      },
+      {
+        "_id": "sys-manage-app",
+        "_add_time": 1596416400000,
+        "permission_id":"sys-manage-app",
+        "permission_name": "系统 - 应用管理",
+        "comment":"",
+        "url": ["admin/system/app/sys/*"],
+        "sort": 5,
+        "enable":true,
+        "match_mode":1,
+        "parent_id":"sys-manage"
       }
 		],
 		"index": [
@@ -406,7 +418,19 @@
 				"sort": 4,
 				"parent_id":"sys-admin",
 				"enable":true
-			}
+			},
+      {
+        "_id": "sys-app-manage",
+        "_add_time": 1596416400000,
+        "menu_id":"sys-app-manage",
+        "name": "应用管理",
+        "icon":"el-icon-cloudy",
+        "url": "/pages_plugs/system/app/list",
+        "comment":"应用管理",
+        "sort": 5,
+        "parent_id":"sys-admin",
+        "enable":true
+      }
 		],
 		"index": [
 			{
@@ -478,5 +502,51 @@
 				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "url","Direction": "1"}],"MgoIsUnique": false}
 			}
 		]
-	}
+	},
+  "opendb-app-list": {
+    "data": [
+      {
+        "_id":"001",
+        "appid": "__UNI__01F080F",
+        "type": "client",
+        "name": "用户端",
+        "description": "此为用户端应用",
+        "create_date": 1596416400000,
+        "_add_time": 1596416400000,
+        "_add_time_str": "2020-08-03 09:00:00"
+      },
+      {
+        "_id":"002",
+        "appid": "__UNI__570A7FB",
+        "type": "admin",
+        "name": "管理端",
+        "description": "此为管理端应用",
+        "create_date": 1596416400000,
+        "_add_time": 1596416400000,
+        "_add_time_str": "2020-08-03 09:00:00"
+      }
+    ],
+    "index": [
+      {
+        "IndexName": "_add_time",
+        "MgoKeySchema": {"MgoIndexKeys": [{"Name": "_add_time","Direction": "1"}],"MgoIsUnique": false}
+      },
+      {
+        "IndexName": "appid",
+        "MgoKeySchema": {"MgoIndexKeys": [{"Name": "appid","Direction": "1"}],"MgoIsUnique": true}
+      },
+      {
+        "IndexName": "name",
+        "MgoKeySchema": {"MgoIndexKeys": [{"Name": "name","Direction": "1"}],"MgoIsUnique": false}
+      },
+      {
+        "IndexName": "type",
+        "MgoKeySchema": {"MgoIndexKeys": [{"Name": "type","Direction": "1"}],"MgoIsUnique": false}
+      },
+      {
+        "IndexName": "create_date",
+        "MgoKeySchema": {"MgoIndexKeys": [{"Name": "create_date","Direction": "1"}],"MgoIsUnique": false}
+      }
+    ]
+  }
 }

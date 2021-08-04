@@ -23,6 +23,7 @@
 				{ "path": "system/role/list" },
 				{ "path": "system/permission/list" },
 				{ "path": "system/menu/list" },
+        { "path": "system/app/list" },
         { "path": "system_uni/opendb-global-data" },
 				{ "path": "system_uni/uni-id-log" },
 				{ "path": "system_uni/opendb-admin-log" },

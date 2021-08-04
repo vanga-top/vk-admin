@@ -648,7 +648,7 @@ pubfn.checkDataExpText = function (data={},expText) {
 				let andItemArr = andItem.split("=");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
-				itemKey = data[key].toString() == value ? true : false;
+				itemKey = (data[key] && data[key].toString() == value) ? true : false;
 				//console.log("key:",key,"value:",value,"data[key]",data[key].toString(),"itemKey:",itemKey);
 			}
 			if(!itemKey){
@@ -1624,6 +1624,43 @@ pubfn.requestSubscribeMessage = function(obj) {
 	return uni.requestSubscribeMessage(obj);
 	// #endif
 };
+
+/**
+ * 检测是否需要登录 此方法目前为测试版
+ * vk.pubfn.checkLogin();
+ */
+pubfn.checkLogin = function(obj = {}) {
+	let vk = uni.vk;
+	let loginUrl = vk.getVuex("$app.config.login.url");
+	try {
+		let url;
+		try {
+			url = vk.pubfn.getCurrentPageRoute();
+		}catch(err){
+			url = vk.getVuex("$app.config.index.url") || "/pages/index/index";
+		}
+		vk.navigate.checkNeedLogin({
+			url: url,
+			success: function(res) {
+				if (res.needLogin) {
+					vk.reLaunch(loginUrl);
+					// #ifdef MP-WEIXIN
+					uni.hideHomeButton();
+					// #endif
+				}
+			}
+		});
+	}catch(err){
+		console.error("catch",err);
+		uni.reLaunch({
+			url:loginUrl
+		});
+		// #ifdef MP-WEIXIN
+		uni.hideHomeButton();
+		// #endif
+	}
+};
+
 
 // 前端专属结束 -----------------------------------------------------------
 module.exports = pubfn;

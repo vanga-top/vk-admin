@@ -3,7 +3,7 @@
 		<!-- 页面内容开始 -->
 
 		这里是后台首页
-		
+		<ad adpid="1594106689" @load="load"  @error="error" adpid-widescreen="1594106689"></ad>
 		<!-- 页面内容结束 -->
 	</view>
 </template>
@@ -56,7 +56,13 @@
 			},
 			pageTo(path){
 				vk.navigateTo(path);
-			}
+			},
+      load(e){
+        console.log(1,e);
+      },
+      error(e){
+        console.log(2,e);
+      }
 		},
 		// 过滤器
 		filters:{

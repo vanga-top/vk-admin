@@ -11,6 +11,10 @@ export default {
 	login: {
 		url: "/pages/login/index"
 	},
+  // 首页页面路径
+  index: {
+    url: '/pages/index/index'
+  },
 	// 404 Not Found 错误页面路径
 	error: {
 		url: "/pages_plugs/error/404"

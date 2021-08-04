@@ -1,3 +1,7 @@
+## 2.2.7（2021-08-04）
+###  更新内容
+#### 【优化】一些细节
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.2.6（2021-07-28）
 ###  更新内容
 #### 【新增】前端 `vk.callFunction` 支持请求其他服务空间的云函数
