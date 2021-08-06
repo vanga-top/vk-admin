@@ -14,15 +14,16 @@ module.exports = {
 	 */
 	main: async (event) => {
 		let { data = {}, userInfo, util, filterResponse, originalParam } = event;
-		let { customUtil, uniID, config, pubFun, vk , db, _ } = util;
+		let { customUtil, uniID, config, pubFun, vk, db, _ } = util;
 		let { uid } = data;
-		let res = { code : 0, msg : '' };
+		let res = { code: 0, msg: '' };
 		// 业务逻辑开始-----------------------------------------------------------
 		// 可写与数据库的交互逻辑等等
 		let dbName = "opendb-app-list";
 		res = await vk.baseDao.getTableData({
 			dbName,
-			data
+			data,
+			sortArr: [{ name: "_id", type: "asc" }]
 		});
 		return res;
 	}

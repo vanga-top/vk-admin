@@ -27,6 +27,7 @@
 <script>
 var that; // 当前页面对象
 var vk = uni.vk; // vk实例
+var dcloudAppidData = [];
 
 export default {
 	data() {
@@ -42,15 +43,39 @@ export default {
 				action: "admin/system_uni/uni-id-log/sys/getList",
 				// 表格字段显示规则
 				columns: [
-					{ key: "user_id", title: "用户ID", type: "text", width: 180 },
+					{ key:"appList", title:"登录的应用", type:"html", width:220,
+						formatter: function(val, row, column, index) {
+							if(typeof row.dcloud_appid === "undefined") return "全部应用";
+							if(row.dcloud_appid.length === 0) return "未绑定任何应用";
+							if(val.length === 0 && row.dcloud_appid.length > 0) return row.dcloud_appid;
+							let str = "";
+							val.map((item, index) => {
+								str += `、${item.name}`;
+							});
+							if(str) str = str.substring(1);
+							return str;
+						}
+					},
+					{ key: "userInfo", title: "用户信息", type: "userInfo", width: 150 },
 					{ key: "ip", title: "ip地址", type: "text", width: 150 },
 					{ key: "type", title: "日志类型", type: "text", width: 120 },
+					{ key: "login_type", title: "登录类型", type: "select", width: 120,
+						data:[
+							{ value: "phone", label:"手机短信" },
+							{ value: "password", label:"账号密码" },
+							{ value: "weixin", label:"微信登录" },
+							{ value: "alipay", label:"支付宝登录" },
+							{ value: "weixinPhoneNumber", label:"微信手机号" },
+							{ value: "token", label:"token" }
+						]
+					},
 					{ key: "os", title: "操作系统", type: "text", width: 120 },
 					{ key: "platform", title: "平台信息", type: "text", width: 120 },
 					{ key: "device_id", title: "设备唯一标识", type: "text", width: 120 },
 					{ key: "_add_time", title: "添加时间", type: "time", width: 160 },
 					{ key: "_add_time", title: "距离现在", type: "dateDiff", width: 120 },
-					{ key: "ua", title: "userAgent", type: "text", width: 400 }
+					{ key: "ua", title: "userAgent", type: "text", width: 400 },
+					{ key: "user_id", title: "用户ID", type: "text", width: 220 },
 				],
 				// 多选框选中的值
 				multipleSelection: [],
@@ -62,13 +87,19 @@ export default {
 			// 查询表单请求数据
 			queryForm1: {
 				// 查询表单数据源，可在此设置默认值
-				formData: {},
+				formData: {
+					dcloud_appid:""
+				},
 				// 查询表单的字段规则 fieldName:指定数据库字段名,不填默认等于key
 				columns: [
-					{ key: "user_id", title: "用户ID", type: "text", mode: "=" },
-					{ key: "ip", title: "ip地址", type: "text", mode: "%%" },
-					{ key: "device_id", title: "设备唯一标识", type: "text", mode: "%%" },
-					{ key: "_add_time", title: "添加时间", type: "datetimerange", width: 400, mode: "[]" }
+					{ key:"dcloud_appid", title:"所属应用", type:"select", width:160, mode:"custom",
+						data:[],
+						props:{ value:"appid", label:"name" }
+					},
+					{ key: "user_id", title: "用户ID", type: "text", width:140, mode: "=" },
+					{ key: "ip", title: "ip地址", type: "text", width:140,  mode: "%%" },
+					{ key: "device_id", title: "设备唯一标识", type: "text", width:180, mode: "%%" },
+					{ key: "_add_time", title: "添加时间", type: "datetimerange", width: 380, mode: "[]" }
 				]
 			},
 			// 表单相关结束 -----------------------------------------------------------
@@ -90,7 +121,40 @@ export default {
 	// 函数
 	methods: {
 		// 页面数据初始化函数
-		init(options) {},
+		init(options) {
+			that.getAppList();
+		},
+		// 获取应用列表
+		getAppList(obj){
+			// 请在store/modules/$app.js文件里增加代码 appList: lifeData.$app.appList || []
+			vk.callFunction({
+				url: 'admin/system/app/sys/getList',
+				data:{},
+				success:function(data){
+					dcloudAppidData = data.rows;
+					let dcloudAppidData2 = vk.pubfn.copyObject(data.rows);
+					dcloudAppidData2.unshift({
+						appid:"___error___",
+						name:"不存在的应用"
+					});
+					dcloudAppidData2.unshift({
+						appid:"___empty-array___",
+						name:"未绑定应用"
+					});
+					dcloudAppidData2.unshift({
+						appid:"___non-existent___",
+						name:"全部应用"
+					});
+					let index2 = vk.pubfn.getListIndex(that.queryForm1.columns, "key", "dcloud_appid");
+					that.queryForm1.columns[index2].data = dcloudAppidData2;
+					let appids = [];
+					dcloudAppidData.map((item, index) => {
+						appids.push(item.appid);
+					});
+					that.queryForm1.formData.appids = appids;
+				}
+			});
+		},
 		// 搜索
 		search(obj) {
 			that.$refs.table1.query(obj);
