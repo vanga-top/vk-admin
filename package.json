@@ -20,7 +20,7 @@
     "license": "Apache",
     "homepage": "https://github.com/dcloudio/uni-template-admin#readme",
     "dependencies": {
-        "element-ui": "^2.15.3",
+        "element-ui": "^2.15.5",
         "umy-ui": "^1.1.6",
         "vk-unicloud-admin-ui": "^1.4.1"
     },
