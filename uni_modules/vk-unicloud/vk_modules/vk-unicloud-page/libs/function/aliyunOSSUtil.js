@@ -132,7 +132,7 @@ aliyunOSSUtil.uploadFile = function(obj) {
 };
 
 
-module.exports = aliyunOSSUtil;
+export default aliyunOSSUtil;
 
 
 // 获取配置

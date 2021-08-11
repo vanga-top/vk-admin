@@ -1,16 +1,21 @@
 /**
  * 函数 - 页面导航
  */
+// #ifndef VUE3
 var config;
 try {
-	config = require('@/app.config.js');
+	config = require('@/app.config.js').default;
 } catch (e) {
 	config = {};
 }
+// #endif
+
+// #ifdef VUE3
+import config from '@/app.config.js'
+// #endif
+
 
 var util = {};
-
-
 
 /**
  * 保留当前页面，跳转到应用内的某个页面，使用vk.navigateBack可以返回到原页面。

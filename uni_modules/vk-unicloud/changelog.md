@@ -1,3 +1,9 @@
+## 2.2.12（2021-08-11）
+#### 【优化】一些细节（为兼容Vue3做铺垫）
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.2.11（2021-08-11）
+#### 【优化】一些细节（为兼容Vue3做铺垫）
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.2.10（2021-08-06）
 #### 【优化】一些细节
 #### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

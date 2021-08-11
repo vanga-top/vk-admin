@@ -297,4 +297,4 @@ util.isQingming = function(data = new Date()) {
 
 
 
-module.exports = util;
+export default util;

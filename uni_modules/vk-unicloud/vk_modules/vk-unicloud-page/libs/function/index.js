@@ -1111,6 +1111,7 @@ pubfn.calcSize = function (length=0, arr, ary, precision=2, showType="auto"){
 };
 
 
+
 /**
  * 手机端长列表分页加载数据 2.0版本
  * @params {Vue页面对象} 	that						页面数据对象this
@@ -1679,4 +1680,4 @@ pubfn.checkLogin = function(obj = {}) {
 
 
 // 前端专属结束 -----------------------------------------------------------
-module.exports = pubfn;
+export default pubfn;
