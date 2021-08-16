@@ -1,3 +1,12 @@
+## 2.3.1（2021-08-16）
+####【重要】文档已搬家（gitee文档地址仅作为备用地址）[查看新版文档地址](https://vkdoc.fsq.pub/)
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.3.0（2021-08-16）
+####【重要】文档已搬家（gitee文档地址仅作为备用地址）[查看新版文档地址](https://vkdoc.fsq.pub/)
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.2.13（2021-08-12）
+#### 【优化】一些细节（为兼容Vue3做铺垫）
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.2.12（2021-08-11）
 #### 【优化】一些细节（为兼容Vue3做铺垫）
 #### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

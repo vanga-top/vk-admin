@@ -4,7 +4,10 @@
 // #ifndef VUE3
 var config;
 try {
-	config = require('@/app.config.js').default;
+	config = require('@/app.config.js');
+  if(typeof config.default === "object"){
+    config = config.default;
+  }
 } catch (e) {
 	config = {};
 }
