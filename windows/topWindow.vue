@@ -126,7 +126,7 @@ export default {
 			// 右侧链接,只在开发模式时显示
 			links: [{
 					text: "Admin框架文档",
-					url: "https://gitee.com/vk-uni/vk-uni-cloud-router/wikis/pages?sort_id=4003860&doc_id=975983"
+					url: "https://vkdoc.fsq.pub/admin/"
 				},
 				{
 					text: "浏览更多VK插件",
