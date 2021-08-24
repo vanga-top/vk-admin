@@ -367,27 +367,34 @@ class CallFunctionUtil {
 						}
 					},
 					success(res) {
-						if (config.debug) Logger.result = typeof res == "object" ? JSON.parse(
-							JSON
-							.stringify(res)) : res;
+						if (config.debug) Logger.result = typeof res == "object" ? JSON.parse(JSON.stringify(res)) : res;
 						if (title) vk.hideLoading();
-						if (typeof success == "function") success(res);
-						resolve(res);
-						if (needSave) {
-							// 保存文件记录到数据库
-							vk.userCenter.addUploadRecord({
-								data: {
-									url: res.fileID,
-									name: file.name,
-									size: file.size,
-									file_id: res.fileID,
-									provider,
-									category_id,
-								},
-								filePath,
-								fileType
-							});
-						}
+						uniCloud.getTempFileURL({
+							fileList: [res.fileID],
+							success(data) {
+								let { fileID, tempFileURL } = data.fileList[0];
+								res.fileID = tempFileURL;
+								res.url = tempFileURL;
+								res.file_id = fileID;
+								if (typeof success == "function") success(res);
+								resolve(res);
+								if (needSave) {
+									// 保存文件记录到数据库
+									vk.userCenter.addUploadRecord({
+										data: {
+											url: res.url,
+											name: file.name,
+											size: file.size,
+											file_id: res.file_id,
+											provider,
+											category_id,
+										},
+										filePath,
+										fileType
+									});
+								}
+							},
+						});
 					},
 					fail(err) {
 						if (title) vk.hideLoading();

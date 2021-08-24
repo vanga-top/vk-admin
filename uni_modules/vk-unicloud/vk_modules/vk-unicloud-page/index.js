@@ -10,7 +10,7 @@ import navigate 					from './libs/function/vk.navigate'
 import localStorage 			from './libs/function/vk.localStorage'
 import aliyunOSSUtil			from './libs/function/aliyunOSSUtil'
 import openapi						from './libs/openapi/index'
-import request						from './libs/function/vk.request'
+import requestUtil				from './libs/function/vk.request'
 
 import filters 						from './libs/function/vk.filters'
 import mixin 							from './libs/mixin/mixin.js'
@@ -61,7 +61,9 @@ var vk = {
 	// 开放API
 	openapi,
 	// 请求库
-	request
+	requestUtil,
+	// 发起URL请求
+	request: requestUtil.request
 };
 // vk实例初始化
 vk.init = function(obj={}){
