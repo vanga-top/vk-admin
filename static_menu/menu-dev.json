@@ -38,7 +38,19 @@
 						"name": "综合用法",
 						"icon": "",
 						"url": "/pages_template/components/table/table-easy"
-					}
+					},
+          {
+            "menu_id": "vk-data-table-query",
+            "name": "搜索折叠",
+            "icon": "",
+            "url": "/pages_template/components/table/table-query"
+          },
+          {
+            "menu_id": "vk-data-table-expand",
+            "name": "表格行展开",
+            "icon": "",
+            "url": "/pages_template/components/table/table-expand"
+          }
 				]
 			},
 			{

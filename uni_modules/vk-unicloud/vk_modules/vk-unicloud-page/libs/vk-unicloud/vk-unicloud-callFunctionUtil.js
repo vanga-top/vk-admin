@@ -275,6 +275,7 @@ class CallFunctionUtil {
 					vk = customConfig[key];
 				} else if (key === "interceptor") {
 					this.interceptor = Object.assign(this.interceptor, customConfig[key]);
+          this.config.interceptor = customConfig[key];
 				} else if (key === "myfn") {
 					vk.myfn = customConfig[key];
 				} else if (key === "loginPagePath") {
@@ -604,6 +605,7 @@ class CallFunctionUtil {
 	callFunctionFail(obj) {
 		let that = this;
 		let config = that.config;
+		let { globalErrorCode={} } = config;
 		let {
 			res = {},
 				params,
@@ -642,16 +644,19 @@ class CallFunctionUtil {
 		}
 		if (errMsg.indexOf("fail timeout") > -1) {
 			sysErr = true;
-			errMsg = "请求超时，请重试！";
+			errMsg = globalErrorCode["cloudfunction-timeout"] || "请求超时，请重试！";
 		}
 		if (res.code >= 90001 && errMsg.indexOf("数据库") > -1) {
 			sysErr = true;
 		} else if ([404, 500].indexOf(res.code) > -1 && errMsg.indexOf("云函数") > -1) {
 			sysErr = true;
+		} else if (res.code === "SYS_ERR" && errMsg.indexOf(": request:ok") > -1) {
+			errMsg = globalErrorCode["cloudfunction-unusual-timeout"] || "请求超时，但请求还在执行，请重新进入页面。";
 		}
 		let runKey = true;
 		if (typeof that.interceptor.fail == "function") {
 			runKey = that.interceptor.fail({
+				vk,
 				res: res,
 				params: params
 			});
@@ -662,7 +667,8 @@ class CallFunctionUtil {
 			if (errorToast) vk.toast(errMsg, "none");
 			if (needAlert && vk.pubfn.isNotNull(errMsg)) {
 				if (sysErr) {
-					vk.toast("网络开小差了！", "none");
+					let toastMsg = globalErrorCode["cloudfunction-system-error"] || "网络开小差了！";
+					vk.toast(toastMsg, "none");
 				} else {
 					vk.alert(errMsg);
 				}

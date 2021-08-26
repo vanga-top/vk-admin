@@ -1,4 +1,6 @@
 var requestUtil = {};
+
+
 requestUtil.config = {
 	// 请求配置
 	request: {
@@ -213,18 +215,33 @@ function requestFail(obj = {}) {
 		sysErr = true;
 		errMsg = "请求超时，请重试！";
 	}
-	if (needAlert && vk.pubfn.isNotNull(errMsg)) {
-		if (sysErr) {
-			vk.toast("网络开小差了！", "none");
-		} else {
-			vk.alert(errMsg);
-		}
-	}
+	if (config.debug) Logger.error = res;
 	if (title) vk.hideLoading();
 	if (loading) vk.setLoading(false, loading);
-	if (config.debug) Logger.error = res;
-	if (typeof fail === "function") fail(res);
-	if (typeof reject === "function") reject(res);
+	let runKey = true;
+	// 自定义拦截器开始-----------------------------------------------------------
+	let { interceptor={} } = vk.callFunctionUtil.getConfig();
+	if (interceptor.request && typeof interceptor.request.fail == "function") {
+		runKey = interceptor.request.fail({
+			vk,
+			res: res,
+			params: params
+		});
+		if (runKey === undefined) runKey = true;
+	}
+	// 自定义拦截器结束-----------------------------------------------------------
+	if (runKey) {
+		if (needAlert && vk.pubfn.isNotNull(errMsg)) {
+			if (sysErr) {
+				vk.toast("网络开小差了！", "none");
+			} else {
+				vk.alert(errMsg);
+			}
+		}
+		if (typeof fail === "function") fail(res);
+		if (typeof reject === "function") reject(res);
+	}
+	
 }
 
 // 请求完成回调

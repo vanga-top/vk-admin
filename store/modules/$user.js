@@ -3,6 +3,8 @@
  */
 let lifeData = uni.getStorageSync('lifeData') || {};
 
+let $user = lifeData.$user || {};
+
 export default {
 	// 通过添加 namespaced: true 的方式使其成为带命名空间的模块
 	namespaced: true,
@@ -20,9 +22,9 @@ export default {
 		 * js更新示例
 		 * vk.setVuex('$user.userInfo.avatar', avatar);
 		 */
-		userInfo: lifeData.$user.userInfo || {},
-		permission:lifeData.$user.permission || [],
-		login:lifeData.$user.login || {},
+		userInfo: $user.userInfo || {},
+		permission:$user.permission || [],
+		login:$user.login || {},
 	},
 	/**
 	 * 从基本数据(state)派生的数据，相当于state的计算属性

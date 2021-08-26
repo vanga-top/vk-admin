@@ -5,6 +5,8 @@ import config from '@/app.config.js'
 
 let lifeData = uni.getStorageSync('lifeData') || {};
 
+let $app = lifeData.$app || {};
+
 export default {
 	// 通过添加 namespaced: true 的方式使其成为带命名空间的模块
 	namespaced: true,
@@ -21,26 +23,26 @@ export default {
 		 * js更新示例
 		 * vk.setVuex('$app.inited', true);
 		 */
-		inited: lifeData.$app.inited || false,
+		inited: $app.inited || false,
 		config:{
 			...config
 		},
 		// 左侧菜单列表（树形结构） vk.getVuex('$app.navMenu');
-		navMenu: lifeData.$app.navMenu || [],
+		navMenu: $app.navMenu || [],
 		// 左侧菜单列表（数组形式） vk.getVuex('$app.menuList');
-		menuList: lifeData.$app.menuList || [],
+		menuList: $app.menuList || [],
 		// 菜单地图 vk.getVuex('$app.menuMap');
-		menuMap: lifeData.$app.menuMap || [],
+		menuMap: $app.menuMap || [],
 		// 当前打开的页面路由信息 vk.getVuex('$app.route'); vk.setVuex('$app.route', route);
-		route: lifeData.$app.route || {},
+		route: $app.route || {},
 		// 系统后台名称
 		appName: process.env.VUE_APP_NAME || '',
 		// 屏幕宽度
-		width: lifeData.$app.width || '',
+		width: $app.width || '',
 		// 屏幕高度
-		height: lifeData.$app.height || '',
+		height: $app.height || '',
 		// 是否是PC
-		isPC: lifeData.$app.isPC || true,
+		isPC: $app.isPC || true,
 	},
 	/**
 	 * 从基本数据(state)派生的数据，相当于state的计算属性
