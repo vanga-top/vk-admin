@@ -126,7 +126,7 @@
 							]
 						},
 						{ key:"sort", title:"排序值", type:"number", width:120 },
-						{ key:"parent_id", title:"父级菜单Id", type:"text", width:120, align:"left" },
+						{ key:"parent_id", title:"父级菜单Id", type:"text", width:250, align:"left" },
 					],
 					// 多选框选中的值
 					multipleSelection:[],

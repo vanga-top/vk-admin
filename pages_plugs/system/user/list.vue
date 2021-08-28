@@ -164,7 +164,7 @@
 						{ key:"last_login_date", title:"最后登录时间", type:"dateDiff", width:130, defaultValue:'从未登录过', sortable:"custom" },
 						{ key:"last_login_ip", title:"最后登录ip", type:"text", width:120, defaultValue:'从未登录过' },
 						{ key:"role", title:"角色", type:"text", width:120, defaultValue:'无' },
-						{ key:"_id", title:"id", type:"text", width:210 },
+						{ key:"_id", title:"id", type:"text", width:280 },
 					],
 					// 多选框选中的值
 					multipleSelection:[],
@@ -239,7 +239,7 @@
 								onChange:function(val, formData, column, index, option=[]){
 									let allow_login_background = false;
 									option.map((item={}, index) => {
-										if(item.type === "admin"){
+										if(item.type && item.type.indexOf("admin") > -1){
 											allow_login_background = true;
 										}
 									});

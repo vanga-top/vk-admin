@@ -84,7 +84,7 @@
 					action:"admin/system/permission/sys/getAll",
 					// 表格字段显示规则
 					columns: [
-						{ key:"permission_id", title:"权限标识", type:"text", width:250, align:"left",
+						{ key:"permission_id", title:"权限标识", type:"text", width:310, align:"left",
 							treeNode:true
 						},
 						{ key:"permission_name", title:"权限名称", type:"text", width:120, align:"left" },

@@ -64,34 +64,80 @@
 
 	var typeData = [
 		{
-			label: "通用",
+			value:"1000",
+			label: "用户端",
 			children:[
-				{ value:"client", label:"用户端" },
-				{ value:"admin", label:"管理端" },
+				{
+					value:"1001",
+					label: "通用",
+					children:[
+						{ value:"client", label:"用户端" },
+					]
+				},
+				{
+					value:"1002",
+					label: "商家",
+					children:[
+						{ value:"rider", label:"骑手端" },
+						{ value:"business", label:"商家端" },
+					]
+				},
+				{
+					value:"1003",
+					label: "教育",
+					children:[
+						{ value:"student", label:"学生端" },
+						{ value:"parent", label:"家长端" },
+						{ value:"teacher", label:"教师端" },
+					]
+				},
+				{
+					value:"1999",
+					label: "其他",
+					children:[
+						{ value:"other", label:"其他" },
+					]
+				}
 			]
 		},
 		{
-			label: "商家",
+			value:"2000",
+			label: "管理端",
 			children:[
-				{ value:"rider", label:"骑手端" },
-				{ value:"business", label:"商家端" },
-			]
-		},
-		{
-			label: "教育",
-			children:[
-				{ value:"student", label:"学生端" },
-				{ value:"parent", label:"家长端" },
-				{ value:"teacher", label:"教师端" },
-			]
-		},
-		{
-			label: "其他",
-			children:[
-				{ value:"other", label:"其他" },
-			]
+				{
+					value:"2001",
+					label: "通用",
+					children:[
+						{ value:"admin", label:"管理端" },
+					]
+				},
+				{
+					value:"2002",
+					label: "商家",
+					children:[
+						{ value:"rider-admin", label:"骑手管理端" },
+						{ value:"business-admin", label:"商家管理端" },
+					]
+				},
+				{
+					value:"2003",
+					label: "教育",
+					children:[
+						{ value:"student-admin", label:"学生管理端" },
+						{ value:"parent-admin", label:"家长管理端" },
+						{ value:"teacher-admin", label:"教师管理端" },
+					]
+				},
+				{
+					value:"2999",
+					label: "其他",
+					children:[
+						{ value:"other-admin", label:"其他管理端" },
+					]
+				}
+			],
 		}
-	]
+	];
 
 	export default {
 		data() {
@@ -148,7 +194,11 @@
 						columns:[
 							{ key:"appid", title:"appid", type:"text" },
 							{
-								key:"type", title:"应用类型", type:"select", group:true, data:typeData,
+								key:"type", title:"应用类型", type:"cascader", data:typeData,
+								props:{
+									expandTrigger:"hover",
+									emitPath:false,
+								},
 								onChange:function(val, formData, column, index, option){
 									that.form1.data.name = option.label;
 								}
