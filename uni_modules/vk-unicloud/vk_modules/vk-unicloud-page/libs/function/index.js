@@ -681,7 +681,7 @@ pubfn.checkDataExpText = function (data={},expText) {
 				let andItemArr = andItem.split("=");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
-				itemKey = (data[key] && data[key].toString() == value) ? true : false;
+				itemKey = (typeof data[key] !== "undefined" && data[key].toString() == value) ? true : false;
 				//console.log("key:",key,"value:",value,"data[key]",data[key].toString(),"itemKey:",itemKey);
 			}
 			if(!itemKey){
@@ -909,13 +909,15 @@ pubfn.regExpTest = function(text, expText){
 /**
  * 产生订单号，不依赖数据库，高并发时性能高（理论上会重复，但概率非常非常低）
  * @params {String} prefix 前缀
+ * @params {Number} num 位数，建议在25-30之间，默认25
  * vk.pubfn.createOrderNo();
  */
-pubfn.createOrderNo = function(prefix=""){
+pubfn.createOrderNo = function(prefix="", num=25){
 	// 获取当前时间字符串格式如20200803093000123
 	let fullTime = pubfn.getFullTime(new Date(), 1);
 	fullTime = fullTime.substring(2);
-	return prefix + fullTime + pubfn.random(10);
+	let randomNum = num - (prefix + fullTime).length;
+	return prefix + fullTime + pubfn.random(randomNum);
 };
 
 // 前端专属开始 -----------------------------------------------------------
