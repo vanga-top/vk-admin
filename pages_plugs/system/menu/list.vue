@@ -182,7 +182,7 @@
 						rules: {
 							menu_id:[
 								{ required:true, message:'菜单标识不能为空', trigger:'blur' },
-								{ min: 2, max: 24, message:'长度在 2 到 24 个字符', trigger:'blur' },
+								{ min: 2, max: 40, message:'长度在 2 到 40 个字符', trigger:'blur' },
 							],
 							name:[
 								{ required:true, message:'菜单名称不能为空', trigger:'blur' },

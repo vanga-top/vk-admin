@@ -337,6 +337,70 @@
         "enable":true,
         "match_mode":1,
         "parent_id":"sys-manage"
+      },
+      {
+        "_id": "system-uni",
+        "_add_time": 1596416400000,
+        "enable": true,
+        "icon": "el-icon-s-tools",
+        "menu_id": "system-uni",
+        "name": "系统设置",
+        "sort": 110
+      },
+      {
+        "_id": "system-uni-uni-id-files",
+        "sort": 1,
+        "url": "/pages_plugs/system_uni/uni-id-files/list",
+        "_add_time": 1596416400000,
+        "enable": true,
+        "icon": "el-icon-folder-opened",
+        "menu_id": "system-uni-uni-id-files",
+        "name": "素材管理",
+        "parent_id": "system-uni"
+      },
+      {
+        "_id": "system-uni-opendb-global-data",
+        "enable": true,
+        "icon": "",
+        "menu_id": "system-uni-opendb-global-data",
+        "name": "系统缓存管理",
+        "parent_id": "system-uni",
+        "sort": 2,
+        "url": "/pages_plugs/system_uni/opendb-global-data",
+        "_add_time": 1596416400000
+      },
+      {
+        "_id": "system-uni-opendb-components-dynamic",
+        "sort": 3,
+        "url": "/pages_plugs/system_uni/opendb-components-dynamic",
+        "_add_time": 1596416400000,
+        "enable": true,
+        "icon": "",
+        "menu_id": "system-uni-opendb-components-dynamic",
+        "name": "动态组件数据",
+        "parent_id": "system-uni"
+      },
+      {
+        "_id": "system-uni-uni-id-log",
+        "sort": 8,
+        "url": "/pages_plugs/system_uni/uni-id-log",
+        "_add_time": 1596416400000,
+        "enable": true,
+        "icon": "",
+        "menu_id": "system-uni-uni-id-log",
+        "name": "用户登录日志",
+        "parent_id": "system-uni"
+      },
+      {
+        "_id": "system-uni-opendb-admin-log",
+        "sort": 9,
+        "url": "/pages_plugs/system_uni/opendb-admin-log",
+        "_add_time": 1596416400000,
+        "enable": true,
+        "icon": "",
+        "menu_id": "system-uni-opendb-admin-log",
+        "name": "系统操作日志",
+        "parent_id": "system-uni"
       }
 		],
 		"index": [
@@ -503,6 +567,23 @@
 			}
 		]
 	},
+  "uni-id-files-categories": {
+    "data": [],
+    "index": [
+      {
+        "IndexName": "_add_time",
+        "MgoKeySchema": {"MgoIndexKeys": [{"Name": "_add_time","Direction": "1"}],"MgoIsUnique": false}
+      },
+      {
+        "IndexName": "name",
+        "MgoKeySchema": {"MgoIndexKeys": [{"Name": "name","Direction": "1"}],"MgoIsUnique": false}
+      },
+      {
+        "IndexName": "sort",
+        "MgoKeySchema": {"MgoIndexKeys": [{"Name": "sort","Direction": "1"}],"MgoIsUnique": false}
+      }
+    ]
+  },
   "opendb-app-list": {
     "data": [
       {
