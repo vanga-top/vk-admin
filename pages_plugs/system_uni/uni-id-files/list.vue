@@ -294,11 +294,11 @@ export default {
 			uni.chooseFile({
 				extension,
 				success: res => {
+					vk.showLoading("上传中...");
 					let tasks = [];
 					for (let i in res.tempFilePaths) {
 						tasks.push(
 							vk.callFunctionUtil.uploadFile({
-								title: "上传中...",
 								filePath: res.tempFilePaths[i],
 								file: res.tempFiles[i],
 								needSave: true,
@@ -309,9 +309,11 @@ export default {
 					}
 					Promise.all(tasks)
 						.then(res1 => {
+							vk.hideLoading();
 							that.getList();
 						})
 						.catch(err => {
+							vk.hideLoading();
 							console.error(err);
 						});
 				}
