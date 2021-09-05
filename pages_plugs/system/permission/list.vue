@@ -87,9 +87,9 @@
 						{ key:"permission_id", title:"权限标识", type:"text", width:310, align:"left",
 							treeNode:true
 						},
-						{ key:"permission_name", title:"权限名称", type:"text", width:120, align:"left" },
+						{ key:"permission_name", title:"权限名称", type:"text", width:160, align:"left" },
 						{ key:"comment", title:"备注", type:"text", width:180, align:"left" },
-						{ key:"url", title:"URL", type:"text", width:250, align:"left" },
+						{ key:"url", title:"URL", type:"text", width:300, align:"left" },
 						{ key:"match_mode", title:"匹配模式", type:"text", width:100,
 							formatter:function(val, row, column, index){
 								if(typeof val === "undefined" || row.type == 0 || !row.url || row.url.length == 0) return "";

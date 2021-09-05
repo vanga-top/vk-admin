@@ -109,7 +109,7 @@
 							}
 						},
 						{ key:"menu_id", title:"菜单唯一标识", type:"text", width:350, align:"left" },
-						{ key:"url", title:"菜单URL", type:"text", width:250, align:"left" },
+						{ key:"url", title:"菜单URL", type:"text", width:350, align:"left" },
 						{ key:"comment", title:"备注", type:"text", width:200, align:"left" },
 						{ key:"permission", title:"菜单内置权限表", type:"text", width:120, defaultValue:"无" },
 						// 对应的权限是否启用
