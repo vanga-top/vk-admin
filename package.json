@@ -1,7 +1,7 @@
 {
     "id": "vk-unicloud-admin",
     "name": "vk-unicloud-admin",
-    "version": "1.5.12",
+    "version": "1.5.13",
     "displayName": "【开箱即用】vk-unicloud-admin - 快速开发框架 - 几分钟即可完成一个页面CRUD",
     "description": "vk-unicloud-admin是基于unicloud+uni-id+element+vk-unicloud-router的一套快速PC admin完整开发框架。丰富的API可以让你开发事半功倍。",
     "keywords": [
@@ -22,7 +22,7 @@
     "dependencies": {
         "element-ui": "^2.15.5",
         "umy-ui": "^1.1.6",
-        "vk-unicloud-admin-ui": "^1.5.21"
+        "vk-unicloud-admin-ui": "^1.5.23"
     },
     "engines": {
         "HBuilderX": "^3.1.10"

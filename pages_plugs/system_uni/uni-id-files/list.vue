@@ -298,12 +298,18 @@ export default {
 					let tasks = [];
 					for (let i in res.tempFilePaths) {
 						tasks.push(
-							vk.callFunctionUtil.uploadFile({
-								filePath: res.tempFilePaths[i],
-								file: res.tempFiles[i],
-								needSave: true,
-								fileType,
-								category_id: that.queryForm1.formData.category_id
+							new Promise(function(resolve, reject){
+								vk.callFunctionUtil.uploadFile({
+									filePath: res.tempFilePaths[i],
+									file: res.tempFiles[i],
+									needSave: true,
+									fileType,
+									category_id: that.queryForm1.formData.category_id,
+									addSuccess:function(res){
+										// 等保存到数据库后才执行resolve
+										resolve(res);
+									}
+								});
 							})
 						);
 					}

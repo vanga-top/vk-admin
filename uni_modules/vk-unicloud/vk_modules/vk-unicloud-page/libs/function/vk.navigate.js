@@ -42,6 +42,7 @@ util.navigateTo = function(obj) {
 		url: obj.url,
 		success: function(res) {
 			if (res.needLogin) {
+				obj.url = vk.pubfn.getPageFullPath(obj.url);
 				vk.navigate.originalPage = vk.pubfn.copyObject(obj);
 				obj.url = config.login.url;
 			} else {

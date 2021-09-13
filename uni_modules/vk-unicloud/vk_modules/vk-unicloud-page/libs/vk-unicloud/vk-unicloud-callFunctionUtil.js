@@ -377,6 +377,9 @@ class CallFunctionUtil {
 								res.fileID = tempFileURL;
 								res.url = tempFileURL;
 								res.file_id = fileID;
+								Logger.result.url = tempFileURL;
+								if (typeof success == "function") success(res);
+								resolve(res);
 								if (needSave) {
 									// 保存文件记录到数据库
 									vk.userCenter.addUploadRecord({
@@ -391,19 +394,14 @@ class CallFunctionUtil {
 										filePath,
 										fileType,
 										success: function() {
-											if (typeof success == "function") success(res);
-											resolve(res);
+											if (typeof obj.addSuccess == "function") obj.addSuccess(res);
 										},
 										fail: function(res) {
-											if (typeof fail === "function") fail(res);
-											reject(res);
+											if (typeof obj.addFail === "function") obj.addFail(res);
 										}
 									});
-								}else{
-									if (typeof success == "function") success(res);
-									resolve(res);
 								}
-							},
+							}
 						});
 					},
 					fail(err) {

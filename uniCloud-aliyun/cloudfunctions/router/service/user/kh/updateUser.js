@@ -13,7 +13,7 @@ module.exports = {
    */
   main: async (event) => {
     let { data = {}, util, originalParam } = event;
-    let { uniID } = util;
+    let { uniID, vk } = util;
     let { uid } = data;
     let res = {};
     // 业务逻辑开始-----------------------------------------------------------

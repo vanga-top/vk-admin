@@ -10,9 +10,7 @@ export default {
 		}
 		if(this.vk){
 			const url = this.vk.pubfn.getCurrentPageRoute();
-			this.vk.navigate.checkAllowShare({
-				url
-			});
+			this.vk.navigate.checkAllowShare({ url });
 		}
 	},
 	created(){

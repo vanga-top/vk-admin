@@ -80,6 +80,8 @@ aliyunOSSUtil.uploadFile = function(obj) {
 					// 上传成功
 					res.fileID = fileNameObj.url;
 					Logger.result = res;
+					if (typeof obj.success === "function") obj.success(res);
+					resolve(res);
 					if (needSave) {
 						// 保存文件记录到数据库
 						vk.userCenter.addUploadRecord({
@@ -94,17 +96,12 @@ aliyunOSSUtil.uploadFile = function(obj) {
 							filePath,
 							fileType,
 							success: function() {
-								if (typeof obj.success === "function") obj.success(res);
-								resolve(res);
+								if (typeof obj.addSuccess == "function") obj.addSuccess(res);
 							},
 							fail: function(res) {
-								if (typeof obj.fail === "function") obj.fail(res);
-								reject(res);
+								if (typeof obj.addFail === "function") obj.addFail(res);
 							}
 						});
-					}else{
-						if (typeof obj.success === "function") obj.success(res);
-						resolve(res);
 					}
 				}
 			},

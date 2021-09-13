@@ -1180,6 +1180,11 @@ pubfn.getListData2 = function (obj = {}){
 		idKeyName = "_id"
 	} = obj;
 	if(listName) listKey = listName;
+	/**
+	 * 2.0与1.0的区别
+	 * 2.0使用的queryForm1作为查询,而1.0是form1
+	 * 2.0云函数端是getTableData,而1.0是selects
+	 */
 	let { vk, queryForm1 } = that;
 	// 标记为请求中
 	that.loading = true;
@@ -1238,12 +1243,15 @@ pubfn.getListData2 = function (obj = {}){
 			if (typeof obj.success == "function") obj.success(data);
 		},
 		fail: function(err) {
-			console.error(err);
 			that.state.loadmore = "loadmore";
 			if (queryForm1.pagination.pageIndex > 1) {
 				queryForm1.pagination.pageIndex--;
 			}
-			if (typeof obj.fail == "function") obj.fail(data);
+			if (typeof obj.fail == "function"){
+				obj.fail(data);
+			} else if(err && err.msg){
+				vk.toast(err.msg, "none");
+			}
 		},
 		complete: function(res) {
 			that.loading = false;
@@ -1256,7 +1264,7 @@ pubfn.getListData2 = function (obj = {}){
 };
 
 /**
- * 手机端长列表分页加载数据
+ * 手机端长列表分页加载数据(1.0版本)
  * @params {Vue页面对象} 	that						页面数据对象this
  * @params {String} 			url							请求地址(云函数路径)
  * @params {String} 			listName				后端返回的list数组的字段名称,默认rows
@@ -1352,9 +1360,12 @@ pubfn.getListData = function (obj = {}){
 			if(typeof obj.success == "function") obj.success(data);
 		},
 		fail : function(err){
-			console.error(err);
 			if(form1.pageIndex > 1){form1.pageIndex--;}
-			if(typeof obj.fail == "function") obj.fail(data);
+			if(typeof obj.fail == "function"){
+				obj.fail(data);
+			} else if(err && err.msg){
+				vk.toast(err.msg, "none");
+			}
 		},
 		complete : function(res){
 			if(typeof obj.complete == "function") obj.complete(res);
@@ -1689,7 +1700,7 @@ pubfn.checkLogin = function(obj = {}) {
 	try {
 		let url;
 		try {
-			url = vk.pubfn.getCurrentPageRoute();
+			url = obj.url || vk.pubfn.getCurrentPageRoute();
 		}catch(err){
 			url = vk.getVuex("$app.config.index.url") || "/pages/index/index";
 		}
@@ -1697,6 +1708,7 @@ pubfn.checkLogin = function(obj = {}) {
 			url: url,
 			success: function(res) {
 				if (res.needLogin) {
+					// 这里应该记录下之前的页面? 不然登录成功后，只会进入首页。（后面优化）
 					vk.reLaunch(loginUrl);
 					// #ifdef MP-WEIXIN
 					uni.hideHomeButton();
