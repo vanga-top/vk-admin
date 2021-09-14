@@ -927,7 +927,7 @@ pubfn.createOrderNo = function(prefix="", num=25){
  * @params {String || Number} 	startTime	需要计算的时间 如文章最后回复时间
  * vk.pubfn.dateDiff(startTime);
  */
-pubfn.dateDiff = function(startTime) {
+pubfn.dateDiff = function(startTime, suffix = "前") {
 	if (!startTime){
 		return "";
 	}
@@ -951,16 +951,17 @@ pubfn.dateDiff = function(startTime) {
 	var hour = Math.floor(diff % nd / nh);//计算差多少小时
 	var min = Math.floor(diff % nd % nh / nm);//计算差多少分钟
 	var sec = Math.round(diff % nd % nh % nm / ns);//计算差多少秒//输出结果
-	var showStr = "1 秒前";
+	var showStr = "1 秒";
 	if (day > 0) {
-		showStr = day + "天前";
+		showStr = day + "天";
 	} else if (hour > 0) {
-		showStr = hour + "小时前";
+		showStr = hour + "小时";
 	} else if (min > 0) {
-		showStr = min + "分钟前";
+		showStr = min + "分钟";
 	} else if (sec > 0) {
-		showStr = sec + "秒前";
+		showStr = sec + "秒";
 	}
+	showStr += suffix;
 	return showStr;
 }
 /**
