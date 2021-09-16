@@ -69,10 +69,10 @@
 				type: Number,
 				default: 1
 			},
-      modelValue: {
-        type: Number,
-        default: 1
-      },
+			modelValue: {
+				type: Number,
+				default: 1
+			},
 			// 背景颜色
 			bgColor: {
 				type: String,
@@ -161,18 +161,18 @@
 			}
 		},
 		watch: {
-      value(v1, v2) {
-        // 只有value的改变是来自外部的时候，才去同步inputVal的值，否则会造成循环错误
-        if(!this.changeFromInner) {
-          this.inputVal = v1;
-          // 因为inputVal变化后，会触发this.handleChange()，在其中changeFromInner会再次被设置为true，
-          // 造成外面修改值，也导致被认为是内部修改的混乱，这里进行this.$nextTick延时，保证在运行周期的最后处
-          // 将changeFromInner设置为false
-          this.$nextTick(function(){
-            this.changeFromInner = false;
-          })
-        }
-      },
+			value(v1, v2) {
+				// 只有value的改变是来自外部的时候，才去同步inputVal的值，否则会造成循环错误
+				if(!this.changeFromInner) {
+					this.inputVal = v1;
+					// 因为inputVal变化后，会触发this.handleChange()，在其中changeFromInner会再次被设置为true，
+					// 造成外面修改值，也导致被认为是内部修改的混乱，这里进行this.$nextTick延时，保证在运行周期的最后处
+					// 将changeFromInner设置为false
+					this.$nextTick(function(){
+						this.changeFromInner = false;
+					})
+				}
+			},
 			modelValue(v1, v2) {
 				// 只有value的改变是来自外部的时候，才去同步inputVal的值，否则会造成循环错误
 				if(!this.changeFromInner) {
@@ -236,15 +236,15 @@
 			}
 		},
 		methods: {
-      getValue(){
-        // #ifndef VUE3
-        return this.value;
-        // #endif
-        
-        // #ifdef VUE3
-        return this.modelValue;
-        // #endif
-      },
+			getValue(){
+				// #ifndef VUE3
+				return this.value;
+				// #endif
+				
+				// #ifdef VUE3
+				return this.modelValue;
+				// #endif
+			},
 			// 点击退格键
 			btnTouchStart(callback) {
 				// 先执行一遍方法，否则会造成松开手时，就执行了clearTimer，导致无法实现功能

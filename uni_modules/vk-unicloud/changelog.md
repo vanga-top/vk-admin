@@ -1,3 +1,6 @@
+## 2.3.28（2021-09-16）
+* 【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.3.27（2021-09-14）
 * 【优化】`vk.pubfn.dateDiff` 新增后缀参数 [点击查看](https://vkdoc.fsq.pub/client/jsapi.html#vk-pubfn-datediff-%E5%B0%86%E6%97%B6%E9%97%B4%E6%98%BE%E7%A4%BA%E6%88%901%E7%A7%92%E5%89%8D%E3%80%811%E5%A4%A9%E5%89%8D)
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

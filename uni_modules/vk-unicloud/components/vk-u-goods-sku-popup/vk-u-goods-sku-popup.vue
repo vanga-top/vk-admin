@@ -366,6 +366,11 @@ export default {
 			Type: Number,
 			default: 1
 		},
+    // 每次选择完SKU后，购买数量归1，如果有最小购买数量，则设置为最小购买数量
+    selectedInit: {
+    	Type: Boolean,
+    	default: false
+    },
 	},
 	data() {
 		return {
@@ -698,7 +703,9 @@ export default {
 				if (that.selectNum < that.minBuyNum) {
 					that.selectNum = that.minBuyNum;
 				}
-				//that.selectNum = that.minBuyNum || 1;
+        if (that.selectedInit){
+          that.selectNum = that.minBuyNum || 1;
+        }
 			} else {
 				that.selectShop = {};
 			}
@@ -1053,7 +1060,7 @@ export default {
 				}
 			}
 			return str;
-		}
+		},
 	},
 	watch: {
 		value(newVal, oldValue) {
@@ -1106,7 +1113,7 @@ export default {
 
 		.layer {
 			animation: showLayer 0.2s linear both;
-      bottom:var(--window-bottom);
+			bottom:var(--window-bottom);
 		}
 	}
 
@@ -1245,6 +1252,7 @@ export default {
 								background-color: #ffffff;
 								color: #333333;
 								margin-right: 20rpx;
+                margin-bottom: 16rpx;
 								border: 1px solid #f4f4f4;
 								box-sizing: border-box;
 								&.actived {

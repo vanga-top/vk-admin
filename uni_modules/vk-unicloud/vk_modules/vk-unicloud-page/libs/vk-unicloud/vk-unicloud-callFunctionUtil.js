@@ -377,7 +377,7 @@ class CallFunctionUtil {
 								res.fileID = tempFileURL;
 								res.url = tempFileURL;
 								res.file_id = fileID;
-								Logger.result.url = tempFileURL;
+								if (config.debug) Logger.result.url = tempFileURL;
 								if (typeof success == "function") success(res);
 								resolve(res);
 								if (needSave) {
