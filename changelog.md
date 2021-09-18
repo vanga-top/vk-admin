@@ -1,3 +1,15 @@
+## 1.6.2（2021-09-18）
+* 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.6.7`
+* 2、【升级】`element-ui` 包升级至 `2.15.6` [点击查看](https://element.eleme.cn/#/zh-CN/component/changelog)
+* 3、【优化】`vk-data-dialog` + `万能表单` 触发 `before-close` 的逻辑。
+* 4、【优化】`vk-data-drawer` + `万能表单` 触发 `before-close` 的逻辑。
+
+
+##### 框架更新步骤 [点击查看](https://vkdoc.fsq.pub/admin/1/update.html)
+##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架
+
+##### 如果你觉得框架对你有用，可以在下方进行评论，也可以进行赞赏。
+
 ## 1.6.1（2021-09-17）
 * 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.6.6`
 * 2、【优化】`万能表单` `array` 新增 `maxlength` 属性，控制最大可添加的数量 [点击查看文档](https://vkdoc.fsq.pub/admin/components/24%E3%80%81array.html)
