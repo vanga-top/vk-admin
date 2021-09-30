@@ -152,7 +152,6 @@
 					data: {
 						sort:0,
 						enable:true,
-						match_mode:0,
 						url:""
 					},
 					// 表单属性

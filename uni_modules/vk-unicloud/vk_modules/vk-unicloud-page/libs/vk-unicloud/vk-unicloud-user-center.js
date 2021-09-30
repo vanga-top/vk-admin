@@ -387,6 +387,9 @@ export default {
 				}
 			});
 			// #endif
+			// #ifdef H5
+			resolve();
+			// #endif
 		})
 	},
   /**
@@ -410,8 +413,8 @@ export default {
 				...obj,
 				url: 'user/pub/loginByWeixin',
 				data: {
-					...data,
-					code: code
+					code,
+					...data
 				}
 			});
 		});
@@ -437,8 +440,8 @@ export default {
 				...obj,
 				url: 'user/pub/code2SessionWeixin',
 				data: {
+					code,
 					...data,
-					code: code
 				}
 			});
 		});

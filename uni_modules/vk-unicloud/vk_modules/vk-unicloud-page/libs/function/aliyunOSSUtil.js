@@ -108,7 +108,7 @@ aliyunOSSUtil.uploadFile = function(obj) {
 			fail: function(res) {
 				if (title) vk.hideLoading();
 				Logger.error = res;
-				if(res.errMsg && res.errMsg.indexOf('fail url not in domain list')>-1){
+				if (res.errMsg && res.errMsg.indexOf('fail url not in domain list') > -1) {
 					vk.toast('上传域名未在白名单中');
 				}
 				if (typeof obj.fail === "function") obj.fail(res);
@@ -122,16 +122,14 @@ aliyunOSSUtil.uploadFile = function(obj) {
 					let colorArr = config.logger.colorArr;
 					let colorStr = colorArr[counterNum % colorArr.length];
 					counterNum++;
-					console.log("%c--------【开始】【阿里云oss文件上传】--------", 'color: ' + colorStr +
-						';font-size: 12px;font-weight: bold;');
+					console.log("%c--------【开始】【阿里云oss文件上传】--------", 'color: ' + colorStr + ';font-size: 12px;font-weight: bold;');
 					console.log("【本地文件】: ", Logger.filePath);
 					console.log("【返回数据】: ", Logger.result);
 					console.log("【预览地址】: ", Logger.result.fileID);
 					console.log("【上传耗时】: ", Logger.runTime, "毫秒");
 					console.log("【上传时间】: ", vk.pubfn.timeFormat(Logger.startTime, "yyyy-MM-dd hh:mm:ss"));
 					if (Logger.error) console.error("【error】:", Logger.error);
-					console.log("%c--------【结束】【阿里云oss文件上传】--------", 'color: ' + colorStr +
-						';font-size: 12px;font-weight: bold;');
+					console.log("%c--------【结束】【阿里云oss文件上传】--------", 'color: ' + colorStr + ';font-size: 12px;font-weight: bold;');
 				}
 			}
 		});
@@ -181,8 +179,8 @@ function getConfig() {
 function createFileName(obj = {}) {
 	let {
 		index = 0,
-		file,
-		filePath,
+			file,
+			filePath,
 	} = obj;
 	let vk = getApp().globalData.vk;
 	let aliyunOSS = getConfig();
@@ -216,7 +214,8 @@ function createFileName(obj = {}) {
 	fileObj.fileNickName = fileNickName;
 	return fileObj;
 }
-function getFileSuffix(obj = {}){
+
+function getFileSuffix(obj = {}) {
 	let {
 		file,
 		filePath
@@ -226,7 +225,7 @@ function getFileSuffix(obj = {}){
 		let suffixName = filePath.substring(filePath.lastIndexOf(".") + 1);
 		if (suffixName && suffixName.length < 5) suffix = suffixName;
 	}
-	if(file){
+	if (file) {
 		if (file.path) {
 			let suffixName = file.path.substring(file.path.lastIndexOf(".") + 1);
 			if (suffixName && suffixName.length < 5) suffix = suffixName;

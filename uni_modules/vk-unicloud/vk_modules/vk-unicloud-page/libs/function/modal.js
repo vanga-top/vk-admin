@@ -217,23 +217,25 @@ export default {
 	},
 	// 设置当前页面的loading变量的值
 	setLoading: function(loading = true, obj = true) {
-		if (typeof obj === "boolean") {
-			let pages = getCurrentPages();
-			let page = pages[pages.length - 1];
-			let that = page.$vm;
-			that.loading = loading;
-		} else if (typeof obj === "object") {
-			let { data, name, that } = obj;
-			if(uni.vk){
-				if(!data) data = that;
-				uni.vk.pubfn.setData(data, name, loading);
-			}
-		} else if (typeof obj === "string") {
-			let pages = getCurrentPages();
-			let page = pages[pages.length - 1];
-			let that = page.$vm;
-			let name = obj;
-			that.vk.pubfn.setData(that, name, loading);
-		}
+		try {
+		  if (typeof obj === "boolean") {
+		  	let pages = getCurrentPages();
+		  	let page = pages[pages.length - 1];
+		  	let that = page.$vm;
+		  	that.loading = loading;
+		  } else if (typeof obj === "object") {
+		  	let { data, name, that } = obj;
+		  	if(uni.vk){
+		  		if(!data) data = that;
+		  		uni.vk.pubfn.setData(data, name, loading);
+		  	}
+		  } else if (typeof obj === "string") {
+		  	let pages = getCurrentPages();
+		  	let page = pages[pages.length - 1];
+		  	let that = page.$vm;
+		  	let name = obj;
+		  	that.vk.pubfn.setData(that, name, loading);
+		  }
+		}catch(err){}
 	},
 }

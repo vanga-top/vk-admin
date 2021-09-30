@@ -46,21 +46,21 @@ pubfn.setClipboardData = setClipboardData;
 
 /**
  * 休眠，等待（单位毫秒）
- * @params {Number} ms 毫秒
+ * @param {Number} ms 毫秒
  * await vk.pubfn.sleep(1000);
  */
 pubfn.sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 /**
  * 日期格式化
- * @params {Date || Number} date 需要格式化的时间
+ * @param {Date || Number} date 需要格式化的时间
  * vk.pubfn.timeFormat(new Date(),"yyyy-MM-dd hh:mm:ss");
  */
 pubfn.timeFormat = pubfn.timeUtil.timeFormat;
 /**
  * 日期对象转换(云函数端会自动转成东八区时间)
- * @params {Date || Number} date 需要转换的时间
- * @params {Number} type 转换方式
+ * @param {Date || Number} date 需要转换的时间
+ * @param {Number} type 转换方式
  * type = 0 返回 2020-08-03 12:12:12
  * type = 1 返回 20200803121212
  * type = 2 返回 { YYYY, MM, DD, hh, mm, ss }
@@ -70,7 +70,7 @@ pubfn.getFullTime = pubfn.timeUtil.getFullTime;
 
 /**
  * 获得相对当前周addWeekCount个周的起止日期
- * @params {Number} addWeekCount  默认0 (0代表本周 为-1代表上周 为1代表下周以此类推 为2代表下下周)
+ * @param {Number} addWeekCount  默认0 (0代表本周 为-1代表上周 为1代表下周以此类推 为2代表下下周)
  * vk.pubfn.getWeekStartAndEnd(0);
  */
 pubfn.getWeekStartAndEnd = pubfn.timeUtil.getWeekStartAndEnd;
@@ -78,16 +78,16 @@ pubfn.getWeekStartAndEnd = pubfn.timeUtil.getWeekStartAndEnd;
 
 /**
  * 获得相对当前时间的偏移 count 天的起止日期(日的开始和结束)
- * @params {Number} count  默认0 (0代表今日 为-1代表昨日 为1代表明日以此类推)
- * @params {Date || Number} date 指定从那天开始计算
+ * @param {Number} count  默认0 (0代表今日 为-1代表昨日 为1代表明日以此类推)
+ * @param {Date || Number} date 指定从那天开始计算
  * vk.pubfn.getDayOffsetStartAndEnd(0);
  */
 pubfn.getDayOffsetStartAndEnd = pubfn.timeUtil.getDayOffsetStartAndEnd;
 
 /**
  * 获得相对当前时间的偏移 count 月的起止日期(月的开始和结束)
- * @params {Number} count  默认0 (0代表本月 为-1代表上月 为1代表下月以此类推)
- * @params {Date || Number} date 指定从那天开始计算
+ * @param {Number} count  默认0 (0代表本月 为-1代表上月 为1代表下月以此类推)
+ * @param {Date || Number} date 指定从那天开始计算
  * vk.pubfn.getMonthOffsetStartAndEnd(0);
  */
 pubfn.getMonthOffsetStartAndEnd = pubfn.timeUtil.getMonthOffsetStartAndEnd;
@@ -95,15 +95,15 @@ pubfn.getMonthOffsetStartAndEnd = pubfn.timeUtil.getMonthOffsetStartAndEnd;
 
 /**
  * 获得相对当前时间的偏移 count 年的起止日期(年的开始和结束)
- * @params {Number} count  默认0 (0代表今年 为-1代表去年 为1代表明年以此类推)
- * @params {Date || Number} date 指定从那天开始计算
+ * @param {Number} count  默认0 (0代表今年 为-1代表去年 为1代表明年以此类推)
+ * @param {Date || Number} date 指定从那天开始计算
  * vk.pubfn.getYearOffsetStartAndEnd(0);
  */
 pubfn.getYearOffsetStartAndEnd = pubfn.timeUtil.getYearOffsetStartAndEnd;
 
 /**
  * 获取时间范围
- * @params {Date} date 日期对象 可以指定时间计算节点，默认使用当前时间进行计算
+ * @param {Date} date 日期对象 可以指定时间计算节点，默认使用当前时间进行计算
  * 返回的是时间戳(防止时区问题)
  * 返回数据如下：
  {
@@ -162,8 +162,8 @@ pubfn.validator = function (type){
 
 /**
  * 检测文本是否满足指定格式
- * @params {String} str 需要检测的文本
- * @params {String} type 检测类型
+ * @param {String} str 需要检测的文本
+ * @param {String} type 检测类型
  * 包含
  * mobile 手机号码
  * tel 座机
@@ -247,8 +247,8 @@ pubfn.checkStr = pubfn.test;
 /**
  * 对象属性拷贝(浅拷贝)
  * @description 将 obj2 的属性赋值给 obj1 (如果obj1中有对应的属性,则会被obj2的属性值覆盖)
- * @params {Object} 	obj1
- * @params {Object} 	obj2
+ * @param {Object} 	obj1
+ * @param {Object} 	obj2
  * vk.pubfn.objectAssign(obj1, obj2);
  */
 pubfn.objectAssign = function (obj1, obj2){
@@ -257,7 +257,7 @@ pubfn.objectAssign = function (obj1, obj2){
 /**
  * 复制一份对象-没有映射关系
  * @description 主要用于解除映射关系（不支持克隆函数）
- * @params {Object} 	obj
+ * @param {Object} 	obj
  * let newObj = vk.pubfn.copyObject(obj);
  */
 pubfn.copyObject = function (obj){
@@ -270,7 +270,7 @@ pubfn.copyObject = function (obj){
 /**
  * 深度克隆一个对象-没有映射关系
  * @description 主要用于解除映射关系（支持克隆函数）
- * @params {Object} 	obj
+ * @param {Object} 	obj
  * let newObj = vk.pubfn.deepClone(obj);
  */
 pubfn.deepClone = function (obj){
@@ -291,8 +291,8 @@ pubfn.deepClone = function (obj){
 /**
  * 表单自动填充数据
  * @description 主要用于表单修改时,数据库没有默认字段会报错的问题
- * @params {Object} 	defaultData 默认数据
- * @params {Object} 	itemData		当前数据
+ * @param {Object} 	defaultData 默认数据
+ * @param {Object} 	itemData		当前数据
  * that.form1 = vk.pubfn.formAssign(defaultData,itemData);
  */
 pubfn.formAssign = function (defaultData,itemData){
@@ -303,9 +303,9 @@ pubfn.formAssign = function (defaultData,itemData){
 
 /**
  * 两个(元素为对象)的数组合并,并去除重复的数据
- * @params	{Array} 	arr1 	第一个数组(arr1和aar2没有顺序要求)
- * @params	{Array} 	aar2 	第二个数组
- * @params	{String} 	flag 	判断标识,默认用id来判断,若flag传-1,代表不去除重复数据
+ * @param	{Array} 	arr1 	第一个数组(arr1和aar2没有顺序要求)
+ * @param	{Array} 	aar2 	第二个数组
+ * @param	{String} 	flag 	判断标识,默认用id来判断,若flag传-1,代表不去除重复数据
  * let arr = vk.pubfn.arr_concat(arr1, arr2, "_id");
  */
 pubfn.arr_concat = function (arr1, arr2, flag){
@@ -329,9 +329,9 @@ pubfn.arr_concat = function (arr1, arr2, flag){
 };
 /**
  * 自动根据字符串路径获取对象中的值支持.和[] , 且任意一个值为undefined时,不会报错,会直接返回undefined
- * @params	{Object} dataObj 数据源
- * @params	{String} name 支持a.b 和 a[b]
- * @params	{String} defaultValue undefined时的默认值
+ * @param	{Object} dataObj 数据源
+ * @param	{String} name 支持a.b 和 a[b]
+ * @param	{String} defaultValue undefined时的默认值
  * vk.pubfn.getData(dataObj, name);
  */
 pubfn.getData = function (dataObj, name, defaultValue) {
@@ -356,9 +356,9 @@ pubfn.getData = function (dataObj, name, defaultValue) {
 };
 /**
  * 自动根据字符串路径设置对象中的值 支持.和[]
- * @params	{Object} dataObj 数据源
- * @params	{String} name 支持a.b 和 a[b]
- * @params	{String} value 值
+ * @param	{Object} dataObj 数据源
+ * @param	{String} name 支持a.b 和 a[b]
+ * @param	{String} value 值
  * vk.pubfn.setData(dataObj, name, value);
  */
 pubfn.setData = function (dataObj, name, value) {
@@ -464,9 +464,9 @@ pubfn.isNotNullAll = function (...strS) {
 /**
  * 获取对象数组中的某一个item,根据指定的键名和键值
  * @description 主要用于在一个对象数组中快速获取 _id = 1 的对象
- * @params	{Array} list 数据源
- * @params	{String} key 键名(不可为空)
- * @params	{String} value 键值 (不可为空)
+ * @param	{Array} list 数据源
+ * @param	{String} key 键名(不可为空)
+ * @param	{String} value 键值 (不可为空)
  * vk.pubfn.getListItem(list, key, value);
  */
 pubfn.getListItem = function (list,key,value) {
@@ -482,9 +482,9 @@ pubfn.getListItem = function (list,key,value) {
 /**
  * 获取对象数组中某个元素的index,根据指定的键名和键值
  * @description 主要用于在一个对象数组中快速获取 _id = 1 的index
- * @params	{Array} list 数据源
- * @params	{String} key 键名
- * @params	{String} value 键值
+ * @param	{Array} list 数据源
+ * @param	{String} key 键名
+ * @param	{String} value 键值
  * vk.pubfn.getListIndex(list, key, value);
  */
 pubfn.getListIndex = function (list,key,value) {
@@ -500,9 +500,9 @@ pubfn.getListIndex = function (list,key,value) {
 /**
  * 获取对象数组中某个元素的index,根据指定的键名和键值
  * @description 主要用于在一个对象数组中快速获取 _id = 1 的index
- * @params	{Array} list 数据源
- * @params	{String} key 键名
- * @params	{String} value 键值
+ * @param	{Array} list 数据源
+ * @param	{String} key 键名
+ * @param	{String} value 键值
  * vk.pubfn.getListItemIndex(list, key, value);
  */
 pubfn.getListItemIndex = function (list,key,value) {
@@ -551,9 +551,9 @@ pubfn.arrayObjectGetArray = function (list, key) {
 
 /**
  * 产生指定位数的随机数(支持任意字符,默认纯数字)
- * @params	{Number} length 数据源
- * @params	{String} str 指定的字符串中随机范围
- * @params	{Array} arr 产生的随机数不会和此数组的任意一项重复
+ * @param	{Number} length 数据源
+ * @param	{String} str 指定的字符串中随机范围
+ * @param	{Array} arr 产生的随机数不会和此数组的任意一项重复
  * vk.pubfn.random(6);
  * vk.pubfn.random(6, "abcdefghijklmnopqrstuvwxyz0123456789");
  * vk.pubfn.random(1,"12",["1","2"]);
@@ -577,8 +577,8 @@ pubfn.random = function (length, str, arr) {
 };
 /**
  * 产生指定位数的随机数(支持任意字符,默认纯数字)
- * @params	{Number} length 数据源
- * @params	{String} str 指定的字符串中随机范围
+ * @param	{Number} length 数据源
+ * @param	{String} str 指定的字符串中随机范围
  * vk.pubfn.random(6);
  * vk.pubfn.random(6, "abcdefghijklmnopqrstuvwxyz0123456789");
  */
@@ -623,9 +623,9 @@ pubfn.stringIdToNumberId = function (str, length) {
 
 /**
  * 将手机号,账号等隐藏中间字段
- * @params {String} str   需要转换的字符串
- * @params {Number} first 前面显示的字符数量
- * @params {Number} last  后面显示的字符数量
+ * @param {String} str   需要转换的字符串
+ * @param {Number} first 前面显示的字符数量
+ * @param {Number} last  后面显示的字符数量
  * vk.pubfn.hidden(str, first, last);
  */
 pubfn.hidden = function (str, first, last) {
@@ -638,8 +638,8 @@ pubfn.hidden = function (str, first, last) {
 };
 /**
  * 判断常量数组A是否至少有一个元素在常量数组B中存在(两数组有交集)
- * @params {Array} arr1 数组A
- * @params {Array} arr2 数组B
+ * @param {Array} arr1 数组A
+ * @param {Array} arr2 数组B
  * vk.pubfn.checkArrayIntersection(arr1, arr2);
  */
 pubfn.checkArrayIntersection = function (arr1 = [], arr2 = []) {
@@ -654,8 +654,8 @@ pubfn.checkArrayIntersection = function (arr1 = [], arr2 = []) {
 
 /**
  * 检测数据源是否满足表达式规则
- * @params {Object} data 数据源
- * @params {String} expText 表达式文本
+ * @param {Object} data 数据源
+ * @param {String} expText 表达式文本
  * vk.pubfn.checkDataExpText(data, expText);
  */
 pubfn.checkDataExpText = function (data={},expText) {
@@ -715,7 +715,7 @@ pubfn.isObject = function (value) {
 
 /**
  * 计算运费
- *  @params {Object} freightsItem 运费模板
+ *  @param {Object} freightsItem 运费模板
  {
    first_weight             Number 首重 单位KG,
    first_weight_price       Number 首重 首重价格
@@ -723,7 +723,7 @@ pubfn.isObject = function (value) {
    continuous_weight_price  Number 续重价格
    max_weight               Number 重量达到此值时,会多计算首重的价格,并少一次续重的价格 倍乘(相当于拆分多个包裹)
  }
- * @params {Number} weight 运费重量
+ * @param {Number} weight 运费重量
  * vk.pubfn.calcFreights(freightsItem, weight);
  */
 pubfn.calcFreights = function (freightsItem, weight) {
@@ -774,8 +774,8 @@ pubfn.calcFreights = function (freightsItem, weight) {
 
 /**
  * 从一个对象中取多个属性,并生成一个全新的对象,会过滤空字符串,空数组,空对象
- * @params {Object} obj 对象
- * @params {Array<String>} keys 键名数组
+ * @param {Object} obj 对象
+ * @param {Array<String>} keys 键名数组
  * vk.pubfn.getNewObject(obj, keys);
  */
 pubfn.getNewObject = function(obj, keys) {
@@ -796,8 +796,8 @@ pubfn.getNewObject = function(obj, keys) {
 
 /**
  * 对象删除指定的字段,返回新的对象
- * @params {Object} data  操作对象
- * @params {Array<String>} deleteKeys 需要删除的键名(数组形式)
+ * @param {Object} data  操作对象
+ * @param {Array<String>} deleteKeys 需要删除的键名(数组形式)
  * vk.pubfn.deleteObjectKeys(data, deleteKeys);
  */
 pubfn.deleteObjectKeys = function(data, deleteKeys = []){
@@ -814,16 +814,16 @@ pubfn.deleteObjectKeys = function(data, deleteKeys = []){
 
 /**
  * 数组结构转树形结构
- * @params {Array} treeData  数据源
- * @params {Object} treeProps 树结构配置
+ * @param {Array} treeData  数据源
+ * @param {Object} treeProps 树结构配置
  * { id:"_id", parent_id:"parent_id", children:"children",need_field:["_id","name"],deleteParentId:true }
  * vk.pubfn.arrayToTree(treeData, treeProps);
  */
 pubfn.arrayToTree = pubfn.treeUtil.arrayToTree;
 /**
  * 树形结构转数组结构
- * @params {Array} treeData  数据源
- * @params {Object} treeProps 树结构配置
+ * @param {Array} treeData  数据源
+ * @param {Object} treeProps 树结构配置
  * { id:"_id", parent_id:"parent_id", children:"children", deleteChildren:true }
  * vk.pubfn.treeToArray(treeData, treeProps);
  */
@@ -831,8 +831,8 @@ pubfn.treeToArray = pubfn.treeUtil.treeToArray;
 
 /**
  * 通配符匹配
- * @params {String} text  被匹配的文本
- * @params {String} expText 通配符规则
+ * @param {String} text  被匹配的文本
+ * @param {String} expText 通配符规则
  * vk.pubfn.wildcardTestOne(text, expText);
  */
 pubfn.wildcardTestOne = function(text, expText){
@@ -845,8 +845,8 @@ pubfn.wildcardTestOne = function(text, expText){
 };
 /**
  * 通配符匹配 expText支持数组
- * @params {String} text  被匹配的文本
- * @params {String | Array<String>} expText 通配符规则
+ * @param {String} text  被匹配的文本
+ * @param {String | Array<String>} expText 通配符规则
  * vk.pubfn.wildcardTest(text, expText);
  */
 pubfn.wildcardTest = function(text, expText){
@@ -871,8 +871,8 @@ pubfn.wildcardTest = function(text, expText){
 
 /**
  * 正则匹配
- * @params {String} text  被匹配的文本
- * @params {String} expText 正则表达式规则
+ * @param {String} text  被匹配的文本
+ * @param {String} expText 正则表达式规则
  * vk.pubfn.regExpTestOne(text, expText);
  */
 pubfn.regExpTestOne = function(text, expText){
@@ -883,8 +883,8 @@ pubfn.regExpTestOne = function(text, expText){
 
 /**
  * 正则匹配
- * @params {String} text  被匹配的文本
- * @params {String || Array<String>} wildcardExp 正则表达式规则
+ * @param {String} text  被匹配的文本
+ * @param {String || Array<String>} wildcardExp 正则表达式规则
  * vk.pubfn.regExpTest(text, regExp);
  */
 pubfn.regExpTest = function(text, expText){
@@ -908,8 +908,8 @@ pubfn.regExpTest = function(text, expText){
 
 /**
  * 产生订单号，不依赖数据库，高并发时性能高（理论上会重复，但概率非常非常低）
- * @params {String} prefix 前缀
- * @params {Number} num 位数，建议在25-30之间，默认25
+ * @param {String} prefix 前缀
+ * @param {Number} num 位数，建议在25-30之间，默认25
  * vk.pubfn.createOrderNo();
  */
 pubfn.createOrderNo = function(prefix="", num=25){
@@ -920,11 +920,109 @@ pubfn.createOrderNo = function(prefix="", num=25){
 	return prefix + fullTime + pubfn.random(randomNum);
 };
 
+const isSnakeCase = new RegExp('_(\\w)', 'g');
+const isCamelCase = new RegExp('[A-Z]', 'g');
+
+function parseObjectKeys(obj, type) {
+	let parserReg;
+	let parser;
+	switch (type) {
+		case 'snake2camel':
+			parser = pubfn.snake2camel
+			parserReg = isSnakeCase
+			break
+		case 'camel2snake':
+			parser = pubfn.camel2snake
+			parserReg = isCamelCase
+			break
+	}
+	for (const key in obj) {
+		if (Object.prototype.hasOwnProperty.call(obj, key)) {
+			if (parserReg.test(key)) {
+				const keyCopy = parser(key)
+				obj[keyCopy] = obj[key]
+				delete obj[key]
+				if (Object.prototype.toString.call((obj[keyCopy])) === '[object Object]') {
+					obj[keyCopy] = parseObjectKeys(obj[keyCopy], type)
+				} else if (Array.isArray(obj[keyCopy])) {
+					obj[keyCopy] = obj[keyCopy].map((item) => {
+						return parseObjectKeys(item, type)
+					})
+				}
+			}
+		}
+	}
+	return obj
+}
+/**
+ * 字符串 - 蛇形转驼峰
+ * @param {String} value
+ * vk.pubfn.snake2camel(value);
+ */
+pubfn.snake2camel = function(value) {
+	return value.replace(isSnakeCase, (_, c) => (c ? c.toUpperCase() : ''))
+}
+/**
+ * 字符串 - 驼峰转蛇形
+ * @param {String} value
+ * vk.pubfn.camel2snake(value);
+ */
+pubfn.camel2snake = function(value) {
+	return value.replace(isCamelCase, str => '_' + str.toLowerCase())
+}
+
+/**
+ * 对象内的属性名 - 蛇形转驼峰
+ * @param {Object} obj
+ * vk.pubfn.snake2camelJson(obj);
+ */
+pubfn.snake2camelJson = function(obj) {
+	return parseObjectKeys(obj, 'snake2camel');
+};
+/**
+ * 对象内的属性名 - 驼峰转蛇形
+ * @param {Object} obj
+ * vk.pubfn.camel2snakeJson(obj);
+ */
+pubfn.camel2snakeJson = function(obj) {
+	return parseObjectKeys(obj, 'camel2snake');
+};
+/**
+ * 将能转成数字的字符串转数字（支持字符串、对象、数组）
+ * @param {Any} obj
+ * vk.pubfn.string2Number(obj);
+ */
+pubfn.string2Number = function(obj) {
+	const type = Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
+	switch (type) {
+		case 'string':
+			if (!isNaN(obj)) {
+				return Number(obj);
+			} else {
+				return obj;
+			}
+		case 'object':
+			const keys = Object.keys(obj);
+			for (let i = 0; i < keys.length; i++) {
+				const key = keys[i];
+				obj[key] = pubfn.string2Number(obj[key]);
+			}
+			return obj;
+		case 'array':
+			for (let i = 0; i < obj.length; i++) {
+				obj[i] = pubfn.string2Number(obj[i]);
+			}
+			return obj;
+		default:
+			return obj;
+	}
+};
+
 // 前端专属开始 -----------------------------------------------------------
 /**
  * 将时间显示成1秒前、1天前
  * @description 主要用于 文章最后回复时间: 1分钟前
- * @params {String || Number} 	startTime	需要计算的时间 如文章最后回复时间
+ * @param {String || Number} 	startTime	需要计算的时间 如文章最后回复时间
  * vk.pubfn.dateDiff(startTime);
  */
 pubfn.dateDiff = function(startTime, suffix = "前") {
@@ -967,7 +1065,7 @@ pubfn.dateDiff = function(startTime, suffix = "前") {
 /**
  * 将时间显示成1秒、1天
  * @description 主要用于 到期时间剩余 : 3天 这样的场景
- * @params {String || Number} endTime	需要计算的时间 如到期时间
+ * @param {String || Number} endTime	需要计算的时间 如到期时间
  * vk.pubfn.dateDiff2(endTime);
  */
 pubfn.dateDiff2 = function(startTime) {
@@ -1014,7 +1112,7 @@ pubfn.dateDiff2 = function(startTime) {
  * 31210 -> 3万
  * 1523412 -> 1百万
  * 15234120 ->1千万
- * @params {Number} n 需要转换的数字
+ * @param {Number} n 需要转换的数字
  * vk.pubfn.numStr(n);
  */
 pubfn.numStr = function (n){
@@ -1044,7 +1142,7 @@ pubfn.numStr = function (n){
 };
 /**
  * 金额显示过滤器（已分为单位，将100 转成 1）
- * @params {Number} money 金额
+ * @param {Number} money 金额
  * vk.pubfn.priceFilter(money);
  */
 pubfn.priceFilter = function (money,nullValue = ""){
@@ -1074,7 +1172,7 @@ pubfn.priceRightFilter = function (n){
 };
 /**
  * 百分比过滤器 将0.01显示成1% 1 显示成 100%
- * @params {Number} value 值
+ * @param {Number} value 值
  * vk.pubfn.priceFilter(money);
  */
 pubfn.percentageFilter = function (value, needShowSymbol = true, nullValue = ""){
@@ -1092,7 +1190,7 @@ pubfn.percentageFilter = function (value, needShowSymbol = true, nullValue = "")
 };
 /**
  * 将字符串格式的时间转为时间戳
- * @params {String} 	dateString		格式为:2020-08-08 12:12:12
+ * @param {String} 	dateString		格式为:2020-08-08 12:12:12
  */
 pubfn.toTimeLong = function (dateString){
 	if(!dateString){
@@ -1152,12 +1250,12 @@ pubfn.calcSize = function (length=0, arr, ary, precision=2, showType="auto"){
 
 /**
  * 手机端长列表分页加载数据 2.0版本
- * @params {Vue页面对象} 	that						页面数据对象this
- * @params {String} 			url							请求地址(云函数路径)
- * @params {String} 			listName				后端返回的list数组的字段名称,默认rows(二选一即可)
- * @params {String} 			listKey					后端返回的list数组的字段名称,默认rows(二选一即可)
- * @params {Object} 			data						额外数据
- * @params {function} 		dataPreprocess	数据预处理函数
+ * @param {Vue页面对象} 	that						页面数据对象this
+ * @param {String} 			url							请求地址(云函数路径)
+ * @param {String} 			listName				后端返回的list数组的字段名称,默认rows(二选一即可)
+ * @param {String} 			listKey					后端返回的list数组的字段名称,默认rows(二选一即可)
+ * @param {Object} 			data						额外数据
+ * @param {function} 		dataPreprocess	数据预处理函数
  *
  * 代码示例
 	vk.pubfn.getListData2({
@@ -1266,12 +1364,12 @@ pubfn.getListData2 = function (obj = {}){
 
 /**
  * 手机端长列表分页加载数据(1.0版本)
- * @params {Vue页面对象} 	that						页面数据对象this
- * @params {String} 			url							请求地址(云函数路径)
- * @params {String} 			listName				后端返回的list数组的字段名称,默认rows
- * @params {String} 			listKey					后端返回的list数组的字段名称,默认rows
- * @params {Object} 			data						额外数据
- * @params {function} 		dataPreprocess	数据预处理函数
+ * @param {Vue页面对象} 	that						页面数据对象this
+ * @param {String} 			url							请求地址(云函数路径)
+ * @param {String} 			listName				后端返回的list数组的字段名称,默认rows
+ * @param {String} 			listKey					后端返回的list数组的字段名称,默认rows
+ * @param {Object} 			data						额外数据
+ * @param {function} 		dataPreprocess	数据预处理函数
  *
  * 代码示例
 	vk.pubfn.getListData({
@@ -1377,8 +1475,8 @@ pubfn.getListData = function (obj = {}){
 /**
  * 动态组件数据获取
  * @description 主要用于动态组件的数据获取
- * @params {Vue页面对象} that 页面数据对象this
- * @params {String}     ids  动态数据组件的ID
+ * @param {Vue页面对象} that 页面数据对象this
+ * @param {String}     ids  动态数据组件的ID
  *
  * 代码示例
  * 如:放置一个动态数据的 公告组件 和 一个轮播图组件
@@ -1450,7 +1548,7 @@ pubfn.getComponentsDynamicData = function (obj = {}){
 
 /**
  * 将../../ 形式的页面相对路径 转成 页面绝对路径
- * @params {String} url 需要转换的url
+ * @param {String} url 需要转换的url
  * vk.pubfn.getPageFullPath(url);
  */
 pubfn.getPageFullPath = function(url) {

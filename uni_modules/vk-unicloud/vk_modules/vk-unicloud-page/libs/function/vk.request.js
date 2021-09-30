@@ -38,7 +38,7 @@ var counterNum = 0;
  * @param {String} errorCodeName      服务器返回的错误码的字段名，若不为空，则会对返回结果进行判断
  * @param {String} errorMsgName       服务器返回的错误码的字符串含义，若不为空，且errorCodeName对应的值不为0，则会alert弹窗
  * @param {Boolean} needAlert         服务器返回的错误时，是否需要alert弹出提示
- * 
+ *
  * 调用示例
 vk.request({
 	url: `https://www.xxx.com/api/xxxx`,
@@ -58,7 +58,10 @@ vk.request({
 
 requestUtil.request = function(obj = {}) {
 	let vk = uni.vk;
-
+	// 去除值为 undefined 的参数
+	if(typeof obj.data === "object"){
+		obj.data = vk.pubfn.copyObject(obj.data);
+	}
 	// 注入自定义全局参数开始-----------------------------------------------------------
 	let config = requestUtil.config;
 	let globalParam = uni.getStorageSync(config.requestGlobalParamKeyName) || {};
@@ -66,9 +69,21 @@ requestUtil.request = function(obj = {}) {
 	for (let i in globalParam) {
 		let customDate = globalParam[i];
 		if (customDate.regExp) {
-			let regExp = new RegExp(customDate.regExp);
-			if (regExp.test(obj.url)) {
-				obj.data = Object.assign(customDate.data, obj.data);
+			if (typeof customDate.regExp === "object") {
+				// 数组形式
+				for (let i = 0; i < customDate.regExp.length; i++) {
+					let regExp = new RegExp(customDate.regExp[i]);
+					if (regExp.test(obj.url)) {
+						obj.data = Object.assign(customDate.data, obj.data);
+						break;
+					}
+				}
+			} else {
+				// 字符串形式
+				let regExp = new RegExp(customDate.regExp);
+				if (regExp.test(obj.url)) {
+					obj.data = Object.assign(customDate.data, obj.data);
+				}
 			}
 		}
 	}
@@ -241,7 +256,7 @@ function requestFail(obj = {}) {
 		if (typeof fail === "function") fail(res);
 		if (typeof reject === "function") reject(res);
 	}
-	
+
 }
 
 // 请求完成回调
