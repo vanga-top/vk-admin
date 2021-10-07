@@ -1,3 +1,32 @@
+## 2.4.6（2021-10-07）
+* 【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.4.5（2021-09-30）
+* 1、【优化】`vk.pubfn.string2Number` 新增第二位参数option
+```js
+/**
+ * 将能转成数字的字符串转数字（支持字符串、对象、数组）
+ * @param {Any} obj
+ * @param {Object} option 哪些格式需要排除
+ * 默认排除
+ * mobile:true 手机号，如 15200000001
+ * idCard:true 身份证，如 330154202109301214
+ * startFrom0:true 第一位是0，且长度大于1的，同时第二位不是.的字符串  如 01，057189101254
+ */
+vk.pubfn.string2Number(obj, option);
+```
+
+##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架
+
+##### 如果你觉得框架对你有用，可以在下方进行评论，也可以进行赞赏。
+
+## 2.4.3（2021-09-30）
+* 1、【优化】`vk.pubfn.string2Number` 新增第二位参数option，默认排除手机号、身份证、第一位是0，且长度大于1的字符串（可自由设置）
+
+##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架
+
+##### 如果你觉得框架对你有用，可以在下方进行评论，也可以进行赞赏。
+
 ## 2.4.2（2021-09-30）
 * 1、【新增】`vk.pubfn.string2Number` 将能转成数字的字符串值转Number类型（支持字符串、对象、数组）（深度遍历）
 * 2、【优化】`vk.callFunctionUtil.updateRequestGlobalParam` 设置全局请求参数 `regExp` 参数支持数组（满足数组内任意正则即算匹配） [点击查看](https://vkdoc.fsq.pub/client/pages/updateRequestGlobalParam.html)

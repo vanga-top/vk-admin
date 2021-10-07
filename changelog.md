@@ -1,3 +1,17 @@
+## 1.6.6（2021-10-07）
+* 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.6.28`
+* 2、【新增】`万能表格` 新增 `type` ： `dateDiff2` 计算出还剩多少时间到期。
+```js
+{ key:"exp_time", title:"到期剩", type:"dateDiff2", endText:"已到期", width:80, defaultValue: "永久", sortable:"custom" },
+```
+* 3、【优化】`万能表格` `avatar` 新增属性 `shape` 默认为 `circle` circle 圆形 square 方形
+* 4、【优化】其他细节
+  
+##### 框架更新步骤 [点击查看](https://vkdoc.fsq.pub/admin/1/update.html)
+##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架
+
+##### 如果你觉得框架对你有用，可以在下方进行评论，也可以进行赞赏。
+
 ## 1.6.5（2021-09-30）
 * 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.6.13`
 * 2、【优化】`万能表格` 查询接口支持异常重试机制（可有效解决阿里云空间偶尔出现数据库连接超时导致异常的问题）[点击查看](https://vkdoc.fsq.pub/admin/2/table.html#%E5%BC%82%E5%B8%B8%E9%87%8D%E8%AF%95%E6%9C%BA%E5%88%B6)

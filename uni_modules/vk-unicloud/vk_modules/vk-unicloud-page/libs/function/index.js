@@ -990,13 +990,30 @@ pubfn.camel2snakeJson = function(obj) {
 /**
  * 将能转成数字的字符串转数字（支持字符串、对象、数组）
  * @param {Any} obj
- * vk.pubfn.string2Number(obj);
+ * @param {Object} option 哪些格式需要排除
+ * 默认排除
+ * mobile:true 手机号，如 15200000001
+ * idCard:true 身份证，如 330154202109301214
+ * startFrom0:true 第一位是0，且长度大于1的，同时第二位不是.的字符串  如 01，057189101254
+ * vk.pubfn.string2Number(obj, option);
  */
-pubfn.string2Number = function(obj) {
+pubfn.string2Number = function(obj, option = {}) {
 	const type = Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
 	switch (type) {
 		case 'string':
 			if (!isNaN(obj)) {
+				let {
+					mobile = true,
+						idCard = true,
+						startFrom0 = true
+				} = option;
+				if (mobile && pubfn.test(obj, "mobile")) {
+					return obj;
+				} else if (idCard && pubfn.test(obj, "card")) {
+					return obj;
+				} else if (startFrom0 && obj.length > 1 && obj.indexOf("0") === 0 && obj.indexOf(".") !== 1) {
+					return obj;
+				}
 				return Number(obj);
 			} else {
 				return obj;
@@ -1068,7 +1085,7 @@ pubfn.dateDiff = function(startTime, suffix = "前") {
  * @param {String || Number} endTime	需要计算的时间 如到期时间
  * vk.pubfn.dateDiff2(endTime);
  */
-pubfn.dateDiff2 = function(startTime) {
+pubfn.dateDiff2 = function(startTime, str="1秒") {
 	if (!startTime){
 		return "";
 	}
@@ -1092,7 +1109,7 @@ pubfn.dateDiff2 = function(startTime) {
 	var hour = Math.floor(diff % nd / nh);
 	var min = Math.floor(diff % nd % nh / nm);
 	var sec = Math.round(diff % nd % nh % nm / ns);
-	var showStr = "1秒";
+	var showStr = str;
 	if (day > 0) {
 		showStr = day + "天";
 	} else if (hour > 0) {
