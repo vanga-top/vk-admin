@@ -41,6 +41,9 @@ module.exports = {
 			await uniID.setVerifyCode({ mobile, code, expiresIn: 60, type: "login" });
 			res = await uniID.loginBySms({ mobile, code, type, inviteCode });
 			if (res.token) {
+				if (!res.msg) {
+					res.msg = res.type === "register" ? "注册成功" : "登录成功";
+				}
 				if (res.type === "register") {
 					let wx_openid;
 					let wx_unionid;

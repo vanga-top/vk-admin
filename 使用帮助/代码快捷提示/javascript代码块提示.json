@@ -445,6 +445,14 @@
 		"triggerAssist": false,
 		"description": "时间过滤器,第二个参数支持yyyy-MM-dd HH:mm:ss"
 	},
+	"vk.pubfn.string2Number": {
+	 "prefix": "vk.pubfn.string2Number",
+	 "body": [
+			"vk.pubfn.string2Number(${0})"
+		],
+		"triggerAssist": false,
+		"description": "将对象字段中能转成字符串的值转Number类型"
+	},
 	"vk.pubfn.dateDiff": {
 	 "prefix": "vk.pubfn.dateDiff",
 	 "body": [

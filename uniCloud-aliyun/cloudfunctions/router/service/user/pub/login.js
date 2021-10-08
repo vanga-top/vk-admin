@@ -14,18 +14,21 @@ module.exports = {
 	 */
 	main: async (event) => {
 		let { data = {}, util, originalParam } = event;
-		let { uniID, config, pubFun, vk , db, _ } = util;
+		let { uniID, config, pubFun, vk, db, _ } = util;
 		let { uid } = data;
 		let res = {};
 		// 业务逻辑开始-----------------------------------------------------------
 		// 用户登录(账号+密码)
-		
+
 		res = await uniID.login({
 			...event.data,
 			// 不指定queryField的情况下只会查询username
 			queryField: ['username', 'email', 'mobile']
 		});
-		if(res.token){
+		if (res.token) {
+			if (!res.msg) {
+				res.msg = res.type === "register" ? "注册成功" : "登录成功";
+			}
 			// 日志服务
 			const loginLogService = vk.require("service/user/util/login_log");
 			await loginLogService.add({
@@ -33,7 +36,7 @@ module.exports = {
 				login_type: "password",
 				user_id: res.uid,
 				context: originalParam.context
-			},util);
+			}, util);
 		}
 		// 业务逻辑结束-----------------------------------------------------------
 		return res;

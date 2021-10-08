@@ -23,10 +23,13 @@ module.exports = {
 		let { data = {}, userInfo, util, originalParam } = event;
 		let { customUtil, uniID, config, pubFun, vk, db, _ } = util;
 		let { uid } = data;
-		let res = { code : 0, msg : '' };
+		let res = { code: 0, msg: '' };
 		// 业务逻辑开始-----------------------------------------------------------
 		res = await uniID.loginByUniverify(data);
-		if(res.token){
+		if (res.token) {
+			if (!res.msg) {
+				res.msg = res.type === "register" ? "注册成功" : "登录成功";
+			}
 			// 日志服务
 			const loginLogService = vk.require("service/user/util/login_log");
 			await loginLogService.add({
@@ -34,7 +37,7 @@ module.exports = {
 				login_type: "univerify",
 				user_id: res.uid,
 				context: originalParam.context
-			},util);
+			}, util);
 		}
 		// 业务逻辑结束-----------------------------------------------------------
 		return res;

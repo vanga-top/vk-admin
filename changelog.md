@@ -1,3 +1,14 @@
+## 1.6.7（2021-10-08）
+* 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.6.31`
+* 2、【优化】`万能表单` `table-select` 新增属性 `dataPreprocess`
+* 3、【优化】`万能表单` `table-select` 内部缓存逻辑
+* 4、【优化】`万能表单` `array<object>` 新增属性 `size` 可选值：medium / small / mini
+
+##### 框架更新步骤 [点击查看](https://vkdoc.fsq.pub/admin/1/update.html)
+##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架
+
+##### 如果你觉得框架对你有用，可以在下方进行评论，也可以进行赞赏。
+
 ## 1.6.6（2021-10-07）
 * 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.6.28`
 * 2、【新增】`万能表格` 新增 `type` ： `dateDiff2` 计算出还剩多少时间到期。
