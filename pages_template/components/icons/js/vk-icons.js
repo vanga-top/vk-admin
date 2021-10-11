@@ -54,4 +54,5 @@ export default ["activityfill", "crownfill", "crown", "goodsfill", "messagefill"
 	"safe", "qi", "ye", "cangku", "cangku1",
 	"percentage", "select", "cascader", "radio1", "radio2", "checkbox1", "checkbox2", "checkbox3",
 	"discount", "number", "color", "json", "text1", "textarea",
+	"quyuguanli", "dengji", "jiagoufenxiao", "gudongfenhong", "tixianguanli"
 ];
