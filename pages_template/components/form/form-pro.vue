@@ -19,9 +19,9 @@
 				@success="onFormSuccess"
 			>
 				<!-- v-slot:editor 中的 editor 对应 columns中的 key, form对应 form1.data keyName 对应 columns中的 key -->
-				<template v-slot:editor="{ form, keyName }">
+				<!-- <template v-slot:editor="{ form, keyName }">
 					<vk-data-input-editor v-model="form[keyName]" placeholder="开始输入" width="750px"></vk-data-input-editor>
-				</template>
+				</template> -->
 			
 			</vk-data-form>
 
