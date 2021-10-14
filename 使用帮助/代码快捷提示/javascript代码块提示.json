@@ -453,6 +453,14 @@
 		"triggerAssist": false,
 		"description": "将对象字段中能转成字符串的值转Number类型"
 	},
+	"vk.pubfn.toDecimal": {
+	 "prefix": "vk.pubfn.toDecimal",
+	 "body": [
+			"vk.pubfn.toDecimal(${0}, 2)"
+		],
+		"triggerAssist": false,
+		"description": "保留小数"
+	},
 	"vk.pubfn.dateDiff": {
 	 "prefix": "vk.pubfn.dateDiff",
 	 "body": [
