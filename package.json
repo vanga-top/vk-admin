@@ -1,7 +1,7 @@
 {
     "id": "vk-unicloud-admin",
     "name": "vk-unicloud-admin",
-    "version": "1.6.9",
+    "version": "1.7.0",
     "displayName": "【开箱即用】vk-unicloud-admin - 快速开发框架 - 几分钟即可完成一个页面CRUD",
     "description": "vk-unicloud-admin是基于unicloud+uni-id+element+vk-unicloud-router的一套快速PC admin完整开发框架。丰富的API可以让你开发事半功倍。",
     "keywords": [
@@ -18,11 +18,11 @@
     "repository": "https://gitee.com/vk-uni/vk-unicloud-admin",
     "author": "VK",
     "license": "Apache",
-    "homepage": "https://github.com/dcloudio/uni-template-admin#readme",
+    "homepage": "https://vkdoc.fsq.pub/admin/",
     "dependencies": {
         "element-ui": "^2.15.6",
         "umy-ui": "^1.1.6",
-        "vk-unicloud-admin-ui": "^1.6.39"
+        "vk-unicloud-admin-ui": "^1.7.2"
     },
     "engines": {
         "HBuilderX": "^3.1.10"
@@ -48,7 +48,7 @@
             "data": "插件不采集任何数据",
             "permissions": "无"
         },
-        "npmurl": "https://vkdoc.fsq.pub/"
+        "npmurl": "https://vkdoc.fsq.pub/admin/"
     },
     "uni_modules": {
         "platforms": {

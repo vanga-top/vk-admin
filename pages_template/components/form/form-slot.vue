@@ -26,7 +26,7 @@
 				</template>
 
 				<template v-slot:footer="{ loading }">
-					<el-button plain style="margin-right: 20px;width: 80px;" @click="pageBack">返回</el-button>
+					<el-button plain style="margin-right: 20px;width: 80px;" @click="onCancel">返回</el-button>
 					<el-button :loading="loading" type="primary" style="width: 80px;" @click="submitForm">添加</el-button>
 				</template>
 
@@ -113,9 +113,8 @@
 
 			},
 			// 页面返回
-			pageBack(){
-				// vk.navigateBack();
-				vk.toast("点击了返回","none");
+			onCancel(){
+				vk.menuTabs.closeCurrent();
 			},
 			// 表单提交
 			submitForm(){

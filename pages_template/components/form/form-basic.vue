@@ -122,6 +122,7 @@
 			},
 			onCancel(){
 				console.log("关闭");
+				vk.menuTabs.closeCurrent();
 			},
 			onFormSuccess(){
 				console.log("表单提交成功");

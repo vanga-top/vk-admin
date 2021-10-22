@@ -1,3 +1,9 @@
+## 2.4.8（2021-10-16）
+* 【优化】当配置文件编译错误时，增加对应的错误提示。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.4.7（2021-10-15）
+* 【优化】当 `router/util/pubFunction.js` 内的代码出现编译错误时，控制台能打印编译错误信息。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.4.6（2021-10-07）
 * 【优化】一些细节
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

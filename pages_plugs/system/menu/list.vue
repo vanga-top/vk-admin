@@ -109,7 +109,7 @@
 							}
 						},
 						{ key:"menu_id", title:"菜单唯一标识", type:"text", width:350, align:"left" },
-						{ key:"url", title:"菜单URL", type:"text", width:350, align:"left" },
+						{ key:"url", title:"菜单URL", type:"text", width:250, align:"left" },
 						{ key:"comment", title:"备注", type:"text", width:200, align:"left" },
 						{ key:"permission", title:"菜单内置权限表", type:"text", width:120, defaultValue:"无" },
 						// 对应的权限是否启用
@@ -163,10 +163,13 @@
 							{ key:"", title:"基础属性", type:"bar-title" },
 							{ key:"menu_id", title:"菜单标识", type:"text", tips:"设置一个能表达唯一含义的标识", show:["add"] },
 							{ key:"name", title:"菜单名称", type:"text", tips:"设置菜单的名称" },
-							{ key:"icon", title:"图标", type:"text", tips:"设置一个能表达权限含义的图标" },
+							{ key:"icon", title:"图标", type:"icon", tips:"设置一个能表达权限含义的图标" },
 							{ key:"url", title:"URL", type:"text", tips:"页面路径，本地路径需以 / 开头 网络路径需带http:// 或 https://" },
 							{ key:"sort", title:"排序值", type:"number", tips:"越小越显示在前面" },
-							{ key:"parent_id", title:"父级标识", type:"text", tips:"分级的menu_id" },
+							{ key:"parent_id", title:"父级菜单", type:"tree-select", tips:"父级的menu_id" ,
+								action:"admin/system/menu/sys/getAll",
+								props: { list:"rows", value:"menu_id", label:"label", children:"children" },
+							},
 							{ key:"comment", title:"备注", type:"textarea",maxlength:"99",showWordLimit:true,autosize:{ minRows: 2, maxRows: 10 },
 								tips:"设置一个备注来更详细的描述此权限的含义"
 							},

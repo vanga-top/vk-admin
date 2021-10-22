@@ -29,29 +29,30 @@ var vk = {
 	callFunction : callFunctionUtil.callFunction,
 	pubfn,
 
-	alert 						: 	modal.alert,
-	toast 						: 	modal.toast,
-	confirm 					: 	modal.confirm,
-	showActionSheet 	: 	modal.showActionSheet,
-	showLoading 			: 	modal.showLoading,
-	hideLoading				: 	modal.hideLoading,
-	setLoading				:		modal.setLoading,
+	alert             :   modal.alert,
+	toast             :   modal.toast,
+	confirm           :   modal.confirm,
+	prompt            :   modal.prompt,
+	showActionSheet   :   modal.showActionSheet,
+	showLoading       :   modal.showLoading,
+	hideLoading       :   modal.hideLoading,
+	setLoading        :   modal.setLoading,
 
 	navigate,
 	// 保留当前页面,并进行页面跳转
-	navigateTo				:		navigate.navigateTo,
+	navigateTo        :   navigate.navigateTo,
 	// 关闭当前页面,并进行页面跳转
-	redirectTo				:		navigate.redirectTo,
+	redirectTo        :   navigate.redirectTo,
 	// 并关闭所有页面,并进行页面跳转
-	reLaunch					:		navigate.reLaunch,
+	reLaunch          :   navigate.reLaunch,
 	// 并关闭所有非tab页面,并进行tab面跳转
-	switchTab					:		navigate.switchTab,
+	switchTab         :   navigate.switchTab,
 	// 页面返回
-	navigateBack			:		navigate.navigateBack,
+	navigateBack      :   navigate.navigateBack,
 	// 跳转到小程序
 	navigateToMiniProgram : navigate.navigateToMiniProgram,
 	// 本地缓存
-	localStorage			:		localStorage,
+	localStorage      :   localStorage,
 	// 本地缓存
 	...localStorage,
 	// 阿里云oss
@@ -107,12 +108,12 @@ const install = Vue => {
 	}
   Vue.prototype.vk = vk;
   // #endif
-  
+
   // #ifdef VUE3
   // 将vk挂载到Vue实例
   Vue.config.globalProperties.vk = vk;
   // #endif
-  
+
    // 将vk挂载到uni对象
 	uni.vk = vk;
   let util = { vk };

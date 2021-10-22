@@ -68,10 +68,19 @@ module.exports = {
 			if (num <= 0) {
 				return { code: -1, msg: `父标识【${parent_id}】不存在!` };
 			}
-		} else{
+			let info = await vk.baseDao.findByWhereJson({
+				dbName,
+				whereJson: {
+					permission_id
+				}
+			});
+			if (vk.pubfn.isNotNull(info) && info.permission_id === parent_id) {
+				return { code: -1, msg: `不可以设置自己为父级` };
+			}
+		} else {
 			dataJson["parent_id"] = _.remove();
 		}
-		if(url === "" || JSON.stringify(url) === '[""]'){
+		if (url === "" || JSON.stringify(url) === '[""]') {
 			dataJson["url"] = _.remove();
 		}
 		// 执行数据库API请求

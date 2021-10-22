@@ -19,7 +19,7 @@
 		<vk-data-dialog
 			v-model="form1.props.show"
 			title="表单标题"
-			width="600px"
+			width="950px"
 			mode="form"
 		>
 			<vk-data-form
@@ -80,7 +80,8 @@ export default {
 							maxlength: 200,
 							showWordLimit: true
 						},
-						{ key: "switch", title: "switch类型字段", type: "switch" }
+						{ key: "switch", title: "switch类型字段", type: "switch" },
+						{ key:"editor", title:"富文本类型", type:"editor", width:"750px" },
 					],
 					// 表单验证规则
 					rules: {

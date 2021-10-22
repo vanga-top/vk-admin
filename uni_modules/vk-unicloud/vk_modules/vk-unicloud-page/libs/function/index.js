@@ -1034,7 +1034,16 @@ pubfn.string2Number = function(obj, option = {}) {
 			return obj;
 	}
 };
-
+/**
+ * 保留小数
+ * @param {Number} val 原值
+ * @param {Number} precision 精度
+ * vk.pubfn.toDecimal(val, 2);
+ */
+pubfn.toDecimal = function(val, precision=0) {
+	if (typeof val === "string") val = Number(val);
+	return parseFloat(val.toFixed(precision));
+};
 // 前端专属开始 -----------------------------------------------------------
 /**
  * 将时间显示成1秒前、1天前

@@ -87,9 +87,9 @@
 						{ key:"permission_id", title:"权限标识", type:"text", width:310, align:"left",
 							treeNode:true
 						},
-						{ key:"permission_name", title:"权限名称", type:"text", width:160, align:"left" },
+						{ key:"permission_name", title:"权限名称", type:"text", width:120, align:"left" },
 						{ key:"comment", title:"备注", type:"text", width:180, align:"left" },
-						{ key:"url", title:"URL", type:"text", width:300, align:"left" },
+						{ key:"url", title:"URL", type:"text", width:250, align:"left" },
 						{ key:"match_mode", title:"匹配模式", type:"text", width:100,
 							formatter:function(val, row, column, index){
 								if(typeof val === "undefined" || row.type == 0 || !row.url || row.url.length == 0) return "";
@@ -173,7 +173,10 @@
 								data:matchModeData,
 								tips:"选择合适的匹配模式"
 							},
-							{ key:"parent_id", title:"父级标识", type:"text", tips:"分级的permission_id" },
+							{ key:"parent_id", title:"父级权限", type:"tree-select", tips:"父级的permission_id" ,
+								action:"admin/system/permission/sys/getAll",
+								props: { list:"rows", value:"permission_id", label:"label", children:"children" },
+							},
 							{ key:"sort", title:"排序值", type:"number", tips:"越小越显示在前面" },
 							{ key:"comment", title:"备注", type:"textarea",maxlength:"99",showWordLimit:true,autosize:{ minRows: 2, maxRows: 10 },
 								tips:"设置一个备注来更详细的描述此权限的含义"

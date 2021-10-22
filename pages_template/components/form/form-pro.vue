@@ -8,6 +8,7 @@
 		<view class="page-body">
 			<!-- 页面主体内容开始 -->
 			<vk-data-form
+				ref="form1"
 				v-model="form1.data"
 				:rules="form1.props.rules"
 				:action="form1.props.action"
@@ -24,19 +25,26 @@
 				</template> -->
 			
 			</vk-data-form>
-
-			<view class="tips" style="position: fixed;right: 0px;top:100px;bottom:15px; overflow: auto;max-width: 400px;">
-				<view class="json-view" v-if="form1.data">
-					<view style="font-size: 14px;">表单数据</view>
-					<pre>
-						{{ form1.data }}
-					</pre>
-				</view>
-			</view>
-
 			<!-- 页面主体内容结束 -->
 		</view>
-
+		
+		<view class="page-footer">
+			<!-- 页面底部内容开始 -->
+			<el-button :loading="form1.props.loading" type="primary" class="footer-update-btn" @click="submitForm">确定</el-button>
+			<el-button plain class="footer-back-btn" @click="onCancel" style="margin-left: 30px;">返回</el-button>
+			<!-- 页面底部内容开始 -->
+		</view>
+		
+		<view class="tips" style="position: fixed;right: 0px;top:100px;bottom:15px; overflow: auto;max-width: 400px;">
+			<view class="json-view" v-if="form1.data">
+				<view style="font-size: 14px;">表单数据</view>
+				<pre>
+					{{ form1.data }}
+				</pre>
+			</view>
+		</view>
+		
+		
 		<!-- 页面内容结束 -->
 	</view>
 </template>
@@ -431,6 +439,16 @@
 			init(options){
 
 			},
+			// 关闭按钮
+			onCancel(){
+				console.log("关闭");
+				vk.menuTabs.closeCurrent();
+			},
+			// 表单提交
+			submitForm(){
+				that.$refs.form1.submitForm();
+			},
+			// 表单提交成功
 			onFormSuccess(){
 
 			}

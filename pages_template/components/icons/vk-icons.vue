@@ -6,8 +6,8 @@
 		></vk-data-page-header>
 		<view class="page-body icons">
 			<view v-for="(icon,index) in icons" :key="icon" class="icon-item pointer">
-				<vk-data-icon :name="`vk-icon-${icon}`" size="30" @click="setClipboardData('tag',icon)"></vk-data-icon>
-				<text @click="setClipboardData('class',icon)" class="icon-text">{{`vk-icon-${icon}`}}</text>
+				<vk-data-icon :name="icon" size="30" @click="setClipboardData('tag',icon)"></vk-data-icon>
+				<text @click="setClipboardData('class',icon)" class="icon-text">{{icon}}</text>
 			</view>
 		</view>
 	</view>
@@ -36,9 +36,9 @@
 
 			},
 			setClipboardData(type, icon) {
-				let data = `vk-icon-${icon}`;
+				let data = icon;
 				if (type === 'tag') {
-					data = `<vk-data-icon name="vk-icon-${icon}" size="30"></vk-data-icon>`;
+					data = `<vk-data-icon name="${icon}" size="30"></vk-data-icon>`;
 				};
 				vk.pubfn.setClipboardData({
 					data,

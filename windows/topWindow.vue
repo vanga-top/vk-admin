@@ -87,7 +87,7 @@
 			<!-- 右下 -->
 			<view class="right-bottom">
 				<!-- tabs标签组 -->
-				<vk-data-menu-tabs v-if="vk.getVuex('$app.inited')"></vk-data-menu-tabs>
+				<vk-data-menu-tabs v-if="vk.getVuex('$app.inited')" ref="menuTabs"></vk-data-menu-tabs>
 			</view>
 		</view>
 		<!-- 弹窗 - 错误日志 -->
@@ -121,10 +121,11 @@ export default {
 	},
 	data() {
 		return {
-			debug:config.debug,
+			debug: config.debug,
 			...config.staticUrl.navBar,
 			// 右侧链接,只在开发模式时显示
-			links: [{
+			links: [
+				{
 					text: "Admin框架文档",
 					url: "https://vkdoc.fsq.pub/admin/"
 				},
@@ -138,19 +139,18 @@ export default {
 			formDatas: {}
 		};
 	},
-	// 监听 - 页面创建时
-	created() {
-		this.init();
+	// 组件挂载完毕时
+	mounted() {
+		this.vk.menuTabs = this.$refs.menuTabs;
 	},
 	methods: {
-		// 初始化
-		init() {},
 		// 退出登录
 		logout() {
 			let that = this;
 			let { vk } = that;
 			vk.userCenter.logout({
 				success: function(data) {
+					if (typeof that.$refs.menuTabs.clear === "function") that.$refs.menuTabs.clear();
 					uni.reLaunch({
 						url: config.login.url
 					});

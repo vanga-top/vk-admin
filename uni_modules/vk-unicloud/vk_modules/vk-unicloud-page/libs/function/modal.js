@@ -8,46 +8,35 @@ export default {
 
 	});
 	 */
-	alert: function(a, b, c, d) {
-		var self = this;
-		//var config = getApp().globalData.config;
-		let title = "提示";
-		if (!a) a = " ";
-		let nr = a;
-		let btnName = "确定";
-		let fn;
+	alert: function(a = " ", b, c, d) {
+		let obj = {
+			title: "提示",
+			confirmText: "确定",
+			placeholderText: "请输入",
+			content: a,
+			showCancel: false
+		};
 		if (typeof d === 'function') {
-			title = b;
-			btnName = c;
-			fn = d;
+			obj.title = b;
+			obj.confirmText = c;
+			obj.success = d;
 		} else if (typeof c === 'function') {
-			title = b;
-			fn = c;
+			obj.title = b;
+			obj.success = c;
 		} else if (typeof b === 'function') {
-			fn = b;
+			obj.success = b;
 		} else if (b != undefined) {
-			title = b;
+			obj.title = b;
 			if (c != undefined) {
-				btnName = c;
+				obj.confirmText = c;
 			}
 		}
-		if (typeof nr === 'number') {
-			nr = nr + "";
-		} else if (typeof nr === 'object') {
-			nr = JSON.stringify(nr)
+		if (typeof obj.content === 'number') {
+			obj.content = obj.content + "";
+		} else if (typeof obj.content === 'object') {
+			obj.content = JSON.stringify(obj.content);
 		}
-		uni.showModal({
-			title: title,
-			content: nr,
-			showCancel: false,
-			confirmText: btnName,
-			//confirmColor: config.color.color_main,
-			success: function() {
-				if (typeof fn === 'function') {
-					fn();
-				}
-			}
-		});
+		uni.showModal(obj);
 	},
 	/**
 	vk.confirm("内容","提示","确定","取消",function(res){
@@ -57,53 +46,94 @@ export default {
 	});
 	 */
 	confirm: function(a, b, c, d, e) {
-		//var config = getApp().globalData.config;
-		let title = "提示";
-		let nr = a;
-		let btnName = "确定";
-		let btnName2 = "取消";
-		let fn;
-		if (typeof e === 'function') {
-			title = b;
-			btnName = c;
-			btnName2 = d;
-			fn = e;
-		} else if (typeof d === 'function') {
-			title = b;
-			btnName = c;
-			fn = d;
-		} else if (typeof c === 'function') {
-			title = b;
-			fn = c;
-		} else if (typeof b === 'function') {
-			fn = b;
-		} else if (b != undefined) {
-			title = b;
-			if (c != undefined) {
-				btnName = c;
+		let obj = {
+			showCancel: true,
+			cancelColor: "#999",
+			title: "提示",
+			confirmText: "确定",
+			cancelText: "取消",
+			placeholderText: "请输入"
+		};
+		if (typeof a === "object") {
+			obj = a;
+		} else {
+			obj.content = a;
+			if (typeof e === 'function') {
+				obj.title = b;
+				obj.confirmText = c;
+				obj.cancelText = d;
+				obj.success = e;
+			} else if (typeof d === 'function') {
+				obj.title = b;
+				obj.confirmText = c;
+				obj.success = d;
+			} else if (typeof c === 'function') {
+				obj.title = b;
+				obj.success = c;
+			} else if (typeof b === 'function') {
+				obj.success = b;
+			} else if (b != undefined) {
+				obj.title = b;
+				if (c != undefined) {
+					obj.confirmText = c;
+				}
 			}
 		}
-		var dataJson = {
-			title: title,
-			content: nr,
-			showCancel: true,
-			confirmText: btnName,
-			cancelText: btnName2,
-			//confirmColor: config.color.color_main,
-			cancelColor: "#999",
-			success: function(res) {
-				if (typeof fn === 'function') {
-					fn(res);
-				}
-			},
-			fail: function(res) {
-				console.log(res);
-			}
-		};
-		uni.showModal(dataJson);
+		uni.showModal(obj);
 	},
+	/**
+	vk.prompt("请输入","提示","确定","取消",function(res){
+		if(res.confirm){
+			console.log(res.content);
+		}
+	},"输入框内初始内容");
+	 */
+	prompt: function(a, b, c, d, e, f) {
+		let obj = {
+			showCancel: true,
+			editable: true,
+			cancelColor: "#999",
+			title: "提示",
+			confirmText: "确定",
+			cancelText: "取消",
+			placeholderText: "请输入"
+		};
+		if (typeof a === "object") {
+			obj = a;
+		} else {
+			obj.placeholderText = a;
+			if (typeof e === 'function') {
+				obj.title = b;
+				obj.confirmText = c;
+				obj.cancelText = d;
+				obj.success = e;
+				obj.content = f;
+			} else if (typeof d === 'function') {
+				obj.title = b;
+				obj.confirmText = c;
+				obj.success = d;
+				obj.content = e;
+			} else if (typeof c === 'function') {
+				obj.title = b;
+				obj.success = c;
+				obj.content = d;
+			} else if (typeof b === 'function') {
+				obj.success = b;
+				obj.content = c;
+			}
+		}
+		uni.showModal(obj);
+	},
+	/**
+	vk.toast("提示内容","none");
+	 */
 	toast: function(a, b, c, d, e) {
-		let title = a + "";
+		if (typeof a === 'number') {
+			a = a.toString();
+		} else if (typeof a === 'object') {
+			a = JSON.stringify(a);
+		}
+		let title = a;
 		let icon = "none";
 		let image = "";
 		let mask = false;
@@ -176,20 +206,20 @@ export default {
 	 });
 	 */
 	showActionSheet: function(object) {
-		var vk = getApp().globalData.vk;
-		var title = object.title;
-		var list = object.list;
-		var color = object.color || "#000000";
-		var success = object.success;
-		var fail = object.fail;
-		var complete = object.complete;
+		let vk = getApp().globalData.vk;
+		let title = object.title;
+		let list = object.list;
+		let color = object.color || "#000000";
+		let success = object.success;
+		let fail = object.fail;
+		let complete = object.complete;
 		uni.showActionSheet({
 			itemList: list,
 			itemColor: color,
 			success: function(res) {
-				var index = res.tapIndex;
-				var text = list[index];
-				var g = { index, text };
+				let index = res.tapIndex;
+				let text = list[index];
+				let g = { index, text };
 				console.log(g);
 				if (typeof success == "function") success(g);
 			},
@@ -218,24 +248,24 @@ export default {
 	// 设置当前页面的loading变量的值
 	setLoading: function(loading = true, obj = true) {
 		try {
-		  if (typeof obj === "boolean") {
-		  	let pages = getCurrentPages();
-		  	let page = pages[pages.length - 1];
-		  	let that = page.$vm;
-		  	that.loading = loading;
-		  } else if (typeof obj === "object") {
-		  	let { data, name, that } = obj;
-		  	if(uni.vk){
-		  		if(!data) data = that;
-		  		uni.vk.pubfn.setData(data, name, loading);
-		  	}
-		  } else if (typeof obj === "string") {
-		  	let pages = getCurrentPages();
-		  	let page = pages[pages.length - 1];
-		  	let that = page.$vm;
-		  	let name = obj;
-		  	that.vk.pubfn.setData(that, name, loading);
-		  }
-		}catch(err){}
+			if (typeof obj === "boolean") {
+				let pages = getCurrentPages();
+				let page = pages[pages.length - 1];
+				let that = page.$vm;
+				that.loading = loading;
+			} else if (typeof obj === "object") {
+				let { data, name, that } = obj;
+				if (uni.vk) {
+					if (!data) data = that;
+					uni.vk.pubfn.setData(data, name, loading);
+				}
+			} else if (typeof obj === "string") {
+				let pages = getCurrentPages();
+				let page = pages[pages.length - 1];
+				let that = page.$vm;
+				let name = obj;
+				that.vk.pubfn.setData(that, name, loading);
+			}
+		} catch (err) {}
 	},
 }
