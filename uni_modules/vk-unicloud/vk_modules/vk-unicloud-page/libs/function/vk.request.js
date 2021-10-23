@@ -181,6 +181,7 @@ function requestSuccess(obj = {}) {
 			delete data[errorMsgName];
 		}
 	}
+	if (config.debug) Logger.result = (typeof data == "object") ? vk.pubfn.copyObject(data) : data;
 	if (res.statusCode >= 400 || data.code) {
 		requestFail({
 			res: data,
@@ -192,7 +193,6 @@ function requestSuccess(obj = {}) {
 		if (title) vk.hideLoading();
 		if (loading) vk.setLoading(false, loading);
 		if (needOriginalRes) data.originalRes = vk.pubfn.copyObject(res);
-		if (config.debug) Logger.result = (typeof data == "object") ? vk.pubfn.copyObject(data) : data;
 		if (typeof success === "function") success(data);
 		if (typeof resolve === "function") resolve(data);
 	}
@@ -279,8 +279,7 @@ function requestComplete(obj = {}) {
 		let colorArr = config.logger.colorArr;
 		let colorStr = colorArr[counterNum % colorArr.length];
 		counterNum++;
-		console.log("%c--------【开始】【服务器请求】【" + Logger.action + "】--------", 'color: ' + colorStr +
-			';font-size: 12px;font-weight: bold;');
+		console.log("%c--------【开始】【服务器请求】【" + Logger.action + "】--------", 'color: ' + colorStr + ';font-size: 12px;font-weight: bold;');
 		console.log("【请求地址】: ", Logger.url);
 		console.log("【请求参数】: ", Logger.params);
 		console.log("【返回数据】: ", Logger.result);
@@ -293,8 +292,7 @@ function requestComplete(obj = {}) {
 				console.error("【Stack】: ", Logger.error.err.stack);
 			}
 		}
-		console.log("%c--------【结束】【服务器请求】【" + Logger.action + "】--------", 'color: ' + colorStr +
-			';font-size: 12px;font-weight: bold;');
+		console.log("%c--------【结束】【服务器请求】【" + Logger.action + "】--------", 'color: ' + colorStr + ';font-size: 12px;font-weight: bold;');
 	}
 	let data = res.data;
 	if (needOriginalRes) data.originalRes = vk.pubfn.copyObject(res);

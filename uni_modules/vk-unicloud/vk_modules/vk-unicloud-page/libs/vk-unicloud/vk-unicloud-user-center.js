@@ -5,6 +5,13 @@
 import callFunctionUtil from './vk-unicloud-callFunctionUtil.js'
 var { callFunction, config, saveToken, deleteToken } = callFunctionUtil;
 
+function addLoading(obj, title) {
+	if (typeof obj.loading === "undefined" && !obj.title && title) {
+		obj.title = title;
+	}
+	return obj;
+}
+
 export default {
 	/**
 	 * 用户注册(用户名+密码)
@@ -20,7 +27,7 @@ export default {
 	 * @param {String} uid 用户ID
 	 */
 	register(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "注册中...";
+		addLoading(obj, "注册中...");
 		return callFunction({
 			...obj,
 			url: 'user/pub/register'
@@ -40,7 +47,7 @@ export default {
 	 * @param {String} uid 用户ID
 	 */
 	login(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "登录中...";
+		addLoading(obj, "登录中...");
 		return callFunction({
 			...obj,
 			url: 'user/pub/login'
@@ -55,7 +62,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	logout(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/pub/logout',
@@ -76,7 +83,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	updatePwd(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/kh/updatePwd',
@@ -91,7 +98,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	resetPwd(obj) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/kh/resetPwd',
@@ -107,7 +114,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	setAvatar(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		//obj.isRequest = true;
 		return callFunction({
 			...obj,
@@ -125,7 +132,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	updateUser(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		callFunction({
 			...obj,
 			url: 'user/kh/updateUser'
@@ -139,7 +146,7 @@ export default {
 	 * @param {Object} userInfo 用户信息
 	 */
 	getCurrentUserInfo(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/kh/getMyUserInfo',
@@ -156,7 +163,7 @@ export default {
 	 * @param {Array} permission 当前用户权限
 	 */
 	checkToken(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/pub/checkToken',
@@ -172,7 +179,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	bindMobile(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/kh/bindMobile',
@@ -188,7 +195,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	unbindMobile(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/kh/unbindMobile',
@@ -206,7 +213,7 @@ export default {
 	 * @param {String} tokenExpired token过期时间
 	 */
 	loginBySms(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "登录中...";
+		addLoading(obj, "登录中...");
 		return callFunction({
 			...obj,
 			url: 'user/pub/loginBySms'
@@ -224,7 +231,7 @@ export default {
 	 * @param {Object} requestParam 包含服务供应商和发送的手机号
 	 */
 	sendSmsCode(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/pub/sendSmsCode',
@@ -282,7 +289,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	bindEmail(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/kh/bindEmail',
@@ -294,7 +301,7 @@ export default {
 	 * @param {String} code  邮箱收到的验证码
 	 */
 	unbindEmail(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/kh/unbindEmail',
@@ -312,7 +319,7 @@ export default {
 	 * @param {String} tokenExpired token过期时间
 	 */
 	loginByEmail(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "登录中...";
+		addLoading(obj, "登录中...");
 		return callFunction({
 			...obj,
 			url: 'user/pub/loginByEmail'
@@ -330,7 +337,7 @@ export default {
 	 * @param {String} verifyCode 验证码
 	 */
 	sendEmailCode(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/pub/sendEmailCode',
@@ -338,9 +345,9 @@ export default {
 	},
 	/**
 	 * 设置验证码
-   * @description 设置验证码(此接口正式环境不要暴露,故写在了sys目录下)
+	 * @description 设置验证码(此接口正式环境不要暴露,故写在了sys目录下)
 	 * data 请求参数 说明
-   * @param {String} email  邮箱
+	 * @param {String} email  邮箱
 	 * @param {String} mobile 手机号
 	 * @param {String} type  验证码类型
 	 * res 返回参数说明
@@ -351,7 +358,7 @@ export default {
 	 * @param {String} verifyCode 验证码(uni 1.1.2开始不再返回verifyCode)
 	 */
 	setVerifyCode(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/sys/setVerifyCode',
@@ -393,9 +400,9 @@ export default {
 			// #endif
 		})
 	},
-  /**
-   * 用户登录(微信授权)
-   * @description 用户登录(微信授权)
+	/**
+	 * 用户登录(微信授权)
+	 * @description 用户登录(微信授权)
 	 * data 请求参数 说明
 	 * @param {String} code 微信登录返回的code
 	 * @param {String} platform 客户端类型：mp-weixin、app-plus，默认uni-id会自动取客户端类型，但是在云函数url化等场景无法取到客户端类型，可以使用此参数指定
@@ -404,10 +411,10 @@ export default {
 	 * @param {String} msg 详细信息
 	 * @param {String} token 登录成功之后返回的token信息
 	 * @param {String} tokenExpired token过期时间
-   */
+	 */
 	loginByWeixin(obj = {}) {
 		let that = this;
-		if (!obj.loading && !obj.title) obj.title = "登录中...";
+		addLoading(obj, "登录中...");
 		let { data = {} } = obj;
 		that.getWeixinCode().then((code) => {
 			callFunction({
@@ -420,18 +427,18 @@ export default {
 			});
 		});
 	},
-  /**
-   * 获取微信openid
-   * res 返回参数说明
-   * @param {Number} code 错误码，0表示成功
-   * @param {String} msg 详细信息
-   * @param {String} openid 用户openid
-   * @param {String} unionid 用户unionid，可以取到此值时返回
+	/**
+	 * 获取微信openid
+	 * res 返回参数说明
+	 * @param {Number} code 错误码，0表示成功
+	 * @param {String} msg 详细信息
+	 * @param {String} openid 用户openid
+	 * @param {String} unionid 用户unionid，可以取到此值时返回
 	 * @param {String} sessionKey 客户端为微信小程序时返回
 	 * @param {String} accessToken 客户端为APP时返回
 	 * @param {String} expiresIn 客户端为APP时返回，accessToken 接口调用凭证超时时间，单位（秒）
 	 * @param {String} refreshToken 客户端为APP时返回，用于刷新accessToken
-   */
+	 */
 	code2SessionWeixin(obj = {}) {
 		let that = this;
 		if (!obj.loading && typeof obj.title === "undefined") obj.title = "请求中...";
@@ -447,16 +454,16 @@ export default {
 			});
 		});
 	},
-  /**
-   * 绑定微信
-   * @description 将当前登录用户绑定微信
+	/**
+	 * 绑定微信
+	 * @description 将当前登录用户绑定微信
 	 * res 返回参数说明
 	 * @param {Number} code 错误码，0表示成功
 	 * @param {String} msg 详细信息
 	 */
 	bindWeixin(obj = {}) {
 		let that = this;
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		let { data = {} } = obj;
 		that.getWeixinCode().then((code) => {
 			callFunction({
@@ -476,7 +483,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	unbindWeixin(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/kh/unbindWeixin',
@@ -490,7 +497,7 @@ export default {
 	 * @param {String} sessionKey
 	 */
 	getPhoneNumber(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/pub/getPhoneNumber'
@@ -509,7 +516,7 @@ export default {
 	 * @param {String} tokenExpired token过期时间
 	 */
 	loginByWeixinPhoneNumber(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "登录中...";
+		addLoading(obj, "登录中...");
 		return callFunction({
 			...obj,
 			url: 'user/pub/loginByWeixinPhoneNumber'
@@ -528,7 +535,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	getWeixinMPqrcode(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "生成中...";
+		addLoading(obj, "生成中...");
 		return callFunction({
 			...obj,
 			url: 'user/kh/getWeixinMPqrcode',
@@ -544,7 +551,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	getWeixinMPscheme(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "生成中...";
+		addLoading(obj, "生成中...");
 		return callFunction({
 			...obj,
 			url: 'user/kh/getWeixinMPscheme',
@@ -576,7 +583,7 @@ export default {
 	 */
 	loginByAlipay(obj = {}) {
 		let that = this;
-		if (!obj.loading && !obj.title) obj.title = "登录中...";
+		addLoading(obj, "登录中...");
 		let { data = {} } = obj;
 		that.getAlipayCode().then((code) => {
 			callFunction({
@@ -602,7 +609,7 @@ export default {
 	 */
 	code2SessionAlipay(obj = {}) {
 		let that = this;
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		let { data = {} } = obj;
 		that.getAlipayCode().then((code) => {
 			callFunction({
@@ -623,7 +630,7 @@ export default {
 	 */
 	bindAlipay(obj = {}) {
 		let that = this;
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		let { data = {} } = obj;
 		that.getAlipayCode().then((code) => {
 			callFunction({
@@ -643,7 +650,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	unbindAlipay(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/kh/unbindAlipay',
@@ -653,7 +660,7 @@ export default {
 	 * 密码加密测试(暂不用)
 	 */
 	encryptPwd(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/sys/encryptPwd',
@@ -669,7 +676,7 @@ export default {
 	 * @param {String} myInviteCode 最终设置的邀请码
 	 */
 	setUserInviteCode(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/kh/setUserInviteCode',
@@ -685,7 +692,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	acceptInvite(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/kh/acceptInvite',
@@ -704,7 +711,7 @@ export default {
 	 * @param {String}         msg       详细信息
 	 */
 	getInvitedUser(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/kh/getInvitedUser',
@@ -721,7 +728,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	resetPasswordByMobile(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/pub/resetPasswordByMobile',
@@ -821,7 +828,7 @@ export default {
 	/**
 	 * QQ登录
 	 * data 请求参数 说明
-	 * @param {String} type 可传login或register，若为login：则不存在不会自动注册，若为register，则用户存在会报错，不传，则存在自动登录，不存在，则注册。 
+	 * @param {String} type 可传login或register，若为login：则不存在不会自动注册，若为register，则用户存在会报错，不传，则存在自动登录，不存在，则注册。
 	 * res 返回参数说明
 	 * @param {Number} code 错误码，0表示成功
 	 * @param {String} msg 详细信息
@@ -830,7 +837,7 @@ export default {
 	 */
 	loginByQQ(obj = {}) {
 		let that = this;
-		if (!obj.loading && !obj.title) obj.title = "登录中...";
+		addLoading(obj, "登录中...");
 		let { data = {} } = obj;
 		that.getQQCode().then((code) => {
 			callFunction({
@@ -851,7 +858,7 @@ export default {
 	 */
 	bindQQ(obj = {}) {
 		let that = this;
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		let { data = {} } = obj;
 		that.getQQCode().then((code) => {
 			callFunction({
@@ -871,7 +878,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	unbindQQ(obj = {}) {
-		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		addLoading(obj, "请求中...");
 		return callFunction({
 			...obj,
 			url: 'user/kh/unbindQQ',

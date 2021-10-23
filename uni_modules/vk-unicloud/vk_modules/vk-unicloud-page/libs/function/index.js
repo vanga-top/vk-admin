@@ -677,6 +677,47 @@ pubfn.checkDataExpText = function (data={},expText) {
 				let key = andItemArr[0];
 				let value = andItemArr[1];
 				itemKey = data[key] != value ? true : false;
+			}else if(andItem.indexOf("==")>-1){
+				let andItemArr = andItem.split("==");
+				let key = andItemArr[0];
+				let value = andItemArr[1];
+				itemKey = (typeof data[key] !== "undefined" && data[key].toString() == value) ? true : false;
+			}else if(andItem.indexOf(">=")>-1){
+				let andItemArr = andItem.split(">=");
+				let key = andItemArr[0];
+				let value = andItemArr[1];
+				if(isNaN(value)){
+					itemKey = (typeof data[key] !== "undefined" && data[key].toString() >= value) ? true : false;
+				}else{
+					itemKey = (typeof data[key] !== "undefined" && data[key] >= Number(value)) ? true : false;
+				}
+			}else if(andItem.indexOf(">")>-1){
+				let andItemArr = andItem.split(">");
+				let key = andItemArr[0];
+				let value = andItemArr[1];
+				if(isNaN(value)){
+					itemKey = (typeof data[key] !== "undefined" && data[key].toString() > value) ? true : false;
+				}else{
+					itemKey = (typeof data[key] !== "undefined" && data[key] > Number(value)) ? true : false;
+				}
+			}else if(andItem.indexOf("<=")>-1){
+				let andItemArr = andItem.split("<=");
+				let key = andItemArr[0];
+				let value = andItemArr[1];
+				if(isNaN(value)){
+					itemKey = (typeof data[key] !== "undefined" && data[key].toString() <= value) ? true : false;
+				}else{
+					itemKey = (typeof data[key] !== "undefined" && data[key] <= Number(value)) ? true : false;
+				}
+			}else if(andItem.indexOf("<")>-1){
+				let andItemArr = andItem.split("<");
+				let key = andItemArr[0];
+				let value = andItemArr[1];
+				if(isNaN(value)){
+					itemKey = (typeof data[key] !== "undefined" && data[key].toString() < value) ? true : false;
+				}else{
+					itemKey = (typeof data[key] !== "undefined" && data[key] < Number(value)) ? true : false;
+				}
 			}else{
 				let andItemArr = andItem.split("=");
 				let key = andItemArr[0];
