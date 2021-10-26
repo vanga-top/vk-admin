@@ -26,12 +26,8 @@
 						<el-dropdown-item :command="2">批量操作2</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
-				<el-button type="success" size="small" icon="el-icon-edit-outline"
-					style="margin-left: 20rpx;"
-					@click="exportExcel"
-				>
-					订单导出xls
-				</el-button>
+				<el-button type="success" size="small" icon="el-icon-edit-outline" style="margin-left: 20rpx;" @click="exportExcel" > 订单导出xls </el-button>
+				<el-button type="success" size="small" icon="el-icon-edit-outline" style="margin-left: 20rpx;" @click="exportExcelAll" > 导出全部 </el-button>
 			</el-row>
 		</view>
 		<!-- 自定义按钮区域结束 -->
@@ -102,7 +98,7 @@
 						{ key:"_id", title:"id", type:"text", width:220 },
 						{ key:"money", title:"金额", type:"money", width:80, sortable:"custom" },
 						{ key:"remark", title:"备注", type:"text", width:80 },
-						{ key:"_add_time", title:"添加时间", type:"time", width:160, sortable:"custom"  },
+						{ key:"_add_time", title:"添加时间", type:"time", width:160, sortable:"custom", valueFormat:"yyyy-MM-dd hh:mm:ss" },
 						{ key:"_add_time", title:"距离现在", type:"dateDiff", width:120 },
 					],
 					// 多选框选中的值
@@ -183,6 +179,7 @@
 						show:false
 					}
 				},
+				formDatas:{}
 				// 表单相关结束 -----------------------------------------------------------
 			};
 		},
@@ -276,9 +273,18 @@
 					default : break;
 				}
 			},
-			// 导出xls表格文件
+			// 导出xls表格文件（表格当前页数据）
 			exportExcel(){
 				that.$refs.table1.exportExcel();
+			},
+			// 导出xls表格文件（全部数据）
+			exportExcelAll(){
+				that.$refs.table1.exportExcel({
+					fileName: "表格全部数据",
+					title: "正在导出数据...",
+					pageIndex: 1,
+					pageSize: -1, // 此值为-1，代表导出所有数据
+				});
 			}
 		},
 		// 监听属性

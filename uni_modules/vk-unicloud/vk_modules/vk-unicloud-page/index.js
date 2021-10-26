@@ -101,22 +101,25 @@ vk.use = function(obj, util){
 const install = Vue => {
 	// 全局混入
 	Vue.mixin(mixin);
-  // #ifndef VUE3
+	// #ifndef VUE3
 	// 加载全局过滤器开始
 	for(let i in filters){
 		Vue.filter(i, filters[i]);
 	}
-  Vue.prototype.vk = vk;
-  // #endif
+	Vue.prototype.vk = vk;
+	Vue.prototype.$fn = vk.pubfn;
 
-  // #ifdef VUE3
-  // 将vk挂载到Vue实例
-  Vue.config.globalProperties.vk = vk;
-  // #endif
+	// #endif
 
-   // 将vk挂载到uni对象
+	// #ifdef VUE3
+	// 将vk挂载到Vue实例
+	Vue.config.globalProperties.vk = vk;
+	Vue.config.globalProperties.$fn = vk.pubfn;
+	// #endif
+
+	 // 将vk挂载到uni对象
 	uni.vk = vk;
-  let util = { vk };
+	let util = { vk };
 	// 加载插件
 	vk.use({
 		callFunctionUtil : vk.callFunctionUtil,

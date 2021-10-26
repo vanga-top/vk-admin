@@ -1,3 +1,6 @@
+## 2.4.10（2021-10-26）
+* 【优化】在 `template` 模板中使用 `vk.pubfn`（可以用简写法 `$fn` 代替 `vk.pubfn`）
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.4.9（2021-10-23）
 * 【优化】`vk.userCenter` 接口细节，现在参数 `loading:true` 或 `loading:false` 均可以关闭 `loading提示框`
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
