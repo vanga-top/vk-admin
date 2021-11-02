@@ -27,6 +27,7 @@ var vk = {
 	* 发起一个云函数请求
 	*/
 	callFunction : callFunctionUtil.callFunction,
+	checkToken   : callFunctionUtil.checkToken,
 	pubfn,
 
 	alert             :   modal.alert,

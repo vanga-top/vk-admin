@@ -628,7 +628,7 @@ pubfn.stringIdToNumberId = function (str, length) {
  * @param {Number} last  后面显示的字符数量
  * vk.pubfn.hidden(str, first, last);
  */
-pubfn.hidden = function (str, first, last) {
+pubfn.hidden = function (str = "", first = 0, last = 0) {
 	let len = str.length - first - last;
 	let xing = '';
 	for (let i=0; i<len; i++) {

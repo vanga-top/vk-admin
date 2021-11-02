@@ -5,9 +5,9 @@
 var config;
 try {
 	config = require('@/app.config.js');
-  if(typeof config.default === "object"){
-    config = config.default;
-  }
+	if (typeof config.default === "object") {
+		config = config.default;
+	}
 } catch (e) {
 	config = {};
 }
@@ -25,7 +25,7 @@ var util = {};
  * vk.navigateTo(url);
  */
 util.navigateTo = function(obj) {
-	let vk = getApp().globalData.vk;
+	let vk = uni.vk;
 	if (typeof obj == "string") {
 		let url = obj;
 		obj = {
@@ -53,6 +53,13 @@ util.navigateTo = function(obj) {
 	});
 };
 util._navigateTo = function(obj) {
+	let { interceptor = {} } = config;
+	if (typeof interceptor.navigateTo === "function") {
+		let vk = uni.vk;
+		obj.pagePath = vk.pubfn.getPageFullPath(obj.url);
+		let key = interceptor.navigateTo(obj);
+		if (typeof key == "boolean" && key === false) return false;
+	}
 	let {
 		url,
 		animationType = "pop-in",
@@ -60,7 +67,21 @@ util._navigateTo = function(obj) {
 		events,
 		mode = "navigateTo"
 	} = obj;
-	uni[mode]({
+	// 此处写法仅为支持vue3，vue3不支持uni[apiName]的形式调用
+	let navigateFn;
+	if (mode === "navigateTo") {
+		navigateFn = uni.navigateTo;
+	} else if (mode === "redirectTo") {
+		navigateFn = uni.redirectTo;
+	} else if (mode === "reLaunch") {
+		navigateFn = uni.reLaunch;
+	} else if (mode === "switchTab") {
+		navigateFn = uni.switchTab;
+	} else {
+		navigateFn = uni.navigateTo;
+	}
+	// 此处写法仅为支持vue3，vue3不支持uni[apiName]的形式调用
+	navigateFn({
 		url: url,
 		animationType: animationType,
 		animationDuration: animationDuration,
@@ -70,7 +91,7 @@ util._navigateTo = function(obj) {
 		},
 		fail: function(err) {
 			if (err.errMsg.indexOf("not found") > -1) {
-				let vk = getApp().globalData.vk;
+				let vk = uni.vk;
 				let errUrl = vk.pubfn.getPageFullPath(url);
 				vk.toast(`页面 ${errUrl} 不存在`, "none");
 				console.error(err);
@@ -131,7 +152,7 @@ util.switchTab = function(obj) {
  * vk.navigateBack();
  */
 util.navigateBack = function(obj) {
-	let vk = getApp().globalData.vk;
+	let vk = uni.vk;
 	if (typeof obj == "number") {
 		let delta = obj;
 		obj = {
@@ -166,7 +187,7 @@ util.navigateBack = function(obj) {
  * vk.navigate.originalTo();
  */
 util.originalTo = function() {
-	let vk = getApp().globalData.vk;
+	let vk = uni.vk;
 	let originalPage = vk.pubfn.copyObject(vk.navigate.originalPage);
 	vk.navigate.originalPage = null;
 	util.redirectTo(originalPage);
@@ -187,7 +208,7 @@ util.originalTo = function() {
  })
  */
 util.checkWildcardTest = function(obj) {
-	let vk = getApp().globalData.vk;
+	let vk = uni.vk;
 	let {
 		url,
 		pagesRule
@@ -236,7 +257,7 @@ util.checkWildcardTest = function(obj) {
  })
  */
 util.checkNeedLogin = function(obj) {
-	let vk = getApp().globalData.vk;
+	let vk = uni.vk;
 	let { url, success } = obj;
 	let needLogin = false;
 	let pagesRule = config.checkTokenPages;
@@ -270,7 +291,7 @@ util.getPagePath = function(url) {
 };
 
 util.paramsInit = function(obj) {
-	let vk = getApp().globalData.vk;
+	let vk = uni.vk;
 	if (typeof obj == "string") {
 		let url = obj;
 		obj = {
@@ -303,7 +324,7 @@ util.paramsInit = function(obj) {
 	})
  */
 util.navigateToMiniProgram = function(obj) {
-	let vk = getApp().globalData.vk;
+	let vk = uni.vk;
 	// #ifdef H5
 	vk.toast("不支持打开小程序", "none");
 	// #endif
@@ -321,7 +342,7 @@ util.navigateToMiniProgram = function(obj) {
  });
  */
 util.checkAllowShare = function(obj) {
-	let vk = getApp().globalData.vk;
+	let vk = uni.vk;
 	let { url, success } = obj;
 	let pagesRule = config.checkSharePages || {};
 	if (pagesRule && pagesRule.mode > 0) {

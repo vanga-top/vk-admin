@@ -1,3 +1,12 @@
+## 1.7.2（2021-11-02）
+* 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.7.4`
+* 2、【优化】美化默认滚动条样式 [点击查看](https://vkdoc.fsq.pub/admin/question/question.html#%E5%A6%82%E4%BD%95%E7%BE%8E%E5%8C%96%E9%BB%98%E8%AE%A4%E6%BB%9A%E5%8A%A8%E6%9D%A1)
+
+##### 框架更新步骤 [点击查看](https://vkdoc.fsq.pub/admin/1/update.html)
+##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架
+
+##### 如果你觉得框架对你有用，可以在下方进行评论，也可以进行赞赏。
+
 ## 1.7.1（2021-10-26）
 * 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.7.3`
 * 2、【重要】`万能表格` 支持导出数据库内所有数据 [点击查看](https://vkdoc.fsq.pub/admin/2/table.html#%E5%AF%BC%E5%87%BA%E6%BB%A1%E8%B6%B3%E8%A1%A8%E6%A0%BC%E6%9F%A5%E8%AF%A2%E6%9D%A1%E4%BB%B6%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE)
