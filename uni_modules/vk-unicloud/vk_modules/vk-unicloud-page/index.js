@@ -19,6 +19,10 @@ import storeMixin 				from './libs/store/mixin/mixin'
 import initGlobalError		from './libs/store/libs/error'
 import consoleLog					from './libs/install/console.log'
 import updateManager 			from './libs/function/updateManager.js'
+// #ifdef H5
+import h5 								from './libs/function/vk.h5'
+// #endif
+
 
 var vk = {
 	userCenter,
@@ -29,7 +33,11 @@ var vk = {
 	callFunction : callFunctionUtil.callFunction,
 	checkToken   : callFunctionUtil.checkToken,
 	pubfn,
-
+	
+	// #ifdef H5
+	h5,
+	// #endif
+	
 	alert             :   modal.alert,
 	toast             :   modal.toast,
 	confirm           :   modal.confirm,
@@ -50,6 +58,10 @@ var vk = {
 	switchTab         :   navigate.switchTab,
 	// 页面返回
 	navigateBack      :   navigate.navigateBack,
+	// 跳转到首页
+	navigateToHome    :   navigate.navigateToHome,
+	// 跳转到登录页
+	navigateToLogin    :   navigate.navigateToLogin,
 	// 跳转到小程序
 	navigateToMiniProgram : navigate.navigateToMiniProgram,
 	// 本地缓存

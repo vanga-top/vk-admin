@@ -145,16 +145,16 @@ rules: {
   ],
 },
  */
-pubfn.validator = function (type){
-	return function(rule, value, callback){
+pubfn.validator = function(type) {
+	return function(rule, value, callback) {
 		let key = pubfn.test(value, type);
-		if(typeof callback === "function"){
-			if(key || !value){
+		if (typeof callback === "function") {
+			if (key || !value) {
 				callback();
-			}else{
+			} else {
 				return callback(false);
 			}
-		}else{
+		} else {
 			return callback(false);
 		}
 	}
@@ -186,7 +186,7 @@ pubfn.validator = function (type){
  * HTML HTML标记
  * vk.pubfn.test(str, type);
  */
-pubfn.test = function (str, type){
+pubfn.test = function(str, type) {
 	switch (type) {
 		case 'mobile': //手机号码
 			return new RegExp(/^1[3|4|5|6|7|8|9][0-9]{9}$/).test(str);
@@ -251,7 +251,7 @@ pubfn.checkStr = pubfn.test;
  * @param {Object} 	obj2
  * vk.pubfn.objectAssign(obj1, obj2);
  */
-pubfn.objectAssign = function (obj1, obj2){
+pubfn.objectAssign = function(obj1, obj2) {
 	return Object.assign(obj1, obj2);
 };
 /**
@@ -260,10 +260,10 @@ pubfn.objectAssign = function (obj1, obj2){
  * @param {Object} 	obj
  * let newObj = vk.pubfn.copyObject(obj);
  */
-pubfn.copyObject = function (obj){
-	if(typeof obj !== "undefined"){
+pubfn.copyObject = function(obj) {
+	if (typeof obj !== "undefined") {
 		return JSON.parse(JSON.stringify(obj));
-	}else{
+	} else {
 		return obj;
 	}
 };
@@ -273,16 +273,16 @@ pubfn.copyObject = function (obj){
  * @param {Object} 	obj
  * let newObj = vk.pubfn.deepClone(obj);
  */
-pubfn.deepClone = function (obj){
+pubfn.deepClone = function(obj) {
 	// 对常见的“非”值，直接返回原来值
-	if([null, undefined, NaN, false].includes(obj)) return obj;
-	if(typeof obj !== "object" && typeof obj !== 'function') {
+	if ([null, undefined, NaN, false].includes(obj)) return obj;
+	if (typeof obj !== "object" && typeof obj !== 'function') {
 		//原始类型直接返回
 		return obj;
 	}
 	let o = Object.prototype.toString.call(obj) === '[object Array]' ? [] : {};
-	for(let i in obj) {
-		if(obj.hasOwnProperty(i)){
+	for (let i in obj) {
+		if (obj.hasOwnProperty(i)) {
 			o[i] = typeof obj[i] === "object" ? pubfn.deepClone(obj[i]) : obj[i];
 		}
 	}
@@ -295,7 +295,7 @@ pubfn.deepClone = function (obj){
  * @param {Object} 	itemData		当前数据
  * that.form1 = vk.pubfn.formAssign(defaultData,itemData);
  */
-pubfn.formAssign = function (defaultData,itemData){
+pubfn.formAssign = function(defaultData, itemData) {
 	let newDefaultData = pubfn.copyObject(defaultData);
 	return pubfn.objectAssign(newDefaultData, itemData);
 };
@@ -308,18 +308,18 @@ pubfn.formAssign = function (defaultData,itemData){
  * @param	{String} 	flag 	判断标识,默认用id来判断,若flag传-1,代表不去除重复数据
  * let arr = vk.pubfn.arr_concat(arr1, arr2, "_id");
  */
-pubfn.arr_concat = function (arr1, arr2, flag){
-	if (!flag) flag = "id";				    	// 默认用id来判断是否是同一个对象元素
-	var arr3 = arr1.concat(arr2);		  	// 新旧数据合并
-	var arr = [];         					    // 定义一个临时数组 存放对象
+pubfn.arr_concat = function(arr1, arr2, flag) {
+	if (!flag) flag = "id"; // 默认用id来判断是否是同一个对象元素
+	var arr3 = arr1.concat(arr2); // 新旧数据合并
+	var arr = []; // 定义一个临时数组 存放对象
 	if (flag != -1) {
-		var arr_id = [];    				      // 定义一个临时数组 存放id
-		for (var i in arr3) {    		  	  // 循环遍历当前数组
+		var arr_id = []; // 定义一个临时数组 存放id
+		for (var i in arr3) { // 循环遍历当前数组
 			// 判断当前数组下标为i的元素是否已经保存到临时数组
 			// 如果已保存，则跳过，否则将此元素保存到临时数组中
 			if (arr_id.indexOf(arr3[i][flag]) == -1) {
-				arr_id.push(arr3[i][flag]);   // 添加id到数组
-				arr.push(arr3[i]);            // 添加对象到数组
+				arr_id.push(arr3[i][flag]); // 添加id到数组
+				arr.push(arr3[i]); // 添加对象到数组
 			}
 		}
 	} else {
@@ -334,24 +334,27 @@ pubfn.arr_concat = function (arr1, arr2, flag){
  * @param	{String} defaultValue undefined时的默认值
  * vk.pubfn.getData(dataObj, name);
  */
-pubfn.getData = function (dataObj, name, defaultValue) {
+pubfn.getData = function(dataObj, name, defaultValue) {
 	let newDataObj;
-	if(pubfn.isNotNull(dataObj)){
+	if (pubfn.isNotNull(dataObj)) {
 		newDataObj = JSON.parse(JSON.stringify(dataObj));
-		let k = "", d = ".", l = "[", r = "]";
+		let k = "",
+			d = ".",
+			l = "[",
+			r = "]";
 		name = name.replace(/\s+/g, k) + d;
 		let tstr = k;
 		for (let i = 0; i < name.length; i++) {
-		  let theChar = name.charAt(i);
-		  if (theChar != d && theChar != l && theChar != r) {
+			let theChar = name.charAt(i);
+			if (theChar != d && theChar != l && theChar != r) {
 				tstr += theChar;
-		  } else if(newDataObj){
-		    if (tstr != k) newDataObj = newDataObj[tstr];
-		    tstr = k;
-		  }
+			} else if (newDataObj) {
+				if (tstr != k) newDataObj = newDataObj[tstr];
+				tstr = k;
+			}
 		}
 	}
-	if(typeof newDataObj === "undefined" && pubfn.isNotNull(defaultValue)) newDataObj = defaultValue;
+	if (typeof newDataObj === "undefined" && pubfn.isNotNull(defaultValue)) newDataObj = defaultValue;
 	return newDataObj;
 };
 /**
@@ -361,20 +364,20 @@ pubfn.getData = function (dataObj, name, defaultValue) {
  * @param	{String} value 值
  * vk.pubfn.setData(dataObj, name, value);
  */
-pubfn.setData = function (dataObj, name, value) {
+pubfn.setData = function(dataObj, name, value) {
 	// 通过正则表达式  查找路径数据
 	let dataValue;
-	if(typeof value === "object"){
+	if (typeof value === "object") {
 		dataValue = pubfn.copyObject(value);
-	}else{
+	} else {
 		dataValue = value;
 	}
-	let regExp = new RegExp("([\\w$]+)|\\[(:\\d)\\]","g");
+	let regExp = new RegExp("([\\w$]+)|\\[(:\\d)\\]", "g");
 	const patten = name.match(regExp);
 	// 遍历路径  逐级查找  最后一级用于直接赋值
 	for (let i = 0; i < patten.length - 1; i++) {
 		let keyName = patten[i];
-		if(typeof dataObj[keyName] !== "object") dataObj[keyName] = {};
+		if (typeof dataObj[keyName] !== "object") dataObj[keyName] = {};
 		dataObj = dataObj[keyName];
 	}
 	// 最后一级
@@ -385,16 +388,16 @@ pubfn.setData = function (dataObj, name, value) {
  * 检测参数是否为空 其中 undefined、null、{}、[]、"" 均为空值  true 空值  false 有值
  * vk.pubfn.isNull(value);
  */
-pubfn.isNull = function (value) {
+pubfn.isNull = function(value) {
 	let key = false;
-	if(
-		 typeof value == "undefined"
-	|| Object.prototype.toString.call(value) == "[object Null]"
-	|| JSON.stringify(value) == "{}"
-	|| JSON.stringify(value) == "[]"
-	|| value === ""
-	|| JSON.stringify(value) === undefined
-	){
+	if (
+		typeof value == "undefined" ||
+		Object.prototype.toString.call(value) == "[object Null]" ||
+		JSON.stringify(value) == "{}" ||
+		JSON.stringify(value) == "[]" ||
+		value === "" ||
+		JSON.stringify(value) === undefined
+	) {
 		key = true;
 	}
 	return key;
@@ -403,18 +406,18 @@ pubfn.isNull = function (value) {
  * 检测参数是否不为空 结果与 vk.pubfn.isNull 相反
  * vk.pubfn.isNotNull(value);
  */
-pubfn.isNotNull = function (value) {
+pubfn.isNotNull = function(value) {
 	return !pubfn.isNull(value);
 };
 /**
  * 检测所有参数 - 是否至少有一个为空
  * vk.pubfn.isNullOne(value1,value2,value3);
  */
-pubfn.isNullOne = function (...strS) {
+pubfn.isNullOne = function(...strS) {
 	let key = false;
 	for (let i = 0; i < strS.length; i++) {
 		let str = strS[i];
-		if(pubfn.isNull(str)){
+		if (pubfn.isNull(str)) {
 			key = true;
 			break;
 		}
@@ -427,11 +430,11 @@ pubfn.isNullOne = function (...strS) {
  let nullKey = vk.pubfn.isNullOneByObject({ value1,value2,value3 });
  if(nullKey) return { code : -1, msg : `${nullKey}不能为空` };
  */
-pubfn.isNullOneByObject = function (obj) {
+pubfn.isNullOneByObject = function(obj) {
 	let key;
-	for(let name in obj){
+	for (let name in obj) {
 		let val = obj[name];
-		if(pubfn.isNull(val)){
+		if (pubfn.isNull(val)) {
 			key = name;
 			break;
 		}
@@ -442,11 +445,11 @@ pubfn.isNullOneByObject = function (obj) {
  * 检测所有参数 - 是否全部为空
  * vk.pubfn.isNullAll(value1,value2,value3);
  */
-pubfn.isNullAll = function (...strS) {
+pubfn.isNullAll = function(...strS) {
 	let key = true;
 	for (let i = 0; i < strS.length; i++) {
 		let str = strS[i];
-		if(pubfn.isNotNull(str)){
+		if (pubfn.isNotNull(str)) {
 			key = false;
 			break;
 		}
@@ -458,7 +461,7 @@ pubfn.isNullAll = function (...strS) {
  * 检测所有参数 - 是否全部都不为空
  * vk.pubfn.isNotNullAll(value1,value2,value3);
  */
-pubfn.isNotNullAll = function (...strS) {
+pubfn.isNotNullAll = function(...strS) {
 	return !pubfn.isNullOne(...strS);
 };
 /**
@@ -469,10 +472,10 @@ pubfn.isNotNullAll = function (...strS) {
  * @param	{String} value 键值 (不可为空)
  * vk.pubfn.getListItem(list, key, value);
  */
-pubfn.getListItem = function (list,key,value) {
+pubfn.getListItem = function(list, key, value) {
 	let item;
-	for(let i=0; i<list.length; i++){
-		if(pubfn.isNotNull(value) && list[i][key] === value){
+	for (let i = 0; i < list.length; i++) {
+		if (pubfn.isNotNull(value) && list[i][key] === value) {
 			item = list[i];
 			break;
 		}
@@ -487,10 +490,10 @@ pubfn.getListItem = function (list,key,value) {
  * @param	{String} value 键值
  * vk.pubfn.getListIndex(list, key, value);
  */
-pubfn.getListIndex = function (list,key,value) {
+pubfn.getListIndex = function(list, key, value) {
 	let index = -1;
-	for(let i=0; i<list.length; i++){
-		if(pubfn.isNotNull(value) && list[i][key] === value){
+	for (let i = 0; i < list.length; i++) {
+		if (pubfn.isNotNull(value) && list[i][key] === value) {
 			index = i;
 			break;
 		}
@@ -505,19 +508,20 @@ pubfn.getListIndex = function (list,key,value) {
  * @param	{String} value 键值
  * vk.pubfn.getListItemIndex(list, key, value);
  */
-pubfn.getListItemIndex = function (list,key,value) {
+pubfn.getListItemIndex = function(list, key, value) {
 	let obj = {};
 	let item;
 	let index = -1;
-	for(let i=0; i<list.length; i++){
-		if(pubfn.isNotNull(value) && list[i][key] === value){
+	for (let i = 0; i < list.length; i++) {
+		if (pubfn.isNotNull(value) && list[i][key] === value) {
 			index = i;
 			item = list[i];
 			break;
 		}
 	}
 	obj = {
-		item, index
+		item,
+		index
 	}
 	return obj;
 };
@@ -528,9 +532,9 @@ pubfn.getListItemIndex = function (list,key,value) {
  * {"001",{"_id":"001","name":"name1","sex":1},"002":{"_id":"002","name":"name2","sex":2}}
  * vk.pubfn.arrayToJson(list, "_id");
  */
-pubfn.arrayToJson = function (list, key) {
+pubfn.arrayToJson = function(list, key) {
 	let json = {};
-	for(let i in list){
+	for (let i in list) {
 		let item = list[i];
 		json[item[key]] = item;
 	}
@@ -545,8 +549,8 @@ pubfn.listToJson = pubfn.arrayToJson;
  * ["001","002"]
  * let idArr = vk.pubfn.arrayObjectGetArray(list, "_id");
  */
-pubfn.arrayObjectGetArray = function (list, key) {
-	return list.map(obj => {return obj[key]});
+pubfn.arrayObjectGetArray = function(list, key) {
+	return list.map(obj => { return obj[key] });
 };
 
 /**
@@ -558,18 +562,18 @@ pubfn.arrayObjectGetArray = function (list, key) {
  * vk.pubfn.random(6, "abcdefghijklmnopqrstuvwxyz0123456789");
  * vk.pubfn.random(1,"12",["1","2"]);
  */
-pubfn.random = function (length, str, arr) {
+pubfn.random = function(length, str, arr) {
 	let s;
-	if(pubfn.isNull(arr)){
+	if (pubfn.isNull(arr)) {
 		s = pubfn.randomFn(length, str);
-	}else{
+	} else {
 		let i = 0;
 		let maxForCount = 100000;
 		do {
 			i++;
 			s = pubfn.randomFn(length, str);
 		} while (arr.indexOf(s) > -1 && i < maxForCount);
-		if(i === maxForCount){
+		if (i === maxForCount) {
 			s = undefined;
 		}
 	}
@@ -582,17 +586,17 @@ pubfn.random = function (length, str, arr) {
  * vk.pubfn.random(6);
  * vk.pubfn.random(6, "abcdefghijklmnopqrstuvwxyz0123456789");
  */
-pubfn.randomFn = function (length, str) {
+pubfn.randomFn = function(length, str) {
 	let s = "";
 	let list = "123456789";
 	//0123456789QWERTYUIPASDFGHJKLZXCVBNM
-	if(pubfn.isNotNull(str)){
-		if(str == "a-z,0-9"){
-			str="abcdefghijklmnopqrstuvwxyz0123456789";
-		}else if(str == "A-Z,0-9"){
-			str="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-		}else if(str == "a-z,A-Z,0-9" || str == "A-Z,a-z,0-9"){
-			str="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	if (pubfn.isNotNull(str)) {
+		if (str == "a-z,0-9") {
+			str = "abcdefghijklmnopqrstuvwxyz0123456789";
+		} else if (str == "A-Z,0-9") {
+			str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		} else if (str == "a-z,A-Z,0-9" || str == "A-Z,a-z,0-9") {
+			str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		}
 		list = str;
 	}
@@ -607,14 +611,14 @@ pubfn.randomFn = function (length, str) {
  * 将字符串id转化为指定位数的纯数字字符串id(会重复)
  * vk.pubfn.stringIdToNumberId(uid,8);
  */
-pubfn.stringIdToNumberId = function (str, length) {
+pubfn.stringIdToNumberId = function(str, length) {
 	let s = "";
 	let list = "0123456789";
 	for (let i = 0; i < length; i++) {
-		if(str.length > i){
+		if (str.length > i) {
 			let index = str[i].charCodeAt() % 10;
 			s += list[index];
-		}else{
+		} else {
 			s = "0" + s;
 		}
 	}
@@ -628,13 +632,13 @@ pubfn.stringIdToNumberId = function (str, length) {
  * @param {Number} last  后面显示的字符数量
  * vk.pubfn.hidden(str, first, last);
  */
-pubfn.hidden = function (str = "", first = 0, last = 0) {
+pubfn.hidden = function(str = "", first = 0, last = 0) {
 	let len = str.length - first - last;
 	let xing = '';
-	for (let i=0; i<len; i++) {
+	for (let i = 0; i < len; i++) {
 		xing += '*';
 	}
-	return str.substring(0,first) + xing + str.substring(str.length - last);
+	return str.substring(0, first) + xing + str.substring(str.length - last);
 };
 /**
  * 判断常量数组A是否至少有一个元素在常量数组B中存在(两数组有交集)
@@ -642,10 +646,10 @@ pubfn.hidden = function (str = "", first = 0, last = 0) {
  * @param {Array} arr2 数组B
  * vk.pubfn.checkArrayIntersection(arr1, arr2);
  */
-pubfn.checkArrayIntersection = function (arr1 = [], arr2 = []) {
+pubfn.checkArrayIntersection = function(arr1 = [], arr2 = []) {
 	let checkKey = false;
-	for(let i = 0; i < arr2.length; i++){
-		if(arr1.indexOf(arr2[i]) > -1){
+	for (let i = 0; i < arr2.length; i++) {
+		if (arr1.indexOf(arr2[i]) > -1) {
 			checkKey = true;
 		}
 	}
@@ -658,78 +662,78 @@ pubfn.checkArrayIntersection = function (arr1 = [], arr2 = []) {
  * @param {String} expText 表达式文本
  * vk.pubfn.checkDataExpText(data, expText);
  */
-pubfn.checkDataExpText = function (data={},expText) {
-	expText = expText.replace(new RegExp("\\s","g"),"");
+pubfn.checkDataExpText = function(data = {}, expText) {
+	expText = expText.replace(new RegExp("\\s", "g"), "");
 	//console.log("expText:",expText);
 	let orArr = expText.split("||");
 	//console.log("orArr",orArr);
 	let checkKey = false;
-	for(let index1=0; index1<orArr.length; index1++){
-	  let orItem = orArr[index1];
+	for (let index1 = 0; index1 < orArr.length; index1++) {
+		let orItem = orArr[index1];
 		let andArr = orItem.split("&&");
 		//console.log("andArr",andArr);
 		let itemKey = true;
-		for(let index2=0; index2<andArr.length; index2++){
-		  let andItem = andArr[index2];
+		for (let index2 = 0; index2 < andArr.length; index2++) {
+			let andItem = andArr[index2];
 			//console.log("andItem",andItem);
-			if(andItem.indexOf("!=")>-1){
+			if (andItem.indexOf("!=") > -1) {
 				let andItemArr = andItem.split("!=");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
 				itemKey = data[key] != value ? true : false;
-			}else if(andItem.indexOf("==")>-1){
+			} else if (andItem.indexOf("==") > -1) {
 				let andItemArr = andItem.split("==");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
 				itemKey = (typeof data[key] !== "undefined" && data[key].toString() == value) ? true : false;
-			}else if(andItem.indexOf(">=")>-1){
+			} else if (andItem.indexOf(">=") > -1) {
 				let andItemArr = andItem.split(">=");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
-				if(isNaN(value)){
+				if (isNaN(value)) {
 					itemKey = (typeof data[key] !== "undefined" && data[key].toString() >= value) ? true : false;
-				}else{
+				} else {
 					itemKey = (typeof data[key] !== "undefined" && data[key] >= Number(value)) ? true : false;
 				}
-			}else if(andItem.indexOf(">")>-1){
+			} else if (andItem.indexOf(">") > -1) {
 				let andItemArr = andItem.split(">");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
-				if(isNaN(value)){
+				if (isNaN(value)) {
 					itemKey = (typeof data[key] !== "undefined" && data[key].toString() > value) ? true : false;
-				}else{
+				} else {
 					itemKey = (typeof data[key] !== "undefined" && data[key] > Number(value)) ? true : false;
 				}
-			}else if(andItem.indexOf("<=")>-1){
+			} else if (andItem.indexOf("<=") > -1) {
 				let andItemArr = andItem.split("<=");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
-				if(isNaN(value)){
+				if (isNaN(value)) {
 					itemKey = (typeof data[key] !== "undefined" && data[key].toString() <= value) ? true : false;
-				}else{
+				} else {
 					itemKey = (typeof data[key] !== "undefined" && data[key] <= Number(value)) ? true : false;
 				}
-			}else if(andItem.indexOf("<")>-1){
+			} else if (andItem.indexOf("<") > -1) {
 				let andItemArr = andItem.split("<");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
-				if(isNaN(value)){
+				if (isNaN(value)) {
 					itemKey = (typeof data[key] !== "undefined" && data[key].toString() < value) ? true : false;
-				}else{
+				} else {
 					itemKey = (typeof data[key] !== "undefined" && data[key] < Number(value)) ? true : false;
 				}
-			}else{
+			} else {
 				let andItemArr = andItem.split("=");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
 				itemKey = (typeof data[key] !== "undefined" && data[key].toString() == value) ? true : false;
 				//console.log("key:",key,"value:",value,"data[key]",data[key].toString(),"itemKey:",itemKey);
 			}
-			if(!itemKey){
+			if (!itemKey) {
 				break;
 			}
 		}
-		if(itemKey){
+		if (itemKey) {
 			checkKey = true;
 			break;
 		}
@@ -741,14 +745,14 @@ pubfn.checkDataExpText = function (data={},expText) {
  * 判断变量是否是数组
  * vk.pubfn.isArray(value);
  */
-pubfn.isArray = function (value) {
+pubfn.isArray = function(value) {
 	return Object.prototype.toString.call(value) === "[object Array]" ? true : false;
 };
 /**
  * 判断变量是否是对象
  * vk.pubfn.isObject(value);
  */
-pubfn.isObject = function (value) {
+pubfn.isObject = function(value) {
 	return Object.prototype.toString.call(value) === "[object Object]" ? true : false;
 };
 
@@ -767,7 +771,7 @@ pubfn.isObject = function (value) {
  * @param {Number} weight 运费重量
  * vk.pubfn.calcFreights(freightsItem, weight);
  */
-pubfn.calcFreights = function (freightsItem, weight) {
+pubfn.calcFreights = function(freightsItem, weight) {
 	let {
 		first_weight,
 		first_weight_price,
@@ -778,37 +782,37 @@ pubfn.calcFreights = function (freightsItem, weight) {
 	let money = 0; // 运费
 	let packagesNum = 0; // 包裹数量
 	let packagesSurplusWeight = max_weight; // 包裹剩余重量
-	let first_weight_key = false;// 是否已减过首重
-	let continuous_weight_count = 0;// 续重次数
+	let first_weight_key = false; // 是否已减过首重
+	let continuous_weight_count = 0; // 续重次数
 	let logArr = [];
 	let logRun = false;
-	while (weight > 0){
-		if(!first_weight_key){
+	while (weight > 0) {
+		if (!first_weight_key) {
 			// 首重
 			first_weight_key = true;
 			packagesNum++;
 			packagesSurplusWeight = max_weight; // 还原包裹剩余重量
-			weight-=first_weight;
-			packagesSurplusWeight-=first_weight;
-		}else{
+			weight -= first_weight;
+			packagesSurplusWeight -= first_weight;
+		} else {
 			// 续重
 			continuous_weight_count++;
-			weight-=continuous_weight;
-			packagesSurplusWeight-=continuous_weight;
+			weight -= continuous_weight;
+			packagesSurplusWeight -= continuous_weight;
 		}
-		if(logRun) logArr.push({
-			"总重量剩余":weight,
-			"当前包裹重量剩余":packagesSurplusWeight,
-			"当前第几个包裹":packagesNum,
-			"续重计算次数":continuous_weight_count
+		if (logRun) logArr.push({
+			"总重量剩余": weight,
+			"当前包裹重量剩余": packagesSurplusWeight,
+			"当前第几个包裹": packagesNum,
+			"续重计算次数": continuous_weight_count
 		});
 
-		if(packagesSurplusWeight <= 0){
+		if (packagesSurplusWeight <= 0) {
 			// 需要增加一个新的包裹
-			first_weight_key = false; 	// 新包裹设置没有减过首重
+			first_weight_key = false; // 新包裹设置没有减过首重
 		}
 	}
-	if(logRun) console.log(JSON.stringify(logArr));
+	if (logRun) console.log(JSON.stringify(logArr));
 	money = packagesNum * first_weight_price + continuous_weight_price * continuous_weight_count;
 	return money;
 };
@@ -822,14 +826,14 @@ pubfn.calcFreights = function (freightsItem, weight) {
 pubfn.getNewObject = function(obj, keys) {
 	let selectedObj = pubfn.copyObject(obj);
 	let newObject = {};
-	if(keys && keys.length > 0){
-		for(let i in keys){
+	if (keys && keys.length > 0) {
+		for (let i in keys) {
 			let key = keys[i];
-			if(pubfn.isNotNull(selectedObj[key])){
+			if (pubfn.isNotNull(selectedObj[key])) {
 				newObject[key] = selectedObj[key];
 			}
 		}
-	}else{
+	} else {
 		newObject = selectedObj;
 	}
 	return newObject;
@@ -841,11 +845,11 @@ pubfn.getNewObject = function(obj, keys) {
  * @param {Array<String>} deleteKeys 需要删除的键名(数组形式)
  * vk.pubfn.deleteObjectKeys(data, deleteKeys);
  */
-pubfn.deleteObjectKeys = function(data, deleteKeys = []){
+pubfn.deleteObjectKeys = function(data, deleteKeys = []) {
 	var newData = {};
 	if (data) {
-		for(let key in data){
-			if(deleteKeys.indexOf(key) == -1){
+		for (let key in data) {
+			if (deleteKeys.indexOf(key) == -1) {
 				newData[key] = data[key];
 			}
 		}
@@ -876,12 +880,12 @@ pubfn.treeToArray = pubfn.treeUtil.treeToArray;
  * @param {String} expText 通配符规则
  * vk.pubfn.wildcardTestOne(text, expText);
  */
-pubfn.wildcardTestOne = function(text, expText){
-	if(!expText) return false;
-	let regExpText = expText.replace(new RegExp("\\*"),"(.*)");
+pubfn.wildcardTestOne = function(text, expText) {
+	if (!expText) return false;
+	let regExpText = expText.replace(new RegExp("\\*"), "(.*)");
 	let startText = expText.indexOf("*") !== 0 ? "^" : "";
-	let endText = expText[expText.length-1] !== "*" ? "$" : "";
-	let regExp = new RegExp(startText+regExpText+endText);
+	let endText = expText[expText.length - 1] !== "*" ? "$" : "";
+	let regExp = new RegExp(startText + regExpText + endText);
 	return regExp.test(text);
 };
 /**
@@ -890,19 +894,19 @@ pubfn.wildcardTestOne = function(text, expText){
  * @param {String | Array<String>} expText 通配符规则
  * vk.pubfn.wildcardTest(text, expText);
  */
-pubfn.wildcardTest = function(text, expText){
+pubfn.wildcardTest = function(text, expText) {
 	let matchNum = 0; // 被匹配的次数
 	let regExp1 = new RegExp("\\*");
-	if(typeof expText === "string"){
+	if (typeof expText === "string") {
 		// 字符串
-		if(pubfn.wildcardTestOne(text, expText)){
+		if (pubfn.wildcardTestOne(text, expText)) {
 			matchNum++;
 		}
-	}else if(typeof expText === "object"){
+	} else if (typeof expText === "object") {
 		// 数组
-		for(let i=0; i<expText.length; i++){
-		  let expTextItem = expText[i];
-			if(pubfn.wildcardTestOne(text, expTextItem)){
+		for (let i = 0; i < expText.length; i++) {
+			let expTextItem = expText[i];
+			if (pubfn.wildcardTestOne(text, expTextItem)) {
 				matchNum++;
 			}
 		}
@@ -916,8 +920,8 @@ pubfn.wildcardTest = function(text, expText){
  * @param {String} expText 正则表达式规则
  * vk.pubfn.regExpTestOne(text, expText);
  */
-pubfn.regExpTestOne = function(text, expText){
-	if(!expText) return false;
+pubfn.regExpTestOne = function(text, expText) {
+	if (!expText) return false;
 	let regExp = new RegExp(expText);
 	return regExp.test(text);
 };
@@ -928,18 +932,18 @@ pubfn.regExpTestOne = function(text, expText){
  * @param {String || Array<String>} wildcardExp 正则表达式规则
  * vk.pubfn.regExpTest(text, regExp);
  */
-pubfn.regExpTest = function(text, expText){
+pubfn.regExpTest = function(text, expText) {
 	let matchNum = 0; // 被匹配的次数
-	if(typeof expText === "string"){
+	if (typeof expText === "string") {
 		// 字符串
-		if(pubfn.regExpTestOne(text, expText)){
+		if (pubfn.regExpTestOne(text, expText)) {
 			matchNum++;
 		}
-	}else if(typeof expText === "object"){
+	} else if (typeof expText === "object") {
 		// 数组
-		for(let i=0; i<expText.length; i++){
-		  let expTextItem = expText[i];
-			if(pubfn.regExpTestOne(text, expTextItem)){
+		for (let i = 0; i < expText.length; i++) {
+			let expTextItem = expText[i];
+			if (pubfn.regExpTestOne(text, expTextItem)) {
 				matchNum++;
 			}
 		}
@@ -953,7 +957,7 @@ pubfn.regExpTest = function(text, expText){
  * @param {Number} num 位数，建议在25-30之间，默认25
  * vk.pubfn.createOrderNo();
  */
-pubfn.createOrderNo = function(prefix="", num=25){
+pubfn.createOrderNo = function(prefix = "", num = 25) {
 	// 获取当前时间字符串格式如20200803093000123
 	let fullTime = pubfn.getFullTime(new Date(), 1);
 	fullTime = fullTime.substring(2);
@@ -1059,20 +1063,20 @@ pubfn.string2Number = function(obj, option = {}) {
 			} else {
 				return obj;
 			}
-		case 'object':
-			const keys = Object.keys(obj);
-			for (let i = 0; i < keys.length; i++) {
-				const key = keys[i];
-				obj[key] = pubfn.string2Number(obj[key]);
-			}
-			return obj;
-		case 'array':
-			for (let i = 0; i < obj.length; i++) {
-				obj[i] = pubfn.string2Number(obj[i]);
-			}
-			return obj;
-		default:
-			return obj;
+			case 'object':
+				const keys = Object.keys(obj);
+				for (let i = 0; i < keys.length; i++) {
+					const key = keys[i];
+					obj[key] = pubfn.string2Number(obj[key]);
+				}
+				return obj;
+			case 'array':
+				for (let i = 0; i < obj.length; i++) {
+					obj[i] = pubfn.string2Number(obj[i]);
+				}
+				return obj;
+			default:
+				return obj;
 	}
 };
 /**
@@ -1081,7 +1085,7 @@ pubfn.string2Number = function(obj, option = {}) {
  * @param {Number} precision 精度
  * vk.pubfn.toDecimal(val, 2);
  */
-pubfn.toDecimal = function(val, precision=0) {
+pubfn.toDecimal = function(val, precision = 0) {
 	if (typeof val === "string") val = Number(val);
 	return parseFloat(val.toFixed(precision));
 };
@@ -1093,29 +1097,30 @@ pubfn.toDecimal = function(val, precision=0) {
  * vk.pubfn.dateDiff(startTime);
  */
 pubfn.dateDiff = function(startTime, suffix = "前") {
-	if (!startTime){
+	if (!startTime) {
 		return "";
 	}
-  if(typeof startTime === "string" && !isNaN(startTime)) startTime = Number(startTime);
-	if(typeof startTime == "number"){
+	if (typeof startTime === "string" && !isNaN(startTime)) startTime = Number(startTime);
+	if (typeof startTime == "number") {
 		if (startTime.toString().length == 10) startTime *= 1000;
 		startTime = new Date(startTime);
 		startTime = pubfn.getFullTime(startTime);
-	}if(typeof startTime == "string"){
+	}
+	if (typeof startTime == "string") {
 		startTime = startTime.replace("T", " ");
 		startTime = startTime;
-		startTime = new Date(startTime.replace(/-/g, "/"));//将-转化为/，使用new Date
+		startTime = new Date(startTime.replace(/-/g, "/")); //将-转化为/，使用new Date
 	}
-	var endTime = new Date();//获取当前时间
-	var nd = 1000 * 24 * 60 * 60;//一天的毫秒数
-	var nh = 1000 * 60 * 60;//一小时的毫秒数
-	var nm = 1000 * 60;//一分钟的毫秒数
-	var ns = 1000;//一秒钟的毫秒数long diff;try {
+	var endTime = new Date(); //获取当前时间
+	var nd = 1000 * 24 * 60 * 60; //一天的毫秒数
+	var nh = 1000 * 60 * 60; //一小时的毫秒数
+	var nm = 1000 * 60; //一分钟的毫秒数
+	var ns = 1000; //一秒钟的毫秒数long diff;try {
 	var diff = endTime.getTime() - startTime.getTime();
-	var day = Math.floor(diff / nd);//计算差多少天
-	var hour = Math.floor(diff % nd / nh);//计算差多少小时
-	var min = Math.floor(diff % nd % nh / nm);//计算差多少分钟
-	var sec = Math.round(diff % nd % nh % nm / ns);//计算差多少秒//输出结果
+	var day = Math.floor(diff / nd); //计算差多少天
+	var hour = Math.floor(diff % nd / nh); //计算差多少小时
+	var min = Math.floor(diff % nd % nh / nm); //计算差多少分钟
+	var sec = Math.round(diff % nd % nh % nm / ns); //计算差多少秒//输出结果
 	var showStr = "1 秒";
 	if (day > 0) {
 		showStr = day + "天";
@@ -1135,25 +1140,26 @@ pubfn.dateDiff = function(startTime, suffix = "前") {
  * @param {String || Number} endTime	需要计算的时间 如到期时间
  * vk.pubfn.dateDiff2(endTime);
  */
-pubfn.dateDiff2 = function(startTime, str="1秒") {
-	if (!startTime){
+pubfn.dateDiff2 = function(startTime, str = "1秒") {
+	if (!startTime) {
 		return "";
 	}
-  if(typeof startTime === "string" && !isNaN(startTime)) startTime = Number(startTime);
-	if(typeof startTime == "number"){
+	if (typeof startTime === "string" && !isNaN(startTime)) startTime = Number(startTime);
+	if (typeof startTime == "number") {
 		if (startTime.toString().length == 10) startTime *= 1000;
 		startTime = new Date(startTime);
 		startTime = pubfn.getFullTime(startTime);
-	}if(typeof startTime == "string"){
+	}
+	if (typeof startTime == "string") {
 		startTime = startTime.replace("T", " ");
 		startTime = startTime;
-		startTime = new Date(startTime.replace(/-/g, "/"));//将-转化为/，使用new Date
+		startTime = new Date(startTime.replace(/-/g, "/")); //将-转化为/，使用new Date
 	}
-	var endTime = new Date();//获取当前时间
-	var nd = 1000 * 24 * 60 * 60;//一天的毫秒数
-	var nh = 1000 * 60 * 60;//一小时的毫秒数
-	var nm = 1000 * 60;//一分钟的毫秒数
-	var ns = 1000;//一秒钟的毫秒数long diff;try {
+	var endTime = new Date(); //获取当前时间
+	var nd = 1000 * 24 * 60 * 60; //一天的毫秒数
+	var nh = 1000 * 60 * 60; //一小时的毫秒数
+	var nm = 1000 * 60; //一分钟的毫秒数
+	var ns = 1000; //一秒钟的毫秒数long diff;try {
 	var diff = startTime.getTime() - endTime.getTime();
 	var day = Math.floor(diff / nd);
 	var hour = Math.floor(diff % nd / nh);
@@ -1182,28 +1188,28 @@ pubfn.dateDiff2 = function(startTime, str="1秒") {
  * @param {Number} n 需要转换的数字
  * vk.pubfn.numStr(n);
  */
-pubfn.numStr = function (n){
-	if(typeof n == "string"){
+pubfn.numStr = function(n) {
+	if (typeof n == "string") {
 		n = parseFloat(n);
 	}
 	var str = n;
-	if(n < 1000){
+	if (n < 1000) {
 		str = n;
-	}else if(n < 10000){
-		var n1 = Math.floor(n/100);
-		str = n1/10+"千"
-	}else if(n < 1000000){
-		var n1 = Math.floor(n/1000);
-		str = n1/10+"万"
-	}else if(n < 10000000){
-		var n1 = Math.floor(n/1000000);
-		str = n1+"百万"
-	}else if(n < 100000000){
-		var n1 = Math.floor(n/10000000);
-		str = n1+"千万"
-	}else if(n >= 100000000){
-		var n1 = Math.floor(n/10000000);
-		str = n1/10+"亿"
+	} else if (n < 10000) {
+		var n1 = Math.floor(n / 100);
+		str = n1 / 10 + "千"
+	} else if (n < 1000000) {
+		var n1 = Math.floor(n / 1000);
+		str = n1 / 10 + "万"
+	} else if (n < 10000000) {
+		var n1 = Math.floor(n / 1000000);
+		str = n1 + "百万"
+	} else if (n < 100000000) {
+		var n1 = Math.floor(n / 10000000);
+		str = n1 + "千万"
+	} else if (n >= 100000000) {
+		var n1 = Math.floor(n / 10000000);
+		str = n1 / 10 + "亿"
 	}
 	return str;
 };
@@ -1212,27 +1218,27 @@ pubfn.numStr = function (n){
  * @param {Number} money 金额
  * vk.pubfn.priceFilter(money);
  */
-pubfn.priceFilter = function (money,nullValue = ""){
-	if(pubfn.isNull(money)){
+pubfn.priceFilter = function(money, nullValue = "") {
+	if (pubfn.isNull(money)) {
 		return nullValue;
 	}
-	if(typeof money == "string"){
+	if (typeof money == "string") {
 		money = parseFloat(money);
 	}
 	return (money / 100).toFixed(2);
 };
 // 金额过滤器 - 只显示小数点左边
-pubfn.priceLeftFilter = function (n){
+pubfn.priceLeftFilter = function(n) {
 	let s = "";
-	if(n){
+	if (n) {
 		s = pubfn.priceFilter(n).split(".")[0];
 	}
 	return s;
 };
 // 金额过滤器 - 只显示小数点右边
-pubfn.priceRightFilter = function (n){
+pubfn.priceRightFilter = function(n) {
 	let s = "";
-	if(n){
+	if (n) {
 		s = pubfn.priceFilter(n).split(".")[1];
 	}
 	return s;
@@ -1242,15 +1248,15 @@ pubfn.priceRightFilter = function (n){
  * @param {Number} value 值
  * vk.pubfn.priceFilter(money);
  */
-pubfn.percentageFilter = function (value, needShowSymbol = true, nullValue = ""){
-	if(pubfn.isNull(value)){
+pubfn.percentageFilter = function(value, needShowSymbol = true, nullValue = "") {
+	if (pubfn.isNull(value)) {
 		return nullValue;
 	}
-	if(typeof value == "string"){
+	if (typeof value == "string") {
 		value = parseFloat(value);
 	}
 	value = parseFloat((value * 100).toFixed(2));
-	if(needShowSymbol){
+	if (needShowSymbol) {
 		value += "%";
 	}
 	return value;
@@ -1259,14 +1265,14 @@ pubfn.percentageFilter = function (value, needShowSymbol = true, nullValue = "")
  * 将字符串格式的时间转为时间戳
  * @param {String} 	dateString		格式为:2020-08-08 12:12:12
  */
-pubfn.toTimeLong = function (dateString){
-	if(!dateString){
+pubfn.toTimeLong = function(dateString) {
+	if (!dateString) {
 		return "";
 	}
 	dateString = dateString.substring(0, 19);
-	dateString = dateString.replace(new RegExp(/-/,"g"), '/');
+	dateString = dateString.replace(new RegExp(/-/, "g"), '/');
 	let time = new Date(dateString).getTime();
-	if(isNaN(time)){
+	if (isNaN(time)) {
 		time = "";
 	}
 	return time;
@@ -1280,25 +1286,25 @@ pubfn.toTimeLong = function (dateString){
  * precision	数值精度
  * vk.pubfn.calcSize(length,["B","KB","MB","GB"],1024,3);
  */
-pubfn.calcSize = function (length=0, arr, ary, precision=2, showType="auto"){
+pubfn.calcSize = function(length = 0, arr, ary, precision = 2, showType = "auto") {
 	length = parseFloat(length);
 	let size = 0;
 	let type = "";
-	if(length < ary || arr.length <= 1){
+	if (length < ary || arr.length <= 1) {
 		type = arr[0];
 		size = parseFloat(length.toFixed(precision));
-	}else{
+	} else {
 		for (let i = 1; i < arr.length; i++) {
 			let currentType = arr[i];
 			length = length / ary;
-			if(showType === "auto"){
-				if(length < ary){
+			if (showType === "auto") {
+				if (length < ary) {
 					type = currentType;
 					size = parseFloat(length.toFixed(precision));
 					break;
 				}
-			}else{
-				if(showType === currentType){
+			} else {
+				if (showType === currentType) {
 					type = currentType;
 					size = parseFloat(length.toFixed(precision));
 					break;
@@ -1307,9 +1313,9 @@ pubfn.calcSize = function (length=0, arr, ary, precision=2, showType="auto"){
 		}
 	}
 	return {
-		size : size,
-		type : type,
-		title : size + " " + type
+		size: size,
+		type: type,
+		title: size + " " + type
 	}
 };
 
@@ -1336,7 +1342,7 @@ pubfn.calcSize = function (length=0, arr, ary, precision=2, showType="auto"){
 		}
 	});
  */
-pubfn.getListData2 = function (obj = {}){
+pubfn.getListData2 = function(obj = {}) {
 	let {
 		that,
 		listName,
@@ -1345,7 +1351,7 @@ pubfn.getListData2 = function (obj = {}){
 		dataPreprocess,
 		idKeyName = "_id"
 	} = obj;
-	if(listName) listKey = listName;
+	if (listName) listKey = listName;
 	/**
 	 * 2.0与1.0的区别
 	 * 2.0使用的queryForm1作为查询,而1.0是form1
@@ -1398,6 +1404,7 @@ pubfn.getListData2 = function (obj = {}){
 				hasMore = data.hasMore;
 			}
 			data = {
+				...data,
 				total: data.total,
 				list: list,
 				hasMore: hasMore,
@@ -1413,9 +1420,9 @@ pubfn.getListData2 = function (obj = {}){
 			if (queryForm1.pagination.pageIndex > 1) {
 				queryForm1.pagination.pageIndex--;
 			}
-			if (typeof obj.fail == "function"){
+			if (typeof obj.fail == "function") {
 				obj.fail(data);
-			} else if(err && err.msg){
+			} else if (err && err.msg) {
 				vk.toast(err.msg, "none");
 			}
 		},
@@ -1451,7 +1458,7 @@ pubfn.getListData2 = function (obj = {}){
 		}
 	});
  */
-pubfn.getListData = function (obj = {}){
+pubfn.getListData = function(obj = {}) {
 	var {
 		that,
 		listName,
@@ -1460,81 +1467,82 @@ pubfn.getListData = function (obj = {}){
 		dataPreprocess,
 		loading
 	} = obj;
-	if(listName) listKey = listName;
+	if (listName) listKey = listName;
 	var { form1 = {}, data = {} } = that;
 	var { pageKey = true } = data;
 	var vk = that.vk;
-	if(!form1.pageIndex) form1.pageIndex = 1;
-	if(!form1.pageSize) form1.pageSize = 20;
+	if (!form1.pageIndex) form1.pageIndex = 1;
+	if (!form1.pageSize) form1.pageSize = 20;
 	var addTime = form1.addTime;
 	var endTime = form1.endTime;
-	if(endTime) endTime+=" 23:59:59";
-	if(!pageKey && form1.pageIndex > 1){
+	if (endTime) endTime += " 23:59:59";
+	if (!pageKey && form1.pageIndex > 1) {
 		form1.pageIndex--;
 		return false;
 	}
 
-	if(addTime) form1.addTimeLong = pubfn.toTimeLong(addTime);
-	if(endTime) form1.endTimeLong = pubfn.toTimeLong(endTime);
-	if(obj.data && JSON.stringify(obj.data) != "{}"){
-		pubfn.objectAssign(form1,obj.data);
+	if (addTime) form1.addTimeLong = pubfn.toTimeLong(addTime);
+	if (endTime) form1.endTimeLong = pubfn.toTimeLong(endTime);
+	if (obj.data && JSON.stringify(obj.data) != "{}") {
+		pubfn.objectAssign(form1, obj.data);
 	}
 	let title = obj.title;
-	if(typeof obj.title == "undefined" && !loading){
+	if (typeof obj.title == "undefined" && !loading) {
 		title = form1.pageIndex == 1 ? "请求中..." : "";
 	}
 	vk.callFunction({
 		url: url,
 		data: form1,
 		title: title,
-		loading:loading,
-		success : function(data){
+		loading: loading,
+		success: function(data) {
 			var list = data[listKey] || [];
 			// 数据预处理
-			if(typeof dataPreprocess == "function"){
+			if (typeof dataPreprocess == "function") {
 				list = dataPreprocess(list);
 			}
-			if(form1.pageIndex > 1){
+			if (form1.pageIndex > 1) {
 				// 翻页
-				if(list.length == 0){
+				if (list.length == 0) {
 					// 无数据时
 					pageKey = false;
 					form1.pageIndex--;
 					list = that.data.list;
-				}else{
+				} else {
 					// 有数据时
-					if(list.length < form1.pageSize){
+					if (list.length < form1.pageSize) {
 						pageKey = false;
 					}
 					let oldList = that.data.list;
 					// 数据合并
-					list = pubfn.arr_concat(oldList,list,"_id");
+					list = pubfn.arr_concat(oldList, list, "_id");
 				}
-			}else if(form1.pageIndex == 1){
-				if(list.length < form1.pageSize){
+			} else if (form1.pageIndex == 1) {
+				if (list.length < form1.pageSize) {
 					pageKey = false;
 				}
 			}
 			//console.log(pageKey,list.length,form1.pageSize);
 			data = {
-				total : data.total,
-				list : list,
-				pageKey : pageKey,
-				loadmore : pageKey ? "loadmore" : "nomore" // 更新状态
+				...data,
+				total: data.total,
+				list: list,
+				pageKey: pageKey,
+				loadmore: pageKey ? "loadmore" : "nomore" // 更新状态
 			};
-			that.data = pubfn.objectAssign(that.data,data);// 更新数据
-			if(typeof obj.success == "function") obj.success(data);
+			that.data = pubfn.objectAssign(that.data, data); // 更新数据
+			if (typeof obj.success == "function") obj.success(data);
 		},
-		fail : function(err){
-			if(form1.pageIndex > 1){form1.pageIndex--;}
-			if(typeof obj.fail == "function"){
+		fail: function(err) {
+			if (form1.pageIndex > 1) { form1.pageIndex--; }
+			if (typeof obj.fail == "function") {
 				obj.fail(data);
-			} else if(err && err.msg){
+			} else if (err && err.msg) {
 				vk.toast(err.msg, "none");
 			}
 		},
-		complete : function(res){
-			if(typeof obj.complete == "function") obj.complete(res);
+		complete: function(res) {
+			if (typeof obj.complete == "function") obj.complete(res);
 		},
 	});
 };
@@ -1565,7 +1573,7 @@ pubfn.getListData = function (obj = {}){
     ids : ["notice-bar-01","index-swiper-01"]
   });
  */
-pubfn.getComponentsDynamicData = function (obj = {}){
+pubfn.getComponentsDynamicData = function(obj = {}) {
 	var {
 		that,
 		keyName = "componentsDynamic",
@@ -1575,16 +1583,16 @@ pubfn.getComponentsDynamicData = function (obj = {}){
 	} = obj;
 	var vk = that.vk;
 	let form1 = {
-		ids : ids
+		ids: ids
 	};
-	if(obj.data && JSON.stringify(obj.data) != "{}"){
+	if (obj.data && JSON.stringify(obj.data) != "{}") {
 		pubfn.objectAssign(form1, obj.data);
 	}
 	// 读取缓存开始-----------------------------------------------------------
 	let cacheKey = "pub-componentsDynamic";
 	let cacheData = uni.getStorageSync(cacheKey) || {};
 	let cacheDataKey = JSON.stringify(ids);
-	if(cacheData[cacheDataKey]){
+	if (cacheData[cacheDataKey]) {
 		// 渲染本地数据
 		that[keyName] = cacheData[cacheDataKey];
 	}
@@ -1593,22 +1601,22 @@ pubfn.getComponentsDynamicData = function (obj = {}){
 		url: url,
 		data: form1,
 		title: title,
-		success : function(data){
-			if(JSON.stringify(cacheData[cacheDataKey]) !== JSON.stringify(data.componentsDynamic)){
+		success: function(data) {
+			if (JSON.stringify(cacheData[cacheDataKey]) !== JSON.stringify(data.componentsDynamic)) {
 				// 渲染服务器数据
 				that[keyName] = data.componentsDynamic;
 				// 同时将组件数据进行缓存
 				cacheData[cacheDataKey] = data.componentsDynamic;
 				uni.setStorageSync(cacheKey, cacheData);
 			}
-			if(typeof obj.success == "function") obj.success(data);
+			if (typeof obj.success == "function") obj.success(data);
 		},
-		fail : function(err){
+		fail: function(err) {
 			console.error(err);
-			if(typeof obj.fail == "function") obj.fail(data);
+			if (typeof obj.fail == "function") obj.fail(data);
 		},
-		complete : function(){
-			if(typeof obj.complete == "function") obj.complete(data);
+		complete: function() {
+			if (typeof obj.complete == "function") obj.complete(data);
 		},
 	});
 };
@@ -1620,15 +1628,15 @@ pubfn.getComponentsDynamicData = function (obj = {}){
  */
 pubfn.getPageFullPath = function(url) {
 	let fullPath = url;
-	if(fullPath.indexOf("/") !== 0){
-		if(fullPath.indexOf("./") === 0){
-			fullPath = "."+fullPath;
+	if (fullPath.indexOf("/") !== 0) {
+		if (fullPath.indexOf("./") === 0) {
+			fullPath = "." + fullPath;
 		}
 		let urlSplit = fullPath.split("../");
 		// 向上目录级数,0:根目录 1:向上1级
 		let level = urlSplit.length;
 		// 尾部路径
-		let urlEnd = urlSplit[level-1];
+		let urlEnd = urlSplit[level - 1];
 		// 获取当前页面的页面全路径
 		let pages = getCurrentPages();
 		let currentPage = pages[pages.length - 1];
@@ -1637,13 +1645,13 @@ pubfn.getPageFullPath = function(url) {
 		let urlArr = currentPagePath.split("/");
 		let urlSplicing = "";
 		// 开始拼接
-		for (let i = 0; i < urlArr.length-level; i++) {
-			urlSplicing += urlArr[i]+"/";
+		for (let i = 0; i < urlArr.length - level; i++) {
+			urlSplicing += urlArr[i] + "/";
 		}
 		// 完整页面路径
 		fullPath = urlSplicing + urlEnd;
-		if(fullPath.indexOf("/") != 0){
-			fullPath = "/"+fullPath;
+		if (fullPath.indexOf("/") != 0) {
+			fullPath = "/" + fullPath;
 		}
 	}
 	return fullPath;
@@ -1703,10 +1711,14 @@ pubfn.getCurrentPage = function() {
  * 获取当前页面路由
  * vk.pubfn.getCurrentPageRoute();
  */
-pubfn.getCurrentPageRoute = function() {
+pubfn.getCurrentPageRoute = function(removeSlash) {
 	let pages = getCurrentPages();
 	let page = pages[pages.length - 1];
-	return page.route;
+	if (removeSlash) {
+		return page.route;
+	} else {
+		return "/" + page.route;
+	}
 };
 /**
  * 文件转base64
@@ -1717,44 +1729,44 @@ vk.pubfn.fileToBase64({
 	}
 });
  */
-pubfn.fileToBase64 = function(obj={}) {
+pubfn.fileToBase64 = function(obj = {}) {
 	let { file } = obj;
 	return new Promise(function(resolve, reject) {
 		// #ifdef H5
 		let reader = new FileReader();
 		reader.readAsDataURL(file);
-		reader.onload = function(res){
+		reader.onload = function(res) {
 			let base64 = this.result;
-			if(base64.indexOf(";base64,") == -1){
+			if (base64.indexOf(";base64,") == -1) {
 				base64 = "data:image/jpeg;base64," + base64;
 			}
-			if(obj.success) obj.success(base64);
-			if(obj.complete) obj.complete(base64);
+			if (obj.success) obj.success(base64);
+			if (obj.complete) obj.complete(base64);
 			resolve(base64);
 		};
-		reader.onerror = function(err){
-			if(obj.fail) obj.fail(err);
-			if(obj.complete) obj.complete(err);
+		reader.onerror = function(err) {
+			if (obj.fail) obj.fail(err);
+			if (obj.complete) obj.complete(err);
 			reject(err);
 		};
 		// #endif
 		// #ifndef H5
 		uni.getFileSystemManager().readFile({
-			filePath:file.path,
-			encoding:"base64",
-			success:function(res){
+			filePath: file.path,
+			encoding: "base64",
+			success: function(res) {
 				let base64 = res.data;
-				if(base64.indexOf(";base64,") == -1){
+				if (base64.indexOf(";base64,") == -1) {
 					base64 = "data:image/jpeg;base64," + base64;
 				}
-				if(obj.success) obj.success(base64);
+				if (obj.success) obj.success(base64);
 				resolve(base64);
 			},
-			fail:function(err){
-				if(obj.fail) obj.fail(err);
+			fail: function(err) {
+				if (obj.fail) obj.fail(err);
 				reject(err);
 			},
-			complete:obj.complete
+			complete: obj.complete
 		});
 		// let base64 = uni.getFileSystemManager().readFileSync(file.path, 'base64');
 		// if(obj.success) obj.success(base64);
@@ -1773,47 +1785,47 @@ vk.pubfn.base64ToFile({
 	}
 });
  */
-pubfn.base64ToFile = function(obj={}) {
+pubfn.base64ToFile = function(obj = {}) {
 	let {
-		base64="",
-		filePath =  new Date().getTime() + '.png'
+		base64 = "",
+			filePath = new Date().getTime() + '.png'
 	} = obj;
 	let index = base64.indexOf("base64,");
 	let base64Data = base64;
-	if(index>-1){
-		base64Data = base64.substring(base64.indexOf("base64,")+7);
+	if (index > -1) {
+		base64Data = base64.substring(base64.indexOf("base64,") + 7);
 	}
 	let savePath;
 	return new Promise(function(resolve, reject) {
 		// #ifndef H5
-		savePath = wx.env.USER_DATA_PATH + '/' +  filePath;
+		savePath = wx.env.USER_DATA_PATH + '/' + filePath;
 		let fs = uni.getFileSystemManager();
 		fs.writeFile({
-			filePath:savePath,
+			filePath: savePath,
 			data: base64Data,
-			encoding:"base64",
-			success:function(res){
+			encoding: "base64",
+			success: function(res) {
 				let file = {
-					path : savePath,
-					lastModifiedDate :  new Date(),
-					name : filePath
+					path: savePath,
+					lastModifiedDate: new Date(),
+					name: filePath
 				};
-				if(obj.success) obj.success(file);
+				if (obj.success) obj.success(file);
 				resolve(file);
 			},
-			fail:function(res){
-				if(obj.fail) obj.fail(res);
+			fail: function(res) {
+				if (obj.fail) obj.fail(res);
 				reject(res);
 			},
-			complete:obj.complete
+			complete: obj.complete
 		});
 		// #endif
 		// #ifdef H5
 		savePath = filePath;
 		let blob = pubfn.base64toBlob(base64);
 		let file = pubfn.blobToFile(blob, savePath);
-		if(obj.success) obj.success(file);
-		if(obj.complete) obj.complete(file);
+		if (obj.success) obj.success(file);
+		if (obj.complete) obj.complete(file);
 		resolve(file);
 		// #endif
 	});
@@ -1824,10 +1836,10 @@ pubfn.base64ToFile = function(obj={}) {
  */
 pubfn.base64toBlob = function(base64) {
 	let arr = base64.split(',');
-	let	mime = arr[0].match(/:(.*?);/)[1];
-	let	bstr = atob(arr[1]);
-	let	n = bstr.length;
-	let	u8arr = new Uint8Array(n);
+	let mime = arr[0].match(/:(.*?);/)[1];
+	let bstr = atob(arr[1]);
+	let n = bstr.length;
+	let u8arr = new Uint8Array(n);
 	while (n--) {
 		u8arr[n] = bstr.charCodeAt(n);
 	}
@@ -1867,25 +1879,29 @@ pubfn.checkLogin = function(obj = {}) {
 		let url;
 		try {
 			url = obj.url || vk.pubfn.getCurrentPageRoute();
-		}catch(err){
+		} catch (err) {
 			url = vk.getVuex("$app.config.index.url") || "/pages/index/index";
 		}
 		vk.navigate.checkNeedLogin({
 			url: url,
 			success: function(res) {
 				if (res.needLogin) {
-					// 这里应该记录下之前的页面? 不然登录成功后，只会进入首页。（后面优化）
-					vk.reLaunch(loginUrl);
+					// 记录下原本要跳转的页面
+					url = vk.pubfn.getPageFullPath(url);
+					vk.navigate.originalPage = { url };
+					uni.reLaunch({ url: loginUrl });
 					// #ifdef MP-WEIXIN
 					uni.hideHomeButton();
 					// #endif
+				} else {
+					vk.navigate.originalPage = null;
 				}
 			}
 		});
-	}catch(err){
-		console.error("catch",err);
+	} catch (err) {
+		console.error("catch", err);
 		uni.reLaunch({
-			url:loginUrl
+			url: loginUrl
 		});
 		// #ifdef MP-WEIXIN
 		uni.hideHomeButton();

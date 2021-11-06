@@ -73,7 +73,7 @@
 								]
 							},
 							{ key: "textarea", title:"textarea类型字段", type:"textarea",
-								autosize:{ minRows: 4, maxRows: 10 }, maxlength:200, showWordLimit:true,
+								autosize:{ minRows: 4, maxRows: 10 }, showWordLimit:true,
 							},
 							{ key: "switch", title:"switch类型字段", type:"switch" },
 						],

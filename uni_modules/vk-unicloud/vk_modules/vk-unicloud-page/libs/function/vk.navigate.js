@@ -193,7 +193,29 @@ util.originalTo = function() {
 	util.redirectTo(originalPage);
 };
 
+/**
+ * 跳转到首页
+ * vk.navigateToHome();
+ */
+util.navigateToHome = function(obj = {}) {
+	let vk = uni.vk;
+	let {
+		mode = "reLaunch"
+	} = obj;
+	vk[mode](config.index.url);
+};
 
+/**
+ * 跳转到登录页
+ * vk.navigateToLogin();
+ */
+util.navigateToLogin = function(obj = {}) {
+	let vk = uni.vk;
+	let {
+		mode = "reLaunch"
+	} = obj;
+	vk[mode](config.login.url);
+};
 
 /**
  * 检测是否满足条件(内部方法)
@@ -224,9 +246,6 @@ util.checkWildcardTest = function(obj) {
 			for (let i = 0; i < list.length; i++) {
 				let pageRegExp = list[i];
 				regExpKey = vk.pubfn.wildcardTest(path, pageRegExp);
-				//let regExp = new RegExp(pageRegExp);
-				//let regExpKey = regExp.test(path);
-				//console.log(regExpKey, path, pageRegExp);
 				if (regExpKey) {
 					break;
 				}

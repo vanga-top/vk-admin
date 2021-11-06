@@ -127,8 +127,9 @@ class CallFunctionUtil {
 				// 覆盖对象
 				config.request.dataParam = data;
 			} else {
-				// 覆盖参数(有就覆盖,没有则新增)
-				config.request.dataParam = Object.assign(config.request.dataParam, data);
+				// 覆盖参数（有就覆盖，没有则新增）
+				let dataParam = uni.getStorageSync(config.requestGlobalParamKeyName) || {};
+				config.request.dataParam = Object.assign(dataParam, data);
 			}
 			vk.setStorageSync(config.requestGlobalParamKeyName, config.request.dataParam);
 		}
