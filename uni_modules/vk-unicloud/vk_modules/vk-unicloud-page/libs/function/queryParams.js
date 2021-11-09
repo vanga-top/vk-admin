@@ -5,11 +5,12 @@
  * 此函数参考uView
  */
 function queryParams(data = {}, isPrefix = true, arrayFormat = 'brackets') {
+	let newData = JSON.parse(JSON.stringify(data));
 	let prefix = isPrefix ? '?' : ''
 	let _result = []
 	if (['indices', 'brackets', 'repeat', 'comma'].indexOf(arrayFormat) == -1) arrayFormat = 'brackets';
-	for (let key in data) {
-		let value = data[key]
+	for (let key in newData) {
+		let value = newData[key]
 		// 去掉为空的参数
 		if (['', undefined, null].indexOf(value) >= 0) {
 			continue;

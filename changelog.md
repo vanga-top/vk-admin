@@ -1,3 +1,13 @@
+## 1.7.3（2021-11-09）
+* 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.7.6`
+* 2、【优化】`万能表单` `radio` `checkbox` `select` `cascader` `tree-select` 的 `data` 静态模式数据源 支持 `function` 模式 [点击查看](https://vkdoc.fsq.pub/admin/components/9%E3%80%81select.html#%E9%9D%99%E6%80%81%E6%95%B0%E6%8D%AE%E6%96%B9%E5%BC%8F2)
+* 3、【修复】`万能表单` `tree-select` 点击清除按钮可能会报错的问题。
+
+##### 框架更新步骤 [点击查看](https://vkdoc.fsq.pub/admin/1/update.html)
+##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架
+
+##### 如果你觉得框架对你有用，可以在下方进行评论，也可以进行赞赏。
+
 ## 1.7.2（2021-11-02）
 * 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.7.4`
 * 2、【优化】美化默认滚动条样式 [点击查看](https://vkdoc.fsq.pub/admin/question/question.html#%E5%A6%82%E4%BD%95%E7%BE%8E%E5%8C%96%E9%BB%98%E8%AE%A4%E6%BB%9A%E5%8A%A8%E6%9D%A1)

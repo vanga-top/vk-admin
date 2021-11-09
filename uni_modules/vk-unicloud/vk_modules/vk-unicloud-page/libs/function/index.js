@@ -1722,11 +1722,20 @@ pubfn.getCurrentPageRoute = function(removeSlash) {
 };
 /**
  * 文件转base64
+
+方式一
+
 vk.pubfn.fileToBase64({
 	file:res.tempFiles[0],
 	success:function(base64){
 
 	}
+});
+
+方式二
+
+vk.pubfn.fileToBase64({ file }).then(base64 => {
+
 });
  */
 pubfn.fileToBase64 = function(obj = {}) {
@@ -1750,7 +1759,7 @@ pubfn.fileToBase64 = function(obj = {}) {
 			reject(err);
 		};
 		// #endif
-		// #ifndef H5
+		// #ifdef MP
 		uni.getFileSystemManager().readFile({
 			filePath: file.path,
 			encoding: "base64",
@@ -1760,6 +1769,7 @@ pubfn.fileToBase64 = function(obj = {}) {
 					base64 = "data:image/jpeg;base64," + base64;
 				}
 				if (obj.success) obj.success(base64);
+				if (obj.complete) obj.complete(base64);
 				resolve(base64);
 			},
 			fail: function(err) {
@@ -1773,23 +1783,63 @@ pubfn.fileToBase64 = function(obj = {}) {
 		// if(obj.complete) obj.complete(base64);
 		// resolve(base64);
 		// #endif
+		// #ifdef APP-PLUS
+		plus.io.resolveLocalFileSystemURL(pubfn.getLocalFilePath(file.path), function(entry) {
+			entry.file(function(file) {
+				let fileReader = new plus.io.FileReader();
+				fileReader.onload = function(data) {
+					if (obj.success) obj.success(data.target.result);
+					if (obj.complete) obj.complete(data.target.result);
+					resolve(data.target.result);
+				}
+				fileReader.onerror = function(err) {
+					if (obj.fail) obj.fail(err);
+					reject(err);
+				}
+				fileReader.readAsDataURL(file)
+			}, function(err) {
+				if (obj.fail) obj.fail(err);
+				reject(err);
+			})
+		}, function(err) {
+			if (obj.fail) obj.fail(err);
+			reject(err);
+		})
+		// #endif
 	});
 };
 
 /**
  * base64转文件
+方式一
+
 vk.pubfn.base64ToFile({
 	base64:base64,
 	success:function(file){
 
 	}
 });
+
+方式二
+
+vk.pubfn.base64ToFile({ base64 }).then(file => {
+
+});
  */
 pubfn.base64ToFile = function(obj = {}) {
 	let {
 		base64 = "",
-			filePath = new Date().getTime() + '.png'
+			filePath
 	} = obj;
+	let extName = base64.split(',')[0].match(/data\:\S+\/(\S+);/);
+	if (extName) {
+		extName = extName[1];
+	} else {
+		reject(new Error('base64 error'));
+	}
+	if (!filePath) {
+		filePath = pubfn.random(32, "abcdefghijklmnopqrstuvwxyz0123456789") + '.' + extName;
+	}
 	let index = base64.indexOf("base64,");
 	let base64Data = base64;
 	if (index > -1) {
@@ -1797,7 +1847,7 @@ pubfn.base64ToFile = function(obj = {}) {
 	}
 	let savePath;
 	return new Promise(function(resolve, reject) {
-		// #ifndef H5
+		// #ifdef MP
 		savePath = wx.env.USER_DATA_PATH + '/' + filePath;
 		let fs = uni.getFileSystemManager();
 		fs.writeFile({
@@ -1827,6 +1877,34 @@ pubfn.base64ToFile = function(obj = {}) {
 		if (obj.success) obj.success(file);
 		if (obj.complete) obj.complete(file);
 		resolve(file);
+		// #endif
+		// #ifdef APP-PLUS
+		let fileName = filePath;
+		let basePath = '_user_resources';
+		let dirPath = 'vk_temp';
+		savePath = basePath + '/' + dirPath + '/' + fileName;
+		let bitmap = new plus.nativeObj.Bitmap(fileName);
+		bitmap.loadBase64Data(base64, function() {
+			bitmap.save(savePath, {}, function() {
+				bitmap.clear();
+				let file = {
+					path: savePath,
+					lastModifiedDate: new Date(),
+					name: filePath
+				};
+				if (obj.success) obj.success(file);
+				if (obj.complete) obj.complete(file);
+				resolve(file);
+			}, function(error) {
+				bitmap.clear();
+				if (obj.fail) obj.fail(error);
+				reject(error);
+			})
+		}, function(error) {
+			bitmap.clear();
+			if (obj.fail) obj.fail(error);
+			reject(error);
+		})
 		// #endif
 	});
 };
@@ -1908,7 +1986,45 @@ pubfn.checkLogin = function(obj = {}) {
 		// #endif
 	}
 };
+/**
+ * 获取文件本地路径
+ * @param {Object} path
+ */
+pubfn.getLocalFilePath = function(path) {
+	if (path.indexOf('_www') === 0 || path.indexOf('_doc') === 0 || path.indexOf('_documents') === 0 || path.indexOf('_downloads') === 0) {
+		return path
+	}
+	if (path.indexOf('file://') === 0) {
+		return path
+	}
+	if (path.indexOf('/storage/emulated/0/') === 0) {
+		return path
+	}
+	if (path.indexOf('/') === 0 && typeof plus !== "undefined") {
+		let localFilePath = plus.io.convertAbsoluteFileSystem(path)
+		if (localFilePath !== path) {
+			return localFilePath
+		} else {
+			path = path.substr(1)
+		}
+	}
+	return '_www/' + path
+};
 
+
+function biggerThan(v1, v2) {
+	let v1Array = v1.split('.')
+	let v2Array = v2.split('.')
+	let update = false
+	for (let index = 0; index < v2Array.length; index++) {
+		let diff = v1Array[index] - v2Array[index]
+		if (diff !== 0) {
+			update = diff > 0
+			break
+		}
+	}
+	return update
+}
 
 // 前端专属结束 -----------------------------------------------------------
 export default pubfn;

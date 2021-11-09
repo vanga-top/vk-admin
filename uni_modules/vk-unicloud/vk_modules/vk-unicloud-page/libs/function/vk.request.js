@@ -46,7 +46,9 @@ vk.request({
 	header:{
 		"content-type": "application/x-www-form-urlencoded",
 	},
-	data,
+	data:{
+		
+	},
 	success: function(data){
 
 	},
