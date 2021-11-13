@@ -1,3 +1,5 @@
+## 3.3.9（2021-11-09）
+- 去除重复的context.xxx未找到的提示语
 ## 3.3.8（2021-10-28）
 - 新增 用户账户封禁接口 [详情](https://uniapp.dcloud.net.cn/uniCloud/uni-id?id=ban-account)
 - 新增 用户账户注销接口 [详情](https://uniapp.dcloud.net.cn/uniCloud/uni-id?id=close-account)

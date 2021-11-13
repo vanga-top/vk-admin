@@ -410,4 +410,61 @@ util.isQingming = function(data = new Date()) {
 }
 
 
+/**
+ * 获得指定时间偏移 year年 month月 day天 hours时 minutes分 seconds秒前或后的时间戳
+ * 返回时间戳
+vk.pubfn.getOffsetTime(new Date(), {
+	year:0,
+	month:0,
+	day:0,
+	hours:0,
+	minutes:0,
+	seconds:0,
+	mode:"after", // after 之后 before 之前
+});
+ */
+util.getOffsetTime = function(date = new Date(), obj) {
+	let time = (typeof date === "number") ? new Date(date) : date;
+	let year = obj.year || obj.y;
+	let month = obj.month || obj.m;
+	let day = obj.day || obj.d;
+	let hours = obj.hours || obj.hh;
+	let minutes = obj.minutes || obj.mm;
+	let seconds = obj.seconds || obj.ss;
+	let { mode="after" } = obj;
+	if (mode == "before") {
+		year *= -1;
+		month *= -1;
+		day *= -1;
+		hours *= -1;
+		minutes *= -1;
+		seconds *= -1;
+	}
+	if (year) {
+		time = time.setFullYear(time.getFullYear() + year);
+		time = new Date(time);
+	}
+	if (month) {
+		time = time.setMonth(time.getMonth() + month);
+		time = new Date(time);
+	}
+	if (day) {
+		time = time.setDate(time.getDate() + day);
+		time = new Date(time);
+	}
+	if (hours) {
+		time = time.setHours(time.getHours() + hours);
+		time = new Date(time);
+	}
+	if (minutes) {
+		time = time.setMinutes(time.getMinutes() + minutes);
+		time = new Date(time);
+	}
+	if (seconds) {
+		time = time.setSeconds(time.getSeconds() + seconds);
+		time = new Date(time);
+	}
+	return time.getTime();
+}
+
 export default util;

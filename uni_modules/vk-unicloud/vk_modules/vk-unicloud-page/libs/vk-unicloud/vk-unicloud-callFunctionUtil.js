@@ -174,6 +174,8 @@ class CallFunctionUtil {
 				let config = this.config;
 				let callFunction = this.callFunction;
 				if (config.debug) console.log("跳登录页面");
+				let { tokenExpiredAutoDelete = true } = config;
+				if (tokenExpiredAutoDelete) this.deleteToken();
 				setTimeout(() => {
 					if (config.login.url) {
 						let currentPage = getCurrentPages()[getCurrentPages().length - 1];
@@ -231,7 +233,8 @@ class CallFunctionUtil {
 		 * @params {Function} complete 	无论请求成功与否，都会执行的回调函数
 		 */
 		this.callFunction = (obj = {}) => {
-			let config = this.config;
+			let that = this;
+			let { config } = that;
 			let {
 				url,
 				data = {},
@@ -240,7 +243,7 @@ class CallFunctionUtil {
 
 			if (obj.retryCount) {
 				// 系统异常重试机制（表单提交时慎用，建议只用在查询请求中，即无任何数据库修改的请求中）
-				return this.callFunctionRetry(obj);
+				return that.callFunctionRetry(obj);
 			}
 			// 去除值为 undefined 的参数
 			if (typeof data === "object") {
@@ -271,7 +274,7 @@ class CallFunctionUtil {
 				}
 			}
 			// 根据指定globalParamName匹配全局请求参数
-			let customDate = this.getRequestGlobalParam(globalParamName);
+			let customDate = that.getRequestGlobalParam(globalParamName);
 			if (customDate && JSON.stringify(customDate) !== "{}") {
 				if (customDate.regExp) {
 					obj.data = Object.assign(customDate.data, obj.data); // 新版本
@@ -280,13 +283,32 @@ class CallFunctionUtil {
 				}
 			}
 			// 注入自定义全局参数结束-----------------------------------------------------------
-			// 缓存开始
+
+			// 若执行的函数是kh或sys类型函数，先本地判断下token，可以提高效率。
+			if (url.indexOf("/kh/") > -1 || url.indexOf("/sys/") > -1) {
+				if (!vk.checkToken()) {
+					// 若本地token校验未通过，则直接执行 interceptor.login 拦截器函数
+					return new Promise((resolve, reject) => {
+						// 执行 interceptor.login 拦截器函数（跳转到页面页面）
+						let res = { code: 30204, msg: "本地token校验未通过" };
+						let params = obj;
+						if (typeof that.interceptor.login === "function") {
+							that.interceptor.login({
+								res,
+								params,
+								vk
+							});
+						}
+						reject(res);
+					});
+				}
+			}
 
 			// 执行请求
 			if (obj.isRequest) {
-				return this.runRequest(obj);
+				return that.runRequest(obj);
 			} else {
-				return this.runCallFunction(obj);
+				return that.runCallFunction(obj);
 			}
 		}
 
@@ -607,9 +629,7 @@ class CallFunctionUtil {
 			if (typeof success == "function") success(res);
 			resolve(res);
 		} else if ([1301, 1302, 30201, 30202, 30203, 30204].indexOf(code) > -1 && res.msg.indexOf("token") > -1) {
-			let { tokenExpiredAutoDelete = true } = config;
-			if (tokenExpiredAutoDelete) that.deleteToken();
-			// 跳转到页面页面
+			// 执行 interceptor.login 拦截器函数（跳转到页面页面）
 			if (typeof that.interceptor.login === "function") {
 				that.interceptor.login({
 					res,

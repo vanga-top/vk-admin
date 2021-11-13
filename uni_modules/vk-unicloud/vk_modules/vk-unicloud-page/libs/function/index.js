@@ -69,6 +69,43 @@ pubfn.timeFormat = pubfn.timeUtil.timeFormat;
 pubfn.getFullTime = pubfn.timeUtil.getFullTime;
 
 /**
+ * 获取时间范围
+ * @param {Date} date 日期对象 可以指定时间计算节点，默认使用当前时间进行计算
+ * 返回的是时间戳(防止时区问题)
+ * 返回数据如下：
+ {
+   todayStart 今日开始时间
+   todayEnd   今日结束时间
+   today12End 今日上午结束时间
+   monthStart 本月开始时间
+   monthEnd   本月结束时间
+   yearStart  本年开始时间
+   yearEnd    本年结束时间
+   weekStart  本周开始时间
+   weekEnd    本周结束时间
+   now        现在的时间点(含月年日时分秒)
+   months     本年度每月的开始和结束时间 months[1] 代表1月
+ }
+ * vk.pubfn.getCommonTime();
+ */
+pubfn.getCommonTime = pubfn.timeUtil.getCommonTime;
+
+/**
+ * 获得指定时间偏移 year年 month月 day天 hours时 minutes分 seconds秒前或后的时间戳
+ * 返回时间戳形式
+vk.pubfn.getOffsetTime(new Date(), {
+	year:0,
+	month:0,
+	day:0,
+	hours:0,
+	minutes:0,
+	seconds:0,
+	mode:"after", // after 之后 before 之前
+});
+ */
+pubfn.getOffsetTime = pubfn.timeUtil.getOffsetTime;
+
+/**
  * 获得相对当前周addWeekCount个周的起止日期
  * @param {Number} addWeekCount  默认0 (0代表本周 为-1代表上周 为1代表下周以此类推 为2代表下下周)
  * vk.pubfn.getWeekStartAndEnd(0);
@@ -100,28 +137,6 @@ pubfn.getMonthOffsetStartAndEnd = pubfn.timeUtil.getMonthOffsetStartAndEnd;
  * vk.pubfn.getYearOffsetStartAndEnd(0);
  */
 pubfn.getYearOffsetStartAndEnd = pubfn.timeUtil.getYearOffsetStartAndEnd;
-
-/**
- * 获取时间范围
- * @param {Date} date 日期对象 可以指定时间计算节点，默认使用当前时间进行计算
- * 返回的是时间戳(防止时区问题)
- * 返回数据如下：
- {
-   todayStart 今日开始时间
-   todayEnd   今日结束时间
-   today12End 今日上午结束时间
-   monthStart 本月开始时间
-   monthEnd   本月结束时间
-   yearStart  本年开始时间
-   yearEnd    本年结束时间
-   weekStart  本周开始时间
-   weekEnd    本周结束时间
-   now        现在的时间点(含月年日时分秒)
-   months     本年度每月的开始和结束时间 months[1] 代表1月
- }
- * vk.pubfn.getCommonTime();
- */
-pubfn.getCommonTime = pubfn.timeUtil.getCommonTime;
 
 /**
  * 获得指定年份和月份后的该月的开始时间和结束时间
@@ -1032,6 +1047,7 @@ pubfn.snake2camelJson = function(obj) {
 pubfn.camel2snakeJson = function(obj) {
 	return parseObjectKeys(obj, 'camel2snake');
 };
+
 /**
  * 将能转成数字的字符串转数字（支持字符串、对象、数组）
  * @param {Any} obj
@@ -1040,6 +1056,7 @@ pubfn.camel2snakeJson = function(obj) {
  * mobile:true 手机号，如 15200000001
  * idCard:true 身份证，如 330154202109301214
  * startFrom0:true 第一位是0，且长度大于1的，同时第二位不是.的字符串  如 01，057189101254
+ * maxLength:14 超过此长度的字符串排除
  * vk.pubfn.string2Number(obj, option);
  */
 pubfn.string2Number = function(obj, option = {}) {
@@ -1050,9 +1067,12 @@ pubfn.string2Number = function(obj, option = {}) {
 				let {
 					mobile = true,
 						idCard = true,
-						startFrom0 = true
+						startFrom0 = true,
+						maxLength = 14,
 				} = option;
-				if (mobile && pubfn.test(obj, "mobile")) {
+				if (obj.length > maxLength) {
+					return obj;
+				} else if (mobile && pubfn.test(obj, "mobile")) {
 					return obj;
 				} else if (idCard && pubfn.test(obj, "card")) {
 					return obj;
@@ -1079,6 +1099,7 @@ pubfn.string2Number = function(obj, option = {}) {
 				return obj;
 	}
 };
+
 /**
  * 保留小数
  * @param {Number} val 原值
@@ -1219,6 +1240,9 @@ pubfn.numStr = function(n) {
  * vk.pubfn.priceFilter(money);
  */
 pubfn.priceFilter = function(money, nullValue = "") {
+	if (isNaN(money)){
+		return money;
+	}
 	if (pubfn.isNull(money)) {
 		return nullValue;
 	}
@@ -1249,6 +1273,9 @@ pubfn.priceRightFilter = function(n) {
  * vk.pubfn.priceFilter(money);
  */
 pubfn.percentageFilter = function(value, needShowSymbol = true, nullValue = "") {
+	if (isNaN(value)){
+		return value;
+	}
 	if (pubfn.isNull(value)) {
 		return nullValue;
 	}
