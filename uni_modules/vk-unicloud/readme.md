@@ -34,7 +34,7 @@
 
 #### 5、全面支持`url化`的云函数请求，您无需关心url化后参数的获取问题
 
-#### 6、已集成`uni-id` 当前版本:`3.3.8`（已支持真实发送邮箱验证码和阿里云短信验证码）
+#### 6、已集成`uni-id` 当前版本:`3.3.9`（已支持真实发送邮箱验证码和阿里云短信验证码）
 ```
 6.1、由于每个应用基本都会用上用户系统，官方建议所有`uniCloud`应用均使用`uni-id`作为用户体系，
 有了统一的账户规范，并且围绕这套账户规范，有各种各样插件，那么开发者可以随意整合这些插件，让数据连同。
@@ -51,37 +51,35 @@
 
 #### 10、`vk.baseDao.selects` 数据库万能连表查询API [点击查看](https://vkdoc.fsq.pub/client/uniCloud/db/selects.html)
 
-#### 11、集成`uview-ui` UI框架（感谢`uview-ui`作者）。
+#### 11、集成 `uview-ui` UI框架（感谢`uview-ui`作者）。
 
-#### 12、前后端一体动态数据组件
+#### 12、`商品SKU选择器组件`（打造uni插件市场功能最全的SKU选择器组件）
 
-#### 13、`商品SKU选择器组件`（打造uni插件市场功能最全的SKU选择器组件）
+#### 13、对 `Vuex` 进行了深度封装（支持持久化），现在可以很方便的使用Vuex进行读取和储存。[点击查看](https://vkdoc.fsq.pub/client/pages/vuex.html)
 
-#### 14、对 `Vuex` 进行了深度封装（支持持久化），现在可以很方便的使用Vuex进行读取和储存。[点击查看](https://vkdoc.fsq.pub/client/pages/vuex.html)
+#### 14、自定义过滤器（在业务云函数执行之前(或之后)，统一拦截，进行过滤后再放行，支持设置多个过滤器，并按指定顺序执行）
 
-#### 15、自定义过滤器（在业务云函数执行之前(或之后)，统一拦截，进行过滤后再放行，支持设置多个过滤器，并按指定顺序执行）
+#### 15、支持设置需要登录的页面列表或不需要登录的页面列表（通过本地token检测，无网络请求，支持通配符写法）
 
-#### 16、支持设置需要登录的页面列表或不需要登录的页面列表（通过本地token检测，无网络请求，支持通配符写法）
+#### 16、支持设置可以被分享的页面列表或禁止分享的页面列表（支持通配符写法）
 
-#### 17、支持设置可以被分享的页面列表或禁止分享的页面列表（支持通配符写法）
+#### 17、`vk.localStorage` 封装本地缓存的curd，同时具有监听缓存被更新和被删除的功能。[点击查看用法](https://vkdoc.fsq.pub/client/pages/localStorage.html)
 
-#### 18、`vk.localStorage` 封装本地缓存的curd，同时具有监听缓存被更新和被删除的功能。[点击查看用法](https://vkdoc.fsq.pub/client/pages/localStorage.html)
+#### 18、美化云函数请求过程中的日志排版，使请求日志一目了然。
 
-#### 19、美化云函数请求过程中的日志排版，使请求日志一目了然。
+#### 19、可以`强制关闭`云端服务（适用于需要临时关闭后端服务的情况，如腾讯云迁移数据到阿里云时需要先关闭服务，否则迁移过程中会有新数据产生）
 
-#### 20、可以`强制关闭`云端服务（适用于需要临时关闭后端服务的情况，如腾讯云迁移数据到阿里云时需要先关闭服务，否则迁移过程中会有新数据产生）
+#### 20、全局数据缓存API，现在可以很方便的在云函数中使用缓存。 [点击查看详情](https://vkdoc.fsq.pub/client/uniCloud/cache/cache.html)
 
-#### 21、全局数据缓存API，现在可以很方便的在云函数中使用缓存。 [点击查看详情](https://vkdoc.fsq.pub/client/uniCloud/cache/cache.html)
+#### 21、【1.8.0 新增】微信小程序服务端API [点击查看文档](https://vkdoc.fsq.pub/client/uniCloud/plus/weixin.html)
 
-#### 22、【1.8.0 新增】微信小程序服务端API [点击查看文档](https://vkdoc.fsq.pub/client/uniCloud/plus/weixin.html)
+#### 22、【1.8.12 新增】百度开放平台服务端API [点击查看文档](https://vkdoc.fsq.pub/client/uniCloud/plus/baidu.html)
 
-#### 23、【1.8.12 新增】百度开放平台服务端API [点击查看文档](https://vkdoc.fsq.pub/client/uniCloud/plus/baidu.html)
+#### 23、【1.9.1 新增】【全网首家】云函数URL化之URL重写 [点击查看文档](https://vkdoc.fsq.pub/client/uniCloud/cloudfunctions/urlrewrite.html)
 
-#### 24、【1.9.1 新增】【全网首家】云函数URL化之URL重写 [点击查看文档](https://vkdoc.fsq.pub/client/uniCloud/cloudfunctions/urlrewrite.html)
+#### 24、作者亲自在群内解答框架使用问题，让你轻松上手`uniCloud云开发`。
 
-#### 25、作者亲自在群内解答框架使用问题，让你轻松上手`uniCloud云开发`。
-
-#### 26、其他好处…
+#### 25、其他好处…
 
 ##### 插件首页体验地址
 
@@ -281,7 +279,7 @@ this.vk.callFunction({
 [点击查看如何『切换正式环境和开发环境』](https://vkdoc.fsq.pub/client/question/q1.html)
 
 ## 本插件更新步骤
-[点击查看本插件『更新步骤』](https://vkdoc.fsq.pub/client/question/q5.html)
+[点击查看本插件『更新步骤』](https://vkdoc.fsq.pub/client/changeGuide.html)
 
 ## uniCloud云函数路由框架研究Q群:`22466457` 如有问题或建议可以在群内讨论。
 

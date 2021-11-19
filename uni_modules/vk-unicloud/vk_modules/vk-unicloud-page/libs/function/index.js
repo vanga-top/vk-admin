@@ -1384,7 +1384,8 @@ pubfn.getListData2 = function(obj = {}) {
 	 * 2.0使用的queryForm1作为查询,而1.0是form1
 	 * 2.0云函数端是getTableData,而1.0是selects
 	 */
-	let { vk, queryForm1 } = that;
+	let { vk } = that;
+	let queryForm1 = that.queryForm1 || that.queryForm;
 	// 标记为请求中
 	that.loading = true;
 	let hasMore = true;
