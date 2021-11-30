@@ -1,8 +1,6 @@
 
 ![](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf0c5e69-620c-4f3c-84ab-f4619262939f/ad18e7d6-ae0e-4424-bf3d-6e3dad1036a1.png)
 
-![](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf0c5e69-620c-4f3c-84ab-f4619262939f/6deebd32-8075-4bdb-8e04-5839516ef4f4.png)
-
 ### 插件名称：`vk-unicloud-admin`
 ### 作者：VK
 
