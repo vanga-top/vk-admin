@@ -817,7 +817,16 @@ export default {
 			uni.login({
 				provider: 'qq',
 				success(res) {
-					resolve(res.code);
+					// #ifdef APP-PLUS
+					resolve({
+						accessToken: res.authResult.access_token,
+					})
+					// #endif
+					// #ifdef MP-QQ
+					resolve({
+						code: res.code,
+					})
+					// #endif
 				},
 				fail(err) {
 					reject(new Error('QQ登录失败'));
@@ -839,13 +848,14 @@ export default {
 		let that = this;
 		addLoading(obj, "登录中...");
 		let { data = {} } = obj;
-		that.getQQCode().then((code) => {
+		that.getQQCode().then(({ code, accessToken } = {}) => {
 			callFunction({
 				...obj,
 				url: 'user/pub/loginByQQ',
 				data: {
 					...data,
-					code: code
+					code,
+					accessToken
 				}
 			});
 		});
@@ -860,13 +870,14 @@ export default {
 		let that = this;
 		addLoading(obj, "请求中...");
 		let { data = {} } = obj;
-		that.getQQCode().then((code) => {
+		that.getQQCode().then(({ code, accessToken } = {}) => {
 			callFunction({
 				...obj,
 				url: 'user/kh/bindQQ',
 				data: {
 					...data,
-					code: code
+					code,
+					accessToken
 				}
 			});
 		});

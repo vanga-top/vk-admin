@@ -139,42 +139,34 @@ export default {
 		let mask = false;
 		let duration = 1500;
 		let fn;
-		if (typeof e === 'function') {
-			mask = c;
-			duration = d;
-			fn = e;
-		} else if (d) {
-			if (typeof d === 'function') {
-				fn = d;
-			} else if (typeof d === 'number') {
-				duration = d;
-			} else if (typeof d === 'boolean') {
-				mask = d;
-			}
-			if (typeof c === 'function') {
-				fn = c;
-			} else if (typeof c === 'number') {
-				duration = c;
-			} else if (typeof c === 'boolean') {
-				mask = c;
-			}
-		} else if (c) {
-			if (typeof c === 'function') {
-				fn = c;
-			} else if (typeof c === 'number') {
-				duration = c;
-			} else if (typeof c === 'boolean') {
-				mask = c;
-			}
-		} else if (typeof b === 'function') {
-			fn = b;
+		
+		if (typeof e !== "undefined") {
+			if (typeof e == "function") fn = e;
+			if (typeof e == "number") duration = e;
+			if (typeof e == "boolean") mask = e;
 		}
-		if (b != undefined && typeof b !== 'function') {
-			if (b == "ok") b = "success";
-			if (b == "success" || b == "loading" || b == "none") {
-				icon = b;
-			} else {
-				image = b;
+		if (typeof d !== "undefined") {
+			if (typeof d == "function") fn = d;
+			if (typeof d == "number") duration = d;
+			if (typeof d == "boolean") mask = d;
+		}
+		if (typeof c !== "undefined") {
+			if (typeof c == "function") fn = c;
+			if (typeof c == "number") duration = c;
+			if (typeof c == "boolean") mask = c;
+		}
+		
+		if (typeof b !== "undefined") {
+			if (typeof b == "function") fn = b;
+			if (typeof b == "number") duration = b;
+			if (typeof b == "boolean") mask = b;
+			if (typeof b == 'string') {
+				if (b == "ok") b = "success";
+				if (b == "success" || b == "loading" || b == "none") {
+					icon = b;
+				} else {
+					image = b;
+				}
 			}
 		}
 		uni.showToast({
@@ -185,7 +177,9 @@ export default {
 			duration: duration,
 			success: function(res) {
 				if (typeof fn === 'function') {
-					fn(res);
+					setTimeout(function(){
+						fn(res);
+					}, duration); 
 				}
 			}
 		});

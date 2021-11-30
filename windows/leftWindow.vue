@@ -1,23 +1,26 @@
 <template>
-	<scroll-view class="sidebar" scroll-y="true" v-loading="!vk.getVuex('$app.inited')">
-		<vk-data-menu-nav v-if="vk.getVuex('$app.inited')"
+	<scroll-view class="sidebar" :class="vk.getVuex('$app.isPC') ? 'pc' : 'mobile'" scroll-y="true" v-loading="!vk.getVuex('$app.inited')" :style="'background-color:'+backgroundColor">
+		<vk-data-menu-nav
+			v-if="vk.getVuex('$app.inited')"
 			:data="vk.getVuex('$app.navMenu')"
 			:uniqueOpened="true"
+			:theme="theme"
 			@select="select"
 		></vk-data-menu-nav>
 	</scroll-view>
 </template>
 
 <script>
+	import config from "@/app.config.js";
 	export default {
 		data() {
 			return {
-
+				theme: config.theme
 			}
 		},
 		methods: {
 			select(e){
-				
+
 			},
 		},
 		// 监听属性
@@ -36,8 +39,15 @@
 		},
 		// 计算属性
 		computed: {
-
-		},
+			backgroundColor(){
+				let theme = this.theme;
+				if (theme && theme.use) {
+					return theme[theme.use].leftMenu.backgroundColor;
+				} else {
+					return "#ffffff";
+				}
+			}
+		}
 	}
 </script>
 
@@ -54,7 +64,6 @@
 		top: 50px;
 		z-index: 998;
 	}
-
 	.title {
 		margin-left: 5px;
 	}

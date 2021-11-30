@@ -1,5 +1,5 @@
 <template>
-	<view class="header no-user-select" v-loading="!vk.getVuex('$app.inited')">
+	<view class="header no-user-select" v-loading="!vk.getVuex('$app.inited')" :style="'--textColor'+textColor">
 		<!-- 左侧 -->
 		<view class="left">
 			<navigator class="logo" open-type="reLaunch" url="/">
@@ -9,7 +9,7 @@
 		<!-- 右侧 -->
 		<view class="right">
 			<!-- 右上 -->
-			<view class="right-top">
+			<view class="right-top" :style="topMenuStyle">
 				<view
 					class="navbar"
 					:class="{ 'navbar-mini': !matchLeftWindow, 'popup-menu': popupMenuOpened }"
@@ -23,7 +23,7 @@
 							class="menu-icon"
 							name="vk-icon-sortlight"
 							size="30"
-							color="#999"
+							:color="textColor"
 						></vk-data-icon>
 					</view>
 					<view class="navbar-middle">
@@ -41,7 +41,7 @@
 							<vk-data-icon
 								class="arrowdown"
 								name="vk-icon-unfold"
-								color="#bbb"
+								:color="textColor"
 								size="13"
 							></vk-data-icon>
 						</view>
@@ -57,7 +57,7 @@
 									<vk-data-icon
 										name="el-icon-message-solid"
 										size="22"
-										color="#999999"
+										:color="textColor"
 									></vk-data-icon>
 								</el-badge>
 							</view>
@@ -122,7 +122,12 @@ export default {
 	data() {
 		return {
 			debug: config.debug,
-			...config.staticUrl.navBar,
+			// 方形Logo
+			logo: config.staticUrl.navBar.logo,
+			// 横幅 Logo
+			logo2: config.staticUrl.navBar.logo2,
+			// 主题配置
+			theme: config.theme,
 			// 右侧链接,只在开发模式时显示
 			links: [
 				{
@@ -180,10 +185,33 @@ export default {
 			};
 		}
 	},
-	// 过滤器
-	filters: {},
 	// 计算属性
-	computed: {}
+	computed: {
+		topMenuStyle(){
+			let theme = this.theme;
+			if (theme && theme.use) {
+				let topMenu = theme[theme.use].topMenu;
+				let {
+					backgroundColor,
+					textColor
+				} = topMenu;
+				return {
+					backgroundColor,
+					color:textColor
+				}
+			} else {
+				return {}
+			}
+		},
+		textColor(){
+			let theme = this.theme;
+			if (theme && theme.use) {
+				return theme[theme.use].topMenu.textColor || "#999";
+			} else {
+				return "#999";
+			}
+		}
+	}
 };
 </script>
 
@@ -395,5 +423,10 @@ export default {
 			margin-left: 8px;
 		}
 	}
+	::v-deep .navbar .top-bar .item-content {
+		color: var(--textColor);
+	}
 }
+
+
 </style>

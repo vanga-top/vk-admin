@@ -2,6 +2,8 @@
 import myPubFunction from '@/common/function/myPubFunction.js'
 // 引入静态菜单
 import staticMenu from '@/app.config.menu.js'
+// 引入主题配置文件
+import themeConfig from '@/common/theme/index.js'
 export default {
 	// 开发模式启用调式模式(请求时会打印日志)
 	debug: process.env.NODE_ENV !== "production",
@@ -11,10 +13,10 @@ export default {
 	login: {
 		url: "/pages/login/index"
 	},
-  // 首页页面路径
-  index: {
-    url: '/pages/index/index'
-  },
+	// 首页页面路径
+	index: {
+		url: '/pages/index/index'
+	},
 	// 404 Not Found 错误页面路径
 	error: {
 		url: "/pages_plugs/error/404"
@@ -66,9 +68,9 @@ export default {
 			// oss外网访问地址，也可以是阿里云cdn地址
 			host: "",
 			// 上传时,是否按用户id进行分组储存
-			groupUserId:true,
+			groupUserId: true,
 			// vk.callFunctionUtil.uploadFile 是否默认上传到阿里云OSS
-			isDefault:false
+			isDefault: false
 		}
 	},
 	// 页面风格
@@ -80,5 +82,29 @@ export default {
 	sideBar: {
 		// 配置静态菜单列表
 		"staticMenu": staticMenu
+	},
+	// 主题配置
+	theme: {
+		// 当前使用哪个主题
+		use: "blackWhite", // white blackWhite black custom
+		...themeConfig,
+		// 自定义主题
+		custom: {
+			// 左侧菜单样式
+			leftMenu: {
+				backgroundColor: "",
+				subBackgroundColor: "",
+				textColor: "",
+				activeTextColor: "",
+				activeBackgroundColor: "",
+				hoverTextColor: "",
+				hoverBackgroundColor: ""
+			},
+			// 顶部菜单样式
+			topMenu: {
+				backgroundColor: "",
+				textColor: "",
+			}
+		}
 	}
 }
