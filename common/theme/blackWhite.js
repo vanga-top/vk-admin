@@ -8,7 +8,8 @@ export default {
 		activeTextColor: "#ffffff",
 		activeBackgroundColor: "#2d8cf0",
 		hoverTextColor: "#ffffff",
-		hoverBackgroundColor: "#545f6c"
+		hoverBackgroundColor: "#545f6c",
+		boxShadow: "2px 0 6px rgba(0,21,4,0.25)"
 	},
 	// 顶部菜单样式
 	topMenu: {

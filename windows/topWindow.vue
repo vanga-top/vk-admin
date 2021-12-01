@@ -226,11 +226,11 @@ export default {
 	color: $top-window-text-color;
 	/* 左侧 */
 	.left {
-		width: calc(var(--window-left) - 2px);
+		width: calc(var(--window-left));
 	}
 	/* 右侧 */
 	.right {
-		width: calc(100% - var(--window-left) + 2px);
+		width: calc(100% - var(--window-left));
 
 		.navbar {
 			font-size: 13px;
