@@ -792,6 +792,9 @@ class CallFunctionUtil {
 		if (file && file.name) {
 			let suffixName = file.name.substring(file.name.lastIndexOf(".") + 1);
 			if (suffixName && suffixName.length < 5) oldName = file.name;
+			// 只保留["数字","英文",".","-"]
+			oldName = oldName.replace(/[^a-zA-Z.-d]/g, '');
+			if (oldName.indexOf(".") == 0) oldName = "0" + oldName;
 		}
 		let date = new Date();
 		let dateYYYYMMDD = vk.pubfn.timeFormat(date, "yyyy/MM/dd");

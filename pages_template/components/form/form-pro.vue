@@ -228,6 +228,49 @@
                   lazy:true,
                 }
               },
+							{
+							  key:"tree1", title:"树形选择(单选)", type:"tree-select", placeholder:"请选择学科",
+							  data:[
+							    {
+							      value:1,
+							      label:"数学",
+							      children:[
+							        { value:11,label:"奥数" },
+							        { value:12,label:"微积分" }
+							      ]
+							    },
+							    {
+							      value:2,
+							      label:"语文",
+							      children:[
+							        { value:21, label:"文言文" },
+							        { value:22, label:"古诗" }
+							      ]
+							    },
+							  ]
+							},
+							{
+							  key:"tree2", title:"树形选择(多选)", type:"tree-select", placeholder:"请选择学科",
+								multiple:true, 
+							  data:[
+							    {
+							      value:1,
+							      label:"数学",
+							      children:[
+							        { value:11,label:"奥数" },
+							        { value:12,label:"微积分" }
+							      ]
+							    },
+							    {
+							      value:2,
+							      label:"语文",
+							      children:[
+							        { value:21, label:"文言文" },
+							        { value:22, label:"古诗" }
+							      ]
+							    },
+							  ]
+							},
 							{ key:"switch", title:"switch类型", type:"switch" },
 							{ key:"rate", title:"评分类型", type:"rate", allowHalf:false },
 							{ key:"slider", title:"滑块类型", type:"slider" },
