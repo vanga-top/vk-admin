@@ -99,7 +99,8 @@ export default {
 				activeBackgroundColor: "",
 				hoverTextColor: "",
 				hoverBackgroundColor: "",
-				boxShadow: ""
+				boxShadow: "",
+				borderTop: ""
 			},
 			// 顶部菜单样式
 			topMenu: {
