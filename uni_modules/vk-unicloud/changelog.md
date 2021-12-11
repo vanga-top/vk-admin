@@ -1,3 +1,6 @@
+## 2.6.6（2021-12-10）
+* 1、【修复】少数情况下，http请求可能获取不到数据的问题。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.6.5（2021-12-07）
 * 1、【修复】公众号登录可能会获取不到昵称和头像的问题。
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

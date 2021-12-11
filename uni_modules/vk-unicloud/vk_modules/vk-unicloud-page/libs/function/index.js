@@ -1995,10 +1995,16 @@ pubfn.checkLogin = function(obj = {}) {
 					// 记录下原本要跳转的页面
 					url = vk.pubfn.getPageFullPath(url);
 					vk.navigate.originalPage = { url };
-					uni.reLaunch({ url: loginUrl });
-					// #ifdef MP-WEIXIN
-					uni.hideHomeButton();
-					// #endif
+					uni.reLaunch({
+						url: loginUrl,
+						success: () => {
+							// #ifdef MP-WEIXIN
+							setTimeout(() => {
+								uni.hideHomeButton();
+							}, 400);
+							// #endif
+						}
+					});
 				} else {
 					vk.navigate.originalPage = null;
 				}
