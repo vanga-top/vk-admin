@@ -19,7 +19,7 @@ module.exports = [
 			"^client/user/pub/login(.*)"
 		],
 		description: "可用于指定哪些云函数需要返回给前端userInfo",
-		index: 210,
+		index: 310,
 		mode:"onActionExecuted",// 可选 onActionExecuting onActionExecuted
 		enable:true, // 通过设置enable=false可以关闭该中间件
 		main: async function(event, serviceRes) {
