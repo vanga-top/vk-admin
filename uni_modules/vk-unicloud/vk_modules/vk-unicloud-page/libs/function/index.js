@@ -369,7 +369,7 @@ pubfn.getData = function(dataObj, name, defaultValue) {
 			}
 		}
 	}
-	if (typeof newDataObj === "undefined" && pubfn.isNotNull(defaultValue)) newDataObj = defaultValue;
+	if (typeof newDataObj === "undefined" && typeof defaultValue !== "undefined") newDataObj = defaultValue;
 	return newDataObj;
 };
 /**
@@ -1239,12 +1239,12 @@ pubfn.numStr = function(n) {
  * @param {Number} money 金额
  * vk.pubfn.priceFilter(money);
  */
-pubfn.priceFilter = function(money, nullValue = "") {
+pubfn.priceFilter = function(money, defaultValue = "") {
+	if (pubfn.isNull(money)) {
+		return defaultValue;
+	}
 	if (isNaN(money)){
 		return money;
-	}
-	if (pubfn.isNull(money)) {
-		return nullValue;
 	}
 	if (typeof money == "string") {
 		money = parseFloat(money);
@@ -1268,16 +1268,18 @@ pubfn.priceRightFilter = function(n) {
 	return s;
 };
 /**
- * 百分比过滤器 将0.01显示成1% 1 显示成 100%
- * @param {Number} value 值
- * vk.pubfn.priceFilter(money);
+ * 百分比过滤器 将 0.01 显示成 1%  1 显示成 100%
+ * @param {Number} value 百分比值
+ * @param {Boolean} needShowSymbol 显示 % 这个符号
+ * @param {String | Number} defaultValue value为空时的默认值
+ * vk.pubfn.percentageFilter(money);
  */
-pubfn.percentageFilter = function(value, needShowSymbol = true, nullValue = "") {
+pubfn.percentageFilter = function(value, needShowSymbol = true, defaultValue = "") {
+	if (pubfn.isNull(value)) {
+		return defaultValue;
+	}
 	if (isNaN(value)){
 		return value;
-	}
-	if (pubfn.isNull(value)) {
-		return nullValue;
 	}
 	if (typeof value == "string") {
 		value = parseFloat(value);
@@ -1285,6 +1287,41 @@ pubfn.percentageFilter = function(value, needShowSymbol = true, nullValue = "") 
 	value = parseFloat((value * 100).toFixed(2));
 	if (needShowSymbol) {
 		value += "%";
+	}
+	return value;
+};
+/**
+ * 折扣过滤器 将 0.1 显示成 1折 1 显示成 原价 0 显示成免费
+ * @param {Number} value 折扣值
+ * @param {Boolean} needShowSymbol 显示 折 这个中文字符
+ * @param {String | Number} defaultValue value为空时的默认值
+ * vk.pubfn.discountFilter(value);
+ */
+pubfn.discountFilter = function(value, needShowSymbol = true, defaultValue = "") {
+	if (pubfn.isNull(value)) {
+		return defaultValue;
+	}
+	if (isNaN(value)){
+		return value;
+	}
+	if (typeof value == "string") {
+		value = parseFloat(value);
+	}
+	value = parseFloat((value * 10).toFixed(2));
+	if (value > 10){
+		return "折扣不可以大于原价";
+	}
+	if (value == 10){
+		return "原价";
+	}
+	if (value == 0){
+		return "免费";
+	}
+	if (value < 0){
+		return "折扣不可以小于0";
+	}
+	if (needShowSymbol) {
+		value += " 折";
 	}
 	return value;
 };
