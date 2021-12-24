@@ -1,3 +1,6 @@
+## 2.6.11（2021-12-24）
+* 1、【修复】`vk.pubfn.string2Number` 会将空字符串转为0的问题。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.6.10（2021-12-17）
 * 1、【优化】一些细节。
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

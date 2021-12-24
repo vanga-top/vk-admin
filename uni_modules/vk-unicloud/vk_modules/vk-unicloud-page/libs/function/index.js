@@ -1063,7 +1063,7 @@ pubfn.string2Number = function(obj, option = {}) {
 	const type = Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
 	switch (type) {
 		case 'string':
-			if (!isNaN(obj)) {
+			if (obj && !isNaN(obj)) {
 				let {
 					mobile = true,
 						idCard = true,
