@@ -185,7 +185,7 @@ pubfn.validator = function(type) {
  * card 身份证
  * mobileCode 6位数字验证码
  * username 账号以字母开头，长度在6~18之间，只能包含字母、数字和下划线
- * pwd 密码长度在6~18之间，只能包含字母、数字和下划线
+ * pwd 密码长度在6~18之间，只能包含字母、数字和下划线和@
  * payPwd 支付密码 6位纯数字
  * postal 邮政编码
  * QQ QQ号
@@ -213,10 +213,10 @@ pubfn.test = function(str, type) {
 			return new RegExp(/^[0-9]{6}$/).test(str);
 		case 'username': //账号以字母开头，长度在6~18之间，只能包含字母、数字和下划线
 			return new RegExp(/^[a-zA-Z]([-_a-zA-Z0-9]{5,17})$/).test(str)
-		case 'pwd': //密码长度在6~18之间，只能包含字母、数字和下划线
-			return new RegExp(/^([a-zA-Z0-9_]){6,18}$/).test(str)
-		case 'password': //密码长度在6~18之间，只能包含字母、数字和下划线
-			return new RegExp(/^([a-zA-Z0-9_]){6,18}$/).test(str)
+		case 'pwd': //密码长度在6~18之间，只能包含字母、数字和下划线和@
+			return new RegExp(/^([a-zA-Z0-9_@]){6,18}$/).test(str)
+		case 'password': //密码长度在6~18之间，只能包含字母、数字和下划线和@
+			return new RegExp(/^([a-zA-Z0-9_@]){6,18}$/).test(str)
 		case 'payPwd': //支付密码 6位纯数字
 			return new RegExp(/^[0-9]{6}$/).test(str)
 		case 'postal': //邮政编码

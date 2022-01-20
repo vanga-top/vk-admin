@@ -4,6 +4,7 @@
  */
 import callFunctionUtil from './vk-unicloud-callFunctionUtil.js'
 var { callFunction, config, saveToken, deleteToken } = callFunctionUtil;
+import debounce from '../function/debounce.js'
 
 function addLoading(obj, title) {
 	if (typeof obj.loading === "undefined" && !obj.title && title) {
@@ -215,8 +216,8 @@ export default {
 	loginBySms(obj = {}) {
 		addLoading(obj, "登录中...");
 		return callFunction({
-			...obj,
-			url: 'user/pub/loginBySms'
+			url: 'user/pub/loginBySms',
+			...obj
 		});
 	},
 	/**
@@ -265,9 +266,9 @@ export default {
 			success(res) {
 				let dataJson = Object.assign(obj.data, res.authResult);
 				callFunction({
+					url: 'user/pub/loginByUniverify',
 					...obj,
 					data: dataJson,
-					url: 'user/pub/loginByUniverify',
 				});
 			},
 			fail: obj.fail,
@@ -321,8 +322,8 @@ export default {
 	loginByEmail(obj = {}) {
 		addLoading(obj, "登录中...");
 		return callFunction({
-			...obj,
-			url: 'user/pub/loginByEmail'
+			url: 'user/pub/loginByEmail',
+			...obj
 		});
 	},
 	/**
@@ -414,18 +415,20 @@ export default {
 	 */
 	loginByWeixin(obj = {}) {
 		let that = this;
-		addLoading(obj, "登录中...");
-		let { data = {} } = obj;
-		that.getWeixinCode().then((code) => {
-			callFunction({
-				...obj,
-				url: 'user/pub/loginByWeixin',
-				data: {
-					code,
-					...data
-				}
+		debounce(function() {
+			addLoading(obj, "登录中...");
+			let { data = {} } = obj;
+			that.getWeixinCode().then((code) => {
+				callFunction({
+					url: 'user/pub/loginByWeixin',
+					...obj,
+					data: {
+						code,
+						...data
+					}
+				});
 			});
-		});
+		}, 500);
 	},
 	/**
 	 * 获取微信openid
@@ -518,8 +521,8 @@ export default {
 	loginByWeixinPhoneNumber(obj = {}) {
 		addLoading(obj, "登录中...");
 		return callFunction({
-			...obj,
-			url: 'user/pub/loginByWeixinPhoneNumber'
+			url: 'user/pub/loginByWeixinPhoneNumber',
+			...obj
 		});
 	},
 	/**
@@ -583,18 +586,20 @@ export default {
 	 */
 	loginByAlipay(obj = {}) {
 		let that = this;
-		addLoading(obj, "登录中...");
-		let { data = {} } = obj;
-		that.getAlipayCode().then((code) => {
-			callFunction({
-				...obj,
-				url: 'user/pub/loginByAlipay',
-				data: {
-					...data,
-					code: code
-				}
+		debounce(function() {
+			addLoading(obj, "登录中...");
+			let { data = {} } = obj;
+			that.getAlipayCode().then((code) => {
+				callFunction({
+					url: 'user/pub/loginByAlipay',
+					...obj,
+					data: {
+						...data,
+						code: code
+					}
+				});
 			});
-		});
+		}, 500);
 	},
 	/**
 	 * 获取支付宝openid
@@ -846,19 +851,21 @@ export default {
 	 */
 	loginByQQ(obj = {}) {
 		let that = this;
-		addLoading(obj, "登录中...");
-		let { data = {} } = obj;
-		that.getQQCode().then(({ code, accessToken } = {}) => {
-			callFunction({
-				...obj,
-				url: 'user/pub/loginByQQ',
-				data: {
-					...data,
-					code,
-					accessToken
-				}
+		debounce(function() {
+			addLoading(obj, "登录中...");
+			let { data = {} } = obj;
+			that.getQQCode().then(({ code, accessToken } = {}) => {
+				callFunction({
+					url: 'user/pub/loginByQQ',
+					...obj,
+					data: {
+						...data,
+						code,
+						accessToken
+					}
+				});
 			});
-		});
+		}, 500);
 	},
 	/**
 	 * 绑定QQ

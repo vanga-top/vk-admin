@@ -1,3 +1,12 @@
+## 2.6.14（2022-01-20）
+* 1、【优化】一些细节。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.6.13（2022-01-14）
+* 1、【优化】一些细节。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.6.12（2022-01-08）
+* 【修复】`vk.openapi.weixin.security.imgSecCheck` 图片安全检测失效的问题
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.6.11（2021-12-24）
 * 1、【修复】`vk.pubfn.string2Number` 会将空字符串转为0的问题。
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
