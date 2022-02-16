@@ -77,6 +77,8 @@
 				<view class="iconfont icon-fengexian" @tap="insertDivider"></view>
 				<!-- 上传图片 -->
 				<view class="iconfont icon-charutupian" @tap="insertImage"></view>
+				<!-- 上传视频 -->
+				<!-- <view class="icon el-icon-video-camera" @tap="insertVideo"></view> -->
 				<!-- H1 -->
 				<view :class="formats.header === 1 ? 'ql-active' : ''" class="iconfont icon-format-header-1" data-name="header"
 				 :data-value="1" @tap.stop="trade_name">
@@ -214,6 +216,7 @@
 				let { detail } = e;
 				let { html, text, delta } = detail;
 				this.$emit('input',html);
+				this.inputTime = Date.now();
 			},
 			onEditorReady() {
 				let that = this;
@@ -295,13 +298,42 @@
 							filePath: res.tempFilePaths[0],
 							fileType: "image",
 							success(res) {
-								// 执行绑定头像
 								let imageUrl = res.fileID;
 								that.editorCtx.insertImage({
 									src: imageUrl,
 									alt: "image",
+									extClass:"vk-data-editor-image",
 									success: function() {
-										// console.log('insert image success')
+
+									}
+								});
+							}
+						});
+					}
+				})
+			},
+			insertVideo() {
+				let that = this;
+				let { vk } = that;
+				let disabled = that.disabledFn();
+				if(disabled) return false;
+				uni.chooseVideo({
+					count: 1,
+					success: (res) => {
+						// 上传视频到云储存
+						vk.callFunctionUtil.uploadFile({
+							title:"上传中...",
+							filePath: res.tempFilePath,
+							fileType: "video",
+							success(res) {
+								let imageUrl = res.fileID;
+								// 目前 uniapp 的原生富文本 没有 insertVideo api
+								that.editorCtx.insertVideo({
+									src: imageUrl,
+									alt: "video",
+									extClass:"vk-data-editor-video",
+									success: function() {
+
 									}
 								});
 							}
@@ -457,7 +489,17 @@
 			}
 		},
 		watch : {
-			/* value(newVal,oldValue) {}, */
+			value(newVal,oldValue) {
+				let that = this;
+				let time = Date.now();
+				let { inputTime = 0 } = that;
+				// 判断若属于外部直接赋值,则需要覆盖编辑器内容
+				if ((time - inputTime) > 60 && that.editorCtx) {
+					that.editorCtx.setContents({
+						html: newVal
+					});
+				}
+			},
 		},
 		// 过滤器
 		filters: {
@@ -493,6 +535,13 @@
 
 		.iconfont {
 			display: inline-block;
+			padding: 8px 8px;
+			width: 24px;
+			height: 24px;
+			cursor: pointer;
+			font-size: 20px;
+		}
+		.icon{
 			padding: 8px 8px;
 			width: 24px;
 			height: 24px;
@@ -673,6 +722,7 @@
 	.icon-charutupian:before {
 	  content: "\ec82";
 	}
+
 
 	.icon-wuxupailie:before {
 	  content: "\ec83";
