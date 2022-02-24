@@ -83,6 +83,13 @@
         },
         "devServer" : {
             "disableHostCheck" : true
+        },
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : "3EXBZ-3NYCW-L5MRG-ONN2B-FJYR6-H7BSU"
+                }
+            }
         }
     },
     "vueVersion" : "2"

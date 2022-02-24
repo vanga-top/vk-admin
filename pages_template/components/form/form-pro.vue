@@ -384,6 +384,7 @@
 							{ key:"", title:"特殊类型", type:"bar-title" },
 							{ key:"editor", title:"富文本类型", type:"editor", width:"1000px" },
 							{ key:"json", title:"json类型", type:"json" },
+							{ key:"location", title:"地图位置", type:"map", width:600, height:300, defaultLocation:{ latitude: 30.224781, longitude: 120.12438 } },
 						  {
 								key:"object", title:"object类型", type:"object",
 								columns:[
