@@ -24,10 +24,10 @@
 				{ "path": "system/permission/list" },
 				{ "path": "system/menu/list" },
         { "path": "system/app/list" },
-        { "path": "system_uni/opendb-global-data" },
+        { "path": "system_uni/vk-global-data" },
 				{ "path": "system_uni/uni-id-log" },
 				{ "path": "system_uni/opendb-admin-log" },
-				{ "path": "system_uni/opendb-components-dynamic" },
+				{ "path": "system_uni/vk-components-dynamic" },
         { "path": "system_uni/uni-id-files/list" }
 			]
 		},

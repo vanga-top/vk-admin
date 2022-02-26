@@ -25,7 +25,7 @@ module.exports = {
 		if(vk.pubfn.isNull(name)){
 			return { code : -1, msg : '名称不能为空' };
 		}
-		let dbName = "uni-id-files-categories";
+		let dbName = "vk-files-categories";
 		// 检测key是否已存在
 		let num = await vk.baseDao.count({
 			dbName,

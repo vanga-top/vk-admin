@@ -18,7 +18,7 @@ module.exports = {
 		let { uid } = data;
 		let res = { code: 0, msg: '' };
 		// 业务逻辑开始-----------------------------------------------------------
-		let dbName = "uni-id-files";
+		let dbName = "vk-files";
 		let whereJson = {};
 		let { role = [] } = userInfo;
 		let { formData = {} } = data;

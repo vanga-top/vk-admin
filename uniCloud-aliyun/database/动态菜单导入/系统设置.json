@@ -11,17 +11,17 @@
         "url": "/pages_plugs/system_uni/uni-id-files/list",
         "sort": 0
       },{
-        "menu_id": "system-uni-opendb-global-data",
+        "menu_id": "system-uni-vk-global-data",
         "name": "系统缓存管理",
         "icon": "",
-        "url": "/pages_plugs/system_uni/opendb-global-data",
+        "url": "/pages_plugs/system_uni/vk-global-data",
         "sort": 1
       },
       {
-        "menu_id": "system-uni-opendb-components-dynamic",
+        "menu_id": "system-uni-vk-components-dynamic",
         "name": "动态组件数据",
         "icon": "",
-        "url": "/pages_plugs/system_uni/opendb-components-dynamic",
+        "url": "/pages_plugs/system_uni/vk-components-dynamic",
         "sort": 2
       },
       {

@@ -21,7 +21,7 @@ module.exports = {
 		}
 		// 执行数据库API请求
 		let num = await vk.baseDao.del({
-		dbName:"opendb-components-dynamic",
+		dbName:"vk-components-dynamic",
 			whereJson:{
 				_id
 			}

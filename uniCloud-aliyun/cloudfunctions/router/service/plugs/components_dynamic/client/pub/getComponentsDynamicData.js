@@ -18,7 +18,7 @@ module.exports = {
 		// 业务逻辑开始----------------------------------------------------------- 
 		// 根据ids获取组件动态数据列表
 		let res_select = await vk.baseDao.select({
-			dbName:"opendb-components-dynamic",
+			dbName:"vk-components-dynamic",
 			getCount:false,
 			pageSize:100,
 			whereJson:{

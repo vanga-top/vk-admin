@@ -122,23 +122,6 @@
 			}
 		]
 	},
-	"opendb-components-dynamic":{
-		"data": [],
-		"index": [
-			{
-				"IndexName": "_add_time",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "_add_time","Direction": "1"}],"MgoIsUnique": false}
-			},
-			{
-				"IndexName": "data_id",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "data_id","Direction": "1"}],"MgoIsUnique": false}
-			},
-			{
-				"IndexName": "title",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "title","Direction": "1"}],"MgoIsUnique": false}
-			}
-		]
-	},
 	"uni-id-log":{
 		"data": [],
 		"index": [
@@ -183,6 +166,10 @@
 			}
 		],
 		"index": [
+			{
+				"IndexName": "_add_time",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "_add_time","Direction": "1"}],"MgoIsUnique": false}
+			},
 			{
 				"IndexName": "role_id",
 				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "role_id","Direction": "1"}],"MgoIsUnique": true}
@@ -360,9 +347,9 @@
 				"parent_id":"system-uni"
 			},
 			{
-				"_id": "system-uni-opendb-global-data",
+				"_id": "system-uni-vk-global-data",
 				"_add_time": 1596416400000,
-				"permission_id":"system-uni-opendb-global-data",
+				"permission_id":"system-uni-vk-global-data",
 				"permission_name": "系统 - 缓存管理",
 				"comment":"",
 				"url": ["admin/system_uni/global-data/sys/*"],
@@ -372,9 +359,9 @@
 				"parent_id":"system-uni"
 			},
 			{
-				"_id": "system-uni-opendb-components-dynamic",
+				"_id": "system-uni-vk-components-dynamic",
 				"_add_time": 1596416400000,
-				"permission_id":"system-uni-opendb-components-dynamic",
+				"permission_id":"system-uni-vk-components-dynamic",
 				"permission_name": "系统 - 动态组件数据管理",
 				"comment":"",
 				"url": ["admin/system_uni/components-dynamic/sys/*"],
@@ -409,6 +396,10 @@
 			}
 		],
 		"index": [
+			{
+				"IndexName": "_add_time",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "_add_time","Direction": "1"}],"MgoIsUnique": false}
+			},
 			{
 				"IndexName": "permission_id",
 				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "permission_id","Direction": "1"}],"MgoIsUnique": true}
@@ -521,24 +512,24 @@
 				"parent_id": "system-uni"
 			},
 			{
-				"_id": "system-uni-opendb-global-data",
+				"_id": "system-uni-vk-global-data",
 				"enable": true,
 				"icon": "",
-				"menu_id": "system-uni-opendb-global-data",
+				"menu_id": "system-uni-vk-global-data",
 				"name": "系统缓存管理",
 				"parent_id": "system-uni",
 				"sort": 2,
-				"url": "/pages_plugs/system_uni/opendb-global-data",
+				"url": "/pages_plugs/system_uni/vk-global-data",
 				"_add_time": 1596416400000
 			},
 			{
-				"_id": "system-uni-opendb-components-dynamic",
+				"_id": "system-uni-vk-components-dynamic",
 				"sort": 3,
-				"url": "/pages_plugs/system_uni/opendb-components-dynamic",
+				"url": "/pages_plugs/system_uni/vk-components-dynamic",
 				"_add_time": 1596416400000,
 				"enable": true,
 				"icon": "",
-				"menu_id": "system-uni-opendb-components-dynamic",
+				"menu_id": "system-uni-vk-components-dynamic",
 				"name": "动态组件数据",
 				"parent_id": "system-uni"
 			},
@@ -567,6 +558,10 @@
 		],
 		"index": [
 			{
+				"IndexName": "_add_time",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "_add_time","Direction": "1"}],"MgoIsUnique": false}
+			},
+			{
 				"IndexName": "menu_id",
 				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "menu_id","Direction": "1"}],"MgoIsUnique": true}
 			},
@@ -577,75 +572,6 @@
 			{
 				"IndexName": "url",
 				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "url","Direction": "1"}],"MgoIsUnique": false}
-			},
-			{
-				"IndexName": "sort",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "sort","Direction": "1"}],"MgoIsUnique": false}
-			}
-		]
-	},
-	"opendb-global-data":{
-		"data":[
-
-		],
-		"index": [
-			{
-				"IndexName": "_add_time",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "_add_time","Direction": "1"}],"MgoIsUnique": false}
-			},
-			{
-				"IndexName": "key",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "key","Direction": "1"}],"MgoIsUnique": true}
-			},
-			{
-				"IndexName": "expired_at",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "expired_at","Direction": "1"}],"MgoIsUnique": false}
-			}
-		]
-	},
-	"uni-id-files": {
-		"data": [],
-		"index": [
-			{
-				"IndexName": "_add_time",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "_add_time","Direction": "1"}],"MgoIsUnique": false}
-			},
-			{
-				"IndexName": "user_id",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "user_id","Direction": "1"}],"MgoIsUnique": false}
-			},
-			{
-				"IndexName": "sort",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "sort","Direction": "1"}],"MgoIsUnique": false}
-			},
-			{
-				"IndexName": "status",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "status","Direction": "1"}],"MgoIsUnique": false}
-			},
-			{
-				"IndexName": "type",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "type","Direction": "1"}],"MgoIsUnique": false}
-			},
-			{
-				"IndexName": "display_name",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "display_name","Direction": "1"}],"MgoIsUnique": false}
-			},
-			{
-				"IndexName": "url",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "url","Direction": "1"}],"MgoIsUnique": false}
-			}
-		]
-	},
-	"uni-id-files-categories": {
-		"data": [],
-		"index": [
-			{
-				"IndexName": "_add_time",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "_add_time","Direction": "1"}],"MgoIsUnique": false}
-			},
-			{
-				"IndexName": "name",
-				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "name","Direction": "1"}],"MgoIsUnique": false}
 			},
 			{
 				"IndexName": "sort",
@@ -699,23 +625,109 @@
 			}
 		]
 	},
-  "opendb-admin-log":{
-    "data": [
+	"opendb-admin-log":{
+	  "data": [
+	
+	  ],
+	  "index": [
+	    {
+	      "IndexName": "_add_time",
+	      "MgoKeySchema": {"MgoIndexKeys": [{"Name": "_add_time","Direction": "1"}],"MgoIsUnique": false}
+	    },
+	    {
+	      "IndexName": "user_id",
+	      "MgoKeySchema": {"MgoIndexKeys": [{"Name": "user_id","Direction": "1"}],"MgoIsUnique": false}
+	    },
+	    {
+	      "IndexName": "title",
+	      "MgoKeySchema": {"MgoIndexKeys": [{"Name": "title","Direction": "1"}],"MgoIsUnique": false}
+	    }
+	  ]
+	},
+	"vk-components-dynamic":{
+		"data": [],
+		"index": [
+			{
+				"IndexName": "_add_time",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "_add_time","Direction": "1"}],"MgoIsUnique": false}
+			},
+			{
+				"IndexName": "data_id",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "data_id","Direction": "1"}],"MgoIsUnique": false}
+			},
+			{
+				"IndexName": "title",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "title","Direction": "1"}],"MgoIsUnique": false}
+			}
+		]
+	},
+	"vk-global-data":{
+		"data":[
 
-    ],
-    "index": [
-      {
-        "IndexName": "_add_time",
-        "MgoKeySchema": {"MgoIndexKeys": [{"Name": "_add_time","Direction": "1"}],"MgoIsUnique": false}
-      },
-      {
-        "IndexName": "user_id",
-        "MgoKeySchema": {"MgoIndexKeys": [{"Name": "user_id","Direction": "1"}],"MgoIsUnique": false}
-      },
-      {
-        "IndexName": "title",
-        "MgoKeySchema": {"MgoIndexKeys": [{"Name": "title","Direction": "1"}],"MgoIsUnique": false}
-      }
-    ]
-  }
+		],
+		"index": [
+			{
+				"IndexName": "_add_time",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "_add_time","Direction": "1"}],"MgoIsUnique": false}
+			},
+			{
+				"IndexName": "key",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "key","Direction": "1"}],"MgoIsUnique": true}
+			},
+			{
+				"IndexName": "expired_at",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "expired_at","Direction": "1"}],"MgoIsUnique": false}
+			}
+		]
+	},
+	"vk-files": {
+		"data": [],
+		"index": [
+			{
+				"IndexName": "_add_time",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "_add_time","Direction": "1"}],"MgoIsUnique": false}
+			},
+			{
+				"IndexName": "user_id",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "user_id","Direction": "1"}],"MgoIsUnique": false}
+			},
+			{
+				"IndexName": "sort",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "sort","Direction": "1"}],"MgoIsUnique": false}
+			},
+			{
+				"IndexName": "status",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "status","Direction": "1"}],"MgoIsUnique": false}
+			},
+			{
+				"IndexName": "type",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "type","Direction": "1"}],"MgoIsUnique": false}
+			},
+			{
+				"IndexName": "display_name",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "display_name","Direction": "1"}],"MgoIsUnique": false}
+			},
+			{
+				"IndexName": "url",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "url","Direction": "1"}],"MgoIsUnique": false}
+			}
+		]
+	},
+	"vk-files-categories": {
+		"data": [],
+		"index": [
+			{
+				"IndexName": "_add_time",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "_add_time","Direction": "1"}],"MgoIsUnique": false}
+			},
+			{
+				"IndexName": "name",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "name","Direction": "1"}],"MgoIsUnique": false}
+			},
+			{
+				"IndexName": "sort",
+				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "sort","Direction": "1"}],"MgoIsUnique": false}
+			}
+		]
+	}
 }

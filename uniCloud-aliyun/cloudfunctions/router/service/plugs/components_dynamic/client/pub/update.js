@@ -14,7 +14,7 @@ module.exports = {
 		let res = { code : 0, msg : 'ok' };
 		// 业务逻辑开始-----------------------------------------------------------
 		res.num = await vk.baseDao.update({
-			dbName:"opendb-components-dynamic",
+			dbName:"vk-components-dynamic",
 			whereJson:{
 				data_id : data_id,
 			},

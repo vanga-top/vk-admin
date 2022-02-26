@@ -18,7 +18,7 @@ module.exports = {
 		let { uid } = data;
 		let res = { code : 0, msg : '' };
 		// 业务逻辑开始-----------------------------------------------------------
-		let dbName = "opendb-global-data";
+		let dbName = "vk-global-data";
 		res = await vk.baseDao.getTableData({
 			dbName,
 			data,

@@ -23,7 +23,7 @@ module.exports = {
 		if(vk.pubfn.isNullOne(_id, data_id)){
 			return { code : -1, msg : '参数错误' };
 		}
-		let dbName = "opendb-components-dynamic";
+		let dbName = "vk-components-dynamic";
 
 		// 检测data_id是否已存在
 		let num = await vk.baseDao.count({

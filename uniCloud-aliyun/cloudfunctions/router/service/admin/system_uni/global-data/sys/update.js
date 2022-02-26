@@ -30,7 +30,7 @@ module.exports = {
 			return formRulesRes;
 		}
 		
-		let dbName = "opendb-global-data";
+		let dbName = "vk-global-data";
 		// 检测key是否已存在
 		let num = await vk.baseDao.count({
 			dbName:dbName,

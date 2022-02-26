@@ -19,7 +19,7 @@ module.exports = {
 		if(vk.pubfn.isNullOne(_id)){
 			return { code : -1, msg : '_id不能为空' };
 		}
-		let dbName = "opendb-global-data";
+		let dbName = "vk-global-data";
 		// 执行数据库API请求
 		let num = await vk.baseDao.del({
 			dbName:dbName,

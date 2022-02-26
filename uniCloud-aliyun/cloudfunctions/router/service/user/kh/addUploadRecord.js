@@ -59,7 +59,7 @@ module.exports = {
 			dataJson["category_id"] = category_id;
 		}
 		await vk.baseDao.add({
-			dbName: "uni-id-files",
+			dbName: "vk-files",
 			dataJson
 		});
 		// 业务逻辑结束-----------------------------------------------------------

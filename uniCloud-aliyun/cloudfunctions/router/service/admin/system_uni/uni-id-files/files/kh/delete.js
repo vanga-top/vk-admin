@@ -33,7 +33,7 @@ module.exports = {
 			whereJson["_id"] = _.in(_id);
 		}
 		let selectRes = await vk.baseDao.select({
-			dbName: "uni-id-files",
+			dbName: "vk-files",
 			pageIndex: 1,
 			pageSize: 500,
 			getMain: true,
@@ -49,7 +49,7 @@ module.exports = {
 			} catch (err) {}
 			// 执行数据库API请求
 			res.num = await vk.baseDao.del({
-				dbName: "uni-id-files",
+				dbName: "vk-files",
 				whereJson
 			});
 		}

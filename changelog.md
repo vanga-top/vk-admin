@@ -1,3 +1,22 @@
+## 1.9.0（2022-02-26）
+###【重要】由于uni官方限制自定义表不可以用 `opendb-` 和 `uni-` 开头，故以下数据库表名只能进行调整
+
+* 1、`opendb-components-dynamic` 改为 `vk-components-dynamic`
+* 2、`opendb-global-data` 改为 `vk-global-data`
+* 3、`uni-id-files` 改为 `vk-files`
+* 4、`uni-id-files-categories` 改为 `vk-files-categories`
+
+___更改表名势必会对老项目产生影响。（对新项目无影响）___
+
+### 老项目更新注意事项：
+* 1、老项目更新后，还需要从 `unicloud控制台` 把表名改成对应的新表名
+* 2、在项目代码中全局搜索旧表名，替换成新表名
+
+##### 框架更新步骤 [点击查看](https://vkdoc.fsq.pub/admin/1/update.html)
+##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架
+
+##### 如果你觉得框架对你有用，可以在下方进行评论，也可以进行赞赏。
+
 ## 1.8.13（2022-02-24）
 * 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.8.36`
 * 2、【新增】`addAdminLog` 中间件示例。

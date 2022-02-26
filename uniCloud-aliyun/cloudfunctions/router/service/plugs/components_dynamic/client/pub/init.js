@@ -14,7 +14,7 @@ module.exports = {
 		let res = { code : 0, msg : 'ok' };
     // 业务逻辑开始-----------------------------------------------------------
 		// 承载所有读操作的 promise 的数组
-		let dbName = "opendb-components-dynamic";
+		let dbName = "vk-components-dynamic";
 		let data_ids = [
 			"vk-test-notice-bar-01",
 			"vk-test-notice-bar-02",

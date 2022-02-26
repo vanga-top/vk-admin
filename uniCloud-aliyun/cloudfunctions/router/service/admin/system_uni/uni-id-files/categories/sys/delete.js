@@ -19,7 +19,7 @@ module.exports = {
 		if(vk.pubfn.isNullOne(_id)){
 			return { code : -1, msg : '_id不能为空' };
 		}
-		let dbName = "uni-id-files-categories";
+		let dbName = "vk-files-categories";
 		await vk.baseDao.deleteById({
 			dbName,
 			id:_id
