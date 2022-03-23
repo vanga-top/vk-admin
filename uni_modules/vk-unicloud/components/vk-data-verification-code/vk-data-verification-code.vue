@@ -9,8 +9,9 @@
 <script>
 /**
  * verificationCode 验证码输入框
+ * @property {String} mode 模式，mobile 手机验证码 custom 自定义验证码 默认 mobile
  * @property {String} mobile 接收短信的手机号
- * @property {String} type 短信类型，如 register、login
+ * @property {String} type 短信类型，如 register、login、bind、unbind
  * @property {Number String} seconds 倒计时所需的秒数（默认60）
  * @property {Object String} customStyle 自定义样式
  * @property {String} start-text 开始前的提示语，见官网说明（默认获取验证码）
@@ -20,17 +21,23 @@
  * @event {Function} change 倒计时期间，每秒触发一次
  * @event {Function} start 开始倒计时触发
  * @event {Function} end 结束倒计时触发
+ * @event {Function} send 自定义发送事件 当mode=custom时会有此事件
  * @example <vk-data-verification-code  seconds="60" :mobile="form1.mobile" type="register" custom-style="font-size: 28rpx;"></vk-data-verification-code>
  */
 export default {
 	name: 'vk-data-verification-code',
-	emits: ['start', 'end', 'change'],
+	emits: ['start', 'end', 'change','send','codeChange'],
 	props: {
+		// 模式，mobile 手机验证码 custom 自定义验证码 默认 mobile
+		mode: {
+			type: String,
+			default: 'mobile'
+		},
 		// 接收短信的手机号
 		mobile: {
 			type: String
 		},
-		// 短信类型，如 register、login
+		// 短信类型，如 register、login、bind、unbind
 		type: {
 			type: String,
 			default: 'login'
@@ -135,11 +142,11 @@ export default {
 			}, 1000);
 		},
 		// 重置，可以让用户再次获取验证码
-		reset() {
+		reset(text) {
 			this.canGetCode = true;
 			clearInterval(this.timer);
 			this.secNum = this.seconds;
-			this.changeEvent(this.endText);
+			this.changeEvent(text || this.endText);
 		},
 		changeEvent(text) {
 			this.codeChange(text);
@@ -169,42 +176,46 @@ export default {
 		sendSmsCode() {
 			let that = this;
 			let vk = uni.vk;
+			if (!that.canGetCode) {
+				vk.toast(`${that.secNum}秒后再重试`, 'none');
+				return;
+			}
+			if (that.mode === "custom") {
+				that.$emit("send", { type: that.type });
+				return;
+			}
 			let mobile = that.mobile;
 			let type = that.type;
-			if (!vk.pubfn.checkStr(mobile, 'mobile')) {
+			if (!vk.pubfn.test(mobile, 'mobile')) {
 				vk.toast('请输入正确的手机号码', 'none');
 				return;
 			}
-			if (that.canGetCode) {
-				that.tips = "发送中...";
-				vk.userCenter.sendSmsCode({
-					needAlert: false,
-					data: {
-						mobile,
-						type
-					},
-					success: function(data) {
-						vk.toast('验证码已发送');
-						that.start();
-					},
-					fail: function(err) {
-						that.tips = that.startText;
-						if (err.errMsg && err.errMsg.indexOf('触发天级流控') > -1) {
-							vk.alert('短信发送频繁，请明日再试！');
-						} else if (err.errMsg && err.errMsg.indexOf('触发小时级流控') > -1) {
-							vk.alert('短信发送频繁，请过1小时后再试！');
-						} else if (err.errMsg && err.errMsg.indexOf('触发分钟级流控') > -1) {
-							vk.alert('短信发送频繁，请稍后再试！');
-						} else if (err.msg) {
-							vk.alert(err.msg);
-						} else {
-							vk.alert('短信发送频繁，请稍后再试！');
-						}
+			that.tips = "发送中...";
+			vk.userCenter.sendSmsCode({
+				needAlert: false,
+				data: {
+					mobile,
+					type
+				},
+				success: function(data) {
+					vk.toast('验证码已发送');
+					that.start();
+				},
+				fail: function(err) {
+					that.tips = that.startText;
+					if (err.errMsg && err.errMsg.indexOf('触发天级流控') > -1) {
+						vk.alert('短信发送频繁，请明日再试！');
+					} else if (err.errMsg && err.errMsg.indexOf('触发小时级流控') > -1) {
+						vk.alert('短信发送频繁，请过1小时后再试！');
+					} else if (err.errMsg && err.errMsg.indexOf('触发分钟级流控') > -1) {
+						vk.alert('短信发送频繁，请稍后再试！');
+					} else if (err.msg) {
+						vk.alert(err.msg);
+					} else {
+						vk.alert('短信发送频繁，请稍后再试！');
 					}
-				});
-			} else {
-				vk.toast(`${that.secNum}秒后再重试`, 'none');
-			}
+				}
+			});
 		}
 	},
 	// 组件销毁的时候，清除定时器，否则定时器会继续存在，系统不会自动清除

@@ -241,6 +241,8 @@ pubfn.test = function(str, type) {
 			return new RegExp(/^[a-zA-Z0-9]*$/).test(str);
 		case 'english+number+_': //英文+数字+_
 			return new RegExp(/^[a-zA-Z0-9_]*$/).test(str);
+		case 'english+number+_-': //英文+数字+_-
+			return new RegExp(/^[a-zA-Z0-9_-]*$/).test(str);
 		case 'number': //数字
 			return new RegExp(/^[0-9]*$/).test(str);
 		case 'english': //英文
@@ -490,7 +492,7 @@ pubfn.isNotNullAll = function(...strS) {
 pubfn.getListItem = function(list, key, value) {
 	let item;
 	for (let i = 0; i < list.length; i++) {
-		if (pubfn.isNotNull(value) && list[i][key] === value) {
+		if (list[i][key] === value) {
 			item = list[i];
 			break;
 		}
@@ -508,7 +510,7 @@ pubfn.getListItem = function(list, key, value) {
 pubfn.getListIndex = function(list, key, value) {
 	let index = -1;
 	for (let i = 0; i < list.length; i++) {
-		if (pubfn.isNotNull(value) && list[i][key] === value) {
+		if (list[i][key] === value) {
 			index = i;
 			break;
 		}
@@ -528,7 +530,7 @@ pubfn.getListItemIndex = function(list, key, value) {
 	let item;
 	let index = -1;
 	for (let i = 0; i < list.length; i++) {
-		if (pubfn.isNotNull(value) && list[i][key] === value) {
+		if (list[i][key] === value) {
 			index = i;
 			item = list[i];
 			break;
@@ -1695,7 +1697,8 @@ pubfn.getPageFullPath = function(url) {
 	let fullPath = url;
 	if (fullPath.indexOf("/") !== 0) {
 		if (fullPath.indexOf("./") === 0) {
-			fullPath = "." + fullPath;
+			//fullPath = "." + fullPath;
+			fullPath = fullPath.substring(2);
 		}
 		let urlSplit = fullPath.split("../");
 		// 向上目录级数,0:根目录 1:向上1级
@@ -1750,6 +1753,9 @@ pubfn.getPlatform = function() {
 	// #endif
 	// #ifdef MP-360
 	platform = "mp-360";
+	// #endif
+	// #ifdef MP-KUAISHOU
+	platform = "mp-toutiao";
 	// #endif
 	return platform;
 };
@@ -2032,6 +2038,7 @@ pubfn.checkLogin = function(obj = {}) {
 					// 记录下原本要跳转的页面
 					url = vk.pubfn.getPageFullPath(url);
 					vk.navigate.originalPage = { url };
+					if(obj.isOnLaunch) vk.navigate.isOnLaunchToLogin = true; // 标记为首次启动的页面需要登录
 					uni.reLaunch({
 						url: loginUrl,
 						success: () => {

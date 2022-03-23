@@ -1,3 +1,24 @@
+## 2.7.5（2022-03-22）
+* 1、【新增】`vk.userCenter.bindNewMobile` 换绑新的手机号接口 [查看详情](https://vkdoc.fsq.pub/client/vk.userCenter.html#vk-usercenter-bindnewmobile-%E6%8D%A2%E7%BB%91%E6%89%8B%E6%9C%BA%E5%8F%B7)
+* 2、【新增】`vk.userCenter.bindNewEmail` 换绑新的邮箱接口 [查看详情](https://vkdoc.fsq.pub/client/vk.userCenter.html#vk-usercenter-bindnewemail-%E6%8D%A2%E7%BB%91%E9%82%AE%E7%AE%B1)
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.7.4（2022-03-21）
+* 1、【优化】H5环境下，微信登录、微信绑定、微信解绑API，使之自动识别微信公众号环境（h5-weixin）的配置。
+注意：微信公众号的 `uni-id` 配置属性是 `h5-weixin`，非 `h5`。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.7.3（2022-03-18）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.7.2（2022-03-14）
+* 1、【修复】`vk.navigateTo` 以 ./ 开头时 如：vk.navigateTo("./order-list") 判断是否需要登录不准确的问题。
+## 2.7.1（2022-03-14）
+* 1、【优化】`app.config.js` 中的 `checkTokenPages` 检测页面是否需要登录支持 首页(启动页)的检测
+* 2、【优化】其他细节
+
+##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架
+
+##### 如果你觉得框架对你有用，可以在下方进行评论，也可以进行赞赏。
+
 ## 2.7.0（2022-02-26）
 ###【重要】由于uni官方限制自定义表不可以用 `opendb-` 和 `uni-` 开头，故以下数据库表名只能进行调整
 

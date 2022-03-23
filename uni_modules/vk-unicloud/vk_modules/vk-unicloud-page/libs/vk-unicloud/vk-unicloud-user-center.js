@@ -203,6 +203,24 @@ export default {
 		});
 	},
 	/**
+	 * 绑定新的手机号（换绑手机号）
+	 * data 请求参数 说明
+	 * @param {String} oldMobile 旧手机号码
+	 * @param {String} oldMobileCode 旧手机收到的验证码
+	 * @param {String} mobile 新手机号码
+	 * @param {String} code 新手机收到的验证码
+	 * res 返回参数说明
+	 * @param {Number} code 错误码，0表示成功
+	 * @param {String} msg 详细信息
+	 */
+	bindNewMobile(obj = {}) {
+		addLoading(obj, "请求中...");
+		return callFunction({
+			...obj,
+			url: 'user/kh/bindNewMobile',
+		});
+	},
+	/**
 	 * 手机号登录(手机号+手机验证码)
 	 * data 请求参数 说明
 	 * @param {String} mobile 手机号
@@ -306,6 +324,20 @@ export default {
 		return callFunction({
 			...obj,
 			url: 'user/kh/unbindEmail',
+		});
+	},
+	/**
+	 * 绑定新的邮箱（换绑邮箱）
+	 * @param {String} oldEmail 旧邮箱码
+	 * @param {String} oldEmailCode 旧邮箱收到的验证码
+	 * @param {String} email 新邮箱码
+	 * @param {String} code 新邮箱收到的验证码
+	 */
+	bindNewEmail(obj = {}) {
+		addLoading(obj, "请求中...");
+		return callFunction({
+			...obj,
+			url: 'user/kh/bindNewEmail',
 		});
 	},
 	/**
@@ -419,6 +451,10 @@ export default {
 			addLoading(obj, "登录中...");
 			let { data = {} } = obj;
 			that.getWeixinCode().then((code) => {
+				// #ifdef H5
+				// H5平台需要区分环境（如微信公众号？网页H5?）
+				data.vk_platform = uni.vk.h5.getEnv();
+				// #endif
 				callFunction({
 					url: 'user/pub/loginByWeixin',
 					...obj,
@@ -469,12 +505,16 @@ export default {
 		addLoading(obj, "请求中...");
 		let { data = {} } = obj;
 		that.getWeixinCode().then((code) => {
+			// #ifdef H5
+			// H5平台需要区分环境（如微信公众号？网页H5?）
+			data.vk_platform = uni.vk.h5.getEnv();
+			// #endif
 			callFunction({
 				...obj,
 				url: 'user/kh/bindWeixin',
 				data: {
-					...data,
-					code: code
+					code,
+					...data
 				}
 			});
 		});
@@ -487,6 +527,12 @@ export default {
 	 */
 	unbindWeixin(obj = {}) {
 		addLoading(obj, "请求中...");
+		let { data = {} } = obj;
+		// #ifdef H5
+		// H5平台需要区分环境（如微信公众号？网页H5?）
+		data.vk_platform = uni.vk.h5.getEnv();
+		obj.data = data;
+		// #endif
 		return callFunction({
 			...obj,
 			url: 'user/kh/unbindWeixin',

@@ -182,6 +182,14 @@ class CallFunctionUtil {
 						if (currentPage && currentPage.route && "/" + currentPage.route === config.login.url) {
 							return false;
 						}
+						// 此处代码是为了防止首页启动时检测和正常检测冲突-----------------------------------------------------------
+						if (vk.navigate.isOnLaunchToLogin) {
+							setTimeout(() => {
+								vk.navigate.isOnLaunchToLogin = false;
+							}, 500);
+							return false;
+						}
+						// 此处代码是为了防止首页启动时检测和正常检测冲突-----------------------------------------------------------
 						uni.navigateTo({
 							url: config.login.url,
 							events: {
@@ -283,9 +291,10 @@ class CallFunctionUtil {
 				}
 			}
 			// 注入自定义全局参数结束-----------------------------------------------------------
-
+			// 若执行的函数不是pub类型函数，则先本地判断下token，可以提高效率。
+			// if (url.indexOf("/pub/") == -1 && url.indexOf("/pub_") == -1) {
 			// 若执行的函数是kh或sys类型函数，先本地判断下token，可以提高效率。
-			if (url.indexOf("/kh/") > -1 || url.indexOf("/sys/") > -1) {
+			if (url.indexOf("/kh/") > -1 || url.indexOf("/sys/") > -1 || (url.indexOf(".") > -1 && url.indexOf("pub_") == -1 && url.indexOf("/pub/") == -1)) {
 				if (!vk.checkToken()) {
 					// 若本地token校验未通过，则直接执行 interceptor.login 拦截器函数
 					return new Promise((resolve, reject) => {

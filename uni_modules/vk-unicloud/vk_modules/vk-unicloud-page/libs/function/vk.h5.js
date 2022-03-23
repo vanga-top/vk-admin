@@ -10,6 +10,7 @@ h5.wx = wx;
 
 /**
  * 获取当前H5所在的环境
+ * let env = vk.h5.getEnv();
  */
 h5.getEnv = function() {
 	let ua = window.navigator.userAgent.toLowerCase();

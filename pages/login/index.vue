@@ -6,14 +6,11 @@
 
 			<el-form :model="form1" status-icon :rules="rules" ref="rule1"
 				label-width="60px" class="form-view">
-			  <el-form-item label="账 号" prop="pass" class="form-item">
-			    <el-input class="input" type="text" v-model="form1.username"></el-input>
-			  </el-form-item>
-			  <el-form-item label="密 码" prop="checkPass" class="form-item">
-			    <el-input class="input" type="password"
-						v-model="form1.password" show-password
-						maxlength="20"
-					></el-input>
+				<el-form-item label="账 号" prop="pass" class="form-item">
+					<el-input class="input" type="text" v-model="form1.username" placeholder="请输入用户名"></el-input>
+				</el-form-item>
+				<el-form-item label="密 码" prop="checkPass" class="form-item">
+					<el-input class="input" type="password" v-model="form1.password" show-password placeholder="请输入密码" maxlength="20" ></el-input>
 			  </el-form-item>
 				<view class="password-box">
 					<view class="remember-password">
