@@ -11,6 +11,7 @@ import localStorage 			from './libs/function/vk.localStorage'
 import aliyunOSSUtil			from './libs/function/aliyunOSSUtil'
 import openapi						from './libs/openapi/index'
 import requestUtil				from './libs/function/vk.request'
+import importObject 			from './libs/function/vk.importObject'
 
 import filters 						from './libs/function/vk.filters'
 import mixin 							from './libs/mixin/mixin.js'
@@ -22,6 +23,7 @@ import updateManager 			from './libs/function/updateManager.js'
 // #ifdef H5
 import h5 								from './libs/function/vk.h5'
 // #endif
+
 
 
 var vk = {
@@ -77,7 +79,9 @@ var vk = {
 	// 请求库
 	requestUtil,
 	// 发起URL请求
-	request: requestUtil.request
+	request: requestUtil.request,
+	// 导出云对象
+	importObject,
 };
 // vk实例初始化
 vk.init = function(obj={}){

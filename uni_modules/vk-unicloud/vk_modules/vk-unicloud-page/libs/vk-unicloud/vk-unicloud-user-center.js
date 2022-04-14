@@ -377,6 +377,23 @@ export default {
 		});
 	},
 	/**
+	 * 根据邮箱+验证码重置密码
+	 * data 请求参数 说明
+	 * @param {String} password 重置后的密码
+	 * @param {String} code 验证码
+	 * @param {String} email 邮箱号码
+	 * res 返回参数说明
+	 * @param {Number} code 错误码，0表示成功
+	 * @param {String} msg 详细信息
+	 */
+	resetPasswordByEmail(obj = {}) {
+		addLoading(obj, "请求中...");
+		return callFunction({
+			...obj,
+			url: 'user/pub/resetPasswordByEmail',
+		});
+	},
+	/**
 	 * 设置验证码
 	 * @description 设置验证码(此接口正式环境不要暴露,故写在了sys目录下)
 	 * data 请求参数 说明

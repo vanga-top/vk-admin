@@ -5,7 +5,7 @@ var util = {};
 
 /**
  * 日期格式化
- * @params {Date || Number} date 需要格式化的时间
+ * @param {Date || Number} date 需要格式化的时间
  * vk.pubfn.timeFormat(new Date(),"yyyy-MM-dd hh:mm:ss");
  */
 util.timeFormat = function(time, fmt = 'yyyy-MM-dd hh:mm:ss', targetTimezone = 8) {
@@ -55,8 +55,8 @@ util.timeFormat = function(time, fmt = 'yyyy-MM-dd hh:mm:ss', targetTimezone = 8
 
 /**
  * 日期对象转换(云函数端会自动转成东八区时间)
- * @params {Date || Number} date 需要转换的时间
- * @params {Number} type 转换方式
+ * @param {Date || Number} date 需要转换的时间
+ * @param {Number} type 转换方式
  * type = 0 返回 2020-08-03 12:12:12
  * type = 1 返回 20200803121212
  * type = 2 返回 { YYYY, MM, DD, hh, mm, ss }
@@ -107,7 +107,7 @@ util.getFullTime = function(date, type = 0, targetTimezone = 8) {
 
 /**
  * 获得相对当前周addWeekCount个周的起止日期
- * @params {Number} addWeekCount  默认0 (0代表本周 为-1代表上周 为1代表下周以此类推 为2代表下下周)
+ * @param {Number} addWeekCount  默认0 (0代表本周 为-1代表上周 为1代表下周以此类推 为2代表下下周)
  * vk.pubfn.getWeekStartAndEnd(0);
  */
 util.getWeekStartAndEnd = function(addWeekCount = 0, date = new Date(), targetTimezone = 8) {
@@ -138,7 +138,7 @@ util.getWeekStartAndEnd = function(addWeekCount = 0, date = new Date(), targetTi
 }
 /**
  * 获取时间范围
- * @params {Date} date 日期对象 可以指定时间计算节点，默认使用当前时间进行计算
+ * @param {Date} date 日期对象 可以指定时间计算节点，默认使用当前时间进行计算
  * 返回的是时间戳(防止时区问题)
  * 返回数据如下：
  {
@@ -263,8 +263,8 @@ util.getMonthStartAndEnd = function(obj, targetTimezone = 8) {
 
 /**
  * 获得相对当前时间的偏移 count 天的起止日期(日的开始和结束)
- * @params {Number} count  默认0 (0代表今日 为-1代表昨日 为1代表明日以此类推)
- * @params {Date || Number} date 指定从那天开始计算
+ * @param {Number} count  默认0 (0代表今日 为-1代表昨日 为1代表明日以此类推)
+ * @param {Date || Number} date 指定从那天开始计算
  * vk.pubfn.getDayOffsetTime(0);
  */
 util.getDayOffsetStartAndEnd = function(count = 0, time, targetTimezone = 8) {
@@ -296,8 +296,8 @@ util.getDayOffsetStartAndEnd = function(count = 0, time, targetTimezone = 8) {
 }
 /**
  * 获得相对当前时间的偏移 count 个月的起止日期(月的开始和结束)
- * @params {Number} count  默认0 (0代表本月 为-1代表上月 为1代表下月以此类推)
- * @params {Date || Number} date 指定从那天开始计算
+ * @param {Number} count  默认0 (0代表本月 为-1代表上月 为1代表下月以此类推)
+ * @param {Date || Number} date 指定从那天开始计算
  * vk.pubfn.getMonthOffsetStartAndEnd(0);
  */
 util.getMonthOffsetStartAndEnd = function(count = 0, time, targetTimezone = 8) {
@@ -336,8 +336,8 @@ util.getMonthOffsetStartAndEnd = function(count = 0, time, targetTimezone = 8) {
 
 /**
  * 获得相对当前时间的偏移 count 年的起止日期(年的开始和结束)
- * @params {Number} count  默认0 (0代表今年 为-1代表去年 为1代表明年以此类推)
- * @params {Date || Number} date 指定从那天开始计算
+ * @param {Number} count  默认0 (0代表今年 为-1代表去年 为1代表明年以此类推)
+ * @param {Date || Number} date 指定从那天开始计算
  * vk.pubfn.getYearOffsetStartAndEnd(0);
  */
 util.getYearOffsetStartAndEnd = function(count = 0, time, targetTimezone = 8) {
@@ -368,7 +368,7 @@ util.getYearOffsetStartAndEnd = function(count = 0, time, targetTimezone = 8) {
 
 /**
  * 判断是否是闰年
- * @params {Number | Date} year 需要计算的年份或时间,默认使用当前时间的年份
+ * @param {Number | Date} year 需要计算的年份或时间,默认使用当前时间的年份
  * vk.pubfn.timeUtil.isLeapYear(year);
  */
 util.isLeapYear = function(year) {
@@ -389,7 +389,7 @@ util.isLeapYear = function(year) {
 
 /**
  * 判断是否是清明节
- * @params {Date} date 日期对象 可以指定时间计算节点，默认使用当前时间进行计算
+ * @param {Date} date 日期对象 可以指定时间计算节点，默认使用当前时间进行计算
 vk.pubfn.timeUtil.isQingming(new Date());
  */
 util.isQingming = function(data = new Date()) {

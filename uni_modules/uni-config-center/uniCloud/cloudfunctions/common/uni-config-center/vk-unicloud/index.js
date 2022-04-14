@@ -13,6 +13,12 @@ module.exports = {
 			"serviceShutdown":false,
 			"serviceShutdownDescription":"系统维护中，预计2小时恢复!"
 		},
+		// 当 context 内的下面值为空时，赋予默认的值（主要用于解决云函数 URL 后的默认 APPID 问题。
+		"context": {
+			"APPID": "", // 默认 dcloud_appid
+			"PLATFORM": "h5", // 可选项 h5、mp-weixin、app-plus、mp-alipay
+			"LOCALE": "zh-Hans", // 默认语言
+		},
 		"service": {
 			// 邮箱发送服务
 			"email": {

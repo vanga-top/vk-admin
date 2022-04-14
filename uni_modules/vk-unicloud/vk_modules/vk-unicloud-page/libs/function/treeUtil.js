@@ -3,8 +3,8 @@ import deepClone from './deepClone'
 var util = {};
 /**
  * 将树形结构转成数组结构
- * @params {Array} treeData  数据源
- * @params {Object} treeProps 树结构配置 { id : "menu_id", children : "children" }
+ * @param {Array} treeData  数据源
+ * @param {Object} treeProps 树结构配置 { id : "menu_id", children : "children" }
  * vk.pubfn.treeToArray(treeData);
  */
 util.treeToArray = function(treeData, treeProps) {

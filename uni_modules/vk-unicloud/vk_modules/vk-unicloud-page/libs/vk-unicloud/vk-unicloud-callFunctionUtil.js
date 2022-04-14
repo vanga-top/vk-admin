@@ -1,6 +1,6 @@
 var vk = {};
 var counterNum = 0;
-
+var uniCloudEnvs = {};
 class CallFunctionUtil {
 	constructor() {
 		this.config = {
@@ -231,14 +231,14 @@ class CallFunctionUtil {
 		/**
 		 * 云函数请求封装 - 统一入口
 		 * @description 通过云函数路由，1个云函数实现多个云函数的效果。
-		 * @params {String} 	url   		请求路径
-		 * @params {Object} 	data  		请求参数
-		 * @params {String} 	title 		遮罩层提示语，为空或不传则代表不显示遮罩层。
-		 * @params {Boolean} 	isRequest 是否使用云函数url化地址访问云函数，默认false
-		 * @params {Boolean} 	needAlert 为true代表请求错误时，会有弹窗提示。默认为true
-		 * @params {Function} success  	请求成功时，执行的回调函数
-		 * @params {Function} fail  	 	请求失败时，执行的回调函数
-		 * @params {Function} complete 	无论请求成功与否，都会执行的回调函数
+		 * @param {String}   url       请求路径
+		 * @param {Object}   data      请求参数，如 { a:1, b:"2" } 云函数内可通过 let { a, b } = data; 获取参数
+		 * @param {String} 	 title     遮罩层提示语，为空或不传则代表不显示遮罩层。
+		 * @param {Boolean}  isRequest 是否使用云函数url化地址访问云函数，默认false
+		 * @param {Boolean}  needAlert 为true代表请求错误时，会有弹窗提示，默认为true
+		 * @param {Function} success   请求成功时，执行的回调函数
+		 * @param {Function} fail  	 	 请求失败时，执行的回调函数
+		 * @param {Function} complete  无论请求成功与否，都会执行的回调函数
 		 */
 		this.callFunction = (obj = {}) => {
 			let that = this;
@@ -294,7 +294,7 @@ class CallFunctionUtil {
 			// 若执行的函数不是pub类型函数，则先本地判断下token，可以提高效率。
 			// if (url.indexOf("/pub/") == -1 && url.indexOf("/pub_") == -1) {
 			// 若执行的函数是kh或sys类型函数，先本地判断下token，可以提高效率。
-			if (url.indexOf("/kh/") > -1 || url.indexOf("/sys/") > -1 || (url.indexOf(".") > -1 && url.indexOf("pub_") == -1 && url.indexOf("/pub/") == -1)) {
+			if (url.indexOf("/kh/") > -1 || url.indexOf("/sys/") > -1 || (url.indexOf(".") > -1 && url.indexOf("pub_") == -1 && url.indexOf("/pub/") == -1 && url.indexOf("/pub.") == -1)) {
 				if (!vk.checkToken()) {
 					// 若本地token校验未通过，则直接执行 interceptor.login 拦截器函数
 					return new Promise((resolve, reject) => {
@@ -334,6 +334,22 @@ class CallFunctionUtil {
 				} else if (key === "loginPagePath") {
 					// 兼容老版本
 					this.config.login.url = customConfig[key];
+				} else if (key === "uniCloud") {
+					let uniCloudConfig = customConfig[key];
+					if (uniCloudConfig && uniCloudConfig.envs) {
+						for (let envKey in uniCloudConfig.envs) {
+							let envItem = uniCloudConfig.envs[envKey];
+							if (envItem && envItem.provider && envItem.spaceId) {
+								let initConifg = {
+									provider: envItem.provider,
+									spaceId: envItem.spaceId
+								};
+								if (envItem.clientSecret) initConifg.clientSecret = envItem.clientSecret;
+								if (envItem.endpoint) initConifg.endpoint = envItem.endpoint;
+								uniCloudEnvs[envKey] = uniCloud.init(initConifg);
+							}
+						}
+					}
 				} else if (typeof customConfig[key] === "object" && typeof this.config[key] === "object") {
 					this.config[key] = Object.assign(this.config[key], customConfig[key]);
 				} else if (typeof customConfig[key] !== "undefined") {
@@ -352,13 +368,13 @@ class CallFunctionUtil {
 		}
 		/**
 		 * 云函数上传图片
-		 * @params {String} 	filePath   	要上传的文件对象
-		 * @params {String} 	cloudPath  	文件的绝对路径，包含文件名(若不传，会自动生成文件名)
-		 * @params {String} 	fileType 		文件类型，可选image、video、audio 默认image
-		 * @params {Function} onUploadProgress 	上传进度回调
-		 * @params {Function} success  					请求成功时，执行的回调函数
-		 * @params {Function} fail  	 					请求失败时，执行的回调函数
-		 * @params {Function} complete 					无论请求成功与否，都会执行的回调函数
+		 * @param {String} 	filePath   	要上传的文件对象
+		 * @param {String} 	cloudPath  	文件的绝对路径，包含文件名(若不传，会自动生成文件名)
+		 * @param {String} 	fileType 		文件类型，可选image、video、audio 默认image
+		 * @param {Function} onUploadProgress 	上传进度回调
+		 * @param {Function} success  					请求成功时，执行的回调函数
+		 * @param {Function} fail  	 					请求失败时，执行的回调函数
+		 * @param {Function} complete 					无论请求成功与否，都会执行的回调函数
 		 * vk.callFunctionUtil.uploadFile
 		 */
 		this.uploadFile = (obj = {}) => {
@@ -378,7 +394,8 @@ class CallFunctionUtil {
 				file = {},
 				needSave = false,
 				category_id,
-				uniCloud: myCloud
+				uniCloud: myCloud,
+				env = "default"
 			} = obj;
 			// 获取文件类型(image:图片 video:视频 other:其他)
 			let fileType = this.getFileType(obj);
@@ -402,7 +419,7 @@ class CallFunctionUtil {
 			let Logger = {};
 			if (config.debug) Logger.filePath = filePath;
 			if (config.debug) Logger.startTime = new Date().getTime();
-			let runCloud = myCloud ? myCloud : uniCloud;
+			let runCloud = myCloud || uniCloudEnvs[env] || uniCloud;
 			return new Promise((resolve, reject) => {
 				runCloud.uploadFile({
 					filePath: filePath,
@@ -501,7 +518,8 @@ class CallFunctionUtil {
 			isRequest,
 			name,
 			complete,
-			uniCloud: myCloud
+			uniCloud: myCloud,
+			env = "default"
 		} = obj;
 		if (title) vk.showLoading(title);
 		if (loading) vk.setLoading(true, loading);
@@ -511,7 +529,7 @@ class CallFunctionUtil {
 		if (config.debug) Logger.params = typeof data == "object" ? JSON.parse(JSON.stringify(data)) : data;
 		let promiseAction = new Promise(function(resolve, reject) {
 			if (config.debug) Logger.startTime = new Date().getTime();
-			let runCloud = myCloud ? myCloud : uniCloud;
+			let runCloud = myCloud || uniCloudEnvs[env] || uniCloud;
 			runCloud.callFunction({
 				name: name,
 				data: {

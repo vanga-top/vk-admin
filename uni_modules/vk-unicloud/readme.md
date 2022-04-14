@@ -453,18 +453,18 @@ module.exports = {
   * 此函数名称
   * @url user/sys/test1 前端调用的url参数地址
   * @description 此函数描述
-  * @params {Object} data 请求参数
-  * @params {String} uniIdToken 用户token
-  * @params {String} userInfo 当前登录用户信息(同理,是可信任的)(只有kh函数才带此参数)
-  * @params {Object} util 公共工具包
-	* @params {Object} filterResponse 过滤器返回的数据
-  * @params {Object} originalParam 原始请求参数(包含了原始event和context)
+  * @param {Object} data 请求参数
+  * @param {String} uniIdToken 用户token
+  * @param {String} userInfo 当前登录用户信息(同理,是可信任的)(只有kh函数才带此参数)
+  * @param {Object} util 公共工具包
+	* @param {Object} filterResponse 过滤器返回的数据
+  * @param {Object} originalParam 原始请求参数(包含了原始event和context)
   * data 请求参数 说明
-  * @params {String} uid  当前登录用户id,若用户已登录且token有效,则data中会带uid参数
+  * @param {String} uid  当前登录用户id,若用户已登录且token有效,则data中会带uid参数
   * (此参数是后端过滤器通过token获取并添加到data中的,是可信任的)(只有kh函数才带此参数)
   * res 返回参数说明
-  * @params {Number} code 错误码，0表示成功
-  * @params {String} msg 详细信息
+  * @param {Number} code 错误码，0表示成功
+  * @param {String} msg 详细信息
   */
   main: async (event) => {
     let { data = {}, userInfo, util, filterResponse, originalParam } = event;
@@ -503,14 +503,14 @@ return {
 /**
  * 云函数请求封装 - 统一入口
  * @description 通过云函数路由，1个云函数实现多个云函数的效果。
- * @params {String}   url       请求路径，该路径实为router云函数的service目录下的路径
- * @params {Object}   data      请求参数
- * @params {String}   title     遮罩层提示语，为空或不传则代表不显示遮罩层。
- * @params {Boolean}  isRequest 是否使用云函数url化地址访问云函数，默认false
- * @params {Boolean}  needAlert 为true代表请求错误时，会有alert弹窗提示。默认为true
- * @params {Function} success   请求成功时，执行的回调函数
- * @params {Function} fail      请求失败时，执行的回调函数
- * @params {Function} complete  无论请求成功与否，都会执行的回调函数
+ * @param {String}   url       请求路径，该路径实为router云函数的service目录下的路径
+ * @param {Object}   data      请求参数
+ * @param {String}   title     遮罩层提示语，为空或不传则代表不显示遮罩层。
+ * @param {Boolean}  isRequest 是否使用云函数url化地址访问云函数，默认false
+ * @param {Boolean}  needAlert 为true代表请求错误时，会有alert弹窗提示。默认为true
+ * @param {Function} success   请求成功时，执行的回调函数
+ * @param {Function} fail      请求失败时，执行的回调函数
+ * @param {Function} complete  无论请求成功与否，都会执行的回调函数
  */
 ```
 

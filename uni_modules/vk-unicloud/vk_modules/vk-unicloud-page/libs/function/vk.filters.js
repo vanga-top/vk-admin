@@ -22,7 +22,7 @@ util.timeStr = function(date) {
 /**
  * 日期对象转字符串
  * @description 最终转成 2020-08-01 12:12:12
- * @params {Date || Number} 	date		需要转换的时间
+ * @param {Date || Number} 	date		需要转换的时间
  * date参数支持
  * 支持:时间戳
  * 支持:2020-08
