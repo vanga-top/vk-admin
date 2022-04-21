@@ -36,7 +36,7 @@ export default {
 		} else if (typeof obj.content === 'object') {
 			obj.content = JSON.stringify(obj.content);
 		}
-		uni.showModal(obj);
+		return uni.showModal(obj);
 	},
 	/**
 	vk.confirm("内容","提示","确定","取消",function(res){
@@ -79,7 +79,7 @@ export default {
 				}
 			}
 		}
-		uni.showModal(obj);
+		return uni.showModal(obj);
 	},
 	/**
 	vk.prompt("请输入","提示","确定","取消",function(res){
@@ -122,7 +122,7 @@ export default {
 				obj.content = c;
 			}
 		}
-		uni.showModal(obj);
+		return uni.showModal(obj);
 	},
 	/**
 	vk.toast("提示内容","none");
@@ -169,7 +169,7 @@ export default {
 				}
 			}
 		}
-		uni.showToast({
+		return uni.showToast({
 			title: title,
 			icon: icon,
 			image: image,
@@ -207,7 +207,7 @@ export default {
 		let success = object.success;
 		let fail = object.fail;
 		let complete = object.complete;
-		uni.showActionSheet({
+		return uni.showActionSheet({
 			itemList: list,
 			itemColor: color,
 			success: function(res) {

@@ -2,18 +2,34 @@
  * 时间工具类
  */
 var util = {};
+util.getTargetTimezone = function(val) {
+	if (typeof val === "number") {
+		return val;
+	}
+	let defaultValue = 8;
+	let targetTimezone = defaultValue;
+	try {
+		const config = uni.vk.callFunctionUtil.getConfig();
+		targetTimezone = config.targetTimezone;
+		if (typeof targetTimezone !== "number") {
+			targetTimezone = defaultValue;
+		}
+	} catch (err) {}
+	return targetTimezone;
+};
 
 /**
  * 日期格式化
  * @param {Date || Number} date 需要格式化的时间
  * vk.pubfn.timeFormat(new Date(),"yyyy-MM-dd hh:mm:ss");
  */
-util.timeFormat = function(time, fmt = 'yyyy-MM-dd hh:mm:ss', targetTimezone = 8) {
+util.timeFormat = function(time, fmt = 'yyyy-MM-dd hh:mm:ss', targetTimezone) {
 	try {
+		targetTimezone = util.getTargetTimezone(targetTimezone);
 		if (!time) {
 			return "";
 		}
-    if(typeof time === "string" && !isNaN(time)) time = Number(time);
+		if (typeof time === "string" && !isNaN(time)) time = Number(time);
 		// 其他更多是格式化有如下:
 		// yyyy-MM-dd hh:mm:ss|yyyy年MM月dd日 hh时MM分等,可自定义组合
 		let date;
@@ -62,11 +78,12 @@ util.timeFormat = function(time, fmt = 'yyyy-MM-dd hh:mm:ss', targetTimezone = 8
  * type = 2 返回 { YYYY, MM, DD, hh, mm, ss }
  * vk.pubfn.getFullTime(new Date());
  */
-util.getFullTime = function(date, type = 0, targetTimezone = 8) {
+util.getFullTime = function(date, type = 0, targetTimezone) {
 	if (!date) {
 		return "";
 	}
-  if(typeof date === "string" && !isNaN(date)) date = Number(date);
+	targetTimezone = util.getTargetTimezone(targetTimezone);
+	if (typeof date === "string" && !isNaN(date)) date = Number(date);
 	if (typeof date == "number") {
 		if (date.toString().length == 10) date *= 1000;
 		date = new Date(date);
@@ -110,7 +127,8 @@ util.getFullTime = function(date, type = 0, targetTimezone = 8) {
  * @param {Number} addWeekCount  默认0 (0代表本周 为-1代表上周 为1代表下周以此类推 为2代表下下周)
  * vk.pubfn.getWeekStartAndEnd(0);
  */
-util.getWeekStartAndEnd = function(addWeekCount = 0, date = new Date(), targetTimezone = 8) {
+util.getWeekStartAndEnd = function(addWeekCount = 0, date = new Date(), targetTimezone) {
+	targetTimezone = util.getTargetTimezone(targetTimezone);
 	let res = {};
 	const dif = date.getTimezoneOffset();
 	const timeDif = dif * 60 * 1000 + (targetTimezone * 60 * 60 * 1000);
@@ -156,7 +174,8 @@ util.getWeekStartAndEnd = function(addWeekCount = 0, date = new Date(), targetTi
  }
  * vk.pubfn.getCommonTime();
  */
-util.getCommonTime = function(date = new Date(), targetTimezone = 8) {
+util.getCommonTime = function(date = new Date(), targetTimezone) {
+	targetTimezone = util.getTargetTimezone(targetTimezone);
 	let res = {};
 	const dif = date.getTimezoneOffset();
 	const timeDif = dif * 60 * 1000 + (targetTimezone * 60 * 60 * 1000);
@@ -242,7 +261,8 @@ vk.pubfn.getMonthStartAndEnd({
 	month:1
 });
  */
-util.getMonthStartAndEnd = function(obj, targetTimezone = 8) {
+util.getMonthStartAndEnd = function(obj, targetTimezone) {
+	targetTimezone = util.getTargetTimezone(targetTimezone);
 	let res = {
 		startTime: null,
 		endTime: null
@@ -267,9 +287,10 @@ util.getMonthStartAndEnd = function(obj, targetTimezone = 8) {
  * @param {Date || Number} date 指定从那天开始计算
  * vk.pubfn.getDayOffsetTime(0);
  */
-util.getDayOffsetStartAndEnd = function(count = 0, time, targetTimezone = 8) {
+util.getDayOffsetStartAndEnd = function(count = 0, time, targetTimezone) {
+	targetTimezone = util.getTargetTimezone(targetTimezone);
 	let res = {};
-  if(typeof time === "string" && !isNaN(time)) time = Number(time);
+	if (typeof time === "string" && !isNaN(time)) time = Number(time);
 	let date;
 	if (time) {
 		if (typeof time === "number") {
@@ -300,9 +321,10 @@ util.getDayOffsetStartAndEnd = function(count = 0, time, targetTimezone = 8) {
  * @param {Date || Number} date 指定从那天开始计算
  * vk.pubfn.getMonthOffsetStartAndEnd(0);
  */
-util.getMonthOffsetStartAndEnd = function(count = 0, time, targetTimezone = 8) {
+util.getMonthOffsetStartAndEnd = function(count = 0, time, targetTimezone) {
+	targetTimezone = util.getTargetTimezone(targetTimezone);
 	let res = {};
-  if(typeof time === "string" && !isNaN(time)) time = Number(time);
+	if (typeof time === "string" && !isNaN(time)) time = Number(time);
 	let date;
 	if (time) {
 		if (typeof time === "number") {
@@ -340,9 +362,10 @@ util.getMonthOffsetStartAndEnd = function(count = 0, time, targetTimezone = 8) {
  * @param {Date || Number} date 指定从那天开始计算
  * vk.pubfn.getYearOffsetStartAndEnd(0);
  */
-util.getYearOffsetStartAndEnd = function(count = 0, time, targetTimezone = 8) {
+util.getYearOffsetStartAndEnd = function(count = 0, time, targetTimezone) {
+	targetTimezone = util.getTargetTimezone(targetTimezone);
 	let res = {};
-  if(typeof time === "string" && !isNaN(time)) time = Number(time);
+	if (typeof time === "string" && !isNaN(time)) time = Number(time);
 	let date;
 	if (time) {
 		if (typeof time === "number") {
@@ -431,7 +454,7 @@ util.getOffsetTime = function(date = new Date(), obj) {
 	let hours = obj.hours || obj.hh;
 	let minutes = obj.minutes || obj.mm;
 	let seconds = obj.seconds || obj.ss;
-	let { mode="after" } = obj;
+	let { mode = "after" } = obj;
 	if (mode == "before") {
 		year *= -1;
 		month *= -1;

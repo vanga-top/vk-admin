@@ -17,6 +17,10 @@ class CallFunctionUtil {
 				"router": "https://xxxxxxx.bspapp.com/http/router",
 				"router-test": "https://xxxxxxx.bspapp.com/http/router"
 			},
+			// vk.callFunction的isRequest的默认值
+			isRequestDefault:false,
+			// 默认时区（中国为8）
+			targetTimezone:8,
 			// 客户端登录页面地址
 			login: {
 				url: '/pages_template/uni-id/login/index/index'
@@ -312,7 +316,9 @@ class CallFunctionUtil {
 					});
 				}
 			}
-
+			if (typeof obj.isRequest === "undefined"){
+				obj.isRequest = config.isRequestDefault;
+			}
 			// 执行请求
 			if (obj.isRequest) {
 				return that.runRequest(obj);
@@ -776,12 +782,14 @@ class CallFunctionUtil {
 			name,
 			url,
 			isRequest,
-			complete
+			complete,
+			debug: debugLog
 		} = params;
 		if (params.needRetry && Logger.sysFail) {
 			return false;
 		}
-		if (config.debug) {
+		if (typeof debugLog === "undefined") debugLog = config.debug;
+		if (debugLog) {
 			Logger.endTime = new Date().getTime();
 			if (isRequest) {
 				Logger.label = "【url化】";

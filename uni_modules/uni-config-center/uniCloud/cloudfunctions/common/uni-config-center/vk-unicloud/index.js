@@ -1,17 +1,28 @@
 var uniIdConfig;
+var uniPayConfig;
 try {
 	uniIdConfig = require('../uni-id/config.json');
 } catch(err) {
-	throw new Error("配置文件：uniCloud/cloudfunctions/common/uni-config-center/uni-id/config.json \n编译错误，请检查！"+err.message);
+	console.error("配置文件：uniCloud/cloudfunctions/common/uni-config-center/uni-id/config.json 编译错误，请检查！↓↓↓请查看下方的错误提示↓↓↓", err.name, err.message, err);
+	throw new Error("配置文件：uniCloud/cloudfunctions/common/uni-config-center/uni-id/config.json 编译错误，请检查！↑↑↑请查看上方的错误提示↑↑↑");
+}
+try {
+	uniPayConfig = require('../uni-pay/config.js');
+} catch(err) {
+	console.error("配置文件：uniCloud/cloudfunctions/common/uni-config-center/uni-pay/config.js 编译错误，请检查！↓↓↓请查看下方的错误提示↓↓↓", err.name, err.message, err);
+	throw new Error("配置文件：uniCloud/cloudfunctions/common/uni-config-center/uni-pay/config.js 编译错误，请检查！↑↑↑请查看上方的错误提示↑↑↑");
 }
 module.exports = {
 	"uni":uniIdConfig,
+	"uni-pay": uniPayConfig,
 	"vk":{
 		"system":{
 			// 若serviceShutdow:true，则所有云函数无法访问（适用于需要临时关闭后端服务的情况，如迁移数据）
 			// 注意：本地调试时，需要重新启动本地服务才能生效。
 			"serviceShutdown":false,
-			"serviceShutdownDescription":"系统维护中，预计2小时恢复!"
+			"serviceShutdownDescription":"系统维护中，预计2小时恢复!",
+			// 云函数默认时区（中国为8）
+			"targetTimezone": 8
 		},
 		// 当 context 内的下面值为空时，赋予默认的值（主要用于解决云函数 URL 后的默认 APPID 问题。
 		"context": {

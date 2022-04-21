@@ -21,6 +21,8 @@ export default {
 	error: {
 		url: "/pages_plugs/error/404"
 	},
+	// 前端默认时区（中国为8）
+	targetTimezone:8, 
 	globalError: true, // 是否开启全局错误提示
 	// 需要检查是否登录的页面列表
 	// let { mode, list } = config.checkTokenPages

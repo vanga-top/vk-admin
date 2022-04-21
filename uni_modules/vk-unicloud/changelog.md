@@ -1,5 +1,24 @@
+## 2.8.2（2022-04-21）
+* 1、【重要】`uni-id` 配置新增 `tokenMaxLimit` 每个账户的最大token数量，0为不限，淘汰策略：新的淘汰旧的（注意，即使设置为0，框架也会自动淘汰已过期的token）[点击查看](https://vkdoc.fsq.pub/client/uniCloud/config/uni-id.html)
+* 2、【重要】微信登录支持多小程序：如果使用多小程序登录，则同一用户（同一个微信号）在不同小程序登录时，会分别创建不同的用户（除非小程序绑定在同一个开放平台下）
+* 3、【新增】全局参数 `targetTimezone` 可设置默认时区（中国为8，8代表东8区，-8代表西8区）
+
+> [查看前端全局配置](https://vkdoc.fsq.pub/client/pages/config.html) 
+
+> [查看云函数全局配置](https://vkdoc.fsq.pub/client/uniCloud/config/vk-unicloud.html)
+
+* 4、【新增】全局参数 `functionNameToUrl` 和 `isRequestDefault` [点击查看](https://vkdoc.fsq.pub/client/pages/callFunctionForUrl.html#%E6%B3%A8%E6%84%8F-%E4%BA%91%E5%87%BD%E6%95%B0url%E5%8C%96%E6%96%B9%E5%BC%8F%E8%B0%83%E7%94%A8%E9%9C%80%E8%A6%81%E9%85%8D%E7%BD%AE%E4%BD%A0%E7%9A%84%E4%BA%91%E5%87%BD%E6%95%B0url%E8%B7%AF%E5%BE%84%E5%9C%B0%E5%9D%80)
+* 5、【优化】微信注册时支持新增自定义字段，如：nickname和avatar等。
+* 6、【优化】当云函数全局配置文件出错时，优化报错提示。
+
+**本次更新除了常规升级框架外，还需要下载最新版框架示例项目，从最新版中复制 以下文件 替换 你项目中的对应文件。**
+
+* 1、`router/middleware/modules/returnUserInfoFilter.js` （此为用户登录注册全局中间件）
+* 2、`router/service/user/pub/loginByWeixin.js` （此为微信登录云函数）
+
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.8.1（2022-04-14）
-* 1、【新增】前端请求多服务空间的极简方式（通过配置直接指定调用环境）[点击查看](http://localhost:8081/client/question/q9.html#%E6%96%B9%E5%BC%8F%E4%BA%8C)
+* 1、【新增】前端请求多服务空间的极简方式（通过配置直接指定调用环境）[点击查看](https://vkdoc.fsq.pub/client/question/q9.html#%E6%96%B9%E5%BC%8F%E4%BA%8C)
 * 2、【新增】`vk.userCenter.resetPasswordByEmail`（根据邮箱证码重置账号密码） [点击查看](https://vkdoc.fsq.pub/client/vk.userCenter.html#vk-usercenter-resetpasswordbyemail-%E6%A0%B9%E6%8D%AE%E9%82%AE%E7%AE%B1%E8%AF%81%E7%A0%81%E9%87%8D%E7%BD%AE%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81)
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.8.0（2022-04-01）
