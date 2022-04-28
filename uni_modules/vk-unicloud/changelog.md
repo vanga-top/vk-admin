@@ -1,3 +1,8 @@
+## 2.8.3（2022-04-28）
+* 1、【新增】`vk.openapi.weixin.uniformMessage.send` 小程序转公众号消息模板接口 [点击查看](https://vkdoc.fsq.pub/client/uniCloud/plus/weixin.html#%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%BD%AC%E5%85%AC%E4%BC%97%E5%8F%B7%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AF)
+* 2、【新增】`vk.openapi.weixin.h5.templateMessage.send` 公众号消息模板接口 [点击查看](https://vkdoc.fsq.pub/client/uniCloud/plus/weixin.html#%E5%8D%95%E7%8B%AC%E5%85%AC%E4%BC%97%E5%8F%B7%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AF)
+
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.8.2（2022-04-21）
 * 1、【重要】`uni-id` 配置新增 `tokenMaxLimit` 每个账户的最大token数量，0为不限，淘汰策略：新的淘汰旧的（注意，即使设置为0，框架也会自动淘汰已过期的token）[点击查看](https://vkdoc.fsq.pub/client/uniCloud/config/uni-id.html)
 * 2、【重要】微信登录支持多小程序：如果使用多小程序登录，则同一用户（同一个微信号）在不同小程序登录时，会分别创建不同的用户（除非小程序绑定在同一个开放平台下）
