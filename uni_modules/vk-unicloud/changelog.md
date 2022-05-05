@@ -1,3 +1,7 @@
+## 2.8.5（2022-05-05）
+* 1、【重要】vk实例对象已调整为页面内置对象，vk实例对象内的api在任意地方都可以直接通过vk.xxx()使用，不再需要 this.vk.xxx() 或 uni.vk.xxx() 的方式来调用。
+* 2、【重要】vk实例对象已调整为云函数内置对象，vk实例对象内的api在任意地方都可以直接通过vk.xxx()使用，不再需要 this.vk.xxx() 或 uniCloud.vk.xxx() 的方式来调用。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.8.3（2022-04-28）
 * 1、【新增】`vk.openapi.weixin.uniformMessage.send` 小程序转公众号消息模板接口 [点击查看](https://vkdoc.fsq.pub/client/uniCloud/plus/weixin.html#%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%BD%AC%E5%85%AC%E4%BC%97%E5%8F%B7%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AF)
 * 2、【新增】`vk.openapi.weixin.h5.templateMessage.send` 公众号消息模板接口 [点击查看](https://vkdoc.fsq.pub/client/uniCloud/plus/weixin.html#%E5%8D%95%E7%8B%AC%E5%85%AC%E4%BC%97%E5%8F%B7%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AF)

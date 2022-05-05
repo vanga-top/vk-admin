@@ -105,6 +105,12 @@ vk.init = function(obj={}){
 	// 重写 console.log
 	Vue.use(consoleLog);
 };
+vk.getGlobalObject = function(){
+	if (typeof globalThis === "object") return globalThis;
+	if (typeof self === "object") return self;
+	if (typeof window === "object") return window;
+	if (typeof global === "object") return global;
+};
 // 加载拓展功能
 vk.use = function(obj, util){
 	for(let name in obj){
@@ -134,8 +140,11 @@ const install = Vue => {
 	Vue.config.globalProperties.$fn = vk.pubfn;
 	// #endif
 
-	 // 将vk挂载到uni对象
-	uni.vk = vk;
+	// 将vk挂载到uni对象
+	if (typeof uni == "object") uni.vk = vk;
+	// 将vk挂载到全局
+	let vkGlobalThis = vk.getGlobalObject();
+	if (typeof vkGlobalThis == "object") vkGlobalThis.vk = vk;
 	let util = { vk };
 	// 加载插件
 	vk.use({
