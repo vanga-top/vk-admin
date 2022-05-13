@@ -175,6 +175,11 @@ util.getWeekStartAndEnd = function(addWeekCount = 0, date = new Date(), targetTi
  * vk.pubfn.getCommonTime();
  */
 util.getCommonTime = function(date = new Date(), targetTimezone) {
+	if (typeof date === "string" && !isNaN(date)) date = Number(date);
+	if (typeof date == "number") {
+		if (date.toString().length == 10) date *= 1000;
+		date = new Date(date);
+	}
 	targetTimezone = util.getTargetTimezone(targetTimezone);
 	let res = {};
 	const dif = date.getTimezoneOffset();
