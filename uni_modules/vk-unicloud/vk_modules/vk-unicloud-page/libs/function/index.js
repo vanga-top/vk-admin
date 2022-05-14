@@ -230,7 +230,8 @@ pubfn.test = function(str, type) {
 		case 'URL': //网址
 			return new RegExp(/(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/).test(str);
 		case 'IP': //IP
-			return new RegExp(/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/).test(str);
+			return new RegExp(/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/).test(
+				str);
 		case 'date': //日期 2014-01-01
 			return new RegExp(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/).test(str);
 		case 'time': //时间 12:00:00
@@ -1112,6 +1113,61 @@ pubfn.toDecimal = function(val, precision = 0) {
 	if (typeof val === "string") val = Number(val);
 	return parseFloat(val.toFixed(precision));
 };
+
+/**
+ * 判断文件url的类型
+ * @param {String} url 文件的url路径
+ * vk.pubfn.getFileType(url);
+ * 返回值为字符串
+ * image 图片
+ * video 视频
+ * audio 音频
+ * other 其他
+ */
+pubfn.getFileType = function(url) {
+	let fileType;
+	if (pubfn.checkFileSuffix(url, ["png", "jpg", "jpeg", "gif", "bmp", "svg"])) {
+		fileType = "image";
+	} else if (pubfn.checkFileSuffix(url, ["avi", "mp4", "3gp", "mov", "rmvb", "rm", "flv", "mkv"])) {
+		fileType = "video";
+	} else if (pubfn.checkFileSuffix(url, ["mp3"])) {
+		fileType = "audio";
+	} else {
+		fileType = "other";
+	}
+	return fileType;
+};
+/**
+ * 获取文件url的后缀名
+ * @param {String} url 文件的url路径，必须带
+ * vk.pubfn.getFileSuffix(url);
+ */
+pubfn.getFileSuffix = function(url) {
+	let suffix;
+	let index = url.lastIndexOf(".");
+	if (index > -1) {
+		suffix = url.substring(index + 1);
+	}
+	return suffix;
+};
+
+/**
+ * 判断文件url是否在指定后缀名数组内
+ * @param {String} url 文件的url路径
+ * @param {Array<String>} list 后缀名列表
+ * vk.pubfn.checkFileSuffix(url,["png", "jpg", "jpeg", "gif", "bmp", "svg"]);
+ */
+pubfn.checkFileSuffix = function(url, list) {
+	let key = false;
+	let suffix = pubfn.getFileSuffix(url);
+	for (let i = 0; i < list.length; i++) {
+		if (list.indexOf(suffix) > -1) {
+			key = true;
+			break;
+		}
+	}
+	return key;
+};
 // 前端专属开始 -----------------------------------------------------------
 /**
  * 将时间显示成1秒前、1天前
@@ -1245,7 +1301,7 @@ pubfn.priceFilter = function(money, defaultValue = "") {
 	if (pubfn.isNull(money)) {
 		return defaultValue;
 	}
-	if (isNaN(money)){
+	if (isNaN(money)) {
 		return money;
 	}
 	if (typeof money == "string") {
@@ -1280,7 +1336,7 @@ pubfn.percentageFilter = function(value, needShowSymbol = true, defaultValue = "
 	if (pubfn.isNull(value)) {
 		return defaultValue;
 	}
-	if (isNaN(value)){
+	if (isNaN(value)) {
 		return value;
 	}
 	if (typeof value == "string") {
@@ -1303,23 +1359,23 @@ pubfn.discountFilter = function(value, needShowSymbol = true, defaultValue = "")
 	if (pubfn.isNull(value)) {
 		return defaultValue;
 	}
-	if (isNaN(value)){
+	if (isNaN(value)) {
 		return value;
 	}
 	if (typeof value == "string") {
 		value = parseFloat(value);
 	}
 	value = parseFloat((value * 10).toFixed(2));
-	if (value > 10){
+	if (value > 10) {
 		return "折扣不可以大于原价";
 	}
-	if (value == 10){
+	if (value == 10) {
 		return "原价";
 	}
-	if (value == 0){
+	if (value == 0) {
 		return "免费";
 	}
-	if (value < 0){
+	if (value < 0) {
 		return "折扣不可以小于0";
 	}
 	if (needShowSymbol) {
@@ -2038,7 +2094,7 @@ pubfn.checkLogin = function(obj = {}) {
 					// 记录下原本要跳转的页面
 					url = vk.pubfn.getPageFullPath(url);
 					vk.navigate.originalPage = { url };
-					if(obj.isOnLaunch) vk.navigate.isOnLaunchToLogin = true; // 标记为首次启动的页面需要登录
+					if (obj.isOnLaunch) vk.navigate.isOnLaunchToLogin = true; // 标记为首次启动的页面需要登录
 					uni.reLaunch({
 						url: loginUrl,
 						success: () => {
