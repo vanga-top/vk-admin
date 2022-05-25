@@ -20,7 +20,28 @@ module.exports = {
 		let { uid } = data;
 		let res = {};
 		// 业务逻辑开始-----------------------------------------------------------
-		res = await vk.openapi.weixin.loginByWeixin(data, originalParam.context);
+		// 额外写入的自定义字段数据（可以自己增加，建议只传一些显示的信息，不要传余额字段等，因为前端不可信任）
+		// 注意：app的微信登录已经支持自动获取昵称和头像，前端无需再传昵称和头像。
+		let custom = {
+			nickname: data.nickname,
+			avatar: data.avatar
+		};
+		/**
+		 * 支持多小程序登录
+		 * 此处data可以额外接收appid和appsecret参数（appid可以从前端传，而appsecret可以配置在全局配置中（common/uni-config-center/vk-unicloud/index.js），也可以自己从数据库获取）
+		 * 如果不传appid，则默认使用uni-id的配置信息
+		 * 特别注意：如果使用多小程序登录，则同一用户（同一个微信号）在不同小程序登录时，会分别创建不同的用户（除非小程序绑定在同一个开放平台下）。
+		 */
+		
+		// 打开下方注释，动态赋值appid和appsecret即可支持多小程序登录
+		// data.appid = "xxxx";
+		// data.appsecret = "xxxx";
+		
+		res = await vk.openapi.weixin.loginByWeixin({
+			data,
+			context: originalParam.context,
+			custom
+		});
 		if (res.token) {
 			// 日志服务
 			const loginLogService = vk.require("service/user/util/login_log");

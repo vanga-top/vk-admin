@@ -1,5 +1,6 @@
 <template>
 	<scroll-view class="sidebar" :class="vk.getVuex('$app.isPC') ? 'pc' : 'mobile'" scroll-y="true" v-loading="!vk.getVuex('$app.inited')" :style="styleCom">
+		<!-- 通常情况下，请勿改动此文件代码，改变菜单的样式可以通过修改主题配置实现 主题文档：https://vkdoc.fsq.pub/admin/1/theme.html -->
 		<vk-data-menu-nav
 			v-if="vk.getVuex('$app.inited')"
 			:data="vk.getVuex('$app.navMenu')"

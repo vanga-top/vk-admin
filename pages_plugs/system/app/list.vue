@@ -11,11 +11,11 @@
 		<!-- 表格搜索组件结束 -->
 
 		<!-- 自定义按钮区域开始 -->
-		<view>
+		<view style="display: flex;height: 32px;">
 			<el-button type="success" size="small" icon="el-icon-circle-plus-outline" @click="addBtn">添加</el-button>
+			<el-alert v-if="!appIdExist" :title="`⚠警告：当前项目的 appId：${currentAppId} 没有在下方表格中，请修改！`" type="error" style="margin-left: 20px;"> </el-alert>
 		</view>
 		<!-- 自定义按钮区域结束 -->
-
 		<!-- 表格组件开始 -->
 		<vk-data-table
 			ref="table1"
@@ -232,6 +232,7 @@
 				// 其他弹窗表单
 				formDatas:{},
 				// 表单相关结束 -----------------------------------------------------------
+				appIdExist: true
 			};
 		},
 		// 监听 - 页面每次【加载时】执行(如：前进)
@@ -252,6 +253,7 @@
 			// 页面数据初始化函数
 			init(options) {
 				originalForms["form1"] = vk.pubfn.copyObject(that.form1);
+				that.checkCurrentAppId();
 			},
 			// 页面跳转
 			pageTo(path) {
@@ -268,6 +270,7 @@
 			// 刷新
 			refresh(){
 				that.$refs.table1.refresh();
+				that.checkCurrentAppId();
 			},
 			// 获取当前选中的行的数据
 			getCurrentRow(){
@@ -305,6 +308,26 @@
 						_id: item._id
 					},
 				});
+			},
+			checkCurrentAppId(){
+				let systemInfo = uni.getSystemInfoSync();
+				if (typeof systemInfo.appId !== "undefined") {
+					that.currentAppId = systemInfo.appId;
+					vk.callFunction({
+						url: 'admin/system/app/sys/getInfo',
+						title: '请求中...',
+						data: {
+							appid: systemInfo.appId,
+						},
+						success: (data) => {
+							if (data.info && data.info.appid === systemInfo.appId) {
+								that.appIdExist = true;
+							} else {
+								that.appIdExist = false;
+							}
+						}
+					});
+				}
 			}
 		},
 		// 监听属性

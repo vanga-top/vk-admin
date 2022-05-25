@@ -36,14 +36,17 @@ module.exports = [{
 				let title = item && item.title ? item.title : "未分类";
 				delete data.uid;
 				// 日志写入数据库
-				await vk.daoCenter.adminLogDao.add({
-					user_id: userInfo._id,
-					user_name: userInfo.nickname,
-					title,
-					ip: originalParam.context.CLIENTIP,
-					url: url,
-					request_param: data,
-					response: serviceRes,
+				await vk.baseDao.add({
+					dbName:"opendb-admin-log",
+					dataJson:{
+						user_id: userInfo._id,
+						user_name: userInfo.nickname,
+						title,
+						ip: originalParam.context.CLIENTIP,
+						url: url,
+						request_param: data,
+						response: serviceRes,
+					}
 				});
 			}
 		} catch (err) {

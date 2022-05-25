@@ -28,7 +28,10 @@ class Util {
 			],
 			mobile: [
 				{ validator: vk.pubfn.validator("mobile"), message: '手机号格式错误', trigger: 'blur' }
-			]
+			],
+			email: [
+				{ validator: vk.pubfn.validator("email"), message: '邮箱格式错误', trigger: 'blur' }
+			],
 		};
 		// 验证规则结束 -----------------------------------------------------------
 
@@ -59,6 +62,9 @@ class Util {
 			],
 			mobile: [
 				{ validator: vk.pubfn.validator("mobile"), message: '手机号格式错误', trigger: 'blur' }
+			],
+			email: [
+				{ validator: vk.pubfn.validator("email"), message: '邮箱格式错误', trigger: 'blur' }
 			]
 		};
 		// 验证规则结束 -----------------------------------------------------------

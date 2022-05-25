@@ -26,12 +26,14 @@ module.exports = {
 			nickname,
 			gender,
 			mobile,
+			email,
 			comment,
 			allow_login_background,
 			dcloud_appid = [],
 			login_appid_type
 		} = data;
 		let mobile_confirmed;
+		let email_confirmed;
 		// 参数合法校验开始-----------------------------------------------------------
 		let formRulesRes = await formRules.update(event);
 		if (formRulesRes.code !== 0) {
@@ -50,35 +52,47 @@ module.exports = {
 					_id: _.neq(_id)
 				}
 			});
-			if (num > 0) {
-				return { code: -1, msg: `手机号【${mobile}】已注册!` };
-			}
+			if (num > 0) return { code: -1, msg: `手机号【${mobile}】已注册!` };
 			mobile_confirmed = 1; // 设置该手机号为已验证(否则无法通过手机号进行登录)
+		}
+		// 检测email
+		if (email) {
+			let num = await vk.baseDao.count({
+				dbName,
+				whereJson: {
+					email: email,
+					_id: _.neq(_id)
+				}
+			});
+			if (num > 0) return { code: -1, msg: `邮箱【${email}】已注册!` };
+			email_confirmed = 1; // 设置该邮箱为已验证(否则无法通过邮箱进行登录)
 		}
 		let dataJson = {
 			nickname,
 			gender,
 			mobile,
 			mobile_confirmed,
+			email,
+			email_confirmed,
 			comment,
 			allow_login_background
 		};
 		// 设置允许登录的应用列表
-		if(login_appid_type && typeof uniID.setAuthorizedAppLogin === "function"){
+		if (login_appid_type && typeof uniID.setAuthorizedAppLogin === "function") {
 			let setAuthorizedAppLoginRes = await uniID.setAuthorizedAppLogin({
 				uid: _id,
 				dcloudAppidList: dcloud_appid
 			});
-			if(setAuthorizedAppLoginRes.code !== 0){
+			if (setAuthorizedAppLoginRes.code !== 0) {
 				return setAuthorizedAppLoginRes;
 			}
-		}else if(login_appid_type === 0){
+		} else if (login_appid_type === 0) {
 			dataJson["dcloud_appid"] = _.remove();
 		}
 		// 执行数据库API请求
 		res.num = await vk.baseDao.updateById({
 			dbName,
-			id:_id,
+			id: _id,
 			dataJson
 		});
 

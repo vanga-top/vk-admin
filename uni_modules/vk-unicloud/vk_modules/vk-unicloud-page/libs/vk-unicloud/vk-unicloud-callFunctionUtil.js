@@ -743,6 +743,8 @@ class CallFunctionUtil {
 			sysErr = true;
 		} else if (res.code === "SYS_ERR" && errMsg.indexOf(": request:ok") > -1) {
 			errMsg = globalErrorCode["cloudfunction-unusual-timeout"] || "请求超时，但请求还在执行，请重新进入页面。";
+		} else if (errMsg.indexOf("reaches burst limit") > -1) {
+			errMsg = globalErrorCode["cloudfunction-reaches-burst-limit"] || "系统繁忙，请稍后再试。";
 		}
 		let runKey = true;
 		if (typeof that.interceptor.fail == "function") {

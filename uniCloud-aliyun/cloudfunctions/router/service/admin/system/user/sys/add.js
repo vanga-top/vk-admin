@@ -27,13 +27,13 @@ module.exports = {
 			nickname,
 			gender,
 			mobile,
+			email,
 			comment,
 			allow_login_background,
 			dcloud_appid = [],
 			login_appid_type
 		} = data;
-		if(!password) password = "234567";
-		let mobile_confirmed;
+		if (!password) password = "234567";
 		// 参数合法校验开始-----------------------------------------------------------
 		let formRulesRes = await formRules.add(event);
 		if (formRulesRes.code !== 0) {
@@ -43,62 +43,51 @@ module.exports = {
 
 		let dbName = "uni-id-users";
 		// 检测username
-		let num = await vk.baseDao.count({
-			dbName: dbName,
-			whereJson: {
-				username: username
-			}
-		});
-		if (num > 0) {
-			return { code: -1, msg: `用户名【${username}】已注册!` };
-		}
+		let num = await vk.baseDao.count({ dbName, whereJson: { username } });
+		if (num > 0) return { code: -1, msg: `用户名【${username}】已注册!` };
 		// 检测mobile
 		if (mobile) {
-			let num = await vk.baseDao.count({
-				dbName: dbName,
-				whereJson: {
-					mobile: mobile
-				}
-			});
-			if (num > 0) {
-				return { code: -1, msg: `手机号【${mobile}】已注册!` };
-			}
-			mobile_confirmed = 1; // 设置该手机号为已验证(否则无法通过手机号进行登录)
+			let num = await vk.baseDao.count({ dbName, whereJson: { mobile } });
+			if (num > 0) return { code: -1, msg: `手机号【${mobile}】已注册!` };
 		}
-		let registerRes = await uniID.register({
-			autoSetDcloudAppid: false,
+		// 检测email
+		if (email) {
+			let num = await vk.baseDao.count({ dbName, whereJson: { email } });
+			if (num > 0) return { code: -1, msg: `邮箱【${email}】已注册!` };
+		}
+		if (typeof uniID.addUser !== "function") return { code: -1, msg: `请升级uni-id版本至3.3.14或以上。` };
+		let addUserRes = await uniID.addUser({
 			username,
-			password
+			password,
+			mobile,
+			email,
+			authorizedApp: dcloud_appid
 		});
-		if (registerRes.code !== 0 || !registerRes.uid) {
-			return registerRes;
+		if (addUserRes.code !== 0 || !addUserRes.uid) {
+			return addUserRes;
+		}
+		// 用户其他信息
+		let dataJson = {
+			nickname,
+			gender,
+			comment,
+			allow_login_background,
+			status: 0,
+		};
+		// 如果设置允许登录所有应用，则直接删除dcloud_appid字段
+		if (login_appid_type === 0) {
+			dataJson["dcloud_appid"] = _.remove();
 		}
 		// 设置用户其他信息
 		await vk.baseDao.update({
-			dbName: dbName,
+			dbName,
 			whereJson: {
-				_id: registerRes.uid
+				_id: addUserRes.uid
 			},
-			dataJson: {
-				nickname,
-				gender,
-				mobile,
-				mobile_confirmed,
-				comment,
-				allow_login_background,
-				status:0,
-				dcloud_appid: _.remove()
-			}
+			dataJson
 		});
-		// 设置允许登录的应用列表
-		if(login_appid_type && typeof uniID.setAuthorizedAppLogin === "function"){
-			await uniID.setAuthorizedAppLogin({
-				uid: registerRes.uid,
-				dcloudAppidList: dcloud_appid
-			});
-		}
 		res.type = "register";
-		res.uid = registerRes.uid;
+		res.uid = addUserRes.uid;
 		return res;
 	}
 }
