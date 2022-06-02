@@ -50,7 +50,8 @@ export default {
 					{ key: "_add_time", title: "距离现在", type: "dateDiff", width: 120 },
 					{ key: "request_param", title: "请求参数", type: "json", width: 300 },
 					{ key: "response", title: "返回参数", type: "json", width: 300 },
-					{ key: "ip", title: "ip地址", type: "text", width: 140 }
+					{ key: "ip", title: "ip地址", type: "text", width: 140 },
+					{ key: "request_id", title: "请求id", type: "text", width: 280 }
 				],
 				// 多选框选中的值
 				multipleSelection: [],

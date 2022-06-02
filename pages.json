@@ -1,7 +1,4 @@
 {
-	"easycom": {
-
-	},
 	"pages": [
 		{ "path": "pages/index/index" },
 		{

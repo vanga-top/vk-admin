@@ -6,9 +6,36 @@ import callFunctionUtil from './vk-unicloud-callFunctionUtil.js'
 var { callFunction, config, saveToken, deleteToken } = callFunctionUtil;
 import debounce from '../function/debounce.js'
 
+const localeObj = {
+	"zh-Hans": {
+		"loading": "请求中...",
+		"login": "登录中...",
+		"register": "注册中...",
+		"create": "生成中...",
+	},
+	"zh-Hant": {
+		"loading": "請求中...",
+		"login": "登入中...",
+		"register": "注册中...",
+		"create": "生成中...",
+	},
+	"en": {
+		"loading": "loading...",
+		"login": "login...",
+		"register": "register...",
+		"create": "create...",
+	}
+};
+
 function addLoading(obj, title) {
 	if (typeof obj.loading === "undefined" && !obj.title && title) {
-		obj.title = title;
+		let locale;
+		if (typeof vk !== "undefined") {
+			locale = localeObj[vk.pubfn.getLocale()];
+		} else {
+			locale = localeObj["zh-Hans"];
+		}
+		obj.title = locale[title] || "loading...";
 	}
 	return obj;
 }
@@ -28,7 +55,7 @@ export default {
 	 * @param {String} uid 用户ID
 	 */
 	register(obj = {}) {
-		addLoading(obj, "注册中...");
+		addLoading(obj, "register");
 		return callFunction({
 			...obj,
 			url: 'user/pub/register'
@@ -48,7 +75,7 @@ export default {
 	 * @param {String} uid 用户ID
 	 */
 	login(obj = {}) {
-		addLoading(obj, "登录中...");
+		addLoading(obj, "login");
 		return callFunction({
 			...obj,
 			url: 'user/pub/login'
@@ -63,7 +90,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	logout(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/pub/logout',
@@ -84,7 +111,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	updatePwd(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/kh/updatePwd',
@@ -99,7 +126,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	resetPwd(obj) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/kh/resetPwd',
@@ -115,7 +142,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	setAvatar(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		//obj.isRequest = true;
 		return callFunction({
 			...obj,
@@ -133,7 +160,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	updateUser(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		callFunction({
 			...obj,
 			url: 'user/kh/updateUser'
@@ -147,7 +174,7 @@ export default {
 	 * @param {Object} userInfo 用户信息
 	 */
 	getCurrentUserInfo(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/kh/getMyUserInfo',
@@ -164,7 +191,7 @@ export default {
 	 * @param {Array} permission 当前用户权限
 	 */
 	checkToken(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/pub/checkToken',
@@ -180,7 +207,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	bindMobile(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/kh/bindMobile',
@@ -196,7 +223,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	unbindMobile(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/kh/unbindMobile',
@@ -214,7 +241,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	bindNewMobile(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/kh/bindNewMobile',
@@ -232,7 +259,7 @@ export default {
 	 * @param {String} tokenExpired token过期时间
 	 */
 	loginBySms(obj = {}) {
-		addLoading(obj, "登录中...");
+		addLoading(obj, "login");
 		return callFunction({
 			url: 'user/pub/loginBySms',
 			...obj
@@ -250,7 +277,7 @@ export default {
 	 * @param {Object} requestParam 包含服务供应商和发送的手机号
 	 */
 	sendSmsCode(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/pub/sendSmsCode',
@@ -308,7 +335,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	bindEmail(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/kh/bindEmail',
@@ -320,7 +347,7 @@ export default {
 	 * @param {String} code  邮箱收到的验证码
 	 */
 	unbindEmail(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/kh/unbindEmail',
@@ -334,7 +361,7 @@ export default {
 	 * @param {String} code 新邮箱收到的验证码
 	 */
 	bindNewEmail(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/kh/bindNewEmail',
@@ -352,7 +379,7 @@ export default {
 	 * @param {String} tokenExpired token过期时间
 	 */
 	loginByEmail(obj = {}) {
-		addLoading(obj, "登录中...");
+		addLoading(obj, "login");
 		return callFunction({
 			url: 'user/pub/loginByEmail',
 			...obj
@@ -370,7 +397,7 @@ export default {
 	 * @param {String} verifyCode 验证码
 	 */
 	sendEmailCode(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/pub/sendEmailCode',
@@ -387,7 +414,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	resetPasswordByEmail(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/pub/resetPasswordByEmail',
@@ -408,7 +435,7 @@ export default {
 	 * @param {String} verifyCode 验证码(uni 1.1.2开始不再返回verifyCode)
 	 */
 	setVerifyCode(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/sys/setVerifyCode',
@@ -465,7 +492,7 @@ export default {
 	loginByWeixin(obj = {}) {
 		let that = this;
 		debounce(function() {
-			addLoading(obj, "登录中...");
+			addLoading(obj, "login");
 			let { data = {} } = obj;
 			that.getWeixinCode().then((code) => {
 				// #ifdef H5
@@ -497,7 +524,7 @@ export default {
 	 */
 	code2SessionWeixin(obj = {}) {
 		let that = this;
-		if (!obj.loading && typeof obj.title === "undefined") obj.title = "请求中...";
+		addLoading(obj, "loading");
 		let { data = {} } = obj;
 		that.getWeixinCode().then((code) => {
 			callFunction({
@@ -519,7 +546,7 @@ export default {
 	 */
 	bindWeixin(obj = {}) {
 		let that = this;
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		let { data = {} } = obj;
 		that.getWeixinCode().then((code) => {
 			// #ifdef H5
@@ -543,7 +570,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	unbindWeixin(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		let { data = {} } = obj;
 		// #ifdef H5
 		// H5平台需要区分环境（如微信公众号？网页H5?）
@@ -563,7 +590,7 @@ export default {
 	 * @param {String} sessionKey
 	 */
 	getPhoneNumber(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/pub/getPhoneNumber'
@@ -582,7 +609,7 @@ export default {
 	 * @param {String} tokenExpired token过期时间
 	 */
 	loginByWeixinPhoneNumber(obj = {}) {
-		addLoading(obj, "登录中...");
+		addLoading(obj, "login");
 		return callFunction({
 			url: 'user/pub/loginByWeixinPhoneNumber',
 			...obj
@@ -601,7 +628,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	getWeixinMPqrcode(obj = {}) {
-		addLoading(obj, "生成中...");
+		addLoading(obj, "create");
 		return callFunction({
 			...obj,
 			url: 'user/kh/getWeixinMPqrcode',
@@ -617,7 +644,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	getWeixinMPscheme(obj = {}) {
-		addLoading(obj, "生成中...");
+		addLoading(obj, "create");
 		return callFunction({
 			...obj,
 			url: 'user/kh/getWeixinMPscheme',
@@ -650,7 +677,7 @@ export default {
 	loginByAlipay(obj = {}) {
 		let that = this;
 		debounce(function() {
-			addLoading(obj, "登录中...");
+			addLoading(obj, "login");
 			let { data = {} } = obj;
 			that.getAlipayCode().then((code) => {
 				callFunction({
@@ -677,7 +704,7 @@ export default {
 	 */
 	code2SessionAlipay(obj = {}) {
 		let that = this;
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		let { data = {} } = obj;
 		that.getAlipayCode().then((code) => {
 			callFunction({
@@ -698,7 +725,7 @@ export default {
 	 */
 	bindAlipay(obj = {}) {
 		let that = this;
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		let { data = {} } = obj;
 		that.getAlipayCode().then((code) => {
 			callFunction({
@@ -718,7 +745,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	unbindAlipay(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/kh/unbindAlipay',
@@ -728,7 +755,7 @@ export default {
 	 * 密码加密测试(暂不用)
 	 */
 	encryptPwd(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/sys/encryptPwd',
@@ -744,7 +771,7 @@ export default {
 	 * @param {String} myInviteCode 最终设置的邀请码
 	 */
 	setUserInviteCode(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/kh/setUserInviteCode',
@@ -760,7 +787,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	acceptInvite(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/kh/acceptInvite',
@@ -779,7 +806,7 @@ export default {
 	 * @param {String}         msg       详细信息
 	 */
 	getInvitedUser(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/kh/getInvitedUser',
@@ -796,7 +823,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	resetPasswordByMobile(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/pub/resetPasswordByMobile',
@@ -915,7 +942,7 @@ export default {
 	loginByQQ(obj = {}) {
 		let that = this;
 		debounce(function() {
-			addLoading(obj, "登录中...");
+			addLoading(obj, "login");
 			let { data = {} } = obj;
 			that.getQQCode().then(({ code, accessToken } = {}) => {
 				callFunction({
@@ -938,7 +965,7 @@ export default {
 	 */
 	bindQQ(obj = {}) {
 		let that = this;
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		let { data = {} } = obj;
 		that.getQQCode().then(({ code, accessToken } = {}) => {
 			callFunction({
@@ -959,7 +986,7 @@ export default {
 	 * @param {String} msg 详细信息
 	 */
 	unbindQQ(obj = {}) {
-		addLoading(obj, "请求中...");
+		addLoading(obj, "loading");
 		return callFunction({
 			...obj,
 			url: 'user/kh/unbindQQ',

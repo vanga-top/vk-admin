@@ -201,7 +201,7 @@ pubfn.validator = function(type) {
  * HTML HTML标记
  * vk.pubfn.test(str, type);
  */
-pubfn.test = function(str, type="") {
+pubfn.test = function(str, type = "") {
 	type = type.toLowerCase();
 	switch (type) {
 		case 'mobile': //手机号码
@@ -2144,6 +2144,55 @@ pubfn.getLocalFilePath = function(path) {
 		}
 	}
 	return '_www/' + path
+};
+
+/**
+ * 获取当前支持的应用语言
+ * let localeList = vk.pubfn.getLocaleList();
+ */
+pubfn.getLocaleList = function() {
+	let localeList = [
+		{ value: "zh-Hans", label: "简体中文" },
+		{ value: "zh-Hant", label: "繁體中文" },
+		{ value: "en", label: "English" }
+	];
+	return localeList;
+};
+/**
+ * 获取当前应用语言
+ * let locale = vk.pubfn.getLocale();
+ */
+pubfn.getLocale = function() {
+	let localeValue;
+	if (typeof uni.getLocale === "function") {
+		localeValue = uni.getLocale();
+	} else {
+		localeValue = "zh-Hans"; // 默认中文简体
+	}
+	let localeObj = {
+		"zh_CN": "zh-Hans", // 中国大陆（简体）
+		"zh_HK": "zh-Hant", // 香港（繁体）
+		"zh_MO": "zh-Hant", // 澳门（繁体）
+		"zh_SG": "zh-Hans", // 新加坡（简体）
+		"zh_TW": "zh-Hant", // 台湾（繁体）
+	};
+	if (localeObj[localeValue]) localeValue = localeObj[localeValue];
+	return localeValue;
+};
+/**
+ * 获取当前应用语言
+ * let localeObj = vk.pubfn.getLocaleObject();
+ */
+pubfn.getLocaleObject = function() {
+	let value = pubfn.getLocale();
+	let list = pubfn.getLocaleList();
+	return pubfn.getListItem(list, "value", value);
+};
+/**
+ * 设置当前应用语言
+ */
+pubfn.setLocale = function(...e) {
+	return uni.setLocale(...e);
 };
 
 

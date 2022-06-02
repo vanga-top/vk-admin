@@ -35,11 +35,11 @@ var vk = {
 	callFunction : callFunctionUtil.callFunction,
 	checkToken   : callFunctionUtil.checkToken,
 	pubfn,
-	
+
 	// #ifdef H5
 	h5,
 	// #endif
-	
+
 	alert             :   modal.alert,
 	toast             :   modal.toast,
 	confirm           :   modal.confirm,
@@ -68,6 +68,16 @@ var vk = {
 	navigateToMiniProgram : navigate.navigateToMiniProgram,
 	// 本地缓存
 	localStorage      :   localStorage,
+
+	// 获取应用语言列表
+	getLocaleList     :   pubfn.getLocaleList,
+	// 获取应用当前语言
+	getLocale         :   pubfn.getLocale,
+	// 获取应用当前语言对象
+	getLocaleObject   :   pubfn.getLocaleObject,
+	// 设置应用当前语言
+	setLocale         :   pubfn.setLocale,
+
 	// 本地缓存
 	...localStorage,
 	// 阿里云oss

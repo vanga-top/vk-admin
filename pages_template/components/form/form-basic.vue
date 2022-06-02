@@ -52,6 +52,20 @@
 						action:"template/test/sys/test",
 						// 表单字段显示规则
 						columns:[
+							{
+							  key: "role", title: "通过表格选择(单选)", type: "table-select", placeholder:"请选择",
+							  action:"template/db_api/sys/getList",
+							  multiple:true,
+							  columns:[
+							    { key:"_id", title:"id", type:"text", width:260, idKey:true },
+							    { key:"name", title:"昵称", type:"text", width:260, nameKey:true },
+							    { key:"money", title:"金额", type:"money", width:100, sortable:"custom", summaryKey:true, summaryUnit:"元" }, // summaryKey开启该字段为统计字段， summaryUnit：单位
+							  ],
+							  queryColumns:[
+							    { key: "name", title: "昵称", type: "text", width: 150, mode: "%%" },
+							    { key: "_id", title: "标识", type: "text", width: 150, mode: "%%" }
+							  ]
+							},
 							{ key: "text", title:"text类型字段", type:"text" },
 							{ key: "number", title:"number类型字段", type:"number" },
 							{ key: "radio", title:"radio类型字段", type:"radio" ,

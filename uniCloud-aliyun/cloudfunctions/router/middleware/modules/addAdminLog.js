@@ -36,9 +36,14 @@ module.exports = [{
 				let title = item && item.title ? item.title : "未分类";
 				delete data.uid;
 				// 日志写入数据库
+				// 获取请求id（只有云端云函数才有请求id，本地运行的云函数无请求id）
+				let request_id;
+				if (typeof vk.pubfn.getUniCloudRequestId === "function") {
+					request_id = vk.pubfn.getUniCloudRequestId();
+				}
 				await vk.baseDao.add({
-					dbName:"opendb-admin-log",
-					dataJson:{
+					dbName: "opendb-admin-log",
+					dataJson: {
 						user_id: userInfo._id,
 						user_name: userInfo.nickname,
 						title,
@@ -46,6 +51,7 @@ module.exports = [{
 						url: url,
 						request_param: data,
 						response: serviceRes,
+						request_id
 					}
 				});
 			}

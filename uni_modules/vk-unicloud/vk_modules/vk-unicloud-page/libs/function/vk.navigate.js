@@ -45,6 +45,21 @@ util.navigateTo = function(obj) {
 				obj.url = vk.pubfn.getPageFullPath(obj.url);
 				vk.navigate.originalPage = vk.pubfn.copyObject(obj);
 				obj.url = config.login.url;
+				// login拦截器开始-----------------------------------------------------------
+				let { interceptor = {} } = config;
+				if (typeof interceptor.login === "function") {
+					let key = interceptor.login({
+						vk, 
+						params: obj,
+						res:{
+							...res,
+							code: 30204,
+							msg: "本地token校验未通过"
+						}
+					});
+					if (typeof key === "undefined" || key !== true) return false;
+				}
+				// login拦截器结束-----------------------------------------------------------
 			} else {
 				vk.navigate.originalPage = null;
 			}
@@ -57,7 +72,10 @@ util._navigateTo = function(obj) {
 	if (typeof interceptor.navigateTo === "function") {
 		let vk = uni.vk;
 		obj.pagePath = vk.pubfn.getPageFullPath(obj.url);
-		let key = interceptor.navigateTo(obj);
+		let key = interceptor.navigateTo({
+			...obj,
+			vk
+		});
 		if (typeof key == "boolean" && key === false) return false;
 	}
 	let {

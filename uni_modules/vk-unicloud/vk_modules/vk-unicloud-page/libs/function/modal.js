@@ -1,6 +1,28 @@
 /**
  * 函数 - 弹窗
  */
+const localeObj = {
+	title: {
+		"zh-Hans": "提示",
+		"zh-Hant": "提示",
+		"en": "Tips"
+	},
+	confirmText: {
+		"zh-Hans": "确定",
+		"zh-Hant": "確定",
+		"en": "OK"
+	},
+	cancelText: {
+		"zh-Hans": "取消",
+		"zh-Hant": "取消",
+		"en": "Cancel"
+	},
+	placeholderText: {
+		"zh-Hans": "请输入",
+		"zh-Hant": "請輸入",
+		"en": "Please enter"
+	}
+};
 export default {
 	/**
 	vk.alert("内容");
@@ -9,10 +31,11 @@ export default {
 	});
 	 */
 	alert: function(a = " ", b, c, d) {
+		let locale = vk.getLocale();
 		let obj = {
-			title: "提示",
-			confirmText: "确定",
-			placeholderText: "请输入",
+			title: localeObj.title[locale],
+			confirmText: localeObj.confirmText[locale],
+			placeholderText: localeObj.placeholderText[locale],
 			content: a,
 			showCancel: false
 		};
@@ -39,25 +62,28 @@ export default {
 		return uni.showModal(obj);
 	},
 	/**
-	vk.confirm("内容","提示","确定","取消",function(res){
+	vk.confirm("内容","提示","确定","取消",(res) => {
 		if(res.confirm){
 
 		}
 	});
 	 */
 	confirm: function(a, b, c, d, e) {
+		let locale = vk.getLocale();
 		let obj = {
 			showCancel: true,
 			cancelColor: "#999",
-			title: "提示",
-			confirmText: "确定",
-			cancelText: "取消",
-			placeholderText: "请输入"
+			title: localeObj.title[locale],
+			confirmText: localeObj.confirmText[locale],
+			cancelText: localeObj.cancelText[locale],
+			placeholderText: localeObj.placeholderText[locale],
 		};
 		if (typeof a === "object") {
 			obj = a;
 		} else {
-			obj.content = a;
+			if (typeof a === "string") {
+				obj.content = a;
+			}
 			if (typeof e === 'function') {
 				obj.title = b;
 				obj.confirmText = c;
@@ -89,19 +115,22 @@ export default {
 	},"输入框内初始内容");
 	 */
 	prompt: function(a, b, c, d, e, f) {
+		let locale = vk.getLocale();
 		let obj = {
 			showCancel: true,
 			editable: true,
 			cancelColor: "#999",
-			title: "提示",
-			confirmText: "确定",
-			cancelText: "取消",
-			placeholderText: "请输入"
+			title: localeObj.title[locale],
+			confirmText: localeObj.confirmText[locale],
+			cancelText: localeObj.cancelText[locale],
+			placeholderText: localeObj.placeholderText[locale],
 		};
 		if (typeof a === "object") {
 			obj = a;
 		} else {
-			obj.placeholderText = a;
+			if (typeof a === "string") {
+				obj.placeholderText = a;
+			}
 			if (typeof e === 'function') {
 				obj.title = b;
 				obj.confirmText = c;
@@ -139,7 +168,7 @@ export default {
 		let mask = false;
 		let duration = 1500;
 		let fn;
-		
+
 		if (typeof e !== "undefined") {
 			if (typeof e == "function") fn = e;
 			if (typeof e == "number") duration = e;
@@ -155,7 +184,7 @@ export default {
 			if (typeof c == "number") duration = c;
 			if (typeof c == "boolean") mask = c;
 		}
-		
+
 		if (typeof b !== "undefined") {
 			if (typeof b == "function") fn = b;
 			if (typeof b == "number") duration = b;
@@ -177,9 +206,9 @@ export default {
 			duration: duration,
 			success: function(res) {
 				if (typeof fn === 'function') {
-					setTimeout(function(){
+					setTimeout(function() {
 						fn(res);
-					}, duration); 
+					}, duration);
 				}
 			}
 		});

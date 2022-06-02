@@ -300,9 +300,9 @@ class CallFunctionUtil {
 			// 若执行的函数是kh或sys类型函数，先本地判断下token，可以提高效率。
 			if (url.indexOf("/kh/") > -1 || url.indexOf("/sys/") > -1 || (url.indexOf(".") > -1 && url.indexOf("pub_") == -1 && url.indexOf("/pub/") == -1 && url.indexOf("/pub.") == -1)) {
 				if (!vk.checkToken()) {
-					// 若本地token校验未通过，则直接执行 interceptor.login 拦截器函数
+					// 若本地token校验未通过，则直接执行 login 拦截器函数
 					return new Promise((resolve, reject) => {
-						// 执行 interceptor.login 拦截器函数（跳转到页面页面）
+						// 执行 login 拦截器函数（跳转到页面页面）
 						let res = { code: 30204, msg: "本地token校验未通过" };
 						let params = obj;
 						if (typeof that.interceptor.login === "function") {
@@ -654,6 +654,7 @@ class CallFunctionUtil {
 		} = params;
 		if (title) vk.hideLoading();
 		if (loading) vk.setLoading(false, loading);
+		if (typeof res.code === "undefined" && typeof res.errCode !== "undefined") res.code = res.errCode;
 		let code = res.code;
 		if (config.debug) Logger.result = typeof res == "object" ? JSON.parse(JSON.stringify(res)) : res;
 		if (code == 0 || res.key == 1 || (code == undefined && res.uid)) {
@@ -662,7 +663,7 @@ class CallFunctionUtil {
 			if (typeof success == "function") success(res);
 			resolve(res);
 		} else if ([1301, 1302, 30201, 30202, 30203, 30204].indexOf(code) > -1 && res.msg.indexOf("token") > -1) {
-			// 执行 interceptor.login 拦截器函数（跳转到页面页面）
+			// 执行 login 拦截器函数（跳转到页面页面）
 			if (typeof that.interceptor.login === "function") {
 				that.interceptor.login({
 					res,

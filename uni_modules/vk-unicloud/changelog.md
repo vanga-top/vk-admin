@@ -1,3 +1,19 @@
+## 2.8.14（2022-06-02）
+* 1、【优化】为了兼容DCloud推出的uniCloud响应体规范，请求后的返回值会自动加上errCode和errMsg，其中errCode=code，errMsg=msg
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.8.13（2022-05-30）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.8.12（2022-05-30）
+* 1、【修复】`云对象` 模式下 `sys类型函数` 在非admin目录下时，请求会提示 `need_user_info` 的问题。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.8.11（2022-05-28）
+* 1、【修复】`interceptor.login` 前端自定义login拦截器，在某些情况下无法正常拦截的问题。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.8.10（2022-05-27）
+* 1、【修复】当 `云对象` 在 `service` 层根目录时，`pub.对象名.js` pub权限失效的问题。
+* 2、【优化】其他一些细节。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.8.9（2022-05-26）
 * 1、【新增】`vk.baseDao.selects` 和 `vk.baseDao.getTableData` 新增 `lastSortArr` 参数，用于聚合后再排序。
 * 注意：`lastWhereJson` 和 `lastSortArr` 在数据量大的情况下是有性能问题的，（建议主表的where条件中先进行筛选，如只查本季度数据，只要主表过滤完后数据量不大，则没有性能问题。）
