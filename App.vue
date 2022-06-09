@@ -105,4 +105,9 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+	/* 此为uni-admin的样式，如果你不使用uni-admin的官方插件，可以不需要加载这些样式 */
+	@import '@/common/uni-admin/css/uni.css';
+	@import '@/common/uni-admin/css/uni-icons.css';
+	/* 此为uni-admin的样式，如果你不使用uni-admin的官方插件，可以不需要加载这些样式 */
+</style>

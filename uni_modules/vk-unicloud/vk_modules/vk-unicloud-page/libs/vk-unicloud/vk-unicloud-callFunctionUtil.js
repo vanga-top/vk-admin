@@ -99,7 +99,7 @@ class CallFunctionUtil {
 			let token = uni.getStorageSync(config.uniIdTokenKeyName);
 			let tokenExpired = uni.getStorageSync(config.uniIdTokenExpiredKeyName);
 			let valid = false;
-			if (token && tokenExpired && tokenExpired > new Date().getTime()) {
+			if (token && tokenExpired && tokenExpired > Date.now()) {
 				valid = true;
 			}
 			return valid;
@@ -424,7 +424,7 @@ class CallFunctionUtil {
 			if (!cloudPath) cloudPath = this.createFileName(obj);
 			let Logger = {};
 			if (config.debug) Logger.filePath = filePath;
-			if (config.debug) Logger.startTime = new Date().getTime();
+			if (config.debug) Logger.startTime = Date.now();
 			let runCloud = myCloud || uniCloudEnvs[env] || uniCloud;
 			return new Promise((resolve, reject) => {
 				runCloud.uploadFile({
@@ -492,7 +492,7 @@ class CallFunctionUtil {
 					},
 					complete() {
 						if (config.debug) {
-							Logger.endTime = new Date().getTime();
+							Logger.endTime = Date.now();
 							Logger.runTime = (Logger.endTime - Logger.startTime);
 							let colorArr = config.logger.colorArr;
 							let colorStr = colorArr[counterNum % colorArr.length];
@@ -534,7 +534,7 @@ class CallFunctionUtil {
 		let Logger = {};
 		if (config.debug) Logger.params = typeof data == "object" ? JSON.parse(JSON.stringify(data)) : data;
 		let promiseAction = new Promise(function(resolve, reject) {
-			if (config.debug) Logger.startTime = new Date().getTime();
+			if (config.debug) Logger.startTime = Date.now();
 			let runCloud = myCloud || uniCloudEnvs[env] || uniCloud;
 			runCloud.callFunction({
 				name: name,
@@ -596,7 +596,7 @@ class CallFunctionUtil {
 		if (title) vk.showLoading(title);
 		if (loading) vk.setLoading(true, loading);
 		let promiseAction = new Promise(function(resolve, reject) {
-			if (config.debug) Logger.startTime = new Date().getTime();
+			if (config.debug) Logger.startTime = Date.now();
 			uni.request({
 				method: "POST",
 				url: requestUrl,
@@ -793,7 +793,7 @@ class CallFunctionUtil {
 		}
 		if (typeof debugLog === "undefined") debugLog = config.debug;
 		if (debugLog) {
-			Logger.endTime = new Date().getTime();
+			Logger.endTime = Date.now();
 			if (isRequest) {
 				Logger.label = "【url化】";
 			} else {

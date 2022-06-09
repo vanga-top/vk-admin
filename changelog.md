@@ -1,3 +1,11 @@
+## 1.10.6（2022-06-09）
+* 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.10.13`
+* 2、【优化】一些细节。
+
+##### 框架更新步骤 [点击查看](https://vkdoc.fsq.pub/admin/1/update.html)
+##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架
+
+##### 如果你觉得框架对你有用，可以在下方进行评论，也可以进行赞赏。
 ## 1.10.5（2022-06-02）
 * 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.10.10`
 * 2、【优化】`万能表单` `table-select` 组件支持对已选择的数据进行求和。如下图效果所示。[点击查看](https://vkdoc.fsq.pub/admin/components/12%E3%80%81table-select.html#summarykey-%E6%B1%82%E5%92%8C)
