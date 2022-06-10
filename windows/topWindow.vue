@@ -3,7 +3,8 @@
 		<!-- 左侧 -->
 		<view class="left">
 			<navigator class="logo" open-type="reLaunch" url="/">
-				<image :src="logo2" mode="aspectFill"></image>
+				<image :src="logo1" mode="aspectFill" class="min-logo" v-show="vk.getVuex('$app.leftCollapse')"></image>
+				<image :src="logo2" mode="aspectFill" v-show="!vk.getVuex('$app.leftCollapse')"></image>
 			</navigator>
 		</view>
 		<!-- 右侧 -->
@@ -14,6 +15,14 @@
 					class="navbar"
 					:class="{ 'navbar-mini': !matchLeftWindow, 'popup-menu': popupMenuOpened }"
 				>
+					<vk-data-icon
+						@click="menuCollapse"
+						class="menu-collapse"
+						:name="vk.getVuex('$app.leftCollapse') ? 'el-icon-s-unfold':'el-icon-s-fold'"
+						size="20"
+						:color="textColor"
+						:pointer="true"
+					></vk-data-icon>
 					<!-- 面包屑 -->
 					<breadcrumb></breadcrumb>
 
@@ -122,9 +131,11 @@ export default {
 	data() {
 		return {
 			debug: config.debug,
-			// 方形Logo
+			// 正方形 Logo 160*160
 			logo: config.staticUrl.navBar.logo,
-			// 横幅 Logo
+			// 长方形 Logo 224*160
+			logo1: config.staticUrl.navBar.logo1,
+			// 横幅 Logo 480*100
 			logo2: config.staticUrl.navBar.logo2,
 			// 主题配置
 			theme: config.theme,
@@ -147,6 +158,7 @@ export default {
 	// 组件挂载完毕时
 	mounted() {
 		this.vk.menuTabs = this.$refs.menuTabs;
+		this.checkMenuCollapse();
 	},
 	methods: {
 		// 退出登录
@@ -183,6 +195,26 @@ export default {
 			that.formDatas[name] = {
 				show: true
 			};
+		},
+		// pc状态下菜单折叠
+		menuCollapse(){
+			let leftCollapse = vk.getVuex('$app.leftCollapse');
+			vk.setVuex('$app.leftCollapse', !leftCollapse);
+			this.checkMenuCollapse();
+		},
+		checkMenuCollapse(){
+			let leftCollapse = vk.getVuex('$app.leftCollapse');
+			if (!leftCollapse) {
+				// 打开
+				uni.setLeftWindowStyle({
+					width: '240px',
+				});
+			} else {
+				// 折叠
+				uni.setLeftWindowStyle({
+					width: '64px',
+				});
+			}
 		}
 	},
 	// 计算属性
@@ -243,6 +275,11 @@ export default {
 		}
 
 		.menu-icon {
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+		}
+		.menu-collapse{
 			width: 30px;
 			height: 30px;
 			line-height: 30px;
@@ -363,6 +400,7 @@ export default {
 		}
 
 		/* 小屏时，隐藏的内容 */
+		.navbar-mini .menu-collapse,
 		.navbar-mini .logo,
 		.navbar-mini .debug,
 		.navbar-mini .navbar-menu,
@@ -415,9 +453,11 @@ export default {
 	.logo {
 		display: flex;
 		align-items: center;
+		justify-content: center;
 		image {
 			width: 100%;
 			height: 50px;
+			display: block;
 		}
 		text {
 			margin-left: 8px;
@@ -427,6 +467,4 @@ export default {
 		color: var(--textColor);
 	}
 }
-
-
 </style>

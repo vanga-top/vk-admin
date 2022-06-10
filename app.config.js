@@ -44,10 +44,12 @@ export default {
 	staticUrl: {
 		// 顶部导航
 		navBar: {
-			// 方形Logo
+			// 正方形 Logo 160*160
 			logo: "/static/logo.png",
-			// 横幅 Logo
-			logo2: "/static/logo2.png",
+			// 长方形 Logo 224*160
+			logo1: "/static/logo1.png",
+			// 横幅 Logo 480*100
+			logo2: "/static/logo2.png"
 		},
 	},
 	// 自定义公共函数，myPubFunction内的函数可通过vk.myfn.xxx() 调用

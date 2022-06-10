@@ -7,6 +7,8 @@ export default {
 		textColor: "#303133",
 		activeTextColor: "#409EFF",
 		activeBackgroundColor: "#ecf5ff",
+		collapseActiveTextColor:"#409EFF",
+		collapseActiveBackgroundColor: "#ecf5ff",
 		hoverTextColor: "#303133",
 		hoverBackgroundColor: "#efefef",
 		boxShadow: "2px 0 0px 0 rgba(29,35,41,0.05)",

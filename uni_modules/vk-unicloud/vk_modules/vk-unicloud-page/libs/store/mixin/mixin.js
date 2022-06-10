@@ -22,7 +22,8 @@ export default {
 			 */
 			vk.vuex.get = (name) => {
 				let value = vk.pubfn.getData($store.state, name);
-				if(typeof value === "undefined") return "";
+				//if(typeof value === "undefined") return "";
+				if(typeof value === "undefined") return undefined;
 				return JSON.parse(JSON.stringify(value));
 			};
 			vk.vuex.getters = (name) => {

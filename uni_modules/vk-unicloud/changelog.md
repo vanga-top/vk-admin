@@ -1,3 +1,6 @@
+## 2.9.2（2022-06-10）
+* 1、【调整】`vk.getVuex` 当数据不存在时，返回值由 `空字符串` 调整为 `undefined`
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.9.1（2022-06-08）
 * 1、【优化】`云对象` 的内置api `this.getClientInfo` 可以获取到更多信息（uni.getSystemInfo返回的客户端信息）
 * 2、【优化】`云函数` 的 `originalParam.context` 可以获取到更多信息（uni.getSystemInfo返回的客户端信息）

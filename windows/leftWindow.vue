@@ -1,10 +1,11 @@
 <template>
-	<scroll-view class="sidebar" :class="vk.getVuex('$app.isPC') ? 'pc' : 'mobile'" scroll-y="true" v-loading="!vk.getVuex('$app.inited')" :style="styleCom">
-		<!-- 通常情况下，请勿改动此文件代码，改变菜单的样式可以通过修改主题配置实现 主题文档：https://vkdoc.fsq.pub/admin/1/theme.html -->
+	<scroll-view class="sidebar" :class="classCom" scroll-y="true" v-loading="!vk.getVuex('$app.inited')" :style="styleCom">
 		<vk-data-menu-nav
 			v-if="vk.getVuex('$app.inited')"
 			:data="vk.getVuex('$app.navMenu')"
 			:uniqueOpened="true"
+			:collapse="vk.getVuex('$app.leftCollapse')"
+			:collapse-transition="false"
 			:theme="theme"
 			@select="select"
 		></vk-data-menu-nav>
@@ -47,6 +48,14 @@
 				} else {
 					return {};
 				}
+			},
+			classCom(){
+				let obj = {
+					pc: vk.getVuex('$app.isPC'),
+					mobile: !vk.getVuex('$app.isPC'),
+					collapse: vk.getVuex('$app.leftCollapse'),
+				};
+				return obj;
 			}
 		}
 	}
@@ -65,6 +74,9 @@
 		padding-bottom: 10px;
 		top: 50px;
 		z-index: 998;
+	}
+	.sidebar.collapse{
+		width: 64px;
 	}
 	.title {
 		margin-left: 5px;
