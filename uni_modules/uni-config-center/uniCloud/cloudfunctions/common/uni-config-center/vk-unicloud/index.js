@@ -6,15 +6,14 @@ try {
 	console.error("配置文件：uniCloud/cloudfunctions/common/uni-config-center/uni-id/config.json 编译错误，请检查！↓↓↓请查看下方的错误提示↓↓↓", err.name, err.message, err);
 	throw new Error("配置文件：uniCloud/cloudfunctions/common/uni-config-center/uni-id/config.json 编译错误，请检查！↑↑↑请查看上方的错误提示↑↑↑");
 }
-// 若需要使用 vk-uni-pay 插件，则打开下面的注释
-/* 
+
 try {
 	uniPayConfig = require('../uni-pay/config.js');
 } catch(err) {
 	console.error("配置文件：uniCloud/cloudfunctions/common/uni-config-center/uni-pay/config.js 编译错误，请检查！↓↓↓请查看下方的错误提示↓↓↓", err.name, err.message, err);
 	throw new Error("配置文件：uniCloud/cloudfunctions/common/uni-config-center/uni-pay/config.js 编译错误，请检查！↑↑↑请查看上方的错误提示↑↑↑");
 } 
-*/
+
 module.exports = {
 	"uni":uniIdConfig,
 	"uni-pay": uniPayConfig,
