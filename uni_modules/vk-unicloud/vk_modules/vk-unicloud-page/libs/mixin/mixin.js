@@ -16,7 +16,8 @@ export default {
 			// 检测是否需要登录，只有首次启动的页面才需要检测，其他页面通过 vk.navigateTo 跳转前会自动判断。
 			if (isOnLaunch && !this.vk.checkToken() && getCurrentPages().length == 1) {
 				isOnLaunch = false; // 重新标记为非首次页面
-				this.vk.pubfn.checkLogin({ url, isOnLaunch: true }); // 检测是否需要登录
+				const currentPage = this.vk.pubfn.getCurrentPage() || {};
+				this.vk.pubfn.checkLogin({ url: currentPage.fullPath || url, isOnLaunch: true }); // 检测是否需要登录
 			}
 		}
 	},

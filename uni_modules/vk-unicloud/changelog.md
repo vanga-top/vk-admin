@@ -1,3 +1,9 @@
+## 2.9.4（2022-06-15）
+* 1、【调整】`vk.getVuex` 当数据不存在时，返回值由 `undefined` 调整为 `空字符串`（undefined在部分平台会有问题）
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.9.3（2022-06-11）
+* 1、【重要】`uni-id` 新增配置参数 `"preferedWebPlatform": "h5",`，用于解决因HBX3.4.14版本导致的 `h5` 变为 `web` 带来的一系列问题。（完美兼容，你无需改自己的逻辑代码了）
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.9.2（2022-06-10）
 * 1、【调整】`vk.getVuex` 当数据不存在时，返回值由 `空字符串` 调整为 `undefined`
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

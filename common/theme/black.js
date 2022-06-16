@@ -4,7 +4,7 @@ export default {
 	leftMenu: {
 		backgroundColor: "#191a23",
 		subBackgroundColor:"#101117",
-		textColor: "rgba(255,255,255,0.8)",
+		textColor: "rgba(255,255,255,0.9)",
 		activeTextColor: "#ffffff",
 		activeBackgroundColor: "#2d8cf0",
 		collapseActiveTextColor:"#2d8cf0",

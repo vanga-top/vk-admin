@@ -303,6 +303,7 @@ export default {
 	 * @param {String} tokenExpired		token过期时间
 	 */
 	loginByUniverify(obj = {}) {
+		vk.showLoading('加载中...');
 		if (typeof obj.needAlert === "undefined") obj.needAlert = true;
 		// #ifdef APP-PLUS
 		uni.login({
@@ -317,11 +318,13 @@ export default {
 				});
 			},
 			fail: obj.fail,
-			complete: obj.complete,
+			complete: (res) => {
+				vk.hideLoading();
+			}
 		});
 		// #endif
 		// #ifndef APP-PLUS
-		uni.vk.toast("请在APP中使用本机号码一键登录", "none");
+		vk.toast("请在APP中使用本机号码一键登录", "none");
 		// #endif
 	},
 

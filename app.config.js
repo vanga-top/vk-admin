@@ -110,6 +110,8 @@ export default {
 				textColor: "",
 				activeTextColor: "",
 				activeBackgroundColor: "",
+				collapseActiveTextColor:"", 
+				collapseActiveBackgroundColor: "",
 				hoverTextColor: "",
 				hoverBackgroundColor: "",
 				boxShadow: "",
