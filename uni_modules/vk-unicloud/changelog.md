@@ -1,3 +1,6 @@
+## 2.9.5（2022-06-17）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.9.4（2022-06-15）
 * 1、【调整】`vk.getVuex` 当数据不存在时，返回值由 `undefined` 调整为 `空字符串`（undefined在部分平台会有问题）
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

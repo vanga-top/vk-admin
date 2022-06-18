@@ -30,8 +30,8 @@ const localeObj = {
 function addLoading(obj, title) {
 	if (typeof obj.loading === "undefined" && !obj.title && title) {
 		let locale;
-		if (typeof vk !== "undefined") {
-			locale = localeObj[vk.pubfn.getLocale()];
+		if (typeof uni.vk !== "undefined") {
+			locale = localeObj[uni.vk.pubfn.getLocale()];
 		} else {
 			locale = localeObj["zh-Hans"];
 		}
@@ -303,7 +303,7 @@ export default {
 	 * @param {String} tokenExpired		token过期时间
 	 */
 	loginByUniverify(obj = {}) {
-		vk.showLoading('加载中...');
+		uni.vk.showLoading('加载中...');
 		if (typeof obj.needAlert === "undefined") obj.needAlert = true;
 		// #ifdef APP-PLUS
 		uni.login({
@@ -319,12 +319,12 @@ export default {
 			},
 			fail: obj.fail,
 			complete: (res) => {
-				vk.hideLoading();
+				uni.vk.hideLoading();
 			}
 		});
 		// #endif
 		// #ifndef APP-PLUS
-		vk.toast("请在APP中使用本机号码一键登录", "none");
+		uni.vk.toast("请在APP中使用本机号码一键登录", "none");
 		// #endif
 	},
 
