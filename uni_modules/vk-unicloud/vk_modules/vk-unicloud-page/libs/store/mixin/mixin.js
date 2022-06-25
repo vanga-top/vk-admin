@@ -52,6 +52,11 @@ export default {
 			vk.getVuex = vk.vuex.get;
 			/* 兼容老版本 */
 			vk.state = vk.vuex.get;
+			try {
+				if (!vk.checkToken()) {
+					vk.callFunctionUtil.deleteUserInfo();
+				}
+			} catch (err) {}
 		}
 	},
 	computed: {

@@ -31,6 +31,7 @@ export default {
 	});
 	 */
 	alert: function(a = " ", b, c, d) {
+		let vk = uni.vk;
 		let locale = vk.getLocale();
 		let obj = {
 			title: localeObj.title[locale],
@@ -69,6 +70,7 @@ export default {
 	});
 	 */
 	confirm: function(a, b, c, d, e) {
+		let vk = uni.vk;
 		let locale = vk.getLocale();
 		let obj = {
 			showCancel: true,
@@ -115,6 +117,7 @@ export default {
 	},"输入框内初始内容");
 	 */
 	prompt: function(a, b, c, d, e, f) {
+		let vk = uni.vk;
 		let locale = vk.getLocale();
 		let obj = {
 			showCancel: true,
@@ -157,6 +160,7 @@ export default {
 	vk.toast("提示内容","none");
 	 */
 	toast: function(a, b, c, d, e) {
+		let vk = uni.vk;
 		if (typeof a === 'number') {
 			a = a.toString();
 		} else if (typeof a === 'object') {
@@ -229,7 +233,7 @@ export default {
 	 });
 	 */
 	showActionSheet: function(object) {
-		let vk = getApp().globalData.vk;
+		let vk = uni.vk;
 		let title = object.title;
 		let list = object.list;
 		let color = object.color || "#000000";
@@ -271,6 +275,7 @@ export default {
 	// 设置当前页面的loading变量的值
 	setLoading: function(loading = true, obj = true) {
 		try {
+			let vk = uni.vk;
 			if (typeof obj === "boolean") {
 				let pages = getCurrentPages();
 				let page = pages[pages.length - 1];
@@ -278,16 +283,14 @@ export default {
 				that.loading = loading;
 			} else if (typeof obj === "object") {
 				let { data, name, that } = obj;
-				if (uni.vk) {
-					if (!data) data = that;
-					uni.vk.pubfn.setData(data, name, loading);
-				}
+				if (!data) data = that;
+				vk.pubfn.setData(data, name, loading);
 			} else if (typeof obj === "string") {
 				let pages = getCurrentPages();
 				let page = pages[pages.length - 1];
 				let that = page.$vm;
 				let name = obj;
-				that.vk.pubfn.setData(that, name, loading);
+				vk.pubfn.setData(that, name, loading);
 			}
 		} catch (err) {}
 	},

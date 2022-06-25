@@ -6,10 +6,11 @@ util.getTargetTimezone = function(val) {
 	if (typeof val === "number") {
 		return val;
 	}
+	let vk = uni.vk;
 	let defaultValue = 8;
 	let targetTimezone = defaultValue;
 	try {
-		const config = uni.vk.callFunctionUtil.getConfig();
+		const config = vk.callFunctionUtil.getConfig();
 		targetTimezone = config.targetTimezone;
 		if (typeof targetTimezone !== "number") {
 			targetTimezone = defaultValue;
@@ -193,7 +194,9 @@ util.getCommonTime = function(date = new Date(), targetTimezone) {
 		day,
 		hour,
 		minute,
-		second
+		second,
+		date_day_str: util.timeFormat(date, "yyyy-MM-dd", targetTimezone),
+		date_month_str: util.timeFormat(date, "yyyy-MM", targetTimezone)
 	};
 	// 获取本月最大天数
 	let month_last_day = new Date(year, month, 0).getDate();

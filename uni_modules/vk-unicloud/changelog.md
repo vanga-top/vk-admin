@@ -1,3 +1,18 @@
+## 2.9.10（2022-06-25）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.9.9（2022-06-22）
+* 1、【重要】新增安全规则：未标记 `isCloudObject:true` 的对象定义为私有对象（如 `service/user/util/login_log.js`），前端禁止访问（只能被云函数/云对象 `require` 方式调用）。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.9.8（2022-06-22）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.9.7（2022-06-22）
+* 1、【新增】数据库表内的字段重命名api [点击查看](https://vkdoc.fsq.pub/client/uniCloud/db/question.html#%E5%A6%82%E4%BD%95%E6%9B%B4%E6%94%B9%E5%AD%97%E6%AE%B5%E5%90%8D)
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.9.6（2022-06-20）
+* 1、【新增】云函数专用api `vk.pubfn.randomAsync`（异步）产生指定位数的不重复随机数（支持任意字符，s默认纯数字）[点击查看](https://vkdoc.fsq.pub/client/jsapi.html#vk-pubfn-randomasync)
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.9.5（2022-06-17）
 * 1、【优化】一些细节
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

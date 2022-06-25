@@ -574,23 +574,23 @@ pubfn.arrayObjectGetArray = function(list, key) {
 
 /**
  * 产生指定位数的随机数(支持任意字符,默认纯数字)
- * @param	{Number} length 数据源
- * @param	{String} str 指定的字符串中随机范围
+ * @param	{Number} length 随机数固定位数
+ * @param	{String} range 指定的字符串中随机范围
  * @param	{Array} arr 产生的随机数不会和此数组的任意一项重复
  * vk.pubfn.random(6);
  * vk.pubfn.random(6, "abcdefghijklmnopqrstuvwxyz0123456789");
  * vk.pubfn.random(1,"12",["1","2"]);
  */
-pubfn.random = function(length, str, arr) {
+pubfn.random = function(length, range, arr) {
 	let s;
 	if (pubfn.isNull(arr)) {
-		s = pubfn.randomFn(length, str);
+		s = pubfn.randomFn(length, range);
 	} else {
 		let i = 0;
 		let maxForCount = 100000;
 		do {
 			i++;
-			s = pubfn.randomFn(length, str);
+			s = pubfn.randomFn(length, range);
 		} while (arr.indexOf(s) > -1 && i < maxForCount);
 		if (i === maxForCount) {
 			s = undefined;
@@ -600,24 +600,24 @@ pubfn.random = function(length, str, arr) {
 };
 /**
  * 产生指定位数的随机数(支持任意字符,默认纯数字)
- * @param	{Number} length 数据源
- * @param	{String} str 指定的字符串中随机范围
+ * @param	{Number} length 随机数固定位数
+ * @param	{String} range 指定的字符串中随机范围
  * vk.pubfn.random(6);
  * vk.pubfn.random(6, "abcdefghijklmnopqrstuvwxyz0123456789");
  */
-pubfn.randomFn = function(length, str) {
+pubfn.randomFn = function(length, range) {
 	let s = "";
 	let list = "123456789";
 	//0123456789QWERTYUIPASDFGHJKLZXCVBNM
-	if (pubfn.isNotNull(str)) {
-		if (str == "a-z,0-9") {
-			str = "abcdefghijklmnopqrstuvwxyz0123456789";
-		} else if (str == "A-Z,0-9") {
-			str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-		} else if (str == "a-z,A-Z,0-9" || str == "A-Z,a-z,0-9") {
-			str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	if (pubfn.isNotNull(range)) {
+		if (range == "a-z,0-9") {
+			range = "abcdefghijklmnopqrstuvwxyz0123456789";
+		} else if (range == "A-Z,0-9") {
+			range = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		} else if (range == "a-z,A-Z,0-9" || range == "A-Z,a-z,0-9") {
+			range = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		}
-		list = str;
+		list = range;
 	}
 	for (let i = 0; i < length; i++) {
 		let code = list[Math.floor(Math.random() * list.length)];
@@ -1466,6 +1466,7 @@ pubfn.calcSize = function(length = 0, arr, ary, precision = 2, showType = "auto"
 	});
  */
 pubfn.getListData2 = function(obj = {}) {
+	let vk = uni.vk;
 	let {
 		that,
 		listName,
@@ -1480,7 +1481,6 @@ pubfn.getListData2 = function(obj = {}) {
 	 * 2.0使用的queryForm1作为查询,而1.0是form1
 	 * 2.0云函数端是getTableData,而1.0是selects
 	 */
-	let { vk } = that;
 	let queryForm1 = that.queryForm1 || that.queryForm;
 	// 标记为请求中
 	that.loading = true;
@@ -1591,10 +1591,10 @@ pubfn.getListData = function(obj = {}) {
 		dataPreprocess,
 		loading
 	} = obj;
+	let vk = uni.vk;
 	if (listName) listKey = listName;
 	var { form1 = {}, data = {} } = that;
 	var { pageKey = true } = data;
-	var vk = that.vk;
 	if (!form1.pageIndex) form1.pageIndex = 1;
 	if (!form1.pageSize) form1.pageSize = 20;
 	var addTime = form1.addTime;
@@ -1705,7 +1705,7 @@ pubfn.getComponentsDynamicData = function(obj = {}) {
 		url = "plugs/components_dynamic/client/pub/getComponentsDynamicData",
 		ids
 	} = obj;
-	var vk = that.vk;
+	let vk = uni.vk;
 	let form1 = {
 		ids: ids
 	};
