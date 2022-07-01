@@ -1,3 +1,6 @@
+## 2.9.11（2022-06-28）
+* 1、【优化】`万能连表` 支持使用数组下标对应的值进行连表，如用户表根据inviter_uid的第一个值进行连表达到只查出第一个上级用户信息的效果 [点击查看](https://vkdoc.fsq.pub/client/uniCloud/db/selects.html#%E5%9C%BA%E6%99%AF11)
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.9.10（2022-06-25）
 * 1、【优化】一些细节
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

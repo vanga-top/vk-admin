@@ -446,5 +446,8 @@ export default [
   "vk-icon-dengji",
   "vk-icon-jiagoufenxiao",
   "vk-icon-gudongfenhong",
-  "vk-icon-tixianguanli"
+  "vk-icon-tixianguanli",
+	"vk-icon-miaosha",
+	"vk-icon-youhuiquan",
+	"vk-icon-jifen1"
 ];
