@@ -80,6 +80,9 @@ class CallFunctionUtil {
 		}
 		// 删除userInfo缓存
 		this.deleteUserInfo = (res = {}) => {
+			let {
+				log = true
+			} = res;
 			let config = this.config;
 			if (typeof vk.setVuex === "function") {
 				// 有安装vuex则使用vuex
@@ -90,7 +93,7 @@ class CallFunctionUtil {
 				// 否则使用本地缓存
 				vk.removeStorageSync(config.uniIdUserInfoKeyName);
 			}
-			if (this.config.debug) console.log("--------【用户信息已删除】--------");
+			if (this.config.debug && log) console.log("--------【用户信息已删除】--------");
 		}
 		// 检查token是否有效(本地版)
 		// let valid = vk.callFunctionUtil.checkToken();

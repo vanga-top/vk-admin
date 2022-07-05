@@ -1,3 +1,7 @@
+## 2.9.12（2022-07-04）
+* 1、【新增】微信小程序服务端万能API [传送门](https://vkdoc.fsq.pub/client/uniCloud/plus/weixin.html#%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%87%E8%83%BDapi%E8%B0%83%E7%94%A8%E6%8E%A5%E5%8F%A3)
+* 2、【新增】微信公众号服务端万能API [传送门](https://vkdoc.fsq.pub/client/uniCloud/plus/weixin-h5.html)
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.9.11（2022-06-28）
 * 1、【优化】`万能连表` 支持使用数组下标对应的值进行连表，如用户表根据inviter_uid的第一个值进行连表达到只查出第一个上级用户信息的效果 [点击查看](https://vkdoc.fsq.pub/client/uniCloud/db/selects.html#%E5%9C%BA%E6%99%AF11)
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

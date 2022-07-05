@@ -54,7 +54,9 @@ export default {
 			vk.state = vk.vuex.get;
 			try {
 				if (!vk.checkToken()) {
-					vk.callFunctionUtil.deleteUserInfo();
+					vk.callFunctionUtil.deleteUserInfo({
+						log: false
+					});
 				}
 			} catch (err) {}
 		}

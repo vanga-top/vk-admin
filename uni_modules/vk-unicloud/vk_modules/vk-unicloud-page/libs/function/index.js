@@ -2195,20 +2195,19 @@ pubfn.setLocale = function(...e) {
 	return uni.setLocale(...e);
 };
 
-
-function biggerThan(v1, v2) {
-	let v1Array = v1.split('.')
-	let v2Array = v2.split('.')
-	let update = false
-	for (let index = 0; index < v2Array.length; index++) {
-		let diff = v1Array[index] - v2Array[index]
-		if (diff !== 0) {
-			update = diff > 0
-			break
-		}
+/**
+ * 将obj2的数据赋值给obj1，并使vue双向绑定（vue2对象新增属性不会双向绑定）
+ * @description 将 obj2 的属性赋值给 obj1 (如果obj1中有对应的属性,则会被obj2的属性值覆盖)
+ * @param {Object} 	obj1
+ * @param {Object} 	obj2
+ * @param {Object} 	that 页面实例
+ * vk.pubfn.objectAssignForVue(obj1, obj2, that);
+ */
+pubfn.objectAssignForVue = function(obj1, obj2, that) {
+	for (let key in obj2) {
+		that.$set(obj1, key, obj2[key]);
 	}
-	return update
-}
+};
 
 // 前端专属结束 -----------------------------------------------------------
 export default pubfn;
