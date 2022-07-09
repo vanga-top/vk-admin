@@ -432,7 +432,8 @@
                   },
                   { key:"switch", title:"switch类型", type:"switch", width:160 },
                 ]
-              }
+              },
+							{ key:"goods_tags", title:"商品标签", type:"tag" },
 						],
 						// 表单验证规则
 						rules:{

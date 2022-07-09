@@ -1,3 +1,12 @@
+## 1.12.0（2022-07-09）
+* 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.12.0`
+* 2、【更新】省市区数据源
+* 3、【新增】`vk-data-input-tag` 组件 [传送门](https://vkdoc.fsq.pub/admin/components/29%E3%80%81tag.html)
+
+##### 框架更新步骤 [点击查看](https://vkdoc.fsq.pub/admin/1/update.html)
+##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架
+
+##### 如果你觉得框架对你有用，可以在下方进行评论，也可以进行赞赏。
 ## 1.11.7（2022-07-05）
 * 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.11.22`
 * 2、【优化】`万能表单` `remote-select` 组件 当设置 `showAll:true` 时，新增 `刷新选项按钮`（方便数据库数据变动后手动刷新选项）[传送门](https://vkdoc.fsq.pub/admin/components/10%E3%80%81remote-select.html)

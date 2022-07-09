@@ -31,6 +31,7 @@ module.exports = {
 			"APPID": "", // 默认 dcloud_appid
 			"PLATFORM": "h5", // 可选项 h5、mp-weixin、app-plus、mp-alipay
 			"LOCALE": "zh-Hans", // 默认语言
+			"CLIENTIP":"127.0.0.1", // 默认客户端IP（主要用于解决本地调试无ip的问题）
 		},
 		"service": {
 			// 邮箱发送服务

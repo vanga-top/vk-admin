@@ -259,6 +259,7 @@
 				let currentRow = that.getCurrentRow();
 				if(currentRow && currentRow.menu_id){
 					that.$set(that.form1.data,"parent_id", currentRow.menu_id);
+					that.$set(that.form1.data,"menu_id", currentRow.menu_id+"-");
 				}
 			},
 			// 显示修改页面
@@ -310,10 +311,6 @@
 		},
 		// 监听属性
 		watch: {
-
-		},
-		// 过滤器
-		filters: {
 
 		},
 		// 计算属性
