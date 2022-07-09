@@ -1,3 +1,7 @@
+## 2.10.0（2022-07-09）
+* 1、【优化】`vk.baseDao.update` `vk.baseDao.updateById` `vk.baseDao.updateAndReturn` API的 `dataJson` 参数若有 `_id`，则自动忽略 `_id`（因_id不可修改，原先是直接报错）
+* 2、【优化】其他细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.9.12（2022-07-04）
 * 1、【新增】微信小程序服务端万能API [传送门](https://vkdoc.fsq.pub/client/uniCloud/plus/weixin.html#%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%87%E8%83%BDapi%E8%B0%83%E7%94%A8%E6%8E%A5%E5%8F%A3)
 * 2、【新增】微信公众号服务端万能API [传送门](https://vkdoc.fsq.pub/client/uniCloud/plus/weixin-h5.html)
