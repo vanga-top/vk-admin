@@ -366,9 +366,19 @@ class CallFunctionUtil {
 				}
 			}
 		}
-		// 获取全局默认配置
-		this.getConfig = () => {
-			return this.config;
+		/**
+		 * 获取vk前端配置
+		 * 示例
+		 * vk.callFunctionUtil.getConfig();
+		 * vk.callFunctionUtil.getConfig("login.url");
+		 */
+		this.getConfig = (key) => {
+			let config = this.config;
+			if (key) {
+				return vk.pubfn.getData(config, key);
+			} else {
+				return config;
+			}
 		}
 
 		// 初始化

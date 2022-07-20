@@ -779,27 +779,55 @@ pubfn.isObject = function(value) {
 
 /**
  * 计算运费
- *  @param {Object} freightsItem 运费模板
+ *  @param {Object} freightItem 运费模板
  {
-   first_weight             Number 首重 单位KG,
-   first_weight_price       Number 首重 首重价格
-   continuous_weight        Number 续重 单位KG
-   continuous_weight_price  Number 续重价格
-   max_weight               Number 重量达到此值时,会多计算首重的价格,并少一次续重的价格 倍乘(相当于拆分多个包裹)
+   first_weight             Number 首重（KG）
+   first_weight_price       Number 首重 首重价格（100=1元）
+   continuous_weight        Number 续重（KG）
+   continuous_weight_price  Number 续重价格（100=1元）
+   max_weight               Number 重量达到此值时（KG），会多计算首重的价格，并少一次续重的价格 倍乘（相当于拆分多个包裹）
  }
  * @param {Number} weight 运费重量
- * vk.pubfn.calcFreights(freightsItem, weight);
+ * 返回值
+ * @return {Number} 最终运费金额（100=1元）
+ * vk.pubfn.calcFreights(freightItem, weight);
  */
-pubfn.calcFreights = function(freightsItem, weight) {
+pubfn.calcFreights = function(freightItem, weight) {
+	let freightRes  = vk.pubfn.calcFreightDetail(freightItem, weight); 
+	return freightRes.total_amount;
+};
+
+/**
+ * 计算运费，返回细节
+ * @param {Object} freightItem 运费模板
+ {
+   first_weight             Number 首重（KG）
+   first_weight_price       Number 首重 首重价格（100=1元）
+   continuous_weight        Number 续重（KG）
+   continuous_weight_price  Number 续重价格（100=1元）
+   max_weight               Number 重量达到此值时（KG），会多计算首重的价格，并少一次续重的价格 倍乘（相当于拆分多个包裹）
+ }
+ * @param {Number} weight 需要计算的商品重量
+ * 返回值
+ * @return {Number} weight 运费重量（KG）
+ * @return {Number} first_weight_price 首重金额（100=1元）
+ * @return {Number} continuous_weight_price 续重金额（100=1元）
+ * @return {Number} total_amount 最终运费金额（100=1元）
+ * @return {String} formula 运费计算公式字符串
+ * let freightRes = vk.pubfn.calcFreightDetail(freightItem, weight);
+ */
+pubfn.calcFreightDetail = function(freightItem, weight) {
 	let {
-		first_weight,
-		first_weight_price,
-		continuous_weight,
-		continuous_weight_price,
-		max_weight = 100000000
-	} = freightsItem;
+		first_weight, // 首重（KG）
+		first_weight_price, // 首重价格（元）
+		continuous_weight, // 续重（KG）
+		continuous_weight_price, // 续重价格（元）
+		max_weight, // 拆包裹，每个包裹最大重量（KG）
+	} = freightItem;
+	if (!max_weight) max_weight = 1000000000;
+	let originalWeight = weight;
 	let money = 0; // 运费
-	let packagesNum = 0; // 包裹数量
+	let first_weight_count = 0; // 包裹数量
 	let packagesSurplusWeight = max_weight; // 包裹剩余重量
 	let first_weight_key = false; // 是否已减过首重
 	let continuous_weight_count = 0; // 续重次数
@@ -809,7 +837,7 @@ pubfn.calcFreights = function(freightsItem, weight) {
 		if (!first_weight_key) {
 			// 首重
 			first_weight_key = true;
-			packagesNum++;
+			first_weight_count++;
 			packagesSurplusWeight = max_weight; // 还原包裹剩余重量
 			weight -= first_weight;
 			packagesSurplusWeight -= first_weight;
@@ -822,7 +850,7 @@ pubfn.calcFreights = function(freightsItem, weight) {
 		if (logRun) logArr.push({
 			"总重量剩余": weight,
 			"当前包裹重量剩余": packagesSurplusWeight,
-			"当前第几个包裹": packagesNum,
+			"当前第几个包裹": first_weight_count,
 			"续重计算次数": continuous_weight_count
 		});
 
@@ -832,9 +860,23 @@ pubfn.calcFreights = function(freightsItem, weight) {
 		}
 	}
 	if (logRun) console.log(JSON.stringify(logArr));
-	money = packagesNum * first_weight_price + continuous_weight_price * continuous_weight_count;
-	return money;
+	let total_amount = first_weight_price * first_weight_count + continuous_weight_price * continuous_weight_count;
+	let res = {
+		weight: originalWeight, // 商品重量（KG）
+		first_weight, // 首重步长
+		first_weight_price, // 首重单价
+		first_weight_count, // 首重计算次数
+		continuous_weight, // 续重步长
+		continuous_weight_price, // 续重单价
+		continuous_weight_count, // 续重计算次数
+		first_weight_amount: first_weight_count * first_weight_price, // 首重总金额
+		continuous_weight_amount: continuous_weight_price * continuous_weight_count, // 续重总金额
+		total_amount, // 最终运费金额
+		formula: `${first_weight_price} * ${first_weight_count} + ${continuous_weight_price} * ${continuous_weight_count} = ${total_amount}`, // 运费计算公式
+	};
+	return res;
 };
+
 
 /**
  * 从一个对象中取多个属性,并生成一个全新的对象,会过滤空字符串,空数组,空对象
@@ -2080,13 +2122,13 @@ pubfn.requestSubscribeMessage = function(obj) {
  */
 pubfn.checkLogin = function(obj = {}) {
 	let vk = uni.vk;
-	let loginUrl = vk.getVuex("$app.config.login.url");
+	let loginUrl = vk.getConfig("login.url");
 	try {
 		let url;
 		try {
 			url = obj.url || vk.pubfn.getCurrentPageRoute();
 		} catch (err) {
-			url = vk.getVuex("$app.config.index.url") || "/pages/index/index";
+			url = vk.getConfig("index.url") || "/pages/index/index";
 		}
 		vk.navigate.checkNeedLogin({
 			url: url,

@@ -148,11 +148,11 @@ export default aliyunOSSUtil;
 // 获取配置
 function getConfig() {
 	let vk = getApp().globalData.vk;
-	let config = vk.callFunctionUtil.getConfig();
-	let aliyunOSS = vk.pubfn.getData(config, "service.aliyunOSS");
+	let aliyunOSS = vk.getConfig("service.aliyunOSS");
 	let configData = {};
 	if (aliyunOSS && aliyunOSS.uploadData && aliyunOSS.uploadData.OSSAccessKeyId) {
 		try {
+			// 只有开启按userId分组且开启了vk的vuex功能，才可以自动按userId分组
 			if (aliyunOSS.groupUserId && typeof vk.getVuex === "function") {
 				let userInfo = vk.getVuex("$user.userInfo");
 				if (vk.pubfn.isNotNull(userInfo) && userInfo._id) {

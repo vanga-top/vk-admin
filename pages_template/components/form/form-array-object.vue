@@ -51,8 +51,9 @@
 						action:"template/test/sys/test",
 						// 表单字段显示规则
 						columns:[
+							{ key:"", title:"数组对象", type:"bar-title" },
 							{
-								key:"array", title:"数组<对象>类型", type:"array<object>", itemWidth:260,
+								key:"array1", title:"数组<对象>类型", type:"array<object>", itemWidth:260,
 								showAdd:true,
 								showClear:true,
 								showSort:true,
@@ -95,15 +96,117 @@
 									{ key:"switch", title:"switch类型", type:"switch", width:160 },
 								]
 							},
+							{ key:"", title:"递增递减", type:"bar-title" },
+							{
+								key:"array2", title:"数组<对象>类型", type:"array<object>", itemWidth:260,
+								showAdd:true,
+								showClear:true,
+								showSort:true,
+								// 新增一行时,该行的默认值
+								defaultValue:{
+									switch:true,
+									text1:""
+								},
+								rightBtns:['copy','delete'],
+								// 每行每个字段对应的渲染规则
+								columns:[
+									{
+										key:"number1", title:"递增[>]", type:"number", placeholder:"输入数字",
+										incMode: 1, // 1必须递增[>] 2 必须递增[>=] -1 必须递减[<]  -2 必须递减[<=]
+										rules:[
+											{ required:true, message:"该项不能为空", trigger:["change","blur"] },
+										]
+									},
+									{
+										key:"number2", title:"递增[>=]", type:"number", placeholder:"输入数字",
+										incMode: 2, // 1必须递增[>] 2 必须递增[>=] -1 必须递减[<]  -2 必须递减[<=]
+										rules:[
+											{ required:true, message:"该项不能为空", trigger:["change","blur"] },
+										]
+									},
+									{
+										key:"number3", title:"递减[<]", type:"number", placeholder:"输入数字",
+										incMode: -1, // 1必须递增[>] 2 必须递增[>=] -1 必须递减[<]  -2 必须递减[<=]
+										rules:[
+											{ required:true, message:"该项不能为空", trigger:["change","blur"] },
+										]
+									},
+									{
+										key:"number4", title:"递减[<=]", type:"number", placeholder:"输入数字",
+										incMode: -2, // 1必须递增[>] 2 必须递增[>=] -1 必须递减[<]  -2 必须递减[<=]
+										rules:[
+											{ required:true, message:"该项不能为空", trigger:["change","blur"] },
+										]
+									},
+								]
+							},
+							{ key:"", title:"数组嵌套数组", type:"bar-title" },
+							{
+								key:"array3", title:"数组<对象>类型", type:"array<object>", itemWidth:260,
+								showAdd:true,
+								showClear:true,
+								showSort:true,
+								// 新增一行时,该行的默认值
+								defaultValue:{
+									switch:true,
+									array:[]
+								},
+								rightBtns:['copy','delete'],
+								// 每行每个字段对应的渲染规则
+								columns:[
+									{
+										key:"text1", title:"昵称", type:"text",
+										isUnique:true,
+										rules:[
+											{ required:true, message:"该项不能为空", trigger:["change","blur"] },
+										]
+									},
+									{
+										key:"number1", title:"数字", type:"number",
+										rules:[
+											{ required:true, message:"该项不能为空", trigger:["change","blur"] },
+										]
+									},
+									{ key:"switch", title:"switch类型", type:"switch", width:160 },
+									{
+										key:"array", title:"数组<对象>类型", type:"array<object>", buttonText: "设置", dialog:true, width:140, dialogWidth:1000,
+										showAdd:true,
+										showClear:true,
+										showSort:true,
+										// 新增一行时,该行的默认值
+										defaultValue:{
+							
+										},
+										rightBtns:['delete'],
+										// 每行每个字段对应的渲染规则
+										columns:[
+											{
+												key:"text1", title:"昵称", type:"text", minWidth:160,
+												isUnique:true,
+												rules:[
+													{ required:true, message:"该项不能为空", trigger:["change","blur"] },
+												]
+											},
+											{
+												key:"number1", title:"数字", type:"number", minWidth:160,
+												rules:[
+													{ required:true, message:"该项不能为空", trigger:["change","blur"] },
+												]
+											}
+										]
+									},
+								]
+							},
+							
 							{ key:"", title:"下方为纯字符串或纯数字类型数组", type:"bar-title" },
-							{ key:"array1", title:"数组<字符串>类型", type:"array<string>", placeholder:"请输入字符串",
+							{ key:"stringArray", title:"数组<字符串>类型", type:"array<string>", placeholder:"请输入字符串", width:400,
 								isUnique:true,
 								rules:[
 									{ required:true, message:"该项不能为空", trigger:["change","blur"] },
 								]
 							},
 							{
-								key:"array2", title:"数组<数字>类型", type:"array<number>", placeholder:"请输入数字",
+								key:"numberArray", title:"数组<数字>类型", type:"array<number>", placeholder:"请输入数字", width:400,
 								rules:[
 									{ required:true, message:"该项不能为空", trigger:["change","blur"] },
 								]
@@ -159,10 +262,6 @@
 			onFormSuccess(){
 				console.log("表单提交成功");
 			}
-		},
-		// 过滤器
-		filters:{
-
 		},
 		// 计算属性
 		computed:{
