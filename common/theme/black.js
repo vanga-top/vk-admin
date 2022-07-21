@@ -11,7 +11,8 @@ export default {
 		collapseActiveBackgroundColor: "#2c3239",
 		hoverTextColor: "#ffffff",
 		hoverBackgroundColor: "#545f6c",
-		boxShadow: "2px 0 2px rgba(0,21,4,0.2)",
+		boxShadow: "0px 0 0px rgba(0,21,4,0.2)",
+		//boxShadow: "2px 0 2px rgba(0,21,4,0.2)",
 		//borderTop: "1px solid #101117"
 	},
 	// 顶部菜单样式

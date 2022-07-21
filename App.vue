@@ -8,11 +8,11 @@ export default {
 		init() {
 			let that = this;
 			let { vk } = that;
-      // 如果token失效，直接跳登录页面
-      if (!vk.callFunctionUtil.checkToken()) {
-        vk.reLaunch(config.login.url);
-        return false;
-      }
+			// 如果token失效，直接跳登录页面
+			if (!vk.checkToken()) {
+				vk.reLaunch(config.login.url);
+				return false;
+			}
 			if (!that.isAllowLoginBackground()) {
 				vk.alert("您的账户无登陆权限", function() {
 					vk.reLaunch(config.login.url);

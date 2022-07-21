@@ -1,3 +1,6 @@
+## 2.10.4（2022-07-21）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.10.3（2022-07-20）
 * 1、【修复】`_.geoNear` 和 `lastWhereJson` 同时使用时报错的bug
 * 2、【优化】一些细节

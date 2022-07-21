@@ -30,14 +30,7 @@ export default {
 	 * 从基本数据(state)派生的数据，相当于state的计算属性
 	 */
 	getters: {
-		/**
-		 * 获取用户信息（使用计算属性获取）
-		 * js调用示例
-		 * vk.vuex.getters('$user/getUserInfo');
-		 */
-		getUserInfo: (state) => {
-			return state.userInfo;
-		}
+		
 	},
 	/**
 	 * 提交更新数据的方法，必须是同步的(如果需要异步使用action)。

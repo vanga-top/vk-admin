@@ -296,23 +296,26 @@ util.checkWildcardTest = function(obj) {
 util.checkNeedLogin = function(obj) {
 	let vk = uni.vk;
 	let { url, success } = obj;
-	let needLogin = false;
+	let needLogin = false; // 用户是否需要重新登录
+	let pageNeedLogin = false; // 该页面是否需要登录才能访问
 	let pagesRule = config.checkTokenPages;
 	if (pagesRule) {
 		let res = util.checkWildcardTest({
 			url,
 			pagesRule
 		});
-		if (res.key) {
+		pageNeedLogin = res.key;
+		if (pageNeedLogin) {
 			// 本地判断token有效期(联网会浪费性能)
-			if (!vk.callFunctionUtil.checkToken()) {
+			if (!vk.checkToken()) {
 				needLogin = true;
 			}
 		}
 	}
 	success({
 		url,
-		needLogin
+		needLogin,
+		pageNeedLogin
 	});
 };
 

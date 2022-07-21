@@ -37,6 +37,7 @@ export default {
 		mode: 2,
 		list: [
 			"/pages/login/*",
+			"/pages_template/*",
 		]
 	},
 	// 静态文件的资源URL地址
