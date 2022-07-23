@@ -16,12 +16,12 @@
 					:class="{ 'navbar-mini': !matchLeftWindow, 'popup-menu': popupMenuOpened }"
 				>
 					<vk-data-icon
-						@click="menuCollapse"
 						class="menu-collapse"
-						:name="vk.getVuex('$app.leftCollapse') ? 'el-icon-s-unfold':'el-icon-s-fold'"
-						size="20"
+						:name="vk.getVuex('$app.leftCollapse') ? 'vk-icon-zhankaicaidan':'vk-icon-shouqicaidan'"
+						size="17"
 						:color="textColor"
 						:pointer="true"
+						@click="menuCollapse"
 					></vk-data-icon>
 					<!-- 面包屑 -->
 					<breadcrumb></breadcrumb>

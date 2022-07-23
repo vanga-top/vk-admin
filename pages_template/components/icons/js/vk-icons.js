@@ -449,5 +449,7 @@ export default [
   "vk-icon-tixianguanli",
 	"vk-icon-miaosha",
 	"vk-icon-youhuiquan",
-	"vk-icon-jifen1"
+	"vk-icon-jifen1",
+	"vk-icon-shouqicaidan",
+	"vk-icon-zhankaicaidan"
 ];

@@ -4,7 +4,7 @@ import config from "@/app.config.js";
 export default {
 	computed: {},
 	methods: {
-		// 检测用户是否登录
+		// 初始化菜单权限等数据
 		init() {
 			let that = this;
 			let { vk } = that;
@@ -48,6 +48,11 @@ export default {
 					vk.setVuex("$user.permission", data.userInfo.permission);
 				}
 			});
+		},
+		// 初始化系统环境变量
+		initApp() {
+			let that = this;
+			let { vk } = that;
 			uni.getSystemInfo().then(([err, res]) => {
 				let isPC = res.model && res.model != "PC" ? false : true;
 				vk.setVuex("$app.isPC", isPC);
@@ -66,6 +71,7 @@ export default {
 				);
 			});
 		},
+		// 检测用户是否可以登录admin
 		isAllowLoginBackground(userInfo) {
 			let that = this;
 			let { vk } = that;
@@ -95,6 +101,7 @@ export default {
 				that.init();
 			}
 		});
+		that.initApp();
 	},
 	onShow: function() {
 		console.log("App Show");
