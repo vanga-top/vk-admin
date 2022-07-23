@@ -17,7 +17,8 @@ export default {
 			if (isOnLaunch && !this.vk.checkToken() && getCurrentPages().length == 1) {
 				isOnLaunch = false; // 重新标记为非首次页面
 				const currentPage = this.vk.pubfn.getCurrentPage() || {};
-				this.vk.pubfn.checkLogin({ url: currentPage.fullPath || url, isOnLaunch: true }); // 检测是否需要登录
+				let pagePath = currentPage.pagePath || `/${currentPage.route}` || url;
+				this.vk.pubfn.checkLogin({ url: pagePath, isOnLaunch: true }); // 检测是否需要登录
 			}
 		}
 	},

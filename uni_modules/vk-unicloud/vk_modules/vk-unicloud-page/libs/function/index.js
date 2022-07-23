@@ -391,7 +391,7 @@ pubfn.setData = function(dataObj, name, value) {
 	} else {
 		dataValue = value;
 	}
-	let regExp = new RegExp("([\\w$]+)|\\[(:\\d)\\]", "g");
+	let regExp = new RegExp("([\\w$-]+)|\\[(:\\d)\\]", "g");
 	const patten = name.match(regExp);
 	// 遍历路径  逐级查找  最后一级用于直接赋值
 	for (let i = 0; i < patten.length - 1; i++) {
@@ -1871,9 +1871,16 @@ pubfn.getCurrentPage = function() {
 	let res = {};
 	let pages = getCurrentPages();
 	let page = pages[pages.length - 1];
-	res.fullPath = page.$page.fullPath;
-	res.options = page.options;
+	let pagePath = `/${page.route}`;
+	let fullPath = `/${page.route}`;
+	if (page.$page && typeof page.$page.options === "object") {
+		let optionsStr = pubfn.queryParams(page.$page.options);
+		fullPath = pagePath + optionsStr;
+	}
+	res.fullPath = fullPath;
+	res.options = page.$page.options;
 	res.route = page.route;
+	res.pagePath = pagePath;
 	res.$vm = page.$vm;
 	return res;
 };
