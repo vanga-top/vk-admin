@@ -1,6 +1,6 @@
 <script>
 import config from "@/app.config.js";
-
+import { version } from "./package.json";
 export default {
 	computed: {},
 	methods: {
@@ -93,6 +93,14 @@ export default {
 		});
 	},
 	onLaunch: function() {
+		if (config.debug) {
+			console.log(
+				`%c vk-admin %c v${version} `,
+				"background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff",
+				"background:#007aff ;padding: 1px; border-radius: 0 3px 3px 0;  color: #fff; font-weight: bold;"
+			);
+			console.log("App Launch");
+		}
 		let that = this;
 		that.vk.pubfn.needInit({
 			that,
@@ -104,17 +112,17 @@ export default {
 		that.initApp();
 	},
 	onShow: function() {
-		console.log("App Show");
+		if (config.debug) console.log("App Show");
 	},
 	onHide: function() {
-		console.log("App Hide");
+		if (config.debug) console.log("App Hide");
 	}
 };
 </script>
 
 <style lang="scss">
-	/* 此为uni-admin的样式，如果你不使用uni-admin的官方插件，可以不需要加载这些样式 */
-	@import '@/common/uni-admin/css/uni.css';
-	@import '@/common/uni-admin/css/uni-icons.css';
-	/* 此为uni-admin的样式，如果你不使用uni-admin的官方插件，可以不需要加载这些样式 */
+/* 此为uni-admin的样式，如果你不使用uni-admin的官方插件，可以不需要加载这些样式 */
+@import "@/common/uni-admin/css/uni.css";
+@import "@/common/uni-admin/css/uni-icons.css";
+/* 此为uni-admin的样式，如果你不使用uni-admin的官方插件，可以不需要加载这些样式 */
 </style>
