@@ -29,6 +29,142 @@ dao.findById = async (user_id) => {
 	return res;
 };
 
+
+/**
+ * 根据邀请码获取用户信息
+ * let inviterUserInfo = await vk.daoCenter.userDao.findByInviteCode(invite_code);
+ * @param {String} invite_code 邀请码
+ */
+dao.findByInviteCode = async (invite_code) => {
+	let { vk, db, _ } = util;
+	let res = {};
+	// 数据库操作开始-----------------------------------------------------------
+	res = await vk.baseDao.findByWhereJson({
+		dbName: dbName_user,
+		whereJson: {
+			my_invite_code: invite_code
+		},
+		fieldJson: { token: false, password: false }
+	});
+	// 数据库操作结束-----------------------------------------------------------
+	return res;
+};
+
+/**
+ * 改
+ * @param {Object} whereJson 条件
+ * @param {Object} dataJson 修改的数据
+ * 调用示例
+await vk.daoCenter.userDao.update({
+	whereJson:{
+
+	},
+	dataJson:{
+
+	}
+});
+ */
+dao.update = async (obj = {}) => {
+	let { vk, db, _ } = util;
+	let res = {};
+	// 数据库操作开始-----------------------------------------------------------
+	res = await vk.baseDao.update({
+		...obj,
+		dbName: dbName_user
+	});
+	// 数据库操作结束-----------------------------------------------------------
+	return res;
+};
+
+
+/**
+ * 改
+ * @param {Object} whereJson 条件
+ * @param {Object} dataJson 修改的数据
+ * 调用示例
+await vk.daoCenter.userDao.updateById({
+	id: uid,
+	dataJson:{
+
+	}
+});
+ */
+dao.updateById = async (obj = {}) => {
+	let { vk, db, _ } = util;
+	let res = {};
+	// 数据库操作开始-----------------------------------------------------------
+	res = await vk.baseDao.updateById({
+		...obj,
+		dbName: dbName_user
+	});
+	// 数据库操作结束-----------------------------------------------------------
+	return res;
+};
+
+
+/**
+ * 改 - 更新并返回更新后的数据（无论条件匹配到多少条记录，只会修改第一条记录，同时返回修改后的数据）
+ * @param {Object} whereJson 条件
+ * @param {Object} dataJson 修改的数据
+ * 调用示例
+await vk.daoCenter.userDao.updateAndReturn({
+	whereJson:{
+
+	},
+	dataJson:{
+
+	}
+});
+ */
+dao.updateAndReturn = async (obj = {}) => {
+	let { vk, db, _ } = util;
+	let res = {};
+	// 数据库操作开始-----------------------------------------------------------
+	res = await vk.baseDao.updateAndReturn({
+		...obj,
+		dbName: dbName_user
+	});
+	// 数据库操作结束-----------------------------------------------------------
+	return res;
+};
+
+/**
+ * 查 - 获取记录总条数
+ * @param {Object} whereJson 条件
+ * 调用示例
+await vk.daoCenter.userDao.count(whereJson);
+ */
+dao.count = async (whereJson) => {
+	let { vk, db, _ } = util;
+	let res = {};
+	// 数据库操作开始-----------------------------------------------------------
+	res = await vk.baseDao.count({
+		dbName: dbName_user,
+		whereJson
+	});
+	// 数据库操作结束-----------------------------------------------------------
+	return res;
+};
+
+
+/**
+ * 查 - 获取数据列表
+ * 调用示例
+res = await vk.daoCenter.userDao.getTableData({ data });
+ */
+dao.getTableData = async (obj = {}) => {
+	let { vk, db, _ } = util;
+	let res = {};
+	// 数据库操作开始-----------------------------------------------------------
+	res = await vk.baseDao.getTableData({
+		...obj,
+		dbName: dbName_user
+	});
+	// 数据库操作结束-----------------------------------------------------------
+	return res;
+};
+
+
 /**
  * 获取用户信息,根据
  * _id

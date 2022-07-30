@@ -747,7 +747,8 @@ class CallFunctionUtil {
 			sysErr = true;
 			errMsg = JSON.stringify(res);
 		}
-		if (errMsg.indexOf("timeout") > -1) {
+		if (!errMsg) errMsg = "";
+		if (errMsg.toLowerCase().indexOf("timeout") > -1 || errMsg.toLowerCase().indexOf("etimedout") > -1) {
 			sysErr = true;
 			errMsg = globalErrorCode["cloudfunction-timeout"] || "请求超时，请重试！";
 		}

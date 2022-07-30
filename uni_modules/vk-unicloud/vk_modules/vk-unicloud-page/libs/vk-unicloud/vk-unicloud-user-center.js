@@ -654,6 +654,23 @@ export default {
 		});
 	},
 	/**
+	 * 生成微信小程序url链接
+	 * data 请求参数 说明
+	 * @param {String} path    小程序页面路径
+	 * @param {String} query   小程序页面参数
+	 * @param {String} env_version  默认值"release"。要打开的小程序版本。正式版为 "release"，体验版为"trial"，开发版为"develop"，仅在微信外打开时生效
+	 * res 返回参数说明
+	 * @param {Number} code 错误码，0表示成功
+	 * @param {String} msg 详细信息
+	 */
+	getWeixinMPurl(obj = {}) {
+		addLoading(obj, "create");
+		return callFunction({
+			...obj,
+			url: 'user/kh/getWeixinMPurl',
+		});
+	},
+	/**
 	 * 获取支付宝code
 	 */
 	getAlipayCode() {

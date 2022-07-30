@@ -11,6 +11,7 @@
 	"forceInviteCode": false,
 	"preferedAppPlatform": "app-plus",
 	"preferedWebPlatform": "h5",
+	"removeDcloudAppid": false,
 	"app-plus": {
 		"tokenExpiresIn": 604800,
 		"oauth": {

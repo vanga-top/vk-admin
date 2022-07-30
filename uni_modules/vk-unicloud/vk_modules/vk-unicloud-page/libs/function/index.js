@@ -741,6 +741,32 @@ pubfn.checkDataExpText = function(data = {}, expText) {
 				} else {
 					itemKey = (typeof data[key] !== "undefined" && data[key] < Number(value)) ? true : false;
 				}
+			}  else if(andItem.indexOf("{in}") > -1) {
+				let andItemArr = andItem.split("{in}");
+				let key = andItemArr[0];
+				let value = andItemArr[1];
+				if (Array.isArray(data[key])) {
+					let index = data[key].findIndex(item =>{
+					  return item.toString() === value.toString();
+					});
+					itemKey = index > -1 ? true : false;
+				} else {
+					itemKey = false;
+				}
+				//itemKey = (Array.isArray(data[key]) && data[key].indexOf(value) > -1 ) ? true : false;
+			} else if(andItem.indexOf("{nin}") > -1) {
+				let andItemArr = andItem.split("{nin}");
+				let key = andItemArr[0];
+				let value = andItemArr[1];
+				if (Array.isArray(data[key])) {
+					let index = data[key].findIndex(item =>{
+					  return item.toString() === value.toString();
+					});
+					itemKey = index < 0 ? true : false;
+				} else {
+					itemKey = false;
+				}
+				//itemKey = (Array.isArray(data[key]) && data[key].indexOf(value) < 0 ) ? true : false;
 			} else {
 				let andItemArr = andItem.split("=");
 				let key = andItemArr[0];
