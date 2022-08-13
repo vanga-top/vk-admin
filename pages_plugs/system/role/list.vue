@@ -324,7 +324,7 @@
 	};
 </script>
 <style lang="scss" scoped>
-	/deep/ .el-tree-node__content .el-checkbox {
+	::v-deep .el-tree-node__content .el-checkbox {
 		margin-right: 8px;
 	}
 </style>

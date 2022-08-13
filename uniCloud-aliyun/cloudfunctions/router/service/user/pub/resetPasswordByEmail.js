@@ -26,7 +26,7 @@ module.exports = {
 		res = await uniID.verifyCode({
 			email,
 			code,
-			type: 'reset'
+			type: 'reset-pwd',  // 自2022-08-13起，以从reset改为reset-pwd，与官方uni-id对齐
 		});
 		if(res.code !== 0){
 			return res;

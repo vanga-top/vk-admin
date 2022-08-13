@@ -164,7 +164,7 @@ export default {
 		border: 1px solid #f5f5f5;
 		box-shadow: 6px 6px 10px 0px #888888;
 
-		/deep/ .input .el-input__inner {
+		::v-deep .input .el-input__inner {
 			border: 0 !important;
 			background-color: rgba(255, 255, 255, 0);
 		}
