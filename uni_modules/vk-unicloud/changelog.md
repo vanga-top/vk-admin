@@ -1,3 +1,11 @@
+## 2.10.11（2022-08-15）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.10.10（2022-08-13）
+* 1、【调整】根据手机验证码重置账号密码的短信验证 `type` 从 `reset` 改为 `reset-pwd`（与unicloud官方对齐）
+* 2、【调整】根据邮箱验证码重置账号密码的邮件验证 `type` 从 `reset` 改为 `reset-pwd`（与unicloud官方对齐）
+* 3、【修复】vk.pubfn.test("aaahttps://www.baidu.com","url") 会返回 true 的bug
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.10.9（2022-07-30）
 * 1、【优化】云对象 `this.getCloudInfo()` 内增加 `functionName`、`functionType` [传送门](https://vkdoc.fsq.pub/client/uniCloud/cloudfunctions/cloudObject.html#this-getcloudinfo-%E8%8E%B7%E5%8F%96%E4%BA%91%E7%AB%AF%E4%BF%A1%E6%81%AF)
 * 2、【优化】云对象 `this.getClientInfo()` 内增加 `source` [传送门](https://vkdoc.fsq.pub/client/uniCloud/cloudfunctions/cloudObject.html#this-getclientinfo-%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BF%A1%E6%81%AF)

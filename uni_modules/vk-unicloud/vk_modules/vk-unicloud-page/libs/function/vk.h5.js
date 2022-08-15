@@ -32,5 +32,29 @@ h5.getEnv = function() {
 	return "h5";
 };
 
+/**
+ * 获取当前项目根目录访问地址
+ * https://www.aaa.com/pages/index/index?a=1&b=1
+ * http://192.168.66.66:8080/pages/index/index?a=1&b=1
+ * 获取当前H5的url地址的https://www.aaa.com 部分
+ * let getRootPath = vk.h5.getRootPath();
+ * let getRootPath = vk.h5.getRootPath({ projectName:true });
+ */
+h5.getRootPath = function(obj={}) {
+	let {
+		projectName: _projectName = false
+	} = obj;
+	let wwwPath = window.location.href;
+	let pathName = window.location.pathname;
+	let pos = wwwPath.indexOf(pathName);
+	let localhostPaht = wwwPath.substring(0, pos);
+	let projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+	let rootPath = localhostPaht;
+	if (_projectName) {
+		rootPath = localhostPaht + projectName;
+	}
+	return rootPath;
+};
+
 export default h5;
 // #endif

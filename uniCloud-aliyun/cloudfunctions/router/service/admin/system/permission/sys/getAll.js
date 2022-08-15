@@ -17,7 +17,7 @@ module.exports = {
 			pageIndex: 1,
 			pageSize: 500,
 			whereJson: {
-				parent_id: null
+				parent_id: _.in([null,""])
 			}
 		});
 		// 业务逻辑结束-----------------------------------------------------------

@@ -6,7 +6,7 @@
 		<view class="vk-table-button-box">
 			<el-button type="success" size="small" icon="el-icon-circle-plus-outline" @click="addBtn">添加</el-button>
 			<el-button type="primary" size="small" icon="el-icon-s-tools" :disabled="!table1.selectItem" @click="bindPermissionBtn">设置内置权限</el-button>
-			<el-button type="success" size="small" icon="el-icon-circle-plus-outline" @click="addMenuByJsonBtn">通过JSON批量导入菜单</el-button>
+			<el-button type="success" size="small" icon="el-icon-circle-plus-outline" @click="addMenuByJsonBtn">通过JSON数组批量导入菜单</el-button>
 		</view>
 		<!-- 自定义按钮区域结束 -->
 

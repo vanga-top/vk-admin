@@ -13,11 +13,12 @@ module.exports = {
 		let { uid } = data;
 		let res = { code: 0, msg: "" };
 		// 业务逻辑开始----------------------------------------------------------- 
+		// 返回树状结构代码详情见：https://vkdoc.fsq.pub/client/uniCloud/db/getTree.html
 		res = await vk.system.sysDao.listMenuToTree({
 			pageIndex: 1,
 			pageSize: 500,
 			whereJson: {
-				parent_id: null
+				parent_id: _.in([null,""])
 			}
 		});
 		// 业务逻辑结束-----------------------------------------------------------
