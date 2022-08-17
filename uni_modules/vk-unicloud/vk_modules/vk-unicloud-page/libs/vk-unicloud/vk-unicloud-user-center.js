@@ -674,6 +674,7 @@ export default {
 	 * 获取支付宝code
 	 */
 	getAlipayCode() {
+		// #ifdef APP-PLUS || MP-ALIPAY
 		return new Promise((resolve, reject) => {
 			uni.login({
 				provider: 'alipay',
@@ -683,8 +684,9 @@ export default {
 				fail(err) {
 					reject(new Error('支付宝登录失败'));
 				}
-			})
-		})
+			});
+		});
+		// #endif
 	},
 	/**
 	 * 支付宝登录
@@ -928,6 +930,7 @@ export default {
 	 * 获取QQ code
 	 */
 	getQQCode() {
+		// #ifdef APP-PLUS || MP-QQ
 		return new Promise((resolve, reject) => {
 			uni.login({
 				provider: 'qq',
@@ -946,8 +949,9 @@ export default {
 				fail(err) {
 					reject(new Error('QQ登录失败'));
 				}
-			})
-		})
+			});
+		});
+		// #endif
 	},
 	/**
 	 * QQ登录

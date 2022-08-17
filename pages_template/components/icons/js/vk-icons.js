@@ -451,5 +451,17 @@ export default [
 	"vk-icon-youhuiquan",
 	"vk-icon-jifen1",
 	"vk-icon-shouqicaidan",
-	"vk-icon-zhankaicaidan"
+	"vk-icon-zhankaicaidan",
+	"vk-icon-weixin",
+	"vk-icon-weixin1",
+	"vk-icon-zhifubaozhifu",
+	"vk-icon-zhifubaozhifu1",
+	"vk-icon-zhifubaozhifu2",
+	"vk-icon-anzhuo",
+	"vk-icon-iOS",
+	"vk-icon-QQ",
+	"vk-icon-APPku",
+	"vk-icon-weixingongzhonghao",
+	"vk-icon-weixinxiaochengxu",
+	"vk-icon-heading-h5",
 ];
