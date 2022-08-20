@@ -1,3 +1,10 @@
+## 2.10.14（2022-08-20）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.10.13（2022-08-19）
+* 1、【优化】发送短信验证码接口和组件新增参数 `checkUserExist` : 是否需要检测手机号对应的账号是否存在，默认false：不检测 设置为true：会检测，如果检测到用户不存在，则不发短信。（如通过手机号找回密码的业务，如果手机号都未注册，则没有必要发短信）（需要替换文件：`router/service/user/pub/sendSmsCode.js`）
+* 2、【修复】数据库API，`_.geoNear` 部分情况下会失效的问题。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.10.12（2022-08-15）
 * 1、【优化】一些细节
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

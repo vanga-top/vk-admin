@@ -19,6 +19,9 @@ module.exports = {
 			pageSize: 500,
 			whereJson: {
 				parent_id: _.in([null,""])
+			},
+			treeProps:{
+				level: 3
 			}
 		});
 		// 业务逻辑结束-----------------------------------------------------------

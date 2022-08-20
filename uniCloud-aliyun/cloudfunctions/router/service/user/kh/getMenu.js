@@ -18,7 +18,10 @@ module.exports = {
 		} = userInfo;
 		// 根据角色获取菜单
 		res = await vk.system.sysDao.listMenuByRole({
-			role
+			role,
+			treeProps:{
+				level: 3
+			}
 		});
 		res.userInfo = userInfo;
 		// 业务逻辑结束-----------------------------------------------------------

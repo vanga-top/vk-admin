@@ -119,7 +119,12 @@ export default {
 		uniqueKey: {
 			type: String,
 			default: ''
-		}
+		},
+		// 是否需要检测手机号对应的账号是否存在，默认false：不检测 设置为true：会检测，如果检测到用户不存在，则不发短信。
+		checkUserExist: {
+			type: Boolean,
+			default: false
+		},
 	},
 	data() {
 		return {
@@ -242,16 +247,23 @@ export default {
 		sendSmsCode() {
 			let that = this;
 			let vk = uni.vk;
-			if (!that.canGetCode) {
-				vk.toast(`${that.secNum}${that.locale.tryAgainInSeconds}`, 'none');
+			let {
+				mobile,
+				type,
+				canGetCode,
+				checkUserExist,
+				secNum,
+				mode,
+			} = that;
+			if (!canGetCode) {
+				vk.toast(`${secNum}${that.locale.tryAgainInSeconds}`, 'none');
 				return;
 			}
-			if (that.mode === "custom") {
-				that.$emit("send", { type: that.type });
+			if (mode === "custom") {
+				that.$emit("send", { type: type });
 				return;
 			}
-			let mobile = that.mobile;
-			let type = that.type;
+		
 			if (!vk.pubfn.test(mobile, 'mobile')) {
 				vk.toast(that.locale.pleaseEnterTheCorrectMobileNumber, 'none');
 				return;
@@ -261,7 +273,8 @@ export default {
 				needAlert: false,
 				data: {
 					mobile,
-					type
+					type,
+					checkUserExist
 				},
 				success: function(data) {
 					vk.toast(that.locale.verificationCodeSent);
