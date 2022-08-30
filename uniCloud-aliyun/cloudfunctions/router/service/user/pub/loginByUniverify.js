@@ -30,6 +30,18 @@ module.exports = {
 			if (!res.msg) {
 				res.msg = res.type === "register" ? "注册成功" : "登录成功";
 			}
+			if (res.type === "register") {
+				let mobileStr = res.userInfo.mobile.substring(7);
+				res.userInfo = await vk.baseDao.updateAndReturn({
+					dbName: "uni-id-users",
+					whereJson: {
+						_id: res.uid
+					},
+					dataJson: {
+						nickname: data.nickname || `手机尾号${mobileStr}用户`,
+					},
+				});
+			}
 			// 日志服务
 			const loginLogService = vk.require("service/user/util/login_log");
 			await loginLogService.add({

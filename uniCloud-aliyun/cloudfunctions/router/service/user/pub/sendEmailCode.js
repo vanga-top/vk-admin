@@ -1,6 +1,6 @@
 var nodemailer;
 try {
-	nodemailer = require('nodemailer');	
+	nodemailer = require('nodemailer');
 } catch (err) {}
 module.exports = {
 	/**
@@ -20,7 +20,7 @@ module.exports = {
 		let { data = {}, util } = event;
 		let { uniID, config } = util;
 		let { email, type } = data;
-		let res = {code : -1, msg : ''};
+		let res = { code: 0, msg: 'ok' };
 		// 业务逻辑开始----------------------------------------------------------- 
 		const randomStr = '00000' + Math.floor(Math.random() * 1000000);
 		let code = randomStr.substring(randomStr.length - 6);
@@ -31,8 +31,8 @@ module.exports = {
 		};
 		// 发送验证码开始
 		var emailConfig = config.vk.service.email;
-		if(typeof nodemailer === "undefined"){
-			return { code : -1, msg : '请先安装npm包"nodemailer": "^6.4.11"' };
+		if (typeof nodemailer === "undefined") {
+			return { code: -1, msg: '请先安装npm包"nodemailer": "^6.4.11"' };
 		}
 		let emailService = nodemailer.createTransport({
 			"host": emailConfig[data.serviceType].host,
@@ -40,26 +40,21 @@ module.exports = {
 			"secure": emailConfig[data.serviceType].secure, // use SSL
 			"auth": emailConfig[data.serviceType].auth
 		});
-		try{
+		try {
 			await emailService.sendMail({
 				"from": emailConfig[data.serviceType].auth.user,
 				"to": data.email,
 				"subject": data.subject,
 				"text": `您的验证码是${code},打死也不要告诉别人哦!`
 			});
-			res.code = 0;
-			res.msg = "ok";
-		}
-		catch(err){
-			res.code = -1;
-			res.msg = "邮件发送失败";
-			res.err = err;
+			// 发送验证码成功后，设置验证码
+			await uniID.setVerifyCode(param);
+		} catch (err) {
+			console.error(err);
+			return { code: -1, msg: "邮件发送失败", err };
 		}
 		// 发送验证码结束
-		if(res.code === 0){
-			// 发送验证码成功后,设置验证码
-			await uniID.setVerifyCode(param);
-		}
+
 		// 业务逻辑结束-----------------------------------------------------------
 		return res;
 	}

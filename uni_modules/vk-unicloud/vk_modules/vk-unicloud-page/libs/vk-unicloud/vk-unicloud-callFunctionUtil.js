@@ -18,9 +18,9 @@ class CallFunctionUtil {
 				"router-test": "https://xxxxxxx.bspapp.com/http/router"
 			},
 			// vk.callFunction的isRequest的默认值
-			isRequestDefault:false,
+			isRequestDefault: false,
 			// 默认时区（中国为8）
-			targetTimezone:8,
+			targetTimezone: 8,
 			// 客户端登录页面地址
 			login: {
 				url: '/pages_template/uni-id/login/index/index'
@@ -45,14 +45,24 @@ class CallFunctionUtil {
 			uniIdUserInfoKeyName: "uni_id_user_info",
 			// 缓存键名 - 公共请求参数（请勿修改）
 			requestGlobalParamKeyName: "vk_request_global_param",
+			// 监听token刷新事件的事件名
+			onRefreshTokenEventName: "onRefreshToken",
 			// 自定义组件配置
 			components: {}
 		}
-		// 保存新的token
+		// 
+		/**
+		 * 保存新的token
+		 * 可通过下方的代码监听token的改变（写在app.vue的onLaunch内）
+		vk.$on('onRefreshToken',(data) => {
+			console.log('token改变监听：', data);
+		});
+		 */
 		this.saveToken = (res = {}) => {
 			let config = this.config;
 			vk.setStorageSync(config.uniIdTokenKeyName, res.token);
 			vk.setStorageSync(config.uniIdTokenExpiredKeyName, res.tokenExpired);
+			this.emitRefreshToken(res); // 触发token刷新事件
 			if (this.config.debug) console.log("--------【token已更新】--------");
 		}
 		// 删除token，并删除userInfo缓存
@@ -61,6 +71,7 @@ class CallFunctionUtil {
 			vk.removeStorageSync(config.uniIdTokenKeyName);
 			vk.removeStorageSync(config.uniIdTokenExpiredKeyName);
 			this.deleteUserInfo();
+			this.emitRefreshToken(); // 触发token刷新事件
 			if (this.config.debug) console.log("--------【token已删除】--------");
 		}
 		// 更新userInfo缓存
@@ -106,6 +117,27 @@ class CallFunctionUtil {
 				valid = true;
 			}
 			return valid;
+		}
+		/**
+		 * 触发监听token更新事件
+		 */
+		this.emitRefreshToken = (data = {}) => {
+			let config = this.config;
+			return vk.$emit(config.onRefreshTokenEventName, data); // 触发token刷新事件
+		}
+		/**
+		 * 监听token更新事件
+		 */
+		this.onRefreshToken = (callback) => {
+			let config = this.config;
+			return vk.$on(config.onRefreshTokenEventName, callback);
+		}
+		/**
+		 * 移除token更新事件
+		 */
+		this.offRefreshToken = (callback) => {
+			let config = this.config;
+			return vk.$off(config.onRefreshTokenEventName, callback);
 		}
 		/**
 		 * 修改请求配置中的公共请求参数
@@ -301,7 +333,8 @@ class CallFunctionUtil {
 			// 若执行的函数不是pub类型函数，则先本地判断下token，可以提高效率。
 			// if (url.indexOf("/pub/") == -1 && url.indexOf("/pub_") == -1) {
 			// 若执行的函数是kh或sys类型函数，先本地判断下token，可以提高效率。
-			if (url.indexOf("/kh/") > -1 || url.indexOf("/sys/") > -1 || (url.indexOf(".") > -1 && url.indexOf("pub_") == -1 && url.indexOf("/pub/") == -1 && url.indexOf("/pub.") == -1 && url.indexOf("pub.") !== 0 && url.indexOf("pub_") !== 0)) {
+			if (url.indexOf("/kh/") > -1 || url.indexOf("/sys/") > -1 || (url.indexOf(".") > -1 && url.indexOf("pub_") == -1 && url.indexOf("/pub/") == -1 && url.indexOf(
+					"/pub.") == -1 && url.indexOf("pub.") !== 0 && url.indexOf("pub_") !== 0)) {
 				if (!vk.checkToken()) {
 					// 若本地token校验未通过，则直接执行 login 拦截器函数
 					return new Promise((resolve, reject) => {
@@ -319,7 +352,7 @@ class CallFunctionUtil {
 					});
 				}
 			}
-			if (typeof obj.isRequest === "undefined"){
+			if (typeof obj.isRequest === "undefined") {
 				obj.isRequest = config.isRequestDefault;
 			}
 			// 执行请求

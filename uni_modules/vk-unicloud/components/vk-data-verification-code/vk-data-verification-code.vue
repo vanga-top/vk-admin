@@ -71,7 +71,7 @@ const localeObj = {
  */
 export default {
 	name: 'vk-data-verification-code',
-	emits: ['start', 'end', 'change','send','codeChange'],
+	emits: ['start', 'end', 'change','send','codeChange','error','success'],
 	props: {
 		// 模式，mobile 手机验证码 custom 自定义验证码 默认 mobile
 		mode: {
@@ -263,7 +263,7 @@ export default {
 				that.$emit("send", { type: type });
 				return;
 			}
-		
+
 			if (!vk.pubfn.test(mobile, 'mobile')) {
 				vk.toast(that.locale.pleaseEnterTheCorrectMobileNumber, 'none');
 				return;
@@ -279,19 +279,20 @@ export default {
 				success: function(data) {
 					vk.toast(that.locale.verificationCodeSent);
 					that.start();
+					that.$emit('success', data);
 				},
 				fail: function(err) {
 					that.tips = that.startTextCom;
 					if (err.errMsg && err.errMsg.indexOf('触发天级流控') > -1) {
-						vk.alert(that.locale.pleaseTryAgainTomorrow);
+						vk.alert(that.locale.pleaseTryAgainTomorrow,()=>{ that.$emit('error', err); });
 					} else if (err.errMsg && err.errMsg.indexOf('触发小时级流控') > -1) {
-						vk.alert(that.locale.pleaseTryAgainIn1Hour);
+						vk.alert(that.locale.pleaseTryAgainIn1Hour,()=>{ that.$emit('error', err); });
 					} else if (err.errMsg && err.errMsg.indexOf('触发分钟级流控') > -1) {
-						vk.alert(that.locale.pleaseTryAgainLater);
+						vk.alert(that.locale.pleaseTryAgainLater,()=>{ that.$emit('error', err); });
 					} else if (err.msg) {
-						vk.alert(err.msg);
+						vk.alert(err.msg,()=>{ that.$emit('error', err); });
 					} else {
-						vk.alert(that.locale.pleaseTryAgainLater);
+						vk.alert(that.locale.pleaseTryAgainLater,()=>{ that.$emit('error', err); });
 					}
 				}
 			});

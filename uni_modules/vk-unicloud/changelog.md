@@ -1,3 +1,118 @@
+## 2.11.7（2022-08-29）
+* 1、【重要】新增 `监听token更新` API [传送门](https://vkdoc.fsq.pub/client/vk.userCenter.html?t=20220829#vk-onrefreshtoken-%E7%9B%91%E5%90%ACtoken%E6%9B%B4%E6%96%B0%E4%BA%8B%E4%BB%B6)
+* 2、【优化】`云对象` 新增 `this.getUniCloudRequestId`（获取当前请求id）[传送门](https://vkdoc.fsq.pub/client/uniCloud/cloudfunctions/cloudObject.html#this-getunicloudrequestid-%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E8%AF%B7%E6%B1%82id)
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.6（2022-08-26）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.5（2022-08-25）
+* 1、【优化】`vk.pubfn.getCommonTime` 更新文档 [传送门](https://vkdoc.fsq.pub/client/jsapi.html?t=20220825#vk-pubfn-getcommontime-%E8%8E%B7%E5%8F%96%E6%97%B6%E9%97%B4%E8%8C%83%E5%9B%B4)
+* 2、【优化】其他细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.4（2022-08-23）
+* 1、【修复】快手小程序自动跳登录页面的问题。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.3（2022-08-22）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.2（2022-08-22）
+* 1、【重要】前端 `微信登录` 、 `微信获取openid` 等接口不再返回 `sessionKey` 取而代之的是返回 `encryptedKey`（加密后的数据，云函数解密后可获得 `sessionKey`）
+* 2、【重要】新增配置 `vk.crypto.aes` 用于返回给前端加密数据时的加密密钥
+
+![](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf0c5e69-620c-4f3c-84ab-f4619262939f/a4ca3d72-358e-4437-8766-d0b14e269697.png)
+
+* 3、【新增】`vk.crypto.aes.encrypt` 用于加密数据
+* 4、【新增】`vk.crypto.aes.decrypt` 用于解密数据
+
+```js
+// 加密数据
+let encryptedKey = vk.crypto.aes.encrypt({
+	data: {
+		sessionKey: "XXXXX"
+	}
+});
+console.log('encryptedKey: ', encryptedKey)
+
+// 解密 sessionKey 示例
+let decryptedRes = vk.crypto.aes.decrypt({
+	data: encryptedKey, // 待解密的原文
+});
+console.log('decryptedRes: ', decryptedRes)
+let sessionKey = decryptedRes.sessionKey;
+console.log('sessionKey: ', sessionKey)
+```
+
+**特别注意**
+
+* 1、本次更新需要替换 `router/service/user/pub/` 目录
+
+* 2、如果你使用了 `使用微信小程序绑定的手机号一键登录` 的API，则请看此处调整代码 [传送门](https://vkdoc.fsq.pub/client/vk.userCenter.html?t=20220822#vk-usercenter-loginbyweixinphonenumber-%E9%80%9A%E8%BF%87%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%BB%91%E5%AE%9A%E7%9A%84%E6%89%8B%E6%9C%BA%E5%8F%B7%E7%99%BB%E5%BD%95)
+
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.1（2022-08-22）
+* 1、【重要】前端 `微信登录` 、 `微信获取openid` 等接口不再返回 `sessionKey` 取而代之的是返回 `encryptedKey`（加密后的数据，云函数解密后可获得 `sessionKey`）
+* 2、【重要】新增配置 `vk.crypto.aes` 用于返回给前端加密数据时的加密密钥
+
+![](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf0c5e69-620c-4f3c-84ab-f4619262939f/a4ca3d72-358e-4437-8766-d0b14e269697.png)
+
+* 3、【新增】`vk.crypto.aes.encrypt` 用于加密数据
+* 4、【新增】`vk.crypto.aes.decrypt` 用于解密数据
+
+```js
+// 加密数据
+let encryptedKey = vk.crypto.aes.encrypt({
+	data: {
+		sessionKey: "XXXXX"
+	}
+});
+console.log('encryptedKey: ', encryptedKey)
+
+// 解密 sessionKey 示例
+let decryptedRes = vk.crypto.aes.decrypt({
+	data: encryptedKey, // 待解密的原文
+});
+console.log('decryptedRes: ', decryptedRes)
+let sessionKey = decryptedRes.sessionKey;
+console.log('sessionKey: ', sessionKey)
+```
+
+**特别注意**
+
+* 1、本次更新需要替换 `router/service/user/pub/` 目录
+
+* 2、如果你使用了 `使用微信小程序绑定的手机号一键登录` 的API，则请看此处调整代码 [传送门](https://vkdoc.fsq.pub/client/vk.userCenter.html?t=20220822#vk-usercenter-loginbyweixinphonenumber-%E9%80%9A%E8%BF%87%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%BB%91%E5%AE%9A%E7%9A%84%E6%89%8B%E6%9C%BA%E5%8F%B7%E7%99%BB%E5%BD%95)
+
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.0（2022-08-22）
+* 1、【重要】前端 `微信登录` 、 `微信获取openid` 等接口不再返回 `sessionKey` 取而代之的是返回 `encryptedKey`（加密后的数据，云函数解密后可获得 `sessionKey`）
+* 2、【重要】新增配置 `vk.crypto.aes` 用于返回给前端加密数据时的加密密钥
+* 3、【新增】`vk.crypto.aes.encrypt` 用于加密数据
+* 4、【新增】`vk.crypto.aes.decrypt` 用于解密数据
+```js
+// 加密数据
+let encryptedKey = vk.crypto.aes.encrypt({
+	data: {
+		sessionKey: "XXXXX"
+	}
+});
+console.log('encryptedKey: ', encryptedKey)
+
+// 解密 sessionKey 示例
+let decryptedRes = vk.crypto.aes.decrypt({
+	data: encryptedKey, // 待解密的原文
+});
+console.log('decryptedRes: ', decryptedRes)
+let sessionKey = decryptedRes.sessionKey;
+console.log('sessionKey: ', sessionKey)
+```
+**特别注意**
+
+本次更新需要替换 `router/service/user/pub/` 目录
+
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.10.15（2022-08-20）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.10.14（2022-08-20）
 * 1、【优化】一些细节
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

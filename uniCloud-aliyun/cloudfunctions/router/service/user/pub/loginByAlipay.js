@@ -24,6 +24,12 @@ module.exports = {
 			if (!res.msg) {
 				res.msg = res.type === "register" ? "注册成功" : "登录成功";
 			}
+			let encrypted = vk.crypto.aes.encrypt({
+				data: res
+			});
+			delete res.sessionKey; // 删除明文sessionKey
+			delete res.accessToken; // 删除明文accessToken
+			res.encryptedKey = encrypted; // 返回前端加密内容
 			// 日志服务
 			const loginLogService = vk.require("service/user/util/login_log");
 			await loginLogService.add({

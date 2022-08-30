@@ -1,3 +1,13 @@
+## 1.13.2（2022-08-30）
+* 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.13.6`
+* 2、【优化】`万能表格` 的合计功能支持指定精度（默认2位小数）[传送门](https://vkdoc.fsq.pub/admin/2/table.html?t=20220826#%E4%B8%87%E8%83%BD%E8%A1%A8%E6%A0%BC%E5%90%88%E8%AE%A1%E5%88%97%E7%9A%84%E7%A4%BA%E4%BE%8B)
+* 3、【优化】一些细节
+
+##### 框架更新步骤 [点击查看](https://vkdoc.fsq.pub/admin/1/update.html)
+##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架
+
+##### 如果你觉得框架对你有用，可以在下方进行评论，也可以进行赞赏。
+
 ## 1.13.1（2022-08-20）
 * 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.13.1`
 * 2、【优化】左侧菜单的最大层级支持自定义，需替换 `router/service/user/kh/getMenu.js` 文件，同时 `uni_modules/vk-unicloud` 模块更新到最新版

@@ -19,7 +19,10 @@ import config from '@/app.config.js'
 
 
 var util = {};
-
+var lastNavigate = {
+	url: "",
+	time: 0
+};
 /**
  * 保留当前页面，跳转到应用内的某个页面，使用vk.navigateBack可以返回到原页面。
  * vk.navigateTo(url);
@@ -38,6 +41,11 @@ util.navigateTo = function(obj) {
 		vk.toast("url不能为空!");
 		return false;
 	}
+	let time = Date.now();
+	if (lastNavigate.url === obj.url && (time - lastNavigate.time) < 200) {
+		return false;
+	}
+	lastNavigate = { url: obj.url, time };
 	util.checkNeedLogin({
 		url: obj.url,
 		success: function(res) {
@@ -49,9 +57,9 @@ util.navigateTo = function(obj) {
 				let { interceptor = {} } = config;
 				if (typeof interceptor.login === "function") {
 					let key = interceptor.login({
-						vk, 
+						vk,
 						params: obj,
-						res:{
+						res: {
 							...res,
 							code: 30204,
 							msg: "本地token校验未通过"
@@ -408,6 +416,17 @@ util.checkAllowShare = function(obj) {
 	}
 };
 
-
+util.$emit = function(...obj) {
+	return uni.$emit(...obj);
+};
+util.$on = function(...obj) {
+	return uni.$on(...obj);
+};
+util.$once = function(...obj) {
+	return uni.$once(...obj);
+};
+util.$off = function(...obj) {
+	return uni.$off(...obj);
+};
 
 export default util;

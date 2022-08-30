@@ -303,7 +303,7 @@ export default {
 	 * @param {String} tokenExpired		token过期时间
 	 */
 	loginByUniverify(obj = {}) {
-		uni.vk.showLoading('加载中...');
+		addLoading(obj, "login");
 		if (typeof obj.needAlert === "undefined") obj.needAlert = true;
 		// #ifdef APP-PLUS
 		uni.login({

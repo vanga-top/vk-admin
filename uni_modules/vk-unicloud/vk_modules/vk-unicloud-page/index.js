@@ -32,10 +32,13 @@ var vk = {
 	/**
 	 * 发起一个云函数请求
 	 */
-	callFunction:   callFunctionUtil.callFunction,
-	checkToken:     callFunctionUtil.checkToken,
-	uploadFile:     callFunctionUtil.uploadFile,
-	getConfig:      callFunctionUtil.getConfig,
+	callFunction:     callFunctionUtil.callFunction,
+	checkToken:       callFunctionUtil.checkToken,
+	uploadFile:       callFunctionUtil.uploadFile,
+	getConfig:        callFunctionUtil.getConfig,
+	emitRefreshToken: callFunctionUtil.emitRefreshToken,
+	onRefreshToken:   callFunctionUtil.onRefreshToken,
+	offRefreshToken:  callFunctionUtil.offRefreshToken,
 	pubfn,
 
 	// #ifdef H5
@@ -68,6 +71,14 @@ var vk = {
 	navigateToLogin:         navigate.navigateToLogin,
 	// 跳转到小程序
 	navigateToMiniProgram:   navigate.navigateToMiniProgram,
+	// 触发全局的自定义事件，附加参数都会传给监听器回调函数。
+	$emit:                   navigate.$emit,
+	// 监听全局的自定义事件，事件由 uni.$emit 触发，回调函数会接收事件触发函数的传入参数。
+	$on:                     navigate.$on,
+	// 触发全局的自定义事件，附加参数都会传给监听器回调函数。
+	$once:                   navigate.$once,
+	// 移除全局自定义事件监听器。
+	$off:                    navigate.$off,
 	// 本地缓存
 	localStorage:            localStorage,
 
@@ -79,6 +90,7 @@ var vk = {
 	getLocaleObject:         pubfn.getLocaleObject,
 	// 设置应用当前语言
 	setLocale:               pubfn.setLocale,
+	
 
 	// 本地缓存
 	...localStorage,
@@ -93,7 +105,7 @@ var vk = {
 	// 发起URL请求
 	request: requestUtil.request,
 	// 导出云对象
-	importObject,
+	importObject
 };
 // vk实例初始化
 vk.init = function(obj = {}) {

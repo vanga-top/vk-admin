@@ -161,15 +161,22 @@ util.getWeekStartAndEnd = function(addWeekCount = 0, date = new Date(), targetTi
  * 返回的是时间戳(防止时区问题)
  * 返回数据如下：
  {
-   todayStart 今日开始时间
-   todayEnd   今日结束时间
-   today12End 今日上午结束时间
-   monthStart 本月开始时间
-   monthEnd   本月结束时间
-   yearStart  本年开始时间
-   yearEnd    本年结束时间
-   weekStart  本周开始时间
-   weekEnd    本周结束时间
+   todayStart     今日开始时间
+   todayEnd       今日结束时间
+   today12End     今日上午结束时间
+   monthStart     本月开始时间
+   monthEnd       本月结束时间
+   yearStart      本年开始时间
+   yearEnd        本年结束时间
+   weekStart      本周开始时间
+   weekEnd        本周结束时间
+	 hourStart      当前小时开始时间
+	 hourEnd        当前小时结束时间
+	 yesterdayStart 昨天开始时间
+	 yesterday12End 昨天上午结束时间
+	 yesterdayEnd   昨天结束时间
+	 lastMonthStart 上月开始时间
+	 lastMonthEnd   上月结束时间
    now        现在的时间点(含月年日时分秒)
    months     本年度每月的开始和结束时间 months[1] 代表1月
  }
@@ -216,6 +223,10 @@ util.getCommonTime = function(date = new Date(), targetTimezone) {
 	res.yearStart = new Date(`${year}/1/1`).getTime() - timeDif;
 	// 本年结束时间
 	res.yearEnd = new Date(`${year}/12/${year_last_day}`).getTime() + (24 * 60 * 60 * 1000 - 1) - timeDif;
+	// 当前小时开始时间
+	res.hourStart = new Date(`${year}/${month}/${day} ${hour}:00:00`).getTime() - timeDif;
+	// 当前小时结束时间
+	res.hourEnd = new Date(`${year}/${month}/${day} ${hour}:59:59`).getTime() - timeDif;
 	// 计算上月开始-----------------------------------------------------------
 	let year_last = year;
 	let month_last = month - 1;
@@ -230,6 +241,13 @@ util.getCommonTime = function(date = new Date(), targetTimezone) {
 	res.lastMonthEnd = new Date(`${year_last}/${month_last}/${month_last_day_last}`).getTime() + (24 * 60 * 60 *
 		1000 - 1) - timeDif;
 	// 计算上月结束-----------------------------------------------------------
+	
+	// 昨天开始时间
+	res.yesterdayStart = res.todayStart - 1000 * 3600 * 24;
+	// 昨天上午结束时间
+	res.yesterday12End = res.today12End - 1000 * 3600 * 24;
+	// 昨天结束时间
+	res.yesterdayEnd = res.todayEnd - 1000 * 3600 * 24;
 
 	let weekObj = util.getWeekStartAndEnd(0, date);
 	// 本周开始时间

@@ -329,11 +329,13 @@ pubfn.formAssign = function(defaultData, itemData) {
  */
 pubfn.arr_concat = function(arr1, arr2, flag) {
 	if (!flag) flag = "id"; // 默认用id来判断是否是同一个对象元素
-	var arr3 = arr1.concat(arr2); // 新旧数据合并
-	var arr = []; // 定义一个临时数组 存放对象
+	if (!arr1) arr1 = [];
+	if (!arr2) arr2 = [];
+	let arr3 = arr1.concat(arr2); // 新旧数据合并
+	let arr = []; // 定义一个临时数组 存放对象
 	if (flag != -1) {
-		var arr_id = []; // 定义一个临时数组 存放id
-		for (var i in arr3) { // 循环遍历当前数组
+		let arr_id = []; // 定义一个临时数组 存放id
+		for (let i in arr3) { // 循环遍历当前数组
 			// 判断当前数组下标为i的元素是否已经保存到临时数组
 			// 如果已保存，则跳过，否则将此元素保存到临时数组中
 			if (arr_id.indexOf(arr3[i][flag]) == -1) {
@@ -1888,8 +1890,9 @@ pubfn.getPlatform = function() {
  * 获取当前页面实例
  * 返回数据
  * fullPath 当前打开页面的完整路径(带页面参数)
+ * pagePath 当前打开页面的路径(不含参数)
  * options  当前打开页面的参数
- * route    当前打开页面的路径(不含参数)
+ * route    当前打开页面路由地址
  * $vm      当前打开页面的vue实例
  * vk.pubfn.getCurrentPage();
  */
@@ -1897,6 +1900,7 @@ pubfn.getCurrentPage = function() {
 	let res = {};
 	let pages = getCurrentPages();
 	let page = pages[pages.length - 1];
+	if (page.route.indexOf("/") == 0) page.route = page.route.substring(1);
 	let pagePath = `/${page.route}`;
 	let fullPath = `/${page.route}`;
 	if (page.$page && typeof page.$page.options === "object") {
@@ -1904,9 +1908,9 @@ pubfn.getCurrentPage = function() {
 		fullPath = pagePath + optionsStr;
 	}
 	res.fullPath = fullPath;
+	res.pagePath = pagePath;
 	res.options = page.$page.options;
 	res.route = page.route;
-	res.pagePath = pagePath;
 	res.$vm = page.$vm;
 	return res;
 };

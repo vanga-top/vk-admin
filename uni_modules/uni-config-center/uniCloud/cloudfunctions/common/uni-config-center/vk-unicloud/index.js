@@ -26,6 +26,10 @@ module.exports = {
 			// 云函数默认时区（中国为8）
 			"targetTimezone": 8
 		},
+		// 加密的密钥
+		"crypto": {
+			"aes": "dad4c0cb88c7d005bc5e844b8e79a9f0dad4c0cb88c7d005bc5e844b8e79a9f0", // 对称加密的密钥，建议长度在64位-128位（此处建议修改成自己的密钥）
+		},
 		// 当 context 内的下面值为空时，赋予默认的值（主要用于解决云函数 URL 后的默认 APPID 问题。
 		"context": {
 			"APPID": "", // 默认 dcloud_appid

@@ -32,14 +32,9 @@ module.exports = {
 		res = await vk.openapi.weixin.auth.code2Session({
 			context: originalParam.context,
 			appid,
-			code
+			code,
+			needKey: false, // 是否需要返回明文的sessionKey或accessToken（为了安全期间，建议设置false）
 		});
-		if (res.code === 0) {
-			if (needCache && platform === "mp-weixin") {
-				// 缓存5分钟，可以用于配合loginByWeixinPhoneNumber使用，达到效果为：绑定手机号+微信
-				await vk.globalDataCache.set(`sys-weixin-session2openid-${res.sessionKey}`, res, 60 * 5);
-			}
-		}
 		// 业务逻辑结束-----------------------------------------------------------
 		return res;
 	}

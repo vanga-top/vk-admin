@@ -40,7 +40,8 @@ module.exports = {
 		res = await vk.openapi.weixin.loginByWeixin({
 			data,
 			context: originalParam.context,
-			custom
+			custom,
+			needKey: false, // 是否需要返回明文的sessionKey或accessToken（为了安全期间，建议设置false）
 		});
 		if (res.token) {
 			// 日志服务
