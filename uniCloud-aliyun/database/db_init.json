@@ -507,6 +507,18 @@
 				"enable":true
 			},
 			{
+				"_id": "sys-app-upgrade-center",
+				"_add_time": 1596416400000,
+				"menu_id":"sys-app-upgrade-center",
+				"name": "App升级中心",
+				"icon":"vk-icon-shengji3-xianxing",
+				"url": "/pages_plugs/system/app-upgrade-center/list",
+				"comment":"管理和发布新的app版本",
+				"sort": 6,
+				"parent_id":"sys-admin",
+				"enable":true
+			},
+			{
 				"_id": "system-uni",
 				"_add_time": 1596416400000,
 				"enable": true,
@@ -637,6 +649,46 @@
 			{
 				"IndexName": "create_date",
 				"MgoKeySchema": {"MgoIndexKeys": [{"Name": "create_date","Direction": "1"}],"MgoIsUnique": false}
+			},
+			{
+				"IndexName": "enable_upgrade_center",
+				"MgoKeySchema": { "MgoIndexKeys": [{ "Name": "enable_upgrade_center", "Direction": "1" }], "MgoIsUnique": false }
+			}
+		]
+	},
+	"opendb-app-versions": {
+		"data": [],
+		"index": [{
+				"IndexName": "_add_time",
+				"MgoKeySchema": { "MgoIndexKeys": [{ "Name": "_add_time", "Direction": "1" }], "MgoIsUnique": false }
+			},
+			{
+				"IndexName": "appid",
+				"MgoKeySchema": { "MgoIndexKeys": [{ "Name": "appid", "Direction": "1" }], "MgoIsUnique": false }
+			},
+			{
+				"IndexName": "name",
+				"MgoKeySchema": { "MgoIndexKeys": [{ "Name": "name", "Direction": "1" }], "MgoIsUnique": false }
+			},
+			{
+				"IndexName": "platform",
+				"MgoKeySchema": { "MgoIndexKeys": [{ "Name": "platform", "Direction": "1" }], "MgoIsUnique": false }
+			},
+			{
+				"IndexName": "type",
+				"MgoKeySchema": { "MgoIndexKeys": [{ "Name": "type", "Direction": "1" }], "MgoIsUnique": false }
+			},
+			{
+				"IndexName": "uni_platform",
+				"MgoKeySchema": { "MgoIndexKeys": [{ "Name": "uni_platform", "Direction": "1" }], "MgoIsUnique": false }
+			},
+			{
+				"IndexName": "create_env",
+				"MgoKeySchema": { "MgoIndexKeys": [{ "Name": "create_env", "Direction": "1" }], "MgoIsUnique": false }
+			},
+			{
+				"IndexName": "stable_publish",
+				"MgoKeySchema": { "MgoIndexKeys": [{ "Name": "stable_publish", "Direction": "1" }], "MgoIsUnique": false }
 			}
 		]
 	},

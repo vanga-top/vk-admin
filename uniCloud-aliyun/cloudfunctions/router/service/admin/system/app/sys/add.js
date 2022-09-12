@@ -23,7 +23,26 @@ module.exports = {
 			appid,
 			type,
 			name,
-			description
+			description,
+			// 1.13.4 新增以下字段（主要用于生成统一发布页和APP升级中心）
+			enable_upgrade_center,
+			introduction,
+			icon_url,
+			screenshot,
+			app_android,
+			app_ios,
+			mp_weixin,
+			mp_alipay,
+			mp_baidu,
+			mp_toutiao,
+			mp_qq,
+			mp_kuaishou,
+			mp_lark,
+			mp_jd,
+			mp_dingtalk,
+			quickapp,
+			h5,
+			store_list,
 		} = data;
 
 		// 参数合法校验开始-----------------------------------------------------------
@@ -44,7 +63,7 @@ module.exports = {
 			return { code: -1, msg: 'appid已存在，请勿重复添加' };
 		}
 
-		let create_date = new Date().getTime();
+		let create_date = Date.now();
 		res.id = await vk.baseDao.add({
 			dbName,
 			dataJson: {
@@ -52,7 +71,27 @@ module.exports = {
 				type,
 				name,
 				description,
-				create_date
+				create_date,
+				// 1.13.4 新增以下字段（主要用于生成统一发布页和APP升级中心）
+				enable_upgrade_center,
+				creator_uid: uid, // 创建者
+				introduction,
+				icon_url,
+				screenshot,
+				app_android,
+				app_ios,
+				mp_weixin,
+				mp_alipay,
+				mp_baidu,
+				mp_toutiao,
+				mp_qq,
+				mp_kuaishou,
+				mp_lark,
+				mp_jd,
+				mp_dingtalk,
+				quickapp,
+				h5,
+				store_list,
 			}
 		});
 		// 业务逻辑结束-----------------------------------------------------------

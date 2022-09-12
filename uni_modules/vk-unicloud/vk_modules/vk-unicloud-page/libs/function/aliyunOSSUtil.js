@@ -221,9 +221,9 @@ function createFileName(obj = {}) {
 function getFileSuffix(obj = {}) {
 	let {
 		file,
-		filePath
+		filePath,
+		suffix = "png"
 	} = obj;
-	let suffix = "png";
 	if (filePath) {
 		let suffixName = filePath.substring(filePath.lastIndexOf(".") + 1);
 		if (suffixName && suffixName.length < 5) suffix = suffixName;

@@ -195,7 +195,7 @@ export default {
 			if (typeof b == "boolean") mask = b;
 			if (typeof b == 'string') {
 				if (b == "ok") b = "success";
-				if (b == "success" || b == "loading" || b == "none") {
+				if (b == "success" || b == "loading" || b == "none" || b == "error") {
 					icon = b;
 				} else {
 					image = b;

@@ -20,14 +20,10 @@ module.exports = {
 			iv,
 			encryptedKey
 		} = data;
-		// 解密sessionKey
-		let decryptedRes = vk.crypto.aes.decrypt({
-			data: encryptedKey, // 待解密的原文
-		});
 		res = await vk.openapi.weixin.decrypt.getPhoneNumber({
 			encryptedData,
 			iv,
-			sessionKey: decryptedRes.sessionKey
+			encryptedKey
 		});
 		// 业务逻辑结束-----------------------------------------------------------
 		return res;

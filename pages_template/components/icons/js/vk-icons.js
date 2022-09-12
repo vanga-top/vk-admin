@@ -464,4 +464,5 @@ export default [
 	"vk-icon-weixingongzhonghao",
 	"vk-icon-weixinxiaochengxu",
 	"vk-icon-heading-h5",
+	"vk-icon-shengji3-xianxing"
 ];

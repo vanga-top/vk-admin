@@ -245,6 +245,8 @@ pubfn.test = function(str, type = "") {
 			return new RegExp(/^[a-zA-Z0-9_]*$/).test(str);
 		case 'english+number+_-': //英文+数字+_-
 			return new RegExp(/^[a-zA-Z0-9_-]*$/).test(str);
+		case 'version': //版本号 xx.xx.xx (xx必须是数字)
+			return new RegExp(/^([1-9]\d|[1-9])(.([1-9]\d|\d)){2}$/).test(str);
 		case 'number': //数字
 			return new RegExp(/^[0-9]*$/).test(str);
 		case 'english': //英文
@@ -676,7 +678,6 @@ pubfn.checkArrayIntersection = function(arr1 = [], arr2 = []) {
 	}
 	return checkKey;
 };
-
 /**
  * 检测数据源是否满足表达式规则
  * @param {Object} data 数据源
@@ -701,47 +702,57 @@ pubfn.checkDataExpText = function(data = {}, expText) {
 				let andItemArr = andItem.split("!=");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
-				itemKey = data[key] != value ? true : false;
+				if (typeof data[key] === "undefined") itemKey = data[key] !== value ? true : false;
+				if (typeof data[key] !== "undefined") itemKey = data[key].toString() !== value ? true : false;
 			} else if (andItem.indexOf("==") > -1) {
 				let andItemArr = andItem.split("==");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
-				itemKey = (typeof data[key] !== "undefined" && data[key].toString() == value) ? true : false;
+				if (typeof data[key] === "undefined") itemKey = data[key] == value ? true : false;
+				if (typeof data[key] !== "undefined") itemKey = data[key].toString() == value ? true : false;
 			} else if (andItem.indexOf(">=") > -1) {
 				let andItemArr = andItem.split(">=");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
 				if (isNaN(value)) {
-					itemKey = (typeof data[key] !== "undefined" && data[key].toString() >= value) ? true : false;
+					if (typeof data[key] === "undefined") itemKey = false;
+					if (typeof data[key] !== "undefined") itemKey = data[key].toString() >= value ? true : false;
 				} else {
-					itemKey = (typeof data[key] !== "undefined" && data[key] >= Number(value)) ? true : false;
+					if (typeof data[key] === "undefined") itemKey = false;
+					if (typeof data[key] !== "undefined") itemKey = data[key] >= Number(value) ? true : false;
 				}
 			} else if (andItem.indexOf(">") > -1) {
 				let andItemArr = andItem.split(">");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
 				if (isNaN(value)) {
-					itemKey = (typeof data[key] !== "undefined" && data[key].toString() > value) ? true : false;
+					if (typeof data[key] === "undefined") itemKey = false;
+					if (typeof data[key] !== "undefined") itemKey = data[key].toString() > value ? true : false;
 				} else {
-					itemKey = (typeof data[key] !== "undefined" && data[key] > Number(value)) ? true : false;
+					if (typeof data[key] === "undefined") itemKey = false;
+					if (typeof data[key] !== "undefined") itemKey = data[key] > Number(value) ? true : false;
 				}
 			} else if (andItem.indexOf("<=") > -1) {
 				let andItemArr = andItem.split("<=");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
 				if (isNaN(value)) {
-					itemKey = (typeof data[key] !== "undefined" && data[key].toString() <= value) ? true : false;
+					if (typeof data[key] === "undefined") itemKey = false;
+					if (typeof data[key] !== "undefined") itemKey = data[key].toString() <= value ? true : false;
 				} else {
-					itemKey = (typeof data[key] !== "undefined" && data[key] <= Number(value)) ? true : false;
+					if (typeof data[key] === "undefined") itemKey = false;
+					if (typeof data[key] !== "undefined") itemKey = data[key] <= Number(value) ? true : false;
 				}
 			} else if (andItem.indexOf("<") > -1) {
 				let andItemArr = andItem.split("<");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
 				if (isNaN(value)) {
-					itemKey = (typeof data[key] !== "undefined" && data[key].toString() < value) ? true : false;
+					if (typeof data[key] === "undefined") itemKey = false;
+					if (typeof data[key] !== "undefined") itemKey = data[key].toString() < value ? true : false;
 				} else {
-					itemKey = (typeof data[key] !== "undefined" && data[key] < Number(value)) ? true : false;
+					if (typeof data[key] === "undefined") itemKey = false;
+					if (typeof data[key] !== "undefined") itemKey = data[key] < Number(value) ? true : false;
 				}
 			}  else if(andItem.indexOf("{in}") > -1) {
 				let andItemArr = andItem.split("{in}");
@@ -773,7 +784,8 @@ pubfn.checkDataExpText = function(data = {}, expText) {
 				let andItemArr = andItem.split("=");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
-				itemKey = (typeof data[key] !== "undefined" && data[key].toString() == value) ? true : false;
+				if (typeof data[key] === "undefined") itemKey = data[key] == value ? true : false;
+				if (typeof data[key] !== "undefined") itemKey = data[key].toString() == value ? true : false;
 				//console.log("key:",key,"value:",value,"data[key]",data[key].toString(),"itemKey:",itemKey);
 			}
 			if (!itemKey) {
@@ -821,7 +833,7 @@ pubfn.isObject = function(value) {
  * vk.pubfn.calcFreights(freightItem, weight);
  */
 pubfn.calcFreights = function(freightItem, weight) {
-	let freightRes  = vk.pubfn.calcFreightDetail(freightItem, weight); 
+	let freightRes  = vk.pubfn.calcFreightDetail(freightItem, weight);
 	return freightRes.total_amount;
 };
 
@@ -1520,6 +1532,7 @@ pubfn.calcSize = function(length = 0, arr, ary, precision = 2, showType = "auto"
  * @param {String} 			url							请求地址(云函数路径)
  * @param {String} 			listName				后端返回的list数组的字段名称,默认rows(二选一即可)
  * @param {String} 			listKey					后端返回的list数组的字段名称,默认rows(二选一即可)
+ * @param {String} 			formKey					表单请求的对象数据源字段名称,默认queryForm1
  * @param {Object} 			data						额外数据
  * @param {function} 		dataPreprocess	数据预处理函数
  *
@@ -1541,6 +1554,7 @@ pubfn.getListData2 = function(obj = {}) {
 		that,
 		listName,
 		listKey = "rows",
+		formKey = "queryForm1",
 		url,
 		dataPreprocess,
 		idKeyName = "_id"
@@ -1551,7 +1565,7 @@ pubfn.getListData2 = function(obj = {}) {
 	 * 2.0使用的queryForm1作为查询,而1.0是form1
 	 * 2.0云函数端是getTableData,而1.0是selects
 	 */
-	let queryForm1 = that.queryForm1 || that.queryForm;
+	let queryForm1 = that[formKey] || that.queryForm1 || that.queryForm;
 	// 标记为请求中
 	that.loading = true;
 	let hasMore = true;
@@ -1636,6 +1650,7 @@ pubfn.getListData2 = function(obj = {}) {
  * @param {String} 			url							请求地址(云函数路径)
  * @param {String} 			listName				后端返回的list数组的字段名称,默认rows
  * @param {String} 			listKey					后端返回的list数组的字段名称,默认rows
+ * @param {String} 			formKey					表单请求的对象数据源字段名称,默认form1
  * @param {Object} 			data						额外数据
  * @param {function} 		dataPreprocess	数据预处理函数
  *
@@ -1644,6 +1659,7 @@ pubfn.getListData2 = function(obj = {}) {
 		that : this,
 		url : "template/db_api/pub/select",
 		listKey : "rows",
+		formKey : "form1",
 		data : {
 			a : 1
 		},
@@ -1657,13 +1673,15 @@ pubfn.getListData = function(obj = {}) {
 		that,
 		listName,
 		listKey = "rows",
+		formKey = "form1",
 		url,
 		dataPreprocess,
 		loading
 	} = obj;
 	let vk = uni.vk;
 	if (listName) listKey = listName;
-	var { form1 = {}, data = {} } = that;
+	var { data = {} } = that;
+	let form1 = that[formKey] || {};
 	var { pageKey = true } = data;
 	if (!form1.pageIndex) form1.pageIndex = 1;
 	if (!form1.pageSize) form1.pageSize = 20;

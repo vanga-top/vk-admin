@@ -13,7 +13,7 @@
 		<!-- 自定义按钮区域开始 -->
 		<view style="display: flex;height: 32px;">
 			<el-button type="success" size="small" icon="el-icon-circle-plus-outline" @click="addBtn">添加</el-button>
-			<el-alert v-if="!appIdExist" :title="`⚠警告：当前项目的 appId：${currentAppId} 没有在下方表格中，请修改！`" type="error" style="margin-left: 20px;"> </el-alert>
+			<el-alert v-if="!appIdExist" :title="`⚠警告：当前项目的 appId：${currentAppId} 没有在下方表格中，请新增应用或修改应用！`" type="error" style="margin-left: 20px;"> </el-alert>
 		</view>
 		<!-- 自定义按钮区域结束 -->
 		<!-- 表格组件开始 -->
@@ -22,7 +22,8 @@
 			:action="table1.action"
 			:columns="table1.columns"
 			:query-form-param="queryForm1"
-			:right-btns="['detail_auto','update','delete']"
+			:right-btns="['update','delete']"
+			:custom-right-btns="table1.customRightBtns"
 			:selection="false"
 			:row-no="true"
 			:pagination="true"
@@ -33,25 +34,8 @@
 		></vk-data-table>
 		<!-- 表格组件结束 -->
 
-		<!-- 添加或编辑的弹窗开始 -->
-		<vk-data-dialog
-			v-model="form1.props.show"
-			:title="form1.props.title"
-			width="500px"
-			mode="form"
-			:close-on-click-modal="false"
-		>
-			<vk-data-form
-				v-model="form1.data"
-				:rules="form1.props.rules"
-				:action="form1.props.action"
-				:form-type="form1.props.formType"
-				:columns='form1.props.columns'
-				label-width="80px"
-				@success="form1.props.show = false;refresh();"
-			></vk-data-form>
-		</vk-data-dialog>
-		<!-- 添加或编辑的弹窗结束 -->
+		<!-- 添加或编辑 -->
+		<addUpdate v-model="formDatas.addUpdate" @success="refresh"></addUpdate>
 
 		<!-- 页面内容结束 -->
 	</view>
@@ -60,86 +44,12 @@
 <script>
 	var that;													// 当前页面对象
 	var vk = uni.vk;									// vk实例
-	var originalForms = {};						// 表单初始化数据
 
-	var typeData = [
-		{
-			value:"1000",
-			label: "用户端",
-			children:[
-				{
-					value:"1001",
-					label: "通用",
-					children:[
-						{ value:"client", label:"用户端" },
-					]
-				},
-				{
-					value:"1002",
-					label: "商家",
-					children:[
-						{ value:"rider", label:"骑手端" },
-						{ value:"business", label:"商家端" },
-					]
-				},
-				{
-					value:"1003",
-					label: "教育",
-					children:[
-						{ value:"student", label:"学生端" },
-						{ value:"parent", label:"家长端" },
-						{ value:"teacher", label:"教师端" },
-					]
-				},
-				{
-					value:"1999",
-					label: "其他",
-					children:[
-						{ value:"other", label:"其他" },
-					]
-				}
-			]
-		},
-		{
-			value:"2000",
-			label: "管理端",
-			children:[
-				{
-					value:"2001",
-					label: "通用",
-					children:[
-						{ value:"admin", label:"管理端" },
-					]
-				},
-				{
-					value:"2002",
-					label: "商家",
-					children:[
-						{ value:"rider-admin", label:"骑手管理端" },
-						{ value:"business-admin", label:"商家管理端" },
-					]
-				},
-				{
-					value:"2003",
-					label: "教育",
-					children:[
-						{ value:"student-admin", label:"学生管理端" },
-						{ value:"parent-admin", label:"家长管理端" },
-						{ value:"teacher-admin", label:"教师管理端" },
-					]
-				},
-				{
-					value:"2999",
-					label: "其他",
-					children:[
-						{ value:"other-admin", label:"其他管理端" },
-					]
-				}
-			],
-		}
-	];
-
+	import addUpdate from './form/addUpdate.vue'
 	export default {
+		components:{
+			addUpdate,
+		},
 		data() {
 			// 页面数据变量
 			return {
@@ -155,7 +65,7 @@
 					action:"admin/system/app/sys/getList",
 					// 表格字段显示规则
 					columns:[
-						{ key:"appid", title:"appid", type:"text", width:160, sortable:"custom" },
+						{ key:"appid", title:"AppID", type:"text", width:160, sortable:"custom" },
 						{ key:"type", title:"应用类型", type:"text", width:120, sortable:"custom" },
 						{ key:"name", title:"应用名称", type:"text", width:240, sortable:"custom" },
 						{ key:"description", title:"应用描述", type:"text", minWidth:260 },
@@ -164,7 +74,23 @@
 					// 多选框选中的值
 					multipleSelection:[],
 					// 当前高亮的记录
-					selectItem:""
+					selectItem:"",
+					customRightBtns: [
+						{
+							title: '发布页管理', type: 'primary',
+							onClick:(item)=>{
+								vk.toast(`敬请期待`);
+							},
+							disabled:"enable_upgrade_center!=true",
+						},
+						{
+							title: '版本管理', type: 'primary',
+							onClick:(item)=>{
+								vk.navigateTo(`/pages_plugs/system/app-upgrade-center/list?appid=${item.appid}`);
+							},
+							disabled:"enable_upgrade_center!=true",
+						}
+					],
 				},
 				// 表格相关结束 -----------------------------------------------------------
 				// 表单相关开始 -----------------------------------------------------------
@@ -176,58 +102,10 @@
 					},
 					// 查询表单的字段规则 fieldName:指定数据库字段名,不填默认等于key
 					columns:[
-						{ key:"appid", title:"appid", type:"text", width:160, mode:"%%" },
+						{ key:"appid", title:"AppID", type:"text", width:160, mode:"%%" },
 						{ key:"name", title:"应用名称", type:"text", width:160, mode:"%%" },
 						{ key:"_add_time", title:"添加时间", type:"datetimerange", width:400, mode:"[]" },
 					]
-				},
-				form1:{
-					// 表单请求数据，此处可以设置默认值
-					data: {
-						name:""
-					},
-					// 表单属性
-					props: {
-						// 表单请求地址
-						action:"",
-						// 表单字段显示规则
-						columns:[
-							{ key:"appid", title:"appid", type:"text" },
-							{
-								key:"type", title:"应用类型", type:"cascader", data:typeData,
-								props:{
-									expandTrigger:"hover",
-									emitPath:false,
-								},
-								onChange:function(val, formData, column, index, option){
-									that.form1.data.name = option.label;
-								}
-							},
-							{ key:"name", title:"应用名称", type:"text" },
-							{
-								key:"description", title:"应用描述", type:"textarea",
-								autosize:{ minRows:4, maxRows:10 },
-								maxlength:200,
-								showWordLimit:true
-							},
-						],
-						// 表单验证规则
-						rules:{
-							appid: [
-								{ required: true, message: '应用的AppID为必填字段', trigger: 'blur' },
-							],
-							name: [
-								{ required: true, message: '应用名称为必填字段', trigger: 'blur' }
-							],
-							type: [
-								{ required: true, message: '应用类型为必填字段', trigger: 'blur' }
-							]
-						},
-						// add 代表添加 update 代表修改
-						formType:"",
-						// 是否显示表单的弹窗
-						show:false
-					}
 				},
 				// 其他弹窗表单
 				formDatas:{},
@@ -252,16 +130,11 @@
 		methods: {
 			// 页面数据初始化函数
 			init(options) {
-				originalForms["form1"] = vk.pubfn.copyObject(that.form1);
 				that.checkCurrentAppId();
 			},
 			// 页面跳转
 			pageTo(path) {
 				vk.navigateTo(path);
-			},
-			// 表单重置
-			resetForm(){
-				vk.pubfn.resetForm(originalForms, that);
 			},
 			// 搜索
 			search(){
@@ -286,19 +159,11 @@
 			},
 			// 显示添加页面
 			addBtn(){
-				that.resetForm();
-				that.form1.props.action = 'admin/system/app/sys/add';
-				that.form1.props.formType = 'add';
-				that.form1.props.title = '添加';
-				that.form1.props.show = true;
+				vk.pubfn.openForm('addUpdate',{ mode:"add" });
 			},
 			// 显示修改页面
 			updateBtn({ item }){
-				that.form1.props.action = 'admin/system/app/sys/update';
-				that.form1.props.formType = 'update';
-				that.form1.props.title = '编辑';
-				that.form1.props.show = true;
-				that.form1.data = item;
+				vk.pubfn.openForm('addUpdate',{ mode:"update", item });
 			},
 			// 删除按钮
 			deleteBtn({ item, deleteFn }){
@@ -315,7 +180,6 @@
 					that.currentAppId = systemInfo.appId;
 					vk.callFunction({
 						url: 'admin/system/app/sys/getInfo',
-						title: '请求中...',
 						data: {
 							appid: systemInfo.appId,
 						},
@@ -332,10 +196,6 @@
 		},
 		// 监听属性
 		watch: {
-
-		},
-		// 过滤器
-		filters: {
 
 		},
 		// 计算属性

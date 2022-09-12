@@ -29,15 +29,11 @@ module.exports = {
 			encryptedKey
 		} = data;
 
-		// 解密sessionKey
-		let decryptedRes = vk.crypto.aes.decrypt({
-			data: encryptedKey, // 待解密的原文
-		});
 		// 获取微信绑定的手机号
 		res = await vk.openapi.weixin.decrypt.getPhoneNumber({
 			encryptedData,
 			iv,
-			sessionKey: decryptedRes.sessionKey
+			encryptedKey
 		});
 		if (res.code !== 0) return res;
 		let {
@@ -54,6 +50,10 @@ module.exports = {
 			res.msg = res.type === "register" ? "注册成功" : "登录成功";
 		}
 		if (res.type === "register") {
+			// 解密获得openid和unionid
+			let decryptedRes = vk.crypto.aes.decrypt({
+				data: encryptedKey, // 待解密的原文
+			});
 			let wx_openid = {};
 			let wx_unionid = decryptedRes.unionid;
 			wx_openid["mp-weixin"] = decryptedRes.openid;

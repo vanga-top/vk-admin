@@ -1,3 +1,38 @@
+## 1.14.0（2022-09-12）
+* 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.14.0`
+* 2、【重要】`vk-admin` 内置 `App升级中心`（新增 `opendb-app-versions` 表）[传送门](https://vkdoc.fsq.pub/admin/6/app-upgrade-center.html)
+* 3、【重要】`应用管理` 重构（对齐官方 `opendb-app-list` 表）[传送门](https://vkdoc.fsq.pub/admin/6/app.html)
+
+**可以右键项目根目录的 `package.json` 一键更新（注意对比自己修改过的文件）**
+ 
+**以下是手动改更新步骤，本次改动涉及到的框架内置文件变动**
+
+* pages_plugs/system/app/ （替换整个目录）
+* pages_plugs/system/app-upgrade-center/ （替换整个目录）
+* cloudfunctions/router/service/admin/system/app/ （替换整个目录）
+* cloudfunctions/router/service/admin/system/app-upgrade-center/ （替换整个目录）
+
+**添加菜单**
+
+进入 `vk-admin` 菜单管理，点击【通过JSON数组批量导入菜单】粘贴下方json数组 导入
+
+```js
+[{"_id": "sys-app-upgrade-center","_add_time": 1596416400000,"menu_id":"sys-app-upgrade-center","name": "App升级中心","icon":"vk-icon-shengji3-xianxing","url": "/pages_plugs/system/app-upgrade-center/list","comment":"管理和发布新的app版本","sort": 6,"parent_id":"sys-admin","enable":true}]
+```
+
+**添加pages.json内的页面**
+
+```js
+{ "path": "system/app-upgrade-center/list" },
+```
+
+**完成上述步骤后，进入应用管理->编辑->开启App升级中心->即可进入版本管理。**
+
+##### 框架更新步骤 [点击查看](https://vkdoc.fsq.pub/admin/1/update.html)
+##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架
+
+##### 如果你觉得框架对你有用，可以在下方进行评论，也可以进行赞赏。
+
 ## 1.13.2（2022-08-30）
 * 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.13.6`
 * 2、【优化】`万能表格` 的合计功能支持指定精度（默认2位小数）[传送门](https://vkdoc.fsq.pub/admin/2/table.html?t=20220826#%E4%B8%87%E8%83%BD%E8%A1%A8%E6%A0%BC%E5%90%88%E8%AE%A1%E5%88%97%E7%9A%84%E7%A4%BA%E4%BE%8B)

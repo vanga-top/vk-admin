@@ -278,7 +278,7 @@
 					if(item.parent_id !== that.form1.data.parent_id){
 						that.refresh();
 					}else{
-						vk.pubfn.objectAssign(item, that.form1.data);
+						vk.pubfn.objectAssignForVue(item, that.form1.data, that);
 					}
 				}else{
 					that.refresh();

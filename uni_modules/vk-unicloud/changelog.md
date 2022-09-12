@@ -1,3 +1,18 @@
+## 2.11.12（2022-09-12）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.11（2022-09-11）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.10（2022-09-11）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.9（2022-09-08）
+* 1、【修复】`vk.baseDao.getTableData` 内使用 `_.geoNear` 无效的问题。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.8（2022-09-05）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.11.7（2022-08-29）
 * 1、【重要】新增 `监听token更新` API [传送门](https://vkdoc.fsq.pub/client/vk.userCenter.html?t=20220829#vk-onrefreshtoken-%E7%9B%91%E5%90%ACtoken%E6%9B%B4%E6%96%B0%E4%BA%8B%E4%BB%B6)
 * 2、【优化】`云对象` 新增 `this.getUniCloudRequestId`（获取当前请求id）[传送门](https://vkdoc.fsq.pub/client/uniCloud/cloudfunctions/cloudObject.html#this-getunicloudrequestid-%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E8%AF%B7%E6%B1%82id)
