@@ -5,6 +5,8 @@
 		:top="page.top"
 		:width="page.width"
 		mode="form"
+		@open="onOpen"
+		@closed="onClose"
 	>
 		<!-- 页面主体内容开始 -->
 		<vk-data-form
@@ -81,8 +83,7 @@ export default {
 							]
 						},
 						{ key: "menus", title: "JSON内容", type: "textarea",
-							autosize: { minRows: 18, maxRows: 18 },
-							tips:"必须是数组对象形式，JSON结构与static_menu目录下的menu.json文件内容一致。支持直接将静态菜单导入到菜单管理。"
+							autosize: { minRows: 18, maxRows: 18 }
 						},
 					],
 					// 表单验证规则
@@ -135,9 +136,6 @@ export default {
 		// 初始化
 		init() {
 			let { value } = that;
-			that._input(value);
-		},
-		_input(value){
 			that.$emit("input", value);
 		},
 		// 监听 - 页面打开
@@ -149,49 +147,16 @@ export default {
 		},
 		// 监听 - 页面关闭
 		onClose() {
-			that.resetForm();
+			that.$refs.form1.resetForm(); // 关闭时，重置表单
 		},
 		// 监听 - 提交成功后
 		onFormSuccess() {
-			that.close();
+			that.value.show = false; // 关闭页面
 			that.$emit("success");
 		},
-		// 下方的代码基本无需修改 -----------------------------------------------------------
-		// 打开页面
-		open() {
-			let { value } = that;
-			value.show = true;
-			that._input(value);
-		},
-		// 关闭页面
-		close() {
-			let { value } = that;
-			value.show = false;
-			that._input(value);
-		},
-		// 表单重置
-		resetForm() {
-			that.$refs.form1.resetForm();
-		},
-		// 表单提交
-		submitForm() {
-			that.$refs.form1.submitForm();
-		}
 	},
+	// 监听属性
 	watch: {
-		"value.show": {
-			handler(newValue, oldValue) {
-				let that = this;
-				if (newValue) {
-					that.onOpen();
-				} else {
-					that.onClose();
-				}
-			}
-		}
-	},
-	// 过滤器
-	filters: {
 
 	},
 	// 计算属性

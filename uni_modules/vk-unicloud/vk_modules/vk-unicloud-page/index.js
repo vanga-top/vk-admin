@@ -33,6 +33,7 @@ var vk = {
 	 * 发起一个云函数请求
 	 */
 	callFunction:     callFunctionUtil.callFunction,
+	getToken:         callFunctionUtil.getToken,
 	checkToken:       callFunctionUtil.checkToken,
 	uploadFile:       callFunctionUtil.uploadFile,
 	getConfig:        callFunctionUtil.getConfig,
@@ -90,7 +91,7 @@ var vk = {
 	getLocaleObject:         pubfn.getLocaleObject,
 	// 设置应用当前语言
 	setLocale:               pubfn.setLocale,
-	
+
 
 	// 本地缓存
 	...localStorage,

@@ -45,7 +45,7 @@
 		<!-- 添加或编辑的弹窗结束 -->
 
 		<!-- 设置角色权限组件 -->
-		<bindPermission v-model="formDatas.bindPermission" @success="refresh"></bindPermission>
+		<bindPermission v-model="formDatas.bindPermission"></bindPermission>
 
 		<!-- 通过JSON批量导入菜单 -->
 		<addMenuByJson v-model="formDatas.addMenuByJson" @success="refresh"></addMenuByJson>
@@ -295,18 +295,12 @@
 			},
 			// 设置内置权限
 			bindPermissionBtn(){
-				let item = that.getCurrentRow();
-				that.formDatas.bindPermission = {
-					show:true,
-					item:item,
-				};
+				let item = that.getCurrentRow(true);
+				vk.pubfn.openForm('bindPermission',{ item });
 			},
 			addMenuByJsonBtn(){
 				let item = that.getCurrentRow();
-				that.formDatas.addMenuByJson = {
-					show:true,
-					item:item,
-				};
+				vk.pubfn.openForm('addMenuByJson',{ item });
 			}
 		},
 		// 监听属性

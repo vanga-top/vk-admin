@@ -24,6 +24,7 @@ module.exports = {
 			reset,
 			addPermission
 		});
+		if (res.code !== 0) return res;
 		let dbName = "uni-id-roles";
 		let roleInfo = await vk.baseDao.findByWhereJson({
 			dbName,
@@ -33,14 +34,14 @@ module.exports = {
 		});
 		let count = roleInfo.menu ? roleInfo.menu.length : 0;
 		// 修改stats_count_info统计信息
-		await vk.baseDao.update({
+		res.info = await vk.baseDao.updateAndReturn({
 			dbName,
 			whereJson: {
-				role_id,
+				role_id
 			},
 			dataJson: {
-				["stats_count_info.type.0.count"] : count
-			}
+				["stats_count_info.type.0.count"]: count
+			},
 		});
 		return res;
 	}

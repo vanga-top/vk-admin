@@ -5,6 +5,8 @@
 		:top="page.top"
 		:width="page.width"
 		mode="form"
+		@open="onOpen"
+		@closed="onClose"
 	>
 		<!-- 页面主体内容开始 -->
 		<vk-data-form
@@ -63,6 +65,7 @@ export default {
 		// 组件创建时,进行数据初始化
 		return {
 			data:{
+				list:[],
 				// 权限的树形结构数据
 				treeData: [],
 				// 默认选中的权限列表
@@ -127,9 +130,6 @@ export default {
 		// 初始化
 		init() {
 			let { value } = that;
-			that._input(value);
-		},
-		_input(value){
 			that.$emit("input", value);
 		},
 		// 监听 - 页面打开
@@ -143,10 +143,16 @@ export default {
 
 			that.form1.data.role_id = role_id;
 			that.form1.data.menuList = menu;
-
-			that.page.loading = true;
+			if (vk.pubfn.isNotNull(that.data.treeData)){
+				that.initData();
+				return;
+			}
+			that.getList();
+		},
+		getList(){
 			vk.callFunction({
 				url: 'admin/system/menu/sys/getAll',
+				loading:{ that, name:"page.loading" },
 				data: {},
 				success: (data) => {
 					let rows = [{
@@ -156,66 +162,45 @@ export default {
 					}];
 					// 渲染树
 					that.data.treeData = rows;
-					let currentPermission = vk.pubfn.copyObject(menu);
-					// 设置当前选中用户的权限列表
-					// 去除所有含有子元素的权限
-					for(let i in data.list){
-						let item = data.list[i];
-						let index = currentPermission.indexOf(item.parent_id);
-						if(index > -1){
-							currentPermission.splice(index, 1);
-						}
-					}
-					that.data.checkedKeys = currentPermission;
-					that.$refs.tree.setCheckedKeys(currentPermission);
-				},
-				complete() {
-					// 设置权限数据状态为加载完毕
-					that.page.loading = false;
+					that.data.list = data.list;
+					that.initData();
 				}
 			});
+		},
+		initData(){
+			let { value={} } = that;
+			let { item } = value;
+			let { role_id, role_name, menu = [] } = item;
 
+			let current = vk.pubfn.copyObject(menu);
+			// 设置当前选中用户的权限列表
+			// 去除所有含有子元素的权限
+			for(let i in that.data.list){
+				let item = that.data.list[i];
+				let index = current.indexOf(item.parent_id);
+				if(index > -1){
+					current.splice(index, 1);
+				}
+			}
+			that.data.checkedKeys = current;
+			that.$refs.tree.setCheckedKeys(current);
 		},
 		// 监听 - 页面关闭
 		onClose() {
-			that.resetForm();
+			that.$refs.form1.resetForm(); // 关闭时，重置表单
 		},
 		// 监听 - 提交成功后
-		onFormSuccess() {
-			that.close();
-			that.$emit("success");
-		},
-		// 打开页面
-		open() {
-			let { value } = that;
-			value.show = true;
-			that._input(value);
-		},
-		// 关闭页面
-		close() {
-			let { value } = that;
-			value.show = false;
-			that._input(value);
-		},
-		// 表单重置
-		resetForm() {
-			that.$refs.form1.resetForm();
-		}
-	},
-	watch: {
-		"value.show": {
-			handler(newValue, oldValue) {
-				let that = this;
-				if (newValue) {
-					that.onOpen();
-				} else {
-					that.onClose();
-				}
+		onFormSuccess(res) {
+			if (res.data.info) {
+				that.$set(that.value.item, "menu", res.data.info.menu);
+				that.$set(that.value.item, "stats_count_info", res.data.info.stats_count_info);
 			}
+			that.value.show = false; // 关闭页面
+			that.$emit("success");
 		}
 	},
-	// 过滤器
-	filters: {
+	// 监听属性
+	watch: {
 
 	},
 	// 计算属性

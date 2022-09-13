@@ -50,7 +50,14 @@ class CallFunctionUtil {
 			// 自定义组件配置
 			components: {}
 		}
-		// 
+		/**
+		 * 获取我的token
+		 * vk.getToken();
+		 */
+		this.getToken = (res = {}) => {
+			let config = this.config;
+			return vk.getStorageSync(config.uniIdTokenKeyName);
+		}
 		/**
 		 * 保存新的token
 		 * 可通过下方的代码监听token的改变（写在app.vue的onLaunch内）

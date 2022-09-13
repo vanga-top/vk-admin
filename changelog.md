@@ -1,3 +1,23 @@
+## 1.14.1（2022-09-13）
+* 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.14.1`
+* 2、【优化】`vk-data-input-cascader`、`vk-data-input-checkbox`、`vk-data-input-radio`、`vk-data-input-remote-select`、`vk-data-input-tree-select` 组件均支持 `http方式请求数据`（用法与 `vk-data-input-table-select` 一致）
+如：
+```js
+{
+	key:"select1", title:"远程select", type:"remote-select",
+	showAll: true,
+	isRequest: true,
+	//requestHeader: {}, // 请求头
+	action: "https://www.xxx.com",
+	props: { list: "rows", value: "id", label: "name" },
+},
+```
+* 3、【优化】`用户管理`、`角色管理`、`权限管理`、`菜单管理` 的内部细节。
+
+##### 框架更新步骤 [点击查看](https://vkdoc.fsq.pub/admin/1/update.html)
+##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架
+
+##### 如果你觉得框架对你有用，可以在下方进行评论，也可以进行赞赏。
 ## 1.14.0（2022-09-12）
 * 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.14.0`
 * 2、【重要】`vk-admin` 内置 `App升级中心`（新增 `opendb-app-versions` 表）[传送门](https://vkdoc.fsq.pub/admin/6/app-upgrade-center.html)

@@ -5,6 +5,8 @@
 		:top="page.top"
 		:width="page.width"
 		:close-on-click-modal="true"
+		@open="onOpen"
+		@closed="onClose"
 	>
 		<vk-data-input-radio
 		  v-model="form1.curd_category"
@@ -91,20 +93,10 @@ export default {
 			});
 		},
 	},
+	// 监听属性
 	watch: {
-		"value.show": {
-			handler(newValue, oldValue) {
-				let that = this;
-				if (newValue) {
-					that.onOpen();
-				} else {
-					that.onClose();
-				}
-			}
-		}
+		
 	},
-	// 过滤器
-	filters: {},
 	// 计算属性
 	computed: {}
 };

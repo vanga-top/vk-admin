@@ -1,3 +1,8 @@
+## 2.11.13（2022-09-12）
+* 1、【修复】`vk.baseDao.getTableData` 内使用 `_.geoNear` 无效的问题。
+* 2、【优化】前端使用 `vk.request` 请求时，若本地缓存中有 `uni_id_token`，则请求头会带上 `uni_id_token` 的值
+* 3、【优化】`router` 函数 `url化后`，若没有直接传 `uni_id_token` 参数，则会尝试从请求头中获取 `uni_id_token` 
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.11.12（2022-09-12）
 * 1、【优化】一些细节
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

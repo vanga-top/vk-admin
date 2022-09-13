@@ -17,22 +17,23 @@ module.exports = {
 		let res = { code: 0, msg: '' };
 		// 业务逻辑开始-----------------------------------------------------------
 		let { role_id, permissionList, reset, stats_count_info = {} } = data;
-		res = uniID.bindPermission({
+		res = await uniID.bindPermission({
 			roleID: role_id,
 			permissionList,
 			reset
 		});
+		if (res.code !== 0) return res;
+		res.msg = res.message;
 		// 修改stats_count_info统计信息
-		await vk.baseDao.update({
+		res.info = await vk.baseDao.updateAndReturn({
 			dbName: "uni-id-roles",
 			whereJson: {
-				role_id,
+				role_id
 			},
 			dataJson: {
 				stats_count_info: _.set(stats_count_info)
-			}
+			},
 		});
-		res.msg = res.message;
 		return res;
 	}
 

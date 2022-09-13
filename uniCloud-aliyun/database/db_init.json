@@ -208,7 +208,7 @@
 				"permission_name": "系统内置权限",
 				"comment":"系统内置权限",
 				"url": "",
-				"sort": 1,
+				"sort": 103,
 				"enable":true
 			},
 			{
@@ -277,7 +277,7 @@
 				"permission_id":"sys-manage",
 				"permission_name": "用户角色权限菜单",
 				"comment":"",
-				"sort": 2,
+				"sort": 101,
 				"enable":true
 			},
 			{
@@ -341,12 +341,24 @@
 				"parent_id":"sys-manage"
 			},
 			{
+				"_id": "sys-manage-app-upgrade-center",
+				"_add_time": 1596416400000,
+				"permission_id": "sys-manage-app-upgrade-center",
+				"permission_name": "系统 - App升级中心",
+				"comment":"",
+				"url": ["admin/system/app-upgrade-center/sys/*"],
+				"sort": 6,
+				"enable": true,
+				"match_mode": 1,
+				"parent_id": "sys-manage"
+			},
+			{
 				"_id": "system-uni",
 				"_add_time": 1596416400000,
 				"permission_id":"system-uni",
 				"permission_name": "系统设置",
 				"comment":"",
-				"sort": 3,
+				"sort": 102,
 				"enable":true
 			},
 			{

@@ -37,7 +37,8 @@ module.exports = {
 				icon,
 				sort = 0,
 				parent_id,
-				enable = true
+				enable = true,
+				hidden_menu
 			} = menus[i];
 			
 			dataArr.push({
@@ -48,7 +49,8 @@ module.exports = {
 				icon,
 				sort,
 				parent_id,
-				enable
+				enable,
+				hidden_menu
 			});
 		}
 		if(mode == 1){

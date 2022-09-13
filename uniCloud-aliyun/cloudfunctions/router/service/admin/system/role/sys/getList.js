@@ -21,7 +21,28 @@ module.exports = {
 		let dbName = "uni-id-roles";
 		res = await vk.baseDao.getTableData({
 			dbName,
-			data
+			data,
+			// 副表列表
+			foreignDB: [
+				{
+					dbName: "uni-id-permissions",
+					localKey: "permission",
+					localKeyType: "array",
+					foreignKey: "permission_id",
+					as: "permissionList",
+					limit: 500,
+					fieldJson: { permission_id:true, permission_name:true,comment:true, enable:true, url:true },
+				},
+				{
+					dbName: "opendb-admin-menus",
+					localKey: "menu",
+					localKeyType: "array",
+					foreignKey: "menu_id",
+					as: "menuList",
+					limit: 500,
+					fieldJson: { menu_id:true, name:true,comment:true, enable:true, url:true },
+				},
+			]
 		});
 		// 业务逻辑结束-----------------------------------------------------------
 		return res;

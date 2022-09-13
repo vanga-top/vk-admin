@@ -47,7 +47,7 @@ vk.request({
 		"content-type": "application/x-www-form-urlencoded",
 	},
 	data:{
-		
+
 	},
 	success: function(data){
 
@@ -106,6 +106,17 @@ requestUtil.request = function(obj = {}) {
 	if (typeof obj.header === "undefined" && typeof obj.headers !== "undefined") {
 		obj.header = obj.headers;
 	}
+	
+	// 自动注入token到请求头开始-----------------------------------------------------------
+	if (typeof vk.getToken === "function") {
+		let uni_id_token = vk.getToken();
+		if (uni_id_token) {
+			if (!obj.header) obj.header = {};
+			obj.header["uni_id_token"] = uni_id_token;
+		}
+	}
+	// 自动注入token到请求头结束-----------------------------------------------------------
+	
 	if (typeof obj.timeout === "undefined") obj.timeout = 30000; // 超时时间，单位 ms(默认30秒)
 	let Logger = {};
 	if (config.debug) {

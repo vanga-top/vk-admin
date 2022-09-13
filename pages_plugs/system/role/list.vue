@@ -54,9 +54,9 @@
 		<!-- 添加或编辑的弹窗结束 -->
 
 		<!-- 角色赋予权限弹窗 -->
-		<bindPermission v-model="formDatas.bindPermission" @success="refresh"></bindPermission>
+		<bindPermission v-model="formDatas.bindPermission"></bindPermission>
 		<!-- 角色赋予菜单弹窗 -->
-		<bindMenu v-model="formDatas.bindMenu" @success="refresh"></bindMenu>
+		<bindMenu v-model="formDatas.bindMenu"></bindMenu>
 
 		<!-- 页面内容结束 -->
 	</view>
@@ -92,45 +92,52 @@
 						{ key:"role_id", title:"角色标识", type:"text", width:220 },
 						{ key:"role_name", title:"角色名称", type:"text", width:130 },
 						{ key:"comment", title:"备注", type:"text", minWidth:180 },
-						{ key:"permission", title:"拥有的权限", type:"text", minWidth:290, align:"left",
-							formatter:function(val, row, column, index){
+						{ key:"permissionList", title:"拥有的权限", type:"text", minWidth:290, align:"left",
+							formatter:(val, row, column, index)=>{
 								let str = "";
 								if(row.role_id === "admin"){
 									str = "系统内置角色 - 拥有所有权限";
-								}else if(row.role_id === "admin-lv3"){
-									str = "系统内置角色 - 拥有除【核弹级】权限外的其他所有权限";
-								}else if(row.role_id === "admin-lv2"){
-									str = "系统内置角色 - 拥有【炸弹级、子弹级】级别的权限";
-								}else if(row.role_id === "admin-lv1"){
-									str = "系统内置角色 - 拥有【子弹级】级别的权限";
-								}else if(row.role_id === "query-all"){
-									str = "系统内置角色 - 拥有所有【查询】分类且非【核弹级】的权限";
 								}else if(vk.pubfn.isNull(val)){
 									str = "该角色未赋予任何权限";
 								}else{
-									str = val;
+									val.map((item, index) => {
+										if(vk.pubfn.isNotNull(item.url)){
+											str += item.permission_name;
+											if (index !== val.length - 1) {
+												str += "、";
+											}
+										}
+									});
 								}
 								return str;
 							}
 						},
-						{ key:"menu", title:"拥有的菜单", type:"text", minWidth:290, align:"left",
-							formatter:function(val, row, column, index){
+						{ key:"menuList", title:"拥有的菜单", type:"text", minWidth:290, align:"left",
+							formatter:(val, row, column, index)=>{
 								let str = "";
 								if(row.role_id === "admin"){
 									str = "系统内置角色 - 拥有所有菜单";
 								}else if(vk.pubfn.isNull(val)){
 									str = "该角色未赋予任何菜单";
 								}else{
-									str = val;
+									val.map((item, index) => {
+										str += item.name;
+										if (index !== val.length - 1) {
+											str += "、";
+										}
+									});
 								}
 								return str;
 							}
 						},
 						// 系统
 						{ key:"stats_count_info", title:"统计信息", type:"html", width:220, align:"left", show: ["detail"],
-							formatter(val, row, column, index){
+							formatter:(val, row, column, index)=>{
 								console.log(`val`,val);
 								let str = ``;
+								if(row.role_id === "admin"){
+									return "拥有所有权限";
+								}
 								for (let value in val) {
 									switch(value){
 										case "curd_category":
@@ -256,8 +263,8 @@
 				that.$refs.table1.refresh();
 			},
 			// 获取当前选中的行的数据
-			getCurrentRow(){
-				return that.$refs.table1.getCurrentRow();
+			getCurrentRow(key){
+				return that.$refs.table1.getCurrentRow(key);
 			},
 			// 监听 - 行的选中高亮事件
 			currentChange(val){
@@ -294,27 +301,17 @@
 			},
 			// 权限赋予按钮
 			bindPermissionBtn(){
-				let item = that.getCurrentRow();
-				that.formDatas.bindPermission = {
-					show:true,
-					item:item,
-				};
+				let item = that.getCurrentRow(true);
+				vk.pubfn.openForm('bindPermission',{ item });
 			},
 		  // 菜单赋予绑定按钮
 			bindMenu(){
-				let item = that.getCurrentRow();
-				that.formDatas.bindMenu = {
-					show:true,
-					item:item,
-				};
+				let item = that.getCurrentRow(true);
+				vk.pubfn.openForm('bindMenu',{ item });
 			}
 		},
 		// 监听属性
 		watch: {
-
-		},
-		// 过滤器
-		filters: {
 
 		},
 		// 计算属性

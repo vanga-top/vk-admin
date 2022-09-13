@@ -79,9 +79,9 @@
 		<!-- 添加或编辑的弹窗结束 -->
 
 		<!-- 用户角色授权弹窗 -->
-		<bindRole v-model="formDatas.bindRole" @success="refresh"></bindRole>
+		<bindRole v-model="formDatas.bindRole"></bindRole>
 		<!-- 重置密码弹窗 -->
-		<resetPassword v-model="formDatas.resetPassword" @success="refresh"></resetPassword>
+		<resetPassword v-model="formDatas.resetPassword"></resetPassword>
 		<!-- 批量设置用户允许登录的客户端 -->
 		<setAuthorizedAppLogin v-model="formDatas.setAuthorizedAppLogin" @success="refresh"></setAuthorizedAppLogin>
 
@@ -142,6 +142,7 @@
 								return str;
 							}
 						},
+						{ key:"role", title:"角色", type:"text", width:120, defaultValue:'无' },
 						{ key:"comment", title:"备注", type:"text", width:160 },
 						{ key:"allow_login_background", title:"允许登录后台", type:"tag", width: 140, defaultValue:false, sortable:"custom",
 							data:[
@@ -163,7 +164,6 @@
 						{ key:"register_date", title:"注册时间", type:"time", width:160, sortable:"custom" },
 						{ key:"last_login_date", title:"最后登录时间", type:"dateDiff", width:130, defaultValue:'从未登录过', sortable:"custom" },
 						{ key:"last_login_ip", title:"最后登录ip", type:"text", width:120, defaultValue:'从未登录过' },
-						{ key:"role", title:"角色", type:"text", width:120, defaultValue:'无' },
 						{ key:"_id", title:"id", type:"text", width:280 },
 					],
 					// 多选框选中的值
@@ -361,8 +361,8 @@
 				that.$refs.table1.refresh();
 			},
 			// 获取当前选中的行的数据
-			getCurrentRow(){
-				return that.$refs.table1.getCurrentRow();
+			getCurrentRow(key){
+				return that.$refs.table1.getCurrentRow(key);
 			},
 			// 监听 - 行的选中高亮事件
 			currentChange(val){
@@ -409,19 +409,13 @@
 			},
 			// 角色绑定按钮
 			bindRoleBtn(){
-				let item = that.getCurrentRow();
-				that.formDatas.bindRole = {
-					show:true,
-					item:item,
-				};
+				let item = that.getCurrentRow(true);
+				vk.pubfn.openForm('bindRole',{ item });
 			},
 			// 重置密码按钮
 			resetPasswordBtn(){
-				let item = that.getCurrentRow();
-				that.formDatas.resetPassword = {
-					show:true,
-					item:item,
-				};
+				let item = that.getCurrentRow(true);
+				vk.pubfn.openForm('resetPassword',{ item });
 			},
 			//账户批量冻结/解冻
 			frozen(status){

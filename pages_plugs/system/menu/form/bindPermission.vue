@@ -5,6 +5,8 @@
 		:top="page.top"
 		:width="page.width"
 		mode="form"
+		@open="onOpen"
+		@closed="onClose"
 	>
 		<!-- 页面主体内容开始 -->
 		<vk-data-form
@@ -23,6 +25,12 @@
 			:submit-text="page.submitText"
 			@success="onFormSuccess"
 		>
+			<template v-slot:refresh>
+				<view style="margin-left: 30px;">
+					<text style="color: #66b1ff;text-decoration: underline;cursor: pointer;" @click="getList()">刷新数据</text>
+				</view>
+			</template>
+
 			<template v-slot:permissionList>
 				<el-tree
 					ref="tree"
@@ -63,6 +71,7 @@ export default {
 		// 组件创建时,进行数据初始化
 		return {
 			data:{
+				list:[],
 				info:{},
 				// 权限的树形结构数据
 				treeData: [],
@@ -94,6 +103,7 @@ export default {
 					// 表单字段显示规则
 					columns: [
 						// 常用字段类型
+						{ key: "refresh", title: "", type: "text", showLabel:false },
 						{ key: "permissionList", title: "权限列表", type: "text" }
 					],
 					// 表单验证规则
@@ -127,9 +137,6 @@ export default {
 		// 初始化
 		init() {
 			let { value } = that;
-			that._input(value);
-		},
-		_input(value){
 			that.$emit("input", value);
 		},
 		// 监听 - 页面打开
@@ -142,12 +149,19 @@ export default {
 			that.data.info = item;
 			that.form1.data.menu_id = menu_id;
 			that.form1.data.permissionList = permission;
-			that.page.loading = true;
+			if (vk.pubfn.isNotNull(that.data.treeData)){
+				that.initData();
+				return;
+			}
+			that.getList();
+		},
+		getList(){
 			// 执行请求
 			vk.callFunction({
 				url: 'admin/system/permission/sys/getAll',
 				data: {},
-			  success: (data) => {
+				loading:{ that, name:"page.loading" },
+				success: (data) => {
 					let rows = [{
 						label :"全选",
 						permission_id :"",
@@ -155,65 +169,41 @@ export default {
 					}];
 					// 渲染树
 					that.data.treeData = rows;
-					let currentPermission = vk.pubfn.copyObject(permission);
-					// 设置当前选中用户的权限列表
-					// 去除所有含有子元素的权限
-					for(let i in data.list){
-						let item = data.list[i];
-						let index = currentPermission.indexOf(item.parent_id);
-						if(index > -1){
-							currentPermission.splice(index, 1);
-						}
-					}
-					that.data.checkedKeys = currentPermission;
-					that.$refs.tree.setCheckedKeys(currentPermission);
-			  },
-				complete() {
-					// 设置权限数据状态为加载完毕
-					that.page.loading = false;
+					that.data.list = data.list;
+					that.initData();
 				}
 			});
 		},
-		// 监听 - 页面关闭
-		onClose() {
-			that.resetForm();
-		},
-		// 监听 - 提交成功后
-		onFormSuccess() {
-			that.close();
-			that.$emit("success");
-		},
-		// 打开页面
-		open() {
-			let { value } = that;
-			value.show = true;
-			that._input(value);
-		},
-		// 关闭页面
-		close() {
-			let { value } = that;
-			value.show = false;
-			that._input(value);
-		},
-		// 表单重置
-		resetForm() {
-			that.$refs.form1.resetForm();
-		}
-	},
-	watch: {
-		"value.show": {
-			handler(newValue, oldValue) {
-				let that = this;
-				if (newValue) {
-					that.onOpen();
-				} else {
-					that.onClose();
+		initData(){
+			let { value={} } = that;
+			let { item } = value;
+			let { menu_id, name, permission = [] } = item;
+			let currentPermission = vk.pubfn.copyObject(permission);
+			// 设置当前选中用户的权限列表
+			// 去除所有含有子元素的权限
+			for(let i in that.data.list){
+				let item = that.data.list[i];
+				let index = currentPermission.indexOf(item.parent_id);
+				if(index > -1){
+					currentPermission.splice(index, 1);
 				}
 			}
+			that.data.checkedKeys = currentPermission;
+			that.$refs.tree.setCheckedKeys(currentPermission);
+		},
+		// 监听 - 页面关闭
+		onClose() {
+			that.$refs.form1.resetForm(); // 关闭时，重置表单
+		},
+		// 监听 - 提交成功后
+		onFormSuccess(res) {
+			that.$set(that.value.item, "permission", that.form1.data.permissionList);
+			that.value.show = false; // 关闭页面
+			that.$emit("success");
 		}
 	},
-	// 过滤器
-	filters: {
+	// 监听属性
+	watch: {
 
 	},
 	// 计算属性

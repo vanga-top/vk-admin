@@ -5,6 +5,8 @@
 		:top="page.top"
 		:width="page.width"
 		mode="form"
+		@open="onOpen"
+		@closed="onClose"
 	>
 		<!-- 页面主体内容开始 -->
 		<vk-data-form
@@ -63,6 +65,7 @@ export default {
 		// 组件创建时,进行数据初始化
 		return {
 			data:{
+				list:[],
 				info:{},
 				// 权限的树形结构数据
 				treeData: [],
@@ -154,17 +157,12 @@ export default {
 						};
 						allCheckedKeys.forEach((value,index,arr)=>{
 							let res = vk.pubfn.getListItem(list,"permission_id",value);
-							if(res.curd_category === 0 || res.curd_category){
-								stats_count_info["curd_category"][res.curd_category].count++;
-							};
-							if(res.level === 0 || res.level){
-								stats_count_info["level"][res.level].count++;
-							};
-							if(res.match_mode === 0 || res.match_mode){
-								stats_count_info["match_mode"][res.match_mode].count++;
-							};
-							if(vk.pubfn.isNotNull(res.url)){
+							let { curd_category=0, level=0, match_mode=0, url } = res;
+							if(vk.pubfn.isNotNull(url)){
 								stats_count_info["type"][1].count++;
+								stats_count_info["curd_category"][curd_category].count++;
+								stats_count_info["level"][level].count++;
+								stats_count_info["match_mode"][match_mode].count++;
 							};
 						});
 						formData.stats_count_info = stats_count_info;
@@ -182,9 +180,6 @@ export default {
 		// 初始化
 		init() {
 			let { value } = that;
-			that._input(value);
-		},
-		_input(value){
 			that.$emit("input", value);
 		},
 		// 监听 - 页面打开
@@ -197,11 +192,18 @@ export default {
 			that.data.info = item;
 			that.form1.data.role_id = role_id;
 			that.form1.data.permissionList = permission;
-			that.page.loading = true;
+			if (vk.pubfn.isNotNull(that.data.treeData)){
+				that.initData();
+				return;
+			}
+			that.getList();
+		},
+		getList(){
 			// 执行请求
 			vk.callFunction({
 				url: 'admin/system/permission/sys/getAll',
 				data: {},
+				loading:{ that, name:"page.loading" },
 			  success: (data) => {
 					let rows = [{
 						label :"全选",
@@ -210,65 +212,44 @@ export default {
 					}];
 					// 渲染树
 					that.data.treeData = rows;
-					let currentPermission = vk.pubfn.copyObject(permission);
-					// 设置当前选中用户的权限列表
-					// 去除所有含有子元素的权限
-					for(let i in data.list){
-						let item = data.list[i];
-						let index = currentPermission.indexOf(item.parent_id);
-						if(index > -1){
-							currentPermission.splice(index, 1);
-						}
-					}
-					that.data.checkedKeys = currentPermission;
-					that.$refs.tree.setCheckedKeys(currentPermission);
-			  },
-				complete() {
-					// 设置权限数据状态为加载完毕
-					that.page.loading = false;
-				}
+					that.data.list = data.list;
+					that.initData();
+			  }
 			});
+		},
+		initData(){
+			let { value={} } = that;
+			let { item } = value;
+			let { menu_id, name, permission = [] } = item;
+			let current = vk.pubfn.copyObject(permission);
+			// 设置当前选中用户的权限列表
+			// 去除所有含有子元素的权限
+			for(let i in that.data.list){
+				let item = that.data.list[i];
+				let index = current.indexOf(item.parent_id);
+				if(index > -1){
+					current.splice(index, 1);
+				}
+			}
+			that.data.checkedKeys = current;
+			that.$refs.tree.setCheckedKeys(current);
 		},
 		// 监听 - 页面关闭
 		onClose() {
-			that.resetForm();
+			that.$refs.form1.resetForm(); // 关闭时，重置表单
 		},
 		// 监听 - 提交成功后
-		onFormSuccess() {
-			that.close();
-			that.$emit("success");
-		},
-		// 打开页面
-		open() {
-			let { value } = that;
-			value.show = true;
-			that._input(value);
-		},
-		// 关闭页面
-		close() {
-			let { value } = that;
-			value.show = false;
-			that._input(value);
-		},
-		// 表单重置
-		resetForm() {
-			that.$refs.form1.resetForm();
-		}
-	},
-	watch: {
-		"value.show": {
-			handler(newValue, oldValue) {
-				let that = this;
-				if (newValue) {
-					that.onOpen();
-				} else {
-					that.onClose();
-				}
+		onFormSuccess(res) {
+			if (res.data.info) {
+				that.$set(that.value.item, "permission", res.data.info.permission);
+				that.$set(that.value.item, "stats_count_info", res.data.info.stats_count_info);
 			}
+			that.value.show = false; // 关闭页面
+			that.$emit("success");
 		}
 	},
-	// 过滤器
-	filters: {
+	// 监听属性
+	watch: {
 
 	},
 	// 计算属性

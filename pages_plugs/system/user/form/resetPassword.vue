@@ -5,6 +5,8 @@
 		:top="page.top"
 		:width="page.width"
 		mode="form"
+		@open="onOpen"
+		@closed="onClose"
 	>
 		<!-- 页面主体内容开始 -->
 		<vk-data-form
@@ -55,11 +57,11 @@ export default {
 			// 页面基础数据
 			page: {
 				title: "重置密码",
-				submitText: "绑定",
+				submitText: "修改",
 				cancelText: "关闭",
 				showCancel: true,
 				top: "7vh",
-				width:"500px",
+				width:"600px",
 				loading: false
 			},
 			data:{
@@ -106,9 +108,6 @@ export default {
 		// 初始化
 		init() {
 			let { value } = that;
-			that._input(value);
-		},
-		_input(value){
 			that.$emit("input", value);
 		},
 		// 监听 - 页面打开
@@ -124,51 +123,19 @@ export default {
 		},
 		// 监听 - 页面关闭
 		onClose() {
-			//that.resetForm();
+			that.$refs.form1.resetForm(); // 关闭时，重置表单
 		},
 		// 表单提交成功后
 		onFormSuccess() {
-			that.close();
+			that.value.show = false; // 关闭页面
 			that.$emit("success");
 		},
-		// 打开页面
-		open() {
-			let { value } = that;
-			value.show = true;
-			that._input(value);
-		},
-		// 关闭页面
-		close() {
-			let { value } = that;
-			value.show = false;
-			that._input(value);
-		},
-		// 表单重置
-		resetForm() {
-			that.$refs.form1.resetForm();
-		},
-		// 表单提交
-		submitForm() {
-			that.$refs.form1.submitForm();
-		},
+
 	},
+	// 监听属性
 	watch: {
-		// 监听页面的显示和关闭
-		"value.show": {
-			handler(newValue, oldValue) {
-				let that = this;
-				if (newValue) {
-					// 页面显示
-					that.onOpen();
-				} else {
-					// 页面关闭
-					that.onClose();
-				}
-			}
-		}
+
 	},
-	// 过滤器
-	filters: {},
 	// 计算属性
 	computed: {}
 };

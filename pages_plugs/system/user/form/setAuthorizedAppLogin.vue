@@ -6,6 +6,8 @@
 		:width="page.width"
 		:close-on-click-modal="true"
 		mode="form"
+		@open="onOpen"
+		@closed="onClose"
 	>
 		<!-- 页面主体内容开始 -->
 		<vk-data-form
@@ -126,7 +128,7 @@ export default {
 									allow_login_background = true;
 								}
 							}
-							
+
 						}
 						formData.user_ids = that.value.item.user_ids;
 						formData.allow_login_background = allow_login_background;
@@ -164,20 +166,10 @@ export default {
 			that.$emit("success");
 		}
 	},
+	// 监听属性
 	watch: {
-		"value.show": {
-			handler(newValue, oldValue) {
-				let that = this;
-				if (newValue) {
-					that.onOpen();
-				} else {
-					that.onClose();
-				}
-			}
-		}
+		
 	},
-	// 过滤器
-	filters: {},
 	// 计算属性
 	computed: {}
 };
