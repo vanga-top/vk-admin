@@ -1,3 +1,21 @@
+## 2.11.19（2022-09-29）
+* 1、【修复】升级HBX后带来的部分兼容性问题。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.18（2022-09-26）
+* 1、【优化】`vk.pubfn.getCurrentPage()` API 在最新版HBX上的兼容性。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.17（2022-09-22）
+* 1、【重要】微信公众号万能API调用接口支持在阿里云空间执行（自动使用阿里云代理模式）[传送门 - 阿里云固定IP设置](https://uniapp.dcloud.net.cn/uniCloud/cf-functions.html#aliyun-eip)
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.16（2022-09-18）
+* 1、【修复】`vk.crypto.aes.encrypt`、`vk.crypto.aes.decrypt` 在非 `router` 目录结构的云函数中运行可能会报错的问题。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.15（2022-09-17）
+* 1、【修复】`vk.crypto.aes.encrypt`、`vk.crypto.aes.decrypt` 在非 `router` 目录结构的云函数中运行可能会报错的问题。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.14（2022-09-16）
+* 1、【修复】`vk.baseDao.getTableData` 的查询条件某个字段的值指定为null时，可能会报错的问题。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.11.13（2022-09-12）
 * 1、【修复】`vk.baseDao.getTableData` 内使用 `_.geoNear` 无效的问题。
 * 2、【优化】前端使用 `vk.request` 请求时，若本地缓存中有 `uni_id_token`，则请求头会带上 `uni_id_token` 的值

@@ -439,6 +439,7 @@ class CallFunctionUtil {
 		this.uploadFile = (obj = {}) => {
 			let that = this;
 			let config = that.config;
+			if (!obj.filePath && obj.file && obj.file.path) obj.filePath = obj.file.path;
 			let {
 				filePath,
 				cloudPath,
@@ -788,16 +789,15 @@ class CallFunctionUtil {
 			errMsg = JSON.stringify(res);
 		}
 		if (!errMsg) errMsg = "";
-		if (errMsg.toLowerCase().indexOf("timeout") > -1 || errMsg.toLowerCase().indexOf("etimedout") > -1) {
-			sysErr = true;
-			errMsg = globalErrorCode["cloudfunction-timeout"] || "请求超时，请重试！";
-		}
 		if (res.code >= 90001 && errMsg.indexOf("数据库") > -1) {
 			sysErr = true;
 		} else if ([404, 500].indexOf(res.code) > -1 && errMsg.indexOf("云函数") > -1) {
 			sysErr = true;
-		} else if (res.code === "SYS_ERR" && errMsg.indexOf(": request:ok") > -1) {
+		} else if ((res.code === 501 && errMsg.indexOf("timeout for 10000ms") > -1) || (res.code === "SYS_ERR" && errMsg.indexOf(": request:ok") > -1)) {
 			errMsg = globalErrorCode["cloudfunction-unusual-timeout"] || "请求超时，但请求还在执行，请重新进入页面。";
+		} else if (errMsg.toLowerCase().indexOf("timeout") > -1 || errMsg.toLowerCase().indexOf("etimedout") > -1) {
+			sysErr = true;
+			errMsg = globalErrorCode["cloudfunction-timeout"] || "请求超时，请重试！";
 		} else if (errMsg.indexOf("reaches burst limit") > -1) {
 			errMsg = globalErrorCode["cloudfunction-reaches-burst-limit"] || "系统繁忙，请稍后再试。";
 		}

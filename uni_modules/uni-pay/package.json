@@ -1,7 +1,7 @@
 {
   "id": "uni-pay",
   "displayName": "uni-pay",
-  "version": "1.0.29",
+  "version": "1.1.1",
   "description": "更简单的支付接口调用方式、拉齐不同支付平台",
   "keywords": [
     "unipay",
@@ -13,11 +13,7 @@
   "engines": {
     "HBuilderX": "^3.1.0"
   },
-  "dcloudext": {
-    "category": [
-      "uniCloud",
-      "云函数模板"
-    ],
+"dcloudext": {
     "sale": {
       "regular": {
         "price": "0.00"
@@ -34,7 +30,8 @@
       "data": "无",
       "permissions": "无"
     },
-    "npmurl": ""
+    "npmurl": "",
+    "type": "unicloud-template-function"
   },
   "uni_modules": {
     "dependencies": [],

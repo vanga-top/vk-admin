@@ -754,26 +754,26 @@ pubfn.checkDataExpText = function(data = {}, expText) {
 					if (typeof data[key] === "undefined") itemKey = false;
 					if (typeof data[key] !== "undefined") itemKey = data[key] < Number(value) ? true : false;
 				}
-			}  else if(andItem.indexOf("{in}") > -1) {
+			} else if (andItem.indexOf("{in}") > -1) {
 				let andItemArr = andItem.split("{in}");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
 				if (Array.isArray(data[key])) {
-					let index = data[key].findIndex(item =>{
-					  return item.toString() === value.toString();
+					let index = data[key].findIndex(item => {
+						return item.toString() === value.toString();
 					});
 					itemKey = index > -1 ? true : false;
 				} else {
 					itemKey = false;
 				}
 				//itemKey = (Array.isArray(data[key]) && data[key].indexOf(value) > -1 ) ? true : false;
-			} else if(andItem.indexOf("{nin}") > -1) {
+			} else if (andItem.indexOf("{nin}") > -1) {
 				let andItemArr = andItem.split("{nin}");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
 				if (Array.isArray(data[key])) {
-					let index = data[key].findIndex(item =>{
-					  return item.toString() === value.toString();
+					let index = data[key].findIndex(item => {
+						return item.toString() === value.toString();
 					});
 					itemKey = index < 0 ? true : false;
 				} else {
@@ -833,7 +833,7 @@ pubfn.isObject = function(value) {
  * vk.pubfn.calcFreights(freightItem, weight);
  */
 pubfn.calcFreights = function(freightItem, weight) {
-	let freightRes  = vk.pubfn.calcFreightDetail(freightItem, weight);
+	let freightRes = vk.pubfn.calcFreightDetail(freightItem, weight);
 	return freightRes.total_amount;
 };
 
@@ -947,7 +947,7 @@ pubfn.getNewObject = function(obj, keys) {
  * vk.pubfn.deleteObjectKeys(data, deleteKeys);
  */
 pubfn.deleteObjectKeys = function(data, deleteKeys = []) {
-	var newData = {};
+	let newData = {};
 	if (data) {
 		for (let key in data) {
 			if (deleteKeys.indexOf(key) == -1) {
@@ -1273,17 +1273,17 @@ pubfn.dateDiff = function(startTime, suffix = "前") {
 		startTime = startTime;
 		startTime = new Date(startTime.replace(/-/g, "/")); //将-转化为/，使用new Date
 	}
-	var endTime = new Date(); //获取当前时间
-	var nd = 1000 * 24 * 60 * 60; //一天的毫秒数
-	var nh = 1000 * 60 * 60; //一小时的毫秒数
-	var nm = 1000 * 60; //一分钟的毫秒数
-	var ns = 1000; //一秒钟的毫秒数long diff;try {
-	var diff = endTime.getTime() - startTime.getTime();
-	var day = Math.floor(diff / nd); //计算差多少天
-	var hour = Math.floor(diff % nd / nh); //计算差多少小时
-	var min = Math.floor(diff % nd % nh / nm); //计算差多少分钟
-	var sec = Math.round(diff % nd % nh % nm / ns); //计算差多少秒//输出结果
-	var showStr = "1 秒";
+	let endTime = new Date(); //获取当前时间
+	let nd = 1000 * 24 * 60 * 60; //一天的毫秒数
+	let nh = 1000 * 60 * 60; //一小时的毫秒数
+	let nm = 1000 * 60; //一分钟的毫秒数
+	let ns = 1000; //一秒钟的毫秒数long diff;try {
+	let diff = endTime.getTime() - startTime.getTime();
+	let day = Math.floor(diff / nd); //计算差多少天
+	let hour = Math.floor(diff % nd / nh); //计算差多少小时
+	let min = Math.floor(diff % nd % nh / nm); //计算差多少分钟
+	let sec = Math.round(diff % nd % nh % nm / ns); //计算差多少秒//输出结果
+	let showStr = "1 秒";
 	if (day > 0) {
 		showStr = day + "天";
 	} else if (hour > 0) {
@@ -1317,17 +1317,17 @@ pubfn.dateDiff2 = function(startTime, str = "1秒") {
 		startTime = startTime;
 		startTime = new Date(startTime.replace(/-/g, "/")); //将-转化为/，使用new Date
 	}
-	var endTime = new Date(); //获取当前时间
-	var nd = 1000 * 24 * 60 * 60; //一天的毫秒数
-	var nh = 1000 * 60 * 60; //一小时的毫秒数
-	var nm = 1000 * 60; //一分钟的毫秒数
-	var ns = 1000; //一秒钟的毫秒数long diff;try {
-	var diff = startTime.getTime() - endTime.getTime();
-	var day = Math.floor(diff / nd);
-	var hour = Math.floor(diff % nd / nh);
-	var min = Math.floor(diff % nd % nh / nm);
-	var sec = Math.round(diff % nd % nh % nm / ns);
-	var showStr = str;
+	let endTime = new Date(); //获取当前时间
+	let nd = 1000 * 24 * 60 * 60; //一天的毫秒数
+	let nh = 1000 * 60 * 60; //一小时的毫秒数
+	let nm = 1000 * 60; //一分钟的毫秒数
+	let ns = 1000; //一秒钟的毫秒数long diff;try {
+	let diff = startTime.getTime() - endTime.getTime();
+	let day = Math.floor(diff / nd);
+	let hour = Math.floor(diff % nd / nh);
+	let min = Math.floor(diff % nd % nh / nm);
+	let sec = Math.round(diff % nd % nh % nm / ns);
+	let showStr = str;
 	if (day > 0) {
 		showStr = day + "天";
 	} else if (hour > 0) {
@@ -1354,23 +1354,23 @@ pubfn.numStr = function(n) {
 	if (typeof n == "string") {
 		n = parseFloat(n);
 	}
-	var str = n;
+	let str = n;
 	if (n < 1000) {
 		str = n;
 	} else if (n < 10000) {
-		var n1 = Math.floor(n / 100);
+		let n1 = Math.floor(n / 100);
 		str = n1 / 10 + "千"
 	} else if (n < 1000000) {
-		var n1 = Math.floor(n / 1000);
+		let n1 = Math.floor(n / 1000);
 		str = n1 / 10 + "万"
 	} else if (n < 10000000) {
-		var n1 = Math.floor(n / 1000000);
+		let n1 = Math.floor(n / 1000000);
 		str = n1 + "百万"
 	} else if (n < 100000000) {
-		var n1 = Math.floor(n / 10000000);
+		let n1 = Math.floor(n / 10000000);
 		str = n1 + "千万"
 	} else if (n >= 100000000) {
-		var n1 = Math.floor(n / 10000000);
+		let n1 = Math.floor(n / 10000000);
 		str = n1 / 10 + "亿"
 	}
 	return str;
@@ -1669,7 +1669,7 @@ pubfn.getListData2 = function(obj = {}) {
 	});
  */
 pubfn.getListData = function(obj = {}) {
-	var {
+	let {
 		that,
 		listName,
 		listKey = "rows",
@@ -1680,13 +1680,13 @@ pubfn.getListData = function(obj = {}) {
 	} = obj;
 	let vk = uni.vk;
 	if (listName) listKey = listName;
-	var { data = {} } = that;
+	let { data = {} } = that;
 	let form1 = that[formKey] || {};
-	var { pageKey = true } = data;
+	let { pageKey = true } = data;
 	if (!form1.pageIndex) form1.pageIndex = 1;
 	if (!form1.pageSize) form1.pageSize = 20;
-	var addTime = form1.addTime;
-	var endTime = form1.endTime;
+	let addTime = form1.addTime;
+	let endTime = form1.endTime;
 	if (endTime) endTime += " 23:59:59";
 	if (!pageKey && form1.pageIndex > 1) {
 		form1.pageIndex--;
@@ -1708,7 +1708,7 @@ pubfn.getListData = function(obj = {}) {
 		title: title,
 		loading: loading,
 		success: function(data) {
-			var list = data[listKey] || [];
+			let list = data[listKey] || [];
 			// 数据预处理
 			if (typeof dataPreprocess == "function") {
 				list = dataPreprocess(list);
@@ -1786,7 +1786,7 @@ pubfn.getListData = function(obj = {}) {
   });
  */
 pubfn.getComponentsDynamicData = function(obj = {}) {
-	var {
+	let {
 		that,
 		keyName = "componentsDynamic",
 		title,
@@ -1907,8 +1907,8 @@ pubfn.getPlatform = function() {
 /**
  * 获取当前页面实例
  * 返回数据
- * fullPath 当前打开页面的完整路径(带页面参数)
- * pagePath 当前打开页面的路径(不含参数)
+ * fullPath 当前打开页面的完整路径（带页面参数）
+ * pagePath 当前打开页面的路径（不含参数）
  * options  当前打开页面的参数
  * route    当前打开页面路由地址
  * $vm      当前打开页面的vue实例
@@ -1921,13 +1921,18 @@ pubfn.getCurrentPage = function() {
 	if (page.route.indexOf("/") == 0) page.route = page.route.substring(1);
 	let pagePath = `/${page.route}`;
 	let fullPath = `/${page.route}`;
-	if (page.$page && typeof page.$page.options === "object") {
-		let optionsStr = pubfn.queryParams(page.$page.options);
-		fullPath = pagePath + optionsStr;
+	let options = page.options;
+	if (page.$page) {
+		if (typeof page.$page.fullPath !== "undefined") {
+			fullPath = page.$page.fullPath;
+		} else if (typeof options === "object") {
+			let optionsStr = pubfn.queryParams(options);
+			fullPath = pagePath + optionsStr;
+		}
 	}
 	res.fullPath = fullPath;
 	res.pagePath = pagePath;
-	res.options = page.$page.options;
+	res.options = options;
 	res.route = page.route;
 	res.$vm = page.$vm;
 	return res;

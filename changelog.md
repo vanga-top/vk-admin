@@ -1,3 +1,12 @@
+## 1.14.2（2022-09-29）
+* 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.14.2`
+* 2、【修复】升级HBX后带来的部分兼容性问题。
+* 3、【优化】`部分组件` 的 `placeholder` 可能不生效的问题
+
+##### 框架更新步骤 [点击查看](https://vkdoc.fsq.pub/admin/1/update.html)
+##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架
+
+##### 如果你觉得框架对你有用，可以在下方进行评论，也可以进行赞赏。
 ## 1.14.1（2022-09-13）
 * 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.14.1`
 * 2、【优化】`vk-data-input-cascader`、`vk-data-input-checkbox`、`vk-data-input-radio`、`vk-data-input-remote-select`、`vk-data-input-tree-select` 组件均支持 `http方式请求数据`（用法与 `vk-data-input-table-select` 一致）
