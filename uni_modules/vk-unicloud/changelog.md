@@ -1,3 +1,34 @@
+## 2.12.0（2022-10-07）
+* 1、【重要】vk实例初始化代码调整（因HBX更新导致本地运行时，不同的云函数环境目前没有隔离（云端无此问题，只有本地运行有此问题），从而导致HBX本地运行时，A云函数和B云函数复用了同一个vk实例，而更新后，vk实例在不同云函数内会隔离）
+
+`router/index.js` 代码修改（注意：如果你只使用一个router，则不修改也没有问题）
+
+```js
+'use strict';
+// 注意：此为云函数路由入口文件，请勿修改此文件代码，你自己的云函数逻辑应写在service目录下
+const vk = require('vk-unicloud');              // vk-unicloud 工具包
+vk.init(require('./config.js'));
+exports.main = async (event, context) => {
+	return await vk.router({ event, context, vk });
+};
+```
+
+修改为
+
+```js
+'use strict';
+// 注意：此为云函数路由入口文件，请勿修改此文件代码，你自己的云函数逻辑应写在service目录下
+const vkCloud = require('vk-unicloud');                    // 引入 vk-unicloud
+const vk = vkCloud.createInstance(require('./config.js')); // 通过 vkCloud.createInstance 创建 vk 实例
+exports.main = async (event, context) => {
+	return await vk.router({ event, context, vk });
+};
+```
+
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.11.20（2022-09-29）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.11.19（2022-09-29）
 * 1、【修复】升级HBX后带来的部分兼容性问题。
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

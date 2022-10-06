@@ -3,18 +3,16 @@
  * 这里可以写你自己的公共函数
  */
 var pubFun = {};
-var vk;
-/**
- * 初始化，请勿删除此代码
- */
-pubFun.init = function(util) {
-	vk = util.vk;// 也可以通过 uniCloud.vk 获取 vk对象
-}
 /**
  * 公共函数写法示例
+ * 调用示例：
  * pubFun.test();
+ * 或
+ * vk.myfn.test();
  */
 pubFun.test = function(path) {
+	 // 可通过 uniCloud.vk 来获取vk实例
+	let vk = uniCloud.vk;
 	// 逻辑
 	// ...
 	// 逻辑	
