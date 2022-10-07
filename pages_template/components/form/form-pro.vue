@@ -380,18 +380,38 @@
 									{ key:"text8", title:"单行文本8", type:"text" },
 								]
 							},
+						  // 对象类型
+							{ key:"", title:"对象类型", type:"bar-title" },
+							{ key:"object1", title:"对象类型1", type:"object",
+								columns:[
+									{ key:"a", title:"对象内属性a", type:"text" },
+									{ key:"b", title:"对象内属性b", type:"text" },
+								]
+							},
+							// 可以通过设置showLabel:false, 隐藏左侧的label
+							{ key:"object2", title:"对象类型2", type:"object", showLabel:false,
+								columns:[
+									{ key:"a", title:"对象内属性a", type:"text" },
+									{ key:"b", title:"对象内属性b", type:"text" },
+								]
+							},
+							// 多层嵌套object
+							{ key:"object3", title:"对象类型3", type:"object", 
+								columns:[
+									{ key:"a", title:"对象内属性a", type:"text" },
+									{ key:"object3_1", title:"嵌套对象类型", type:"object", 
+										columns:[
+											{ key:"a", title:"对象内属性a", type:"text" },
+											{ key:"b", title:"对象内属性b", type:"text" },
+										]
+									},
+								]
+							},
 							// 特殊类型
 							{ key:"", title:"特殊类型", type:"bar-title" },
 							{ key:"editor", title:"富文本类型", type:"editor", width:"1000px" },
 							{ key:"json", title:"json类型", type:"json" },
 							{ key:"position", title:"地图位置", type:"map", width:600, height:300, defaultLocation:{ latitude: 30.224781, longitude: 120.12438 } },
-						  {
-								key:"object", title:"object类型", type:"object",
-								columns:[
-									{ key:"text", title:"text类型", type:"text" },
-									{ key:"switch", title:"switch类型", type:"switch" },
-								]
-							},
               { key:"array1", title:"数组字符串类型", type:"array<string>" },
               { key:"array2", title:"数组数字类型", type:"array<number>" },
               {
