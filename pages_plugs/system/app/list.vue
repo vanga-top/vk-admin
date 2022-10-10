@@ -36,6 +36,8 @@
 
 		<!-- 添加或编辑 -->
 		<addUpdate v-model="formDatas.addUpdate" @success="refresh"></addUpdate>
+		<!-- 生成发布页 -->
+		<createPublishHtml v-model="formDatas.createPublishHtml" @success="refresh"></createPublishHtml>
 
 		<!-- 页面内容结束 -->
 	</view>
@@ -46,9 +48,11 @@
 	var vk = uni.vk;									// vk实例
 
 	import addUpdate from './form/addUpdate.vue'
+	import createPublishHtml from './form/createPublishHtml.vue'
 	export default {
 		components:{
 			addUpdate,
+			createPublishHtml,
 		},
 		data() {
 			// 页面数据变量
@@ -79,7 +83,7 @@
 						{
 							title: '发布页管理', type: 'primary',
 							onClick:(item)=>{
-								vk.toast(`敬请期待`);
+								vk.pubfn.openForm('createPublishHtml',{ item });
 							},
 							disabled:"enable_upgrade_center!=true",
 						},

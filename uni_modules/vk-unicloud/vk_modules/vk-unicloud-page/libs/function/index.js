@@ -266,13 +266,29 @@ pubfn.test = function(str, type = "") {
 // 保留之前的函数名
 pubfn.checkStr = pubfn.test;
 /**
- * 对象属性拷贝(浅拷贝)
- * @description 将 obj2 的属性赋值给 obj1 (如果obj1中有对应的属性,则会被obj2的属性值覆盖)
+ * 删除对象中所有值为无效值的属性（如：undefined）
+ * @param {Object} obj
+ * vk.pubfn.objectDeleteInvalid(obj);
+ */
+pubfn.objectDeleteInvalid = function(obj) {
+	Object.keys(obj).forEach(item => {
+		if (obj[item] === undefined) {
+			delete obj[item];
+		}
+	});
+	return obj;
+};
+/**
+ * 对象属性拷贝（浅拷贝）
+ * @description 将 obj2 的属性赋值给 obj1（如果obj1中有对应的属性，则会被obj2的属性值覆盖）
  * @param {Object} 	obj1
  * @param {Object} 	obj2
  * vk.pubfn.objectAssign(obj1, obj2);
+ * vk.pubfn.objectAssign(obj1, obj2, true);
+ * vk.pubfn.objectAssign(obj1, obj2, false);
  */
-pubfn.objectAssign = function(obj1, obj2) {
+pubfn.objectAssign = function(obj1, obj2, deleteInvalid=true) {
+	if (deleteInvalid) pubfn.objectDeleteInvalid(obj2);
 	return Object.assign(obj1, obj2);
 };
 /**
@@ -2306,6 +2322,7 @@ pubfn.setLocale = function(...e) {
  * vk.pubfn.objectAssignForVue(obj1, obj2, that);
  */
 pubfn.objectAssignForVue = function(obj1, obj2, that) {
+	pubfn.objectDeleteInvalid(obj2);
 	for (let key in obj2) {
 		that.$set(obj1, key, obj2[key]);
 	}
