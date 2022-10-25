@@ -270,7 +270,7 @@ pubfn.checkStr = pubfn.test;
  * @param {Object} obj
  * vk.pubfn.objectDeleteInvalid(obj);
  */
-pubfn.objectDeleteInvalid = function(obj) {
+pubfn.objectDeleteInvalid = function(obj={}) {
 	Object.keys(obj).forEach(item => {
 		if (obj[item] === undefined) {
 			delete obj[item];

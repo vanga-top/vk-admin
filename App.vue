@@ -93,6 +93,7 @@ export default {
 		});
 	},
 	onLaunch: function() {
+		// 注意：config.debug 在正式环境时，值为false，故此{}内的代码只有开发环境才会执行
 		if (config.debug) {
 			console.log(
 				`%c vk-admin %c v${version} `,
@@ -101,6 +102,7 @@ export default {
 			);
 			console.log("App Launch");
 		}
+		// 注意：以下代码正式和开发环境都会执行
 		let that = this;
 		that.vk.pubfn.needInit({
 			that,

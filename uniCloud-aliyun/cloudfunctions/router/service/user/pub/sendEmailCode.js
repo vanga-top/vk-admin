@@ -1,7 +1,9 @@
-var nodemailer;
+var vkmail;
 try {
-	nodemailer = require('nodemailer');
-} catch (err) {}
+	vkmail = require('vk-mail');
+} catch (err) {
+	console.error("请先添加公共模块：vk-mail（右键对应的云函数，点击管理公共模块或扩展库依赖，勾选vk-mail依赖）");
+}
 module.exports = {
 	/**
 	 * 发送邮箱验证码
@@ -22,8 +24,7 @@ module.exports = {
 		let { email, type } = data;
 		let res = { code: 0, msg: 'ok' };
 		// 业务逻辑开始----------------------------------------------------------- 
-		const randomStr = '00000' + Math.floor(Math.random() * 1000000);
-		let code = randomStr.substring(randomStr.length - 6);
+		let code = vk.pubfn.random(6, "0123456789");
 		let param = {
 			code,
 			type,
@@ -31,21 +32,20 @@ module.exports = {
 		};
 		// 发送验证码开始
 		var emailConfig = config.vk.service.email;
-		if (typeof nodemailer === "undefined") {
-			return { code: -1, msg: '请先安装npm包"nodemailer": "^6.4.11"' };
-		}
-		let emailService = nodemailer.createTransport({
+		let emailService = vkmail.createTransport({
 			"host": emailConfig[data.serviceType].host,
 			"port": emailConfig[data.serviceType].port,
 			"secure": emailConfig[data.serviceType].secure, // use SSL
 			"auth": emailConfig[data.serviceType].auth
 		});
 		try {
+			// 发送邮件
 			await emailService.sendMail({
 				"from": emailConfig[data.serviceType].auth.user,
 				"to": data.email,
-				"subject": data.subject,
-				"text": `您的验证码是${code},打死也不要告诉别人哦!`
+				"cc": emailConfig[data.serviceType].auth.user, // 由于邮件可能会被当成垃圾邮件，但只要把邮件抄送给自己一份，就不会被当成垃圾邮件。
+				"subject": data.subject, // 邮件的标题
+				"text": `您的验证码是${code},打死也不要告诉别人哦!`, // 邮件的内容
 			});
 			// 发送验证码成功后，设置验证码
 			await uniID.setVerifyCode(param);

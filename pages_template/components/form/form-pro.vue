@@ -276,6 +276,14 @@
 							{ key:"slider", title:"滑块类型", type:"slider" },
 							{ key:"color1", title:"颜色类型1", type:"color" },
 							{ key:"color2", title:"颜色类型2", type:"color", showAlpha:true },
+							{ key:"icon1", title:"图标1", type:"icon" },
+							{ key:"icon2", title:"图标2", type:"icon", filter:"vk-" },
+							{ key:"icon3", title:"图标3", type:"icon",
+								filter:(name)=>{
+									// 不显示vk图标
+									return name.indexOf("vk-icon") === 0 ? false : true;
+								},
+							},
 							// 文件上传
 							{ key:"", title:"文件上传", type:"bar-title" },
 							{
