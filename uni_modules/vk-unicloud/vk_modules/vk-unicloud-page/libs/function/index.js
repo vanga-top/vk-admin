@@ -58,13 +58,19 @@ pubfn.sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
  */
 pubfn.timeFormat = pubfn.timeUtil.timeFormat;
 /**
- * 日期对象转换(云函数端会自动转成东八区时间)
+ * 解析日期对象属性
+ * @param {Date || Number} date 需要转换的时间
+ * vk.pubfn.getDateInfo(new Date());
+ */
+pubfn.getDateInfo = pubfn.timeUtil.getDateInfo;
+
+/**
+ * 日期对象转换（此API已弃用，建议用vk.pubfn.timeFormat代替）
  * @param {Date || Number} date 需要转换的时间
  * @param {Number} type 转换方式
  * type = 0 返回 2020-08-03 12:12:12
  * type = 1 返回 20200803121212
  * type = 2 返回 { YYYY, MM, DD, hh, mm, ss }
- * vk.pubfn.getFullTime(new Date());
  */
 pubfn.getFullTime = pubfn.timeUtil.getFullTime;
 
@@ -106,11 +112,12 @@ vk.pubfn.getOffsetTime(new Date(), {
 pubfn.getOffsetTime = pubfn.timeUtil.getOffsetTime;
 
 /**
- * 获得相对当前周addWeekCount个周的起止日期
- * @param {Number} addWeekCount  默认0 (0代表本周 为-1代表上周 为1代表下周以此类推 为2代表下下周)
- * vk.pubfn.getWeekStartAndEnd(0);
+ * 获得相对当前时间的偏移 count 小时的起止日期(小时的开始和结束)
+ * @param {Number} count  默认0 (0代表当前小时 为-1代表上一个小时 为1代表下一个小时以此类推)
+ * @param {Date || Number} date 指定从哪个时间节点开始计算
+ * vk.pubfn.getHourOffsetStartAndEnd(0);
  */
-pubfn.getWeekStartAndEnd = pubfn.timeUtil.getWeekStartAndEnd;
+pubfn.getHourOffsetStartAndEnd = pubfn.timeUtil.getHourOffsetStartAndEnd;
 
 
 /**
@@ -122,12 +129,28 @@ pubfn.getWeekStartAndEnd = pubfn.timeUtil.getWeekStartAndEnd;
 pubfn.getDayOffsetStartAndEnd = pubfn.timeUtil.getDayOffsetStartAndEnd;
 
 /**
+ * 获得相对当前周addWeekCount个周的起止日期
+ * @param {Number} addWeekCount  默认0 (0代表本周 为-1代表上周 为1代表下周以此类推 为2代表下下周)
+ * vk.pubfn.getWeekOffsetStartAndEnd(0);
+ */
+pubfn.getWeekOffsetStartAndEnd = pubfn.timeUtil.getWeekOffsetStartAndEnd; // 新版写法
+pubfn.getWeekStartAndEnd = pubfn.timeUtil.getWeekOffsetStartAndEnd; // 兼容老版本写法
+
+/**
  * 获得相对当前时间的偏移 count 月的起止日期(月的开始和结束)
  * @param {Number} count  默认0 (0代表本月 为-1代表上月 为1代表下月以此类推)
  * @param {Date || Number} date 指定从那天开始计算
  * vk.pubfn.getMonthOffsetStartAndEnd(0);
  */
 pubfn.getMonthOffsetStartAndEnd = pubfn.timeUtil.getMonthOffsetStartAndEnd;
+
+/**
+ * 获得相对当前时间的偏移 count 个季度的起止日期（季度的开始和结束时间戳）
+ * @param {Number} count  默认0（0代表本季度 -1代表上个季度 1代表下个季度以此类推）
+ * @param {Date || Number} date 指定从哪个时间节点开始计算
+ * vk.pubfn.getQuarterOffsetStartAndEnd(0);
+ */
+pubfn.getQuarterOffsetStartAndEnd = pubfn.timeUtil.getQuarterOffsetStartAndEnd;
 
 
 /**
@@ -270,7 +293,7 @@ pubfn.checkStr = pubfn.test;
  * @param {Object} obj
  * vk.pubfn.objectDeleteInvalid(obj);
  */
-pubfn.objectDeleteInvalid = function(obj={}) {
+pubfn.objectDeleteInvalid = function(obj = {}) {
 	Object.keys(obj).forEach(item => {
 		if (obj[item] === undefined) {
 			delete obj[item];
@@ -287,7 +310,7 @@ pubfn.objectDeleteInvalid = function(obj={}) {
  * vk.pubfn.objectAssign(obj1, obj2, true);
  * vk.pubfn.objectAssign(obj1, obj2, false);
  */
-pubfn.objectAssign = function(obj1, obj2, deleteInvalid=true) {
+pubfn.objectAssign = function(obj1, obj2, deleteInvalid = true) {
 	if (deleteInvalid) pubfn.objectDeleteInvalid(obj2);
 	return Object.assign(obj1, obj2);
 };
@@ -1076,7 +1099,7 @@ pubfn.regExpTest = function(text, expText) {
  */
 pubfn.createOrderNo = function(prefix = "", num = 25) {
 	// 获取当前时间字符串格式如20200803093000123
-	let fullTime = pubfn.getFullTime(new Date(), 1);
+	let fullTime = vk.pubfn.timeFormat(new Date(),"yyyyMMddhhmmss");
 	fullTime = fullTime.substring(2);
 	let randomNum = num - (prefix + fullTime).length;
 	return prefix + fullTime + pubfn.random(randomNum);
@@ -1282,7 +1305,7 @@ pubfn.dateDiff = function(startTime, suffix = "前") {
 	if (typeof startTime == "number") {
 		if (startTime.toString().length == 10) startTime *= 1000;
 		startTime = new Date(startTime);
-		startTime = pubfn.getFullTime(startTime);
+		startTime = pubfn.timeFormat(startTime);
 	}
 	if (typeof startTime == "string") {
 		startTime = startTime.replace("T", " ");
@@ -1326,7 +1349,7 @@ pubfn.dateDiff2 = function(startTime, str = "1秒") {
 	if (typeof startTime == "number") {
 		if (startTime.toString().length == 10) startTime *= 1000;
 		startTime = new Date(startTime);
-		startTime = pubfn.getFullTime(startTime);
+		startTime = pubfn.timeFormat(startTime);
 	}
 	if (typeof startTime == "string") {
 		startTime = startTime.replace("T", " ");

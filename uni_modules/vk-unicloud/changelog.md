@@ -1,3 +1,17 @@
+## 2.12.6（2022-11-24）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.12.5（2022-11-12）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.12.4（2022-11-12）
+* 1、【优化】一些细节
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.12.3（2022-11-05）
+* 1、【优化】新增 cancelAddTimeStr 配置，用于单独取消 _add_time_str
+![](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cf0c5e69-620c-4f3c-84ab-f4619262939f/0092145a-8169-475d-83c5-c873ae8d0c05.png)
+* 2、【优化】部分API的报错提示
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.12.2（2022-10-25）
 * 1、【优化】一些细节
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

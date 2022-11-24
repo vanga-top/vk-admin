@@ -17,7 +17,7 @@ util.numStr = function(n) {
 };
 
 util.timeStr = function(date) {
-	return pubfn.getFullTime(date);
+	return pubfn.timeFormat(date);
 };
 /**
  * 日期对象转字符串

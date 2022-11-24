@@ -3,8 +3,8 @@
 		<!-- 左侧 -->
 		<view class="left">
 			<navigator class="logo" open-type="reLaunch" url="/">
-				<image :src="logo1" mode="aspectFill" class="min-logo" v-show="vk.getVuex('$app.leftCollapse')"></image>
-				<image :src="logo2" mode="aspectFill" v-show="!vk.getVuex('$app.leftCollapse')"></image>
+				<image :src="vk.getVuex('$app.staticUrl.navBar.logo1')" mode="aspectFill" class="min-logo" v-show="vk.getVuex('$app.leftCollapse')"></image>
+				<image :src="vk.getVuex('$app.staticUrl.navBar.logo2')" mode="aspectFill" v-show="!vk.getVuex('$app.leftCollapse')"></image>
 			</navigator>
 		</view>
 		<!-- 右侧 -->
@@ -131,12 +131,6 @@ export default {
 	data() {
 		return {
 			debug: config.debug,
-			// 正方形 Logo 160*160
-			logo: config.staticUrl.navBar.logo,
-			// 长方形 Logo 224*160
-			logo1: config.staticUrl.navBar.logo1,
-			// 横幅 Logo 480*100
-			logo2: config.staticUrl.navBar.logo2,
 			// 主题配置
 			theme: config.theme,
 			// 右侧链接,只在开发模式时显示

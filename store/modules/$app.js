@@ -27,6 +27,8 @@ export default {
 		config:{
 			...config
 		},
+		// 静态资源路径 vk.getVuex('$app.staticUrl.navBar.logo1') vk.setVuex('$app.staticUrl.navBar.logo1','')
+		staticUrl: $app.staticUrl || config.staticUrl,
 		// 左侧菜单列表（树形结构） vk.getVuex('$app.navMenu');
 		navMenu: $app.navMenu || [],
 		// 左侧菜单列表（数组形式） vk.getVuex('$app.menuList');

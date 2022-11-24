@@ -788,6 +788,7 @@ class CallFunctionUtil {
 			sysErr = true;
 			errMsg = JSON.stringify(res);
 		}
+		if (typeof errMsg !== "string") errMsg = JSON.stringify(errMsg);
 		if (!errMsg) errMsg = "";
 		if (res.code >= 90001 && errMsg.indexOf("数据库") > -1) {
 			sysErr = true;
@@ -795,7 +796,7 @@ class CallFunctionUtil {
 			sysErr = true;
 		} else if ((res.code === 501 && errMsg.indexOf("timeout for 10000ms") > -1) || (res.code === "SYS_ERR" && errMsg.indexOf(": request:ok") > -1)) {
 			errMsg = globalErrorCode["cloudfunction-unusual-timeout"] || "请求超时，但请求还在执行，请重新进入页面。";
-		} else if (errMsg.toLowerCase().indexOf("timeout") > -1 || errMsg.toLowerCase().indexOf("etimedout") > -1) {
+		} else if (typeof errMsg.toLowerCase === "function" && (errMsg.toLowerCase().indexOf("timeout") > -1 || errMsg.toLowerCase().indexOf("etimedout") > -1)) {
 			sysErr = true;
 			errMsg = globalErrorCode["cloudfunction-timeout"] || "请求超时，请重试！";
 		} else if (errMsg.indexOf("reaches burst limit") > -1) {
@@ -857,7 +858,8 @@ class CallFunctionUtil {
 			let colorArr = config.logger.colorArr;
 			let colorStr = colorArr[counterNum % colorArr.length];
 			counterNum++;
-			console.log("%c--------【开始】" + Logger.label + "【云函数请求】【" + name + "】【" + url + "】--------", 'color: ' + colorStr + ';font-size: 12px;font-weight: bold;');
+			let functionType = url.indexOf(".") > -1 ? "云对象" : "云函数";
+			console.log(`%c--------【开始】${Logger.label}【${functionType}请求】【${name}】【${url}】--------`, `color: ${colorStr};font-size: 12px;font-weight: bold;`);
 			console.log("【请求参数】: ", Logger.params);
 			console.log("【返回数据】: ", Logger.result);
 			console.log("【总体耗时】: ", Logger.runTime, "毫秒【含页面渲染】");
@@ -868,7 +870,7 @@ class CallFunctionUtil {
 					console.error("【Stack】: ", Logger.error.err.stack);
 				}
 			}
-			console.log("%c--------【结束】" + Logger.label + "【云函数请求】【" + name + "】【" + url + "】--------", 'color: ' + colorStr + ';font-size: 12px;font-weight: bold;');
+			console.log(`%c--------【结束】${Logger.label}【${functionType}请求】【${name}】【${url}】--------`, `color: ${colorStr};font-size: 12px;font-weight: bold;`);
 		}
 		if (typeof complete == "function") complete(res);
 	}
