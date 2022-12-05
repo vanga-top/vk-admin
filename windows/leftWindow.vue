@@ -7,6 +7,8 @@
 			:collapse="vk.getVuex('$app.leftCollapse')"
 			:collapse-transition="false"
 			:theme="theme"
+			default-menu-icon="el-icon-folder-opened"
+			default-sub-menu-icon="el-icon-tickets"
 			@select="select"
 		></vk-data-menu-nav>
 	</scroll-view>

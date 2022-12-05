@@ -198,6 +198,7 @@
 					url: 'admin/system/app/sys/getList',
 					loading:true,
 					data: {
+						pageSize:500,
 						formData:{
 							enable_upgrade_center: true
 						},

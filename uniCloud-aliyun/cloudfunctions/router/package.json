@@ -18,11 +18,11 @@
   "cloudfunction-config": {
     "concurrency": 1,
     "memorySize": 256,
-    "keepRunningAfterReturn": false,
     "path": "",
     "timeout": 60,
     "triggers": [],
-    "runtime": "Nodejs12"
+    "runtime": "Nodejs12",
+    "keepRunningAfterReturn": false
   },
   "extensions": {}
 }

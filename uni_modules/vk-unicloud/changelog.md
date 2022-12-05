@@ -1,3 +1,9 @@
+## 2.12.8（2022-12-05）
+* 1、【修复】let { weekStart } = vk.pubfn.getCommonTime(new Date()); weekStart一直是undefined的问题
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.12.7（2022-11-30）
+* 1、【优化】新版阿里云空间通过代理请求微信公众号API细节处理
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.12.6（2022-11-24）
 * 1、【优化】一些细节
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

@@ -79,6 +79,7 @@ aliyunOSSUtil.uploadFile = function(obj) {
 				} else {
 					// 上传成功
 					res.fileID = fileNameObj.url;
+					res.url = fileNameObj.url;
 					Logger.result = res;
 					if (typeof obj.success === "function") obj.success(res);
 					resolve(res);

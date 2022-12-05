@@ -205,10 +205,10 @@ util.getCommonTime = function(date = new Date(), targetTimezone) {
 	res.yesterdayEnd = res.todayEnd - 1000 * 3600 * 24;
 
 	let weekObj = util.getWeekOffsetStartAndEnd(0, nowDate);
-	// 本周开始时间
-	res.weekStart = weekObj.weekStart;
+	// 本周开始时间 
+	res.weekStart = weekObj.startTime;
 	// 本周结束时间
-	res.weekEnd = weekObj.weekEnd;
+	res.weekEnd = weekObj.endTime;
 	// 本年1-12月的起止时间
 	res.months = [];
 	res.months[0] = {
@@ -325,7 +325,7 @@ util.getWeekOffsetStartAndEnd = function(count = 0, date = new Date(), targetTim
 	let dateInfo1 = util.getDateInfo(nowDate);
 	nowDate.setDate(nowDate.getDate() + 7);
 	let dateInfo2 = util.getDateInfo(nowDate);
-	// 开始时间
+	// 开始时间 
 	res.startTime = new Date(`${dateInfo1.year}/${dateInfo1.month}/${dateInfo1.day}`).getTime() - timeDif;
 	// 结束时间
 	res.endTime = new Date(`${dateInfo2.year}/${dateInfo2.month}/${dateInfo2.day}`).getTime() - 1 - timeDif;
