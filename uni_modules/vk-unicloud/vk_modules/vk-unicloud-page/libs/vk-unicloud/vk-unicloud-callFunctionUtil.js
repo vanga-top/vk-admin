@@ -277,14 +277,18 @@ class CallFunctionUtil {
 		/**
 		 * 云函数请求封装 - 统一入口
 		 * @description 通过云函数路由，1个云函数实现多个云函数的效果。
-		 * @param {String}   url       请求路径
-		 * @param {Object}   data      请求参数，如 { a:1, b:"2" } 云函数内可通过 let { a, b } = data; 获取参数
-		 * @param {String} 	 title     遮罩层提示语，为空或不传则代表不显示遮罩层。
-		 * @param {Boolean}  isRequest 是否使用云函数url化地址访问云函数，默认false
-		 * @param {Boolean}  needAlert 为true代表请求错误时，会有弹窗提示，默认为true
-		 * @param {Function} success   请求成功时，执行的回调函数
-		 * @param {Function} fail  	 	 请求失败时，执行的回调函数
-		 * @param {Function} complete  无论请求成功与否，都会执行的回调函数
+		 * @param {String}   name       大云函数名称（默认router）
+		 * @param {String}   url        请求路径
+		 * @param {Object}   data       请求参数，如 { a:1, b:"2" } 云函数内可通过 let { a, b } = data; 获取参数
+		 * @param {String}   title      遮罩层提示语，为空或不传则代表不显示遮罩层。
+		 * @param {Boolean|Object}  loading    若设置为false，即使title有值也不显示遮罩层
+		 * @param {Boolean}  isRequest  是否使用云函数url化地址访问云函数，默认false
+		 * @param {String}   env        云空间环境 文档：https://vkdoc.fsq.pub/client/question/q9.html#%E5%89%8D%E7%AB%AF%E8%AF%B7%E6%B1%82%E5%A4%9A%E6%9C%8D%E5%8A%A1%E7%A9%BA%E9%97%B4
+		 * @param {Boolean}  needAlert  为true代表请求错误时，会有弹窗提示，默认为true
+		 * @param {Number}   retryCount 系统异常重试机制（表单提交时慎用，建议只用在查询请求中，即无任何数据库修改的请求中）
+		 * @param {Function} success    请求成功时，执行的回调函数
+		 * @param {Function} fail  	 	  请求失败时，执行的回调函数
+		 * @param {Function} complete   无论请求成功与否，都会执行的回调函数
 		 */
 		this.callFunction = (obj = {}) => {
 			let that = this;
@@ -294,6 +298,11 @@ class CallFunctionUtil {
 				data = {},
 				globalParamName
 			} = obj;
+
+			if (!url) {
+				vk.toast('vk.callFunction的url参数不能为空');
+				return;
+			}
 
 			if (obj.retryCount) {
 				// 系统异常重试机制（表单提交时慎用，建议只用在查询请求中，即无任何数据库修改的请求中）

@@ -115,27 +115,28 @@ util.getDateInfo = function(date = new Date(), targetTimezone) {
 /**
  * 获取时间范围
  * @param {Date} date 日期对象 可以指定时间计算节点，默认使用当前时间进行计算
- * 返回的是时间戳(防止时区问题)
+ * 返回的是时间戳
  * 返回数据如下：
  {
-   todayStart     今日开始时间
-   todayEnd       今日结束时间
-   today12End     今日上午结束时间
-   monthStart     本月开始时间
-   monthEnd       本月结束时间
-   yearStart      本年开始时间
-   yearEnd        本年结束时间
-   weekStart      本周开始时间
-   weekEnd        本周结束时间
-	 hourStart      当前小时开始时间
-	 hourEnd        当前小时结束时间
-	 yesterdayStart 昨天开始时间
-	 yesterday12End 昨天上午结束时间
-	 yesterdayEnd   昨天结束时间
-	 lastMonthStart 上月开始时间
-	 lastMonthEnd   上月结束时间
-   now        现在的时间点(含月年日时分秒)
-   months     本年度每月的开始和结束时间 months[1] 代表1月
+	 todayStart     今日开始时间（时间戳）
+	 todayEnd       今日结束时间（时间戳）
+	 today12End     今日上午结束时间（时间戳）
+	 monthStart     本月开始时间（时间戳）
+	 monthEnd       本月结束时间（时间戳）
+	 yearStart      本年开始时间（时间戳）
+	 yearEnd        本年结束时间（时间戳）
+	 weekStart      本周开始时间（时间戳）
+	 weekEnd        本周结束时间（时间戳）
+	 hourStart      当前小时开始时间（时间戳）
+	 hourEnd        当前小时结束时间（时间戳）
+	 yesterdayStart 昨天开始时间（时间戳）
+	 yesterday12End 昨天上午结束时间（时间戳）
+	 yesterdayEnd   昨天结束时间（时间戳）
+	 lastMonthStart 上月开始时间（时间戳）
+	 lastMonthEnd   上月结束时间（时间戳）
+	 now        现在的时间点（含月年日时分秒）
+	 months     本年度每月的开始和结束时间 months[1] 代表1月
+	 days       本月每天的开始和结束时间 days[1] 代表1日
  }
  * vk.pubfn.getCommonTime();
  */
@@ -145,7 +146,8 @@ util.getCommonTime = function(date = new Date(), targetTimezone) {
 	targetTimezone = util.getTargetTimezone(targetTimezone);
 	const dif = nowDate.getTimezoneOffset();
 	const timeDif = dif * 60 * 1000 + (targetTimezone * 60 * 60 * 1000);
-	const { year, month, day, hour, minute, second, millisecond, week, quarter } = util.getDateInfo(nowDate);
+	const { year, month, day, hour, minute, second, millisecond, week, quarter } = util.getDateInfo(nowDate, targetTimezone);
+	const oneDayTime = 24 * 60 * 60 * 1000;
 	// 现在的时间
 	res.now = {
 		year,
@@ -157,8 +159,9 @@ util.getCommonTime = function(date = new Date(), targetTimezone) {
 		millisecond,
 		week,
 		quarter,
+		date_str: util.timeFormat(nowDate, "yyyy-MM-dd hh:mm:ss", targetTimezone),
 		date_day_str: util.timeFormat(nowDate, "yyyy-MM-dd", targetTimezone),
-		date_month_str: util.timeFormat(nowDate, "yyyy-MM", targetTimezone)
+		date_month_str: util.timeFormat(nowDate, "yyyy-MM", targetTimezone),
 	};
 	// 获取本月最大天数
 	let month_last_day = new Date(year, month, 0).getDate();
@@ -169,15 +172,15 @@ util.getCommonTime = function(date = new Date(), targetTimezone) {
 	// 今日12点时间
 	res.today12End = new Date(`${year}/${month}/${day}`).getTime() + (12 * 60 * 60 * 1000 - 1) - timeDif;
 	// 今日结束时间
-	res.todayEnd = new Date(`${year}/${month}/${day}`).getTime() + (24 * 60 * 60 * 1000 - 1) - timeDif;
+	res.todayEnd = new Date(`${year}/${month}/${day}`).getTime() + (oneDayTime - 1) - timeDif;
 	// 本月开始时间
 	res.monthStart = new Date(`${year}/${month}/1`).getTime() - timeDif;
 	// 本月结束时间
-	res.monthEnd = new Date(`${year}/${month}/${month_last_day}`).getTime() + (24 * 60 * 60 * 1000 - 1) - timeDif;
+	res.monthEnd = new Date(`${year}/${month}/${month_last_day}`).getTime() + (oneDayTime - 1) - timeDif;
 	// 本年开始时间
 	res.yearStart = new Date(`${year}/1/1`).getTime() - timeDif;
 	// 本年结束时间
-	res.yearEnd = new Date(`${year}/12/${year_last_day}`).getTime() + (24 * 60 * 60 * 1000 - 1) - timeDif;
+	res.yearEnd = new Date(`${year}/12/${year_last_day}`).getTime() + (oneDayTime - 1) - timeDif;
 	// 当前小时开始时间
 	res.hourStart = new Date(`${year}/${month}/${day} ${hour}:00:00`).getTime() - timeDif;
 	// 当前小时结束时间
@@ -193,8 +196,7 @@ util.getCommonTime = function(date = new Date(), targetTimezone) {
 	// 上月开始时间
 	res.lastMonthStart = new Date(`${year_last}/${month_last}/1`).getTime() - timeDif;
 	// 上月结束时间
-	res.lastMonthEnd = new Date(`${year_last}/${month_last}/${month_last_day_last}`).getTime() + (24 * 60 * 60 *
-		1000 - 1) - timeDif;
+	res.lastMonthEnd = new Date(`${year_last}/${month_last}/${month_last_day_last}`).getTime() + (oneDayTime - 1) - timeDif;
 	// 计算上月结束-----------------------------------------------------------
 
 	// 昨天开始时间
@@ -204,28 +206,59 @@ util.getCommonTime = function(date = new Date(), targetTimezone) {
 	// 昨天结束时间
 	res.yesterdayEnd = res.todayEnd - 1000 * 3600 * 24;
 
-	let weekObj = util.getWeekOffsetStartAndEnd(0, nowDate);
-	// 本周开始时间 
+	let weekObj = util.getWeekOffsetStartAndEnd(0, nowDate, targetTimezone);
+	// 本周开始时间
 	res.weekStart = weekObj.startTime;
 	// 本周结束时间
 	res.weekEnd = weekObj.endTime;
 	// 本年1-12月的起止时间
 	res.months = [];
 	res.months[0] = {
-		monthStart: res.monthStart,
-		monthEnd: res.monthEnd
+		startTime: res.monthStart,
+		endTime: res.monthEnd,
+		startTimeStr: util.timeFormat(res.monthStart, "yyyy-MM-dd hh:mm:ss", targetTimezone),
+		endTimeStr: util.timeFormat(res.monthEnd, "yyyy-MM-dd hh:mm:ss", targetTimezone),
+		monthStart: res.monthStart, // 兼容旧版
+		monthEnd: res.monthEnd, // 兼容旧版
 	};
 	for (let i = 1; i <= 12; i++) {
 		// 获取此月最大天数
 		let month_last_day = new Date(year, i, 0).getDate();
 		// 此月开始时间
-		let monthStart = new Date(`${year}/${i}/1`).getTime() - timeDif;
+		let startTime = new Date(`${year}/${i}/1`).getTime() - timeDif;
 		// 此月结束时间
-		let monthEnd = new Date(`${year}/${i}/${month_last_day}`).getTime() + (24 * 60 * 60 * 1000 - 1) - timeDif;
+		let endTime = new Date(`${year}/${i}/${month_last_day}`).getTime() + (oneDayTime - 1) - timeDif;
 		res.months[i] = {
-			monthStart,
-			monthEnd
+			startTime,
+			endTime,
+			startTimeStr: util.timeFormat(startTime, "yyyy-MM-dd hh:mm:ss", targetTimezone),
+			endTimeStr: util.timeFormat(endTime, "yyyy-MM-dd hh:mm:ss", targetTimezone),
+			monthStart: startTime, // 兼容旧版
+			monthEnd: endTime, // 兼容旧版
 		};
+	}
+	// 本月1号到最后一天每天的起止时间
+	res.days = [];
+	res.days[0] = {
+		startTime: res.todayStart,
+		endTime: res.todayEnd,
+		startTimeStr: util.timeFormat(res.todayStart, "yyyy-MM-dd hh:mm:ss", targetTimezone),
+		endTimeStr: util.timeFormat(res.todayEnd, "yyyy-MM-dd hh:mm:ss", targetTimezone)
+	};
+	for (let i = 1; i <= month_last_day; i++) {
+		let nowTime = res.monthStart + ((i - 1) * oneDayTime);
+		let { startTime, endTime } = util.getDayOffsetStartAndEnd(0, nowTime, targetTimezone);
+		res.days[i] = {
+			startTime,
+			endTime,
+			startTimeStr: util.timeFormat(startTime, "yyyy-MM-dd hh:mm:ss", targetTimezone),
+			endTimeStr: util.timeFormat(endTime, "yyyy-MM-dd hh:mm:ss", targetTimezone)
+		};
+	}
+	for (let key in res) {
+		if (typeof res[key] === "number" && res[key].toString().length === 13) {
+			res[`${key}Str`] = util.timeFormat(res[key], "yyyy-MM-dd hh:mm:ss", targetTimezone);
+		}
 	}
 	return res;
 };
@@ -321,7 +354,8 @@ util.getWeekOffsetStartAndEnd = function(count = 0, date = new Date(), targetTim
 	targetTimezone = util.getTargetTimezone(targetTimezone);
 	const dif = nowDate.getTimezoneOffset();
 	const timeDif = dif * 60 * 1000 + (targetTimezone * 60 * 60 * 1000);
-	nowDate.setDate(nowDate.getDate() - nowDate.getDay() + 1 + count * 7);
+	let nowDay = nowDate.getDay() === 0 ? 7 : nowDate.getDay();
+	nowDate.setDate(nowDate.getDate() - nowDay + 1 + count * 7);
 	let dateInfo1 = util.getDateInfo(nowDate);
 	nowDate.setDate(nowDate.getDate() + 7);
 	let dateInfo2 = util.getDateInfo(nowDate);
