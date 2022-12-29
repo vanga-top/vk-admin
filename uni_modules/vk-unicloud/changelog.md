@@ -1,3 +1,15 @@
+## 2.13.1（2022-12-29）
+* 1、【调整】url化后token的请求头从 `uni_id_token` 改为 `uni-id-token`（新版阿里云不支持 `uni_id_token` 请求头）
+* 2、【修复】`vk.openapi.weixin.h5.request` 接口无法在阿里云空间中自动使用代理的问题。
+* 3、【修复】`vk.pubfn.getOffsetTime` 接口在云端月偏移量计算在可能会出错的问题。
+* 4、【优化】其他一些兼容性问题。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.13.0（2022-12-29）
+* 1、【调整】url化后token的请求头从 `uni_id_token` 改为 `uni-id-token`（新版阿里云不支持 `uni_id_token` 请求头）
+* 2、【修复】`vk.openapi.weixin.h5.request` 接口无法在阿里云空间中自动使用代理的问题。
+* 3、【修复】`vk.pubfn.getOffsetTime` 接口在云端月偏移量计算在可能会出错的问题。
+* 4、【优化】其他一些兼容性问题。
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.12.9（2022-12-13）
 * 1、【优化】`vk.pubfn.getCommonTime()` API内部细节
 * 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)

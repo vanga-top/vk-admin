@@ -28,9 +28,18 @@ import vkAdminUI from 'vk-unicloud-admin-ui';
 import 'vk-unicloud-admin-ui/theme/index.css';
 Vue.use(vkAdminUI);
 
-// 引入 富文本编辑器 组件（必须加在Vue.use(vkAdminUI);的后面）
-import VkDataInputEditor from "@/components/vk-data-input-editor/vk-data-input-editor";
-Vue.component("vk-data-input-editor", VkDataInputEditor);
+// 自动注册全局组件（必须加在Vue.use(vkAdminUI);的后面）
+const modulesFiles = require.context('./components', true, /\.vue$/);
+modulesFiles.keys().map((modulePath, index) => {
+	const moduleNames = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1');
+	const moduleSplit = moduleNames.split("/");
+	const moduleName = moduleSplit[0];
+	if (moduleSplit.length === 2 && moduleName === moduleSplit[1]) {
+		const value = modulesFiles(modulePath);
+		let moduleItem = value.default;
+		Vue.component(moduleName, moduleItem);
+	}
+});
 
 // 引入 自定义全局css 样式
 import '@/common/css/app.scss';

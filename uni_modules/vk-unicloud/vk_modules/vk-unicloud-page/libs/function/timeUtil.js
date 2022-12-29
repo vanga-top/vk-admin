@@ -20,21 +20,53 @@ util.getTargetTimezone = function(val) {
 };
 
 // 尽可能的将参数转成正确的时间对象
-util.getDateObject = function(date) {
+util.getDateObject = function(date, targetTimezone) {
 	if (!date) return "";
 	let nowDate;
 	// 如果是字符串，且纯数字，则强制转数值
-	if (typeof date === "string" && !isNaN(date)) date = Number(date);
+	if (typeof date === "string" && !isNaN(date) && date.length >= 10) date = Number(date);
 	if (typeof date === "number") {
 		if (date.toString().length == 10) date *= 1000;
 		nowDate = new Date(date); // 转时间对象
 	} else if (typeof date === "object") {
 		nowDate = new Date(date.getTime()); // 新建一个时间对象
 	} else if (typeof date === "string") {
-		//nowDate = new Date(date.replace(/-/g,"/")); // 新建一个时间对象
+		targetTimezone = util.getTargetTimezone(targetTimezone);
+		let targetTimezoneStr = targetTimezone;
+		let targetTimezoneF = targetTimezone >= 0 ? "+" : "";
+		if (targetTimezone >= 0 && targetTimezone < 10) {
+			targetTimezoneStr = `0${targetTimezone}`;
+		} else if (targetTimezone < 0 && targetTimezone > -10) {
+			targetTimezoneStr = `-0${targetTimezone*-1}`;
+		}
+		let arr1 = date.split(" ");
+		let arr1_1 = arr1[0] || "";
+		let arr1_2 = arr1[1] || "";
+		let arr2;
+		if (arr1_1.indexOf("-") > -1) {
+			arr2 = arr1_1.split("-");
+		} else {
+			arr2 = arr1_1.split("/");
+		}
+		let arr3 = arr1_2.split(":");
+		let dateObj = {
+			year: Number(arr2[0]),
+			month: Number(arr2[1]) || 1,
+			day: Number(arr2[2]) || 1,
+			hour: Number(arr3[0]) || 0,
+			minute: Number(arr3[1]) || 0,
+			second: Number(arr3[2]) || 0,
+		};
+		for (let key in dateObj) {
+			if (dateObj[key] >= 0 && dateObj[key] < 10) dateObj[key] = `0${dateObj[key]}`;
+		}
+		// 格式 2022-10-01T00:00:00+08:00
+		let dateStr = `${dateObj.year}-${dateObj.month}-${dateObj.day}T${dateObj.hour}:${dateObj.minute}:${dateObj.second}${targetTimezoneF}${targetTimezoneStr}:00`;
+		nowDate = new Date(dateStr);
 	}
 	return nowDate;
 };
+
 // 获取时间在不同时区下的时间对象
 util.getTimeByTimeZone = function(date, targetTimezone) {
 	let nowDate = util.getDateObject(date);
@@ -481,51 +513,40 @@ vk.pubfn.getOffsetTime(new Date(), {
 	mode:"after" // after 之后 before 之前
 });
  */
-util.getOffsetTime = function(date = new Date(), obj) {
+util.getOffsetTime = function(date = new Date(), obj, targetTimezone) {
 	let nowDate = util.getDateObject(date);
-	let year = obj.year || obj.y;
-	let month = obj.month || obj.m;
-	let day = obj.day || obj.d;
-	let hours = obj.hours || obj.hh;
-	let minutes = obj.minutes || obj.mm;
-	let seconds = obj.seconds || obj.ss;
+	let dateInfo = util.getDateInfo(nowDate);
+
+	targetTimezone = util.getTargetTimezone(targetTimezone);
+	const dif = nowDate.getTimezoneOffset();
+	const timeDif = dif * 60 * 1000 + (targetTimezone * 60 * 60 * 1000);
+
+	let year = obj.year || obj.y || 0;
+	let month = obj.month || obj.m || 0;
+	let day = obj.day || obj.d || 0;
+	let hour = obj.hour || obj.hours || obj.hh || 0;
+	let minute = obj.minute || obj.minutes || obj.mm || 0;
+	let second = obj.second || obj.seconds || obj.ss || 0;
 	let { mode = "after" } = obj;
 	if (mode == "before") {
 		year *= -1;
 		month *= -1;
 		day *= -1;
-		hours *= -1;
-		minutes *= -1;
-		seconds *= -1;
+		hour *= -1;
+		minute *= -1;
+		second *= -1;
 	}
-	if (year) {
-		nowDate = nowDate.setFullYear(nowDate.getFullYear() + year);
-		nowDate = new Date(nowDate);
-	}
-	if (month) {
-		nowDate = nowDate.setMonth(nowDate.getMonth() + month);
-		nowDate = new Date(nowDate);
-	}
-	if (day) {
-		nowDate = nowDate.setDate(nowDate.getDate() + day);
-		nowDate = new Date(nowDate);
-	}
-	if (hours) {
-		nowDate = nowDate.setHours(nowDate.getHours() + hours);
-		nowDate = new Date(nowDate);
-	}
-	if (minutes) {
-		nowDate = nowDate.setMinutes(nowDate.getMinutes() + minutes);
-		nowDate = new Date(nowDate);
-	}
-	if (seconds) {
-		nowDate = nowDate.setSeconds(nowDate.getSeconds() + seconds);
-		nowDate = new Date(nowDate);
-	}
-	return nowDate.getTime();
+	let offsetObj = {
+		year: dateInfo.year + year,
+		month: dateInfo.month + month,
+		day: dateInfo.day + day,
+		hour: dateInfo.hour + hour,
+		minute: dateInfo.minute + minute,
+		second: dateInfo.second + second
+	};
+	nowDate = new Date(offsetObj.year, offsetObj.month - 1, offsetObj.day, offsetObj.hour, offsetObj.minute, offsetObj.second);
+	return nowDate.getTime() - timeDif;
 }
-
-
 
 /**
  * 判断是否是闰年

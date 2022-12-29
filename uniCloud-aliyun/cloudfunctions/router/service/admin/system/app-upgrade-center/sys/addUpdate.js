@@ -146,16 +146,16 @@ module.exports = {
 function compareVersion(version1, version2) {
 	let arr1 = version1.split(".");
 	let arr2 = version2.split(".");
-	if (arr1[0] === arr2[0] && arr1[1] === arr2[1] && arr1[2] === arr2[2]) {
+	if (Number(arr1[0]) === Number(arr2[0]) && Number(arr1[1]) === Number(arr2[1]) && Number(arr1[2]) === Number(arr2[2])) {
 		return 0;
 	}
-	if (arr1[0] > arr2[0]) {
+	if (Number(arr1[0]) > Number(arr2[0])) {
 		return 1;
 	}
-	if (arr1[0] === arr2[0] && arr1[1] > arr2[1]) {
+	if (Number(arr1[0]) === Number(arr2[0]) && Number(arr1[1]) > Number(arr2[1])) {
 		return 1;
 	}
-	if (arr1[0] === arr2[0] && arr1[1] === arr2[1] && arr1[2] > arr2[2]) {
+	if (Number(arr1[0]) === Number(arr2[0]) && Number(arr1[1]) === Number(arr2[1]) && Number(arr1[2]) > Number(arr2[2])) {
 		return 1;
 	}
 	return -1;

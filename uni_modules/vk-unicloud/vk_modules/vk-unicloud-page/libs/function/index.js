@@ -1563,7 +1563,22 @@ pubfn.calcSize = function(length = 0, arr, ary, precision = 2, showType = "auto"
 	}
 };
 
+/**
+ * 将一个大数组拆分成N个小数组（分割数组）
+ * @param {Array} array 大数组
+ * @param {Number} size 小数组每组最大多少个
+ * 代码示例
+ * let newArray = vk.pubfn.splitArray(array, 2);
+ */
+pubfn.splitArray = function(array, size) {
+	let data = [];
+	for (let i = 0; i < array.length; i += size) {
+		data.push(array.slice(i, i + size))
+	}
+	return data
+};
 
+// 以下是前端专属API-----------------------------------------------------------
 
 /**
  * 手机端长列表分页加载数据 2.0版本
