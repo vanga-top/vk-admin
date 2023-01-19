@@ -4,8 +4,9 @@ module.exports = {
 	 * @url user/pub/loginByWeixinPhoneNumber 前端调用的url参数地址
 	 * @description 用户登录(微信授权)
 	 * data 请求参数 说明
-	 * @param {String} encryptedData
-	 * @param {String} iv
+	 * @param {String} code 通过 getphonenumber 事件获取到的code（code和encryptedData+iv二选一）
+	 * @param {String} encryptedData（code和encryptedData+iv二选一）
+	 * @param {String} iv（code和encryptedData+iv二选一）
 	 * @param {String} encryptedKey code2SessionWeixin 接口返回的encryptedKey
 	 * res 返回参数说明
 	 * @param {Number} code 错误码，0表示成功
@@ -24,27 +25,29 @@ module.exports = {
 			avatar,
 			gender,
 			inviteCode,
+			encryptedKey,
+			code,
 			encryptedData,
-			iv,
-			encryptedKey
+			iv
 		} = data;
 
 		// 获取微信绑定的手机号
 		res = await vk.openapi.weixin.decrypt.getPhoneNumber({
+			encryptedKey,
+			code,
 			encryptedData,
-			iv,
-			encryptedKey
+			iv
 		});
 		if (res.code !== 0) return res;
 		let {
 			mobile
 		} = res;
-		let code = vk.pubfn.random(6);
+		let mobileCode = vk.pubfn.random(6);
 		// 指定操作类型，可选值为login、register，不传此参数时表现为手机号已注册则登录，手机号未注册则进行注册
 		let type;
 		// 通过手机号登录
-		await uniID.setVerifyCode({ mobile, code, expiresIn: 60, type: "login" });
-		res = await uniID.loginBySms({ mobile, code, type, inviteCode });
+		await uniID.setVerifyCode({ mobile, code: mobileCode, expiresIn: 60, type: "login" });
+		res = await uniID.loginBySms({ mobile, code: mobileCode, type, inviteCode });
 		if (!res.token) return res;
 		if (!res.msg) {
 			res.msg = res.type === "register" ? "注册成功" : "登录成功";

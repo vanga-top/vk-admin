@@ -1,3 +1,9 @@
+## 2.13.2（2023-01-19）
+* 1、【调整】router云函数运行内存调整为512M（实测512M即可达到最优性能）
+* 2、【新增】微信最新版头像和昵称获取示例，详见：/pages_template/uni-id/weixin/set-user-info.vue
+* 3、【优化】升级微信小程序文本检测API `vk.openapi.weixin.security.msgSecCheck` 至2.0版本 [传送门 - 微信文档](https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/sec-center/sec-check/msgSecCheck.html)
+* 4、【修复】`微信公众号万能API调用接口` 在调用部分接口时可能会报错的问题
+* 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.13.1（2022-12-29）
 * 1、【调整】url化后token的请求头从 `uni_id_token` 改为 `uni-id-token`（新版阿里云不支持 `uni_id_token` 请求头）
 * 2、【修复】`vk.openapi.weixin.h5.request` 接口无法在阿里云空间中自动使用代理的问题。

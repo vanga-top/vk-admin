@@ -10,19 +10,34 @@ module.exports = {
 	 */
 	main: async (event) => {
 		let { data = {}, userInfo, util } = event;
-		let { config, vk , db, _ } = util;
+		let { config, vk, db, _ } = util;
 		let { uid } = data;
-		let res = { code : 0, msg : 'ok' };
+		let res = { code: 0, msg: 'ok' };
 		// 业务逻辑开始-----------------------------------------------------------
-		let { content } = data;
+		let {
+			content,
+			version,
+			scene,
+			openid,
+			title,
+			nickname,
+			signature,
+		} = data;
 		// 实际业务中，content可能是评论的内容等
 		let msgSecCheckRes = await vk.openapi.weixin.security.msgSecCheck({
-			content
+			content,
+			version,
+			scene,
+			openid,
+			title,
+			nickname,
+			signature,
 		});
-		if(msgSecCheckRes.code !== 0){
+		if (msgSecCheckRes.code !== 0) {
 			// 未通过检测
 			return msgSecCheckRes;
 		}
+		res.result = msgSecCheckRes;
 		// 若通过检测，则继续执行自己的业务
 		// ...
 		// ...

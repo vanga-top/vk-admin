@@ -1,6 +1,6 @@
 var vk = {};
 var counterNum = 0;
-var uniCloudEnvs = {};
+var uniCloudEnvs = {}; // uniCloud 环境列表
 class CallFunctionUtil {
 	constructor() {
 		this.config = {
