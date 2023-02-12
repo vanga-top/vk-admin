@@ -35,7 +35,7 @@
 
 **最大亮点：使用 `vk-unicloud-admin` 后，即使你是一个纯后端，不会写任何css，照样可以写出功能强大且页面好看的admin管理系统。**
 
-### `vk-unicloud-admin` 的优势是什么 ?
+### `vk-unicloud-admin` 主要功能 以及 对开发者的价值
 
 * 1、完美集成 `vk-unicloud-router`，拥有 `vk-unicloud-router` 的所有现成API功能。让你开发事半功倍。[点击查看](https://vkdoc.fsq.pub/client/)
 * 2、完美集成 `element` UI框架，并在 `element` 基础上进行了深度封装（支持原生 `element`）[element官网](https://element.eleme.cn/#/zh-CN/component/button)
