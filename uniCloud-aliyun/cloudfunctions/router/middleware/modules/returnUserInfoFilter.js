@@ -14,6 +14,7 @@ module.exports = [{
 		"^user/kh/update(.*)",
 		"^user/kh/set(.*)",
 		"^user/kh/acceptInvite$",
+		"^user/kh/getMyUserInfo$",
 		"^client/user/pub/register(.*)",
 		"^client/user/pub/login(.*)"
 	],

@@ -1099,7 +1099,7 @@ pubfn.regExpTest = function(text, expText) {
  */
 pubfn.createOrderNo = function(prefix = "", num = 25) {
 	// 获取当前时间字符串格式如20200803093000123
-	let fullTime = vk.pubfn.timeFormat(new Date(),"yyyyMMddhhmmss");
+	let fullTime = vk.pubfn.timeFormat(new Date(), "yyyyMMddhhmmss");
 	fullTime = fullTime.substring(2);
 	let randomNum = num - (prefix + fullTime).length;
 	return prefix + fullTime + pubfn.random(randomNum);
@@ -1576,6 +1576,21 @@ pubfn.splitArray = function(array, size) {
 		data.push(array.slice(i, i + size))
 	}
 	return data
+};
+
+/**
+ * 将对象内的属性按照ASCII字符顺序进行排序，返回排序后的对象
+ * @param {Object} obj 需要排序对象
+ * 代码示例
+ * let newObj = vk.pubfn.objectKeySort(obj);
+ */
+pubfn.objectKeySort = function(obj) {
+	let keys = Object.keys(obj).sort();
+	let newObject = {};
+	for (let i in keys) {
+		newObject[keys[i]] = (obj[keys[i]]);
+	}
+	return newObject;
 };
 
 // 以下是前端专属API-----------------------------------------------------------

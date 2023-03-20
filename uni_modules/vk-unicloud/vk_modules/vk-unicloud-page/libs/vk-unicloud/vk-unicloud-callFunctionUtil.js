@@ -1,6 +1,7 @@
 var vk = {};
 var counterNum = 0;
 var uniCloudEnvs = {}; // uniCloud 环境列表
+var lastToLoginTime = 0;
 class CallFunctionUtil {
 	constructor() {
 		this.config = {
@@ -213,6 +214,11 @@ class CallFunctionUtil {
 		this.interceptor = {
 			// 拦截1301、1302错误码（非法token和token失效）
 			login: (obj = {}) => {
+				let nowTime = Date.now();
+				if (nowTime - lastToLoginTime < 300) {
+					return false;
+				}
+				lastToLoginTime = nowTime;
 				let {
 					params,
 					res
