@@ -77,6 +77,8 @@
 				<view class="iconfont icon-fengexian" @tap="insertDivider"></view>
 				<!-- 上传图片 -->
 				<view class="iconfont icon-charutupian" @tap="insertImage"></view>
+				<!-- 上传图片 从素材库选择 -->
+				<view class="iconfont icon-charutupian" @tap="insertImageFromFileSelect"></view>
 				<!-- 上传视频 -->
 				<!-- <view class="icon el-icon-video-camera" @tap="insertVideo"></view> -->
 				<!-- H1 -->
@@ -118,6 +120,9 @@
 				@ready="onEditorReady"
 				@input="onInput"
 			></editor>
+
+			<vk-data-input-file-select ref="fileSelectDialog" :controls="false" placeholder="请选择图片" multiple :multiple-limit="20" file-type="image" @selected="onFileSelect"></vk-data-input-file-select>
+
 		</view>
 	</view>
 </template>
@@ -199,7 +204,7 @@
 					"--header_display":0
 				},
 				formats: {},
-				editorId:"vk-editor"
+				editorId:"vk-editor",
 			};
 		},
 		mounted() {
@@ -311,6 +316,26 @@
 						});
 					}
 				})
+			},
+			insertImageFromFileSelect(){
+				let that = this;
+				let { vk } = that;
+				let disabled = that.disabledFn();
+				if(disabled) return false;
+				this.$refs.fileSelectDialog.open();
+			},
+			async onFileSelect(list){
+				let that = this;
+				let { vk } = that;
+				for (let i = 0; i < list.length; i++) {
+					let imageUrl = list[i];
+					// 为了顺序执行，这里使用await
+					await that.editorCtx.insertImage({
+						src: imageUrl,
+						alt: "image",
+						extClass:"vk-data-editor-image"
+					});
+				}
 			},
 			insertVideo() {
 				let that = this;

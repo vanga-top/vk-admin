@@ -1,6 +1,9 @@
-* 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.15.25`
-* 2、【优化】`万能表单` `array<string>` `array<number>` 新增属性 `showDelete` 控制是否显示右侧删除图标
-
+* 1、【升级】`vk-unicloud-admin-ui` 包升级至 `1.16.0`
+* 2、【修复】`table-select` 在多选模式下，控制台可能会报 `Cannot read properties of undefined(reading 'length')` 警告的问题。
+* 3、【优化】`topWindow` 支持显示正方形logo+文本（暂无开关，需手动切换注释）
+* 4、【优化】`素材管理` 批量上传时显示上传进度
+* 5、【优化】`万能表单` `素材选择组件` 多选时显示文件顺序
+* 6、【优化】`万能表单` `富文本` 支持从素材库选择图片
 
 ##### 框架更新步骤 [点击查看](https://vkdoc.fsq.pub/admin/1/update.html)
 ##### 框架学习Q群：`22466457` 欢迎萌新和大佬来使用和共同改进框架

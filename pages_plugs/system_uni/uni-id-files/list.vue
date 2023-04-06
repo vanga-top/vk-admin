@@ -293,35 +293,25 @@ export default {
 			}
 			uni.chooseFile({
 				extension,
-				success: res => {
+				success: async res => {
 					vk.showLoading("上传中...");
-					let tasks = [];
-					for (let i in res.tempFilePaths) {
-						tasks.push(
-							new Promise(function(resolve, reject){
-								vk.callFunctionUtil.uploadFile({
-									filePath: res.tempFilePaths[i],
-									file: res.tempFiles[i],
-									needSave: true,
-									fileType,
-									category_id: that.queryForm1.formData.category_id,
-									addSuccess:function(res){
-										// 等保存到数据库后才执行resolve
-										resolve(res);
-									}
-								});
-							})
-						);
-					}
-					Promise.all(tasks)
-						.then(res1 => {
-							vk.hideLoading();
-							that.getList();
-						})
-						.catch(err => {
-							vk.hideLoading();
+					for (let i = 0; i < res.tempFilePaths.length; i++) {
+						let percentage = vk.pubfn.toDecimal((i+1) / res.tempFilePaths.length * 100, 0);
+						vk.showLoading(`上传进度：${percentage}%`);
+						try {
+							await vk.callFunctionUtil.uploadFile({
+								filePath: res.tempFilePaths[i],
+								file: res.tempFiles[i],
+								needSave: true,
+								fileType,
+								category_id: that.queryForm1.formData.category_id
+							});
+						} catch(err){
 							console.error(err);
-						});
+						}
+					}
+					vk.hideLoading();
+					that.getList();
 				}
 			});
 		},

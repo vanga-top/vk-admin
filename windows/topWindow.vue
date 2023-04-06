@@ -2,10 +2,24 @@
 	<view class="header no-user-select" v-loading="!vk.getVuex('$app.inited')" :style="'--textColor'+textColor">
 		<!-- 左侧 -->
 		<view class="left">
-			<navigator class="logo" open-type="reLaunch" url="/">
-				<image :src="vk.getVuex('$app.staticUrl.navBar.logo1')" mode="aspectFill" class="min-logo" v-show="vk.getVuex('$app.leftCollapse')"></image>
-				<image :src="vk.getVuex('$app.staticUrl.navBar.logo2')" mode="aspectFill" v-show="!vk.getVuex('$app.leftCollapse')"></image>
+			
+			<!-- 模式一：纯图片 -->
+			<navigator class="logo-mode-1" open-type="reLaunch" url="/">
+				<image :src="vk.getVuex('$app.staticUrl.navBar.logo1')" mode="aspectFill" class="logo-image" v-show="vk.getVuex('$app.leftCollapse')"></image>
+				<image :src="vk.getVuex('$app.staticUrl.navBar.logo2')" mode="aspectFill" class="logo-image" v-show="!vk.getVuex('$app.leftCollapse')"></image>
 			</navigator>
+			
+			<!-- 模式二：图片+文字 -->
+			<!-- <navigator class="logo-mode-2" open-type="reLaunch" url="/">
+				<view class="logo-box" v-show="!vk.getVuex('$app.leftCollapse')">
+					<image class="logo-image" :src="vk.getVuex('$app.staticUrl.navBar.logo')" mode="scaleToFill"></image>
+					<view class="app-name">vk-admin后台管理</view>
+				</view>
+				<view class="logo-box" v-show="vk.getVuex('$app.leftCollapse')">
+					<image class="logo-image" :src="vk.getVuex('$app.staticUrl.navBar.logo')" mode="aspectFit"></image>
+				</view>
+			</navigator> -->
+
 		</view>
 		<!-- 右侧 -->
 		<view class="right">
@@ -444,21 +458,62 @@ export default {
 		height: 50px;
 		background-color: #f5f5f5;
 	}
-	.logo {
+
+	::v-deep .navbar .top-bar .item-content {
+		color: var(--textColor);
+	}
+
+	/* logo模式一开始 纯图片 */
+	.logo-mode-1 {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		image {
+		.logo-image {
 			width: 100%;
 			height: 50px;
 			display: block;
 		}
-		text {
-			margin-left: 8px;
+	}
+	/* logo模式一结束 */
+
+	/* logo模式二开始 logo+文字 */
+	.logo-mode-2{
+		.logo-box{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: #191a23;
+			height: 50px;
+			.logo-image{
+				width: 38px;
+				height: 38px;
+				margin-left: 10px;
+				margin-right: 10px;
+				border-radius: 50%;
+			}
+			.app-name{
+				width: 100%;
+				text-align: left;
+				flex:1;
+				line-height: 50px;
+				font-size: 20px;
+				background-image: -webkit-linear-gradient(left, #147B96, #E6D205 25%, #147B96 50%, #E6D205 75%, #147B96);
+				-webkit-text-fill-color: transparent;
+				-webkit-background-clip: text;
+				-webkit-background-size: 200% 100%;
+				-webkit-animation: masked-animation 4s infinite linear;
+				display: inline-block;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow:ellipsis;
+			}
+
+			@-webkit-keyframes masked-animation {
+				0%  { background-position: 0 0;}
+				100% { background-position: -100% 0;}
+			}
 		}
 	}
-	::v-deep .navbar .top-bar .item-content {
-		color: var(--textColor);
-	}
+	/* logo模式二结束 */
 }
 </style>
