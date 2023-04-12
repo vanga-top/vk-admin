@@ -409,6 +409,7 @@ page,
 	align-items: center;
 	grid-column: 1 / -1;
 	font-size: 14px;
+	user-select: none;
 	.el-button {
 		height: 32px;
 	}
@@ -680,5 +681,8 @@ page,
 	text-align: center;
 	margin: 0 10px;
 	color: #3091f2;
+}
+::v-deep .input-border-radius-4004 .el-input__inner{
+	border-radius: 4px 0px 0px 4px;
 }
 </style>

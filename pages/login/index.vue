@@ -120,7 +120,7 @@ export default {
 				vk.reLaunch("/" + pages[pages.length - 2].route);
 			} else {
 				// 进入首页
-				vk.reLaunch("/pages/index/index");
+				vk.navigateToHome();
 			}
 		},
 		forgetPassWord() {
