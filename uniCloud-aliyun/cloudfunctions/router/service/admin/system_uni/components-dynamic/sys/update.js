@@ -13,38 +13,53 @@ module.exports = {
 	 */
 	main: async (event) => {
 		let { data = {}, userInfo, util, filterResponse, originalParam } = event;
-		let { customUtil, uniID, config, pubFun, vk , db, _ } = util;
+		let { customUtil, uniID, config, pubFun, vk, db, _ } = util;
 		let { uid } = data;
-		let res = { code : 0, msg : '' };
+		let res = { code: 0, msg: '' };
 		// 业务逻辑开始-----------------------------------------------------------
-		let { data_id, title, _id, description} = data;
-		let components_dynamic_data = data.data;
+		let {
+			_id,
+			data_id,
+			data: dynamicData,
+			title,
+			description,
+			type,
+			sort,
+			show,
+			name
+		} = data;
+
 		// 参数非空检测
-		if(vk.pubfn.isNullOne(_id, data_id)){
-			return { code : -1, msg : '参数错误' };
-		}
+		if (vk.pubfn.isNull(_id)) return { code: -1, msg: 'id不能为空' };
+
 		let dbName = "vk-components-dynamic";
 
-		// 检测data_id是否已存在
-		let num = await vk.baseDao.count({
-			dbName:dbName,
-			whereJson:{
-				data_id,
-				_id : _.neq(_id)
+		if (vk.pubfn.isNotNull(data_id)) {
+			// 检测data_id是否已存在
+			let num = await vk.baseDao.count({
+				dbName,
+				whereJson: {
+					data_id,
+					_id: _.neq(_id)
+				}
+			});
+			if (num > 0) {
+				return { code: -1, msg: `组件数据id不能重复!` };
 			}
-		});
-		if(num > 0){
-			return { code : -1, msg : `组件数据id不能重复!` };
 		}
 		// 执行数据库API请求
-		res.num = await vk.baseDao.update({
-			dbName:dbName,
-			whereJson:{
-				_id
-			},
-			dataJson:{
-				data: components_dynamic_data,
-				data_id, title, description
+		res.num = await vk.baseDao.updateById({
+			dbName,
+			id: _id,
+			dataJson: {
+				data: dynamicData,
+				data_id,
+				title,
+				description,
+				type,
+				sort,
+				show,
+				name
 			}
 		});
 

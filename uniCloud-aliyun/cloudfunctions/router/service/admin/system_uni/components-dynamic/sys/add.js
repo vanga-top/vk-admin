@@ -12,39 +12,47 @@ module.exports = {
 	 */
 	main: async (event) => {
 		let { data = {}, userInfo, util, filterResponse, originalParam } = event;
-		let { customUtil, uniID, config, pubFun, vk , db, _ } = util;
+		let { customUtil, uniID, config, pubFun, vk, db, _ } = util;
 		let { uid } = data;
-		let res = { code : 0, msg : '' };
+		let res = { code: 0, msg: '' };
 		// 业务逻辑开始-----------------------------------------------------------
-		let { 
+		let {
 			data_id,
+			data: dynamicData,
 			title,
 			description,
-			data : components_dynamic_data
+			type,
+			sort = 0,
+			show = true,
+			name
 		} = data;
+
 		// 参数非空检测
-		if(vk.pubfn.isNullOne(data_id, data)){
-			return { code : -1, msg : '参数错误' };
-		}
+		if (vk.pubfn.isNull(data_id)) return { code: -1, msg: 'data_id不能为空' };
+
 		let dbName = "vk-components-dynamic";
 		// 检测key是否已存在
 		let num = await vk.baseDao.count({
-			dbName:dbName,
-			whereJson:{
+			dbName: dbName,
+			whereJson: {
 				data_id,
 			}
 		});
-		if(num > 0){
-			return { code : -1, msg : `组件数据id不能重复!` };
+		if (num > 0) {
+			return { code: -1, msg: `组件数据id不能重复!` };
 		}
 		// 执行数据库API请求
 		res.id = await vk.baseDao.add({
-			dbName:dbName,
-			dataJson:{
-				data: components_dynamic_data,
+			dbName,
+			dataJson: {
+				data: dynamicData,
 				data_id,
 				title,
-				description
+				description,
+				type,
+				sort,
+				show,
+				name
 			}
 		});
 		return res;

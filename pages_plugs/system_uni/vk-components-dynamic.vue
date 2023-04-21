@@ -28,7 +28,12 @@
 			@delete="deleteBtn"
 			@current-change="currentChange"
 			@selection-change="selectionChange"
-		></vk-data-table>
+		>
+			<!-- 排序值 -->
+			<template v-slot:sort="{ row, column, index }">
+				<el-input v-model="row.sort" size="mini" @change="sortChange($event, row)"/>
+			</template>
+		</vk-data-table>
 		<!-- 表格组件结束 -->
 
 		<!-- 添加或编辑的弹窗开始 -->
@@ -60,6 +65,17 @@ var that;													// 当前页面对象
 var vk = uni.vk;									// vk实例
 var originalForms = {}; 					// 表单初始化数据
 
+var typeData = [
+	{ value: "image", label: "图片" },
+	{ value: "swiper", label: "图片轮播" },
+	{ value: "grid-btn", label: "宫格按钮" },
+	{ value: "notice", label: "通知" },
+	{ value: "text", label: "文本" },
+	{ value: "rich-text", label: "富文本" },
+	{ value: "button", label: "按钮" },
+	{ value: "custom", label: "自定义" }
+];
+
 export default {
 	data() {
 		// 页面数据变量
@@ -74,10 +90,36 @@ export default {
 				action: "admin/system_uni/components-dynamic/sys/getList",
 				// 表格字段显示规则
 				columns: [
+					{ key: "sort", title: "排序值", type: "number", width: 100, sortable: "custom" },
 					{ key: "data_id", title: "组件数据id", type: "text", width: 200 },
 					{ key: "title", title: "数据标题", type: "text", width: 200 },
 					{ key: "description", title: "数据描述", type: "textarea" },
 					{ key: "data", title: "组件数据", type: "json", width: 200 },
+					{
+					  key: "show", title: "是否显示", type: "switch",
+					  activeValue: true,
+					  inactiveValue: false,
+					  width: 80,
+					  watch: (res) => {
+					    let { value, row, change } = res;
+					    vk.callFunction({
+					      url: "admin/system_uni/components-dynamic/sys/update",
+					      title: "请求中...",
+					      data: {
+					        _id: row._id,
+					        show: value
+					      },
+					      success: data => {
+					        change(value); // 这一步是让表格行内的开关改变显示状态
+					      }
+					    });
+					  }
+					},
+					{
+						key: "type", title: "type", type: "select", width: 120,
+						data: typeData
+					},
+					{ key: "name", title: "name", type: "text", width: 120 },
 					{ key: "_add_time", title: "添加时间", type: "time", width: 200 },
 					{ key: "_add_time", title: "距离现在", type: "dateDiff", width: 120 }
 				],
@@ -94,15 +136,24 @@ export default {
 				formData: {},
 				// 查询表单的字段规则 fieldName:指定数据库字段名,不填默认等于key
 				columns: [
-					{ key: "data_id", title: "组件数据ID", type: "text", mode: "%%" },
-					{ key: "title", title: "数据标题", type: "text", mode: "%%" },
-					{ key: "_add_time", title: "添加时间", type: "datetimerange", width: 400, mode: "[]" }
+					{ key: "data_id", title: "组件数据ID", type: "text", width: 180, mode: "%%" },
+					{ key: "title", title: "数据标题", type: "text", width: 180, mode: "%%" },
+					{
+						key: "type", title: "type", type: "select", width: 160, mode: "=",
+						data: [
+							{ value: "", label: "全部" },
+							...typeData
+						]
+					},
+					{ key: "name", title: "name", type: "text", width: 160, mode: "%%" },
+					{ key: "_add_time", title: "添加时间", type: "datetimerange", width: 380, mode: "[]" }
 				]
 			},
 			form1: {
 				// 表单请求数据，此处可以设置默认值
 				data: {
-
+					sort: 0,
+					show: true
 				},
 				// 表单属性
 				props: {
@@ -110,10 +161,19 @@ export default {
 					action: "",
 					// 表单字段显示规则
 					columns: [
+						{ key:"", title:"基础", type:"bar-title" },
 						{ key: "data_id", title: "组件数据id", type: "text", show: ["add"] },
 						{ key: "title", title: "数据标题", type: "text" },
 						{ key: "data", title: "组件数据", type: "json" },
-						{ key: "description", title: "数据描述", type: "textarea" }
+						{ key: "description", title: "数据描述", type: "textarea" },
+						{ key:"", title:"扩展", type:"bar-title" },
+						{ key: "sort", title: "排序值", type: "number" },
+						{ key: "show", title: "是否显示", type: "switch", activeValue: true, inactiveValue: false },
+						{
+							key: "type", title: "type", type: "select",
+							data: typeData
+						},
+						{ key: "name", title: "name", type: "text", tips:"同一页面可以设置相同的name" },
 					],
 					// 表单验证规则
 					rules: {
@@ -200,13 +260,22 @@ export default {
 					_id: item._id
 				}
 			});
-		}
+		},
+		// 修改排序值
+		sortChange(sort, item){
+			vk.callFunction({
+				url: 'admin/system_uni/components-dynamic/sys/update',
+				data: {
+					_id: item._id,
+					sort: Number(sort)
+				},
+				success: (data) => {
+
+				}
+			});
+		},
 	},
 	watch: {
-
-	},
-	// 过滤器
-	filters: {
 
 	},
 	// 计算属性
