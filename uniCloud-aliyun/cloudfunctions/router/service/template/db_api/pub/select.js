@@ -9,20 +9,21 @@ module.exports = {
 	 */
 	main: async (event) => {
 		let { data = {}, userInfo, util, originalParam } = event;
-		let { uniID, pubFun, vk , db, _ } = util;
+		let { uniID, pubFun, vk, db, _ } = util;
 		let { uid } = data;
-		let res = { code : 0, msg : 'ok' };
+		let res = { code: 0, msg: 'ok' };
 		// 业务逻辑开始----------------------------------------------------------- 
 		res = await vk.baseDao.select({
-			dbName:"vk-test",
-			pageIndex:1,
-			pageSize:100,
-			whereJson:{
-				
-			},
+			dbName: "vk-test",
+			getCount: true,
+			pageIndex: 1,
+			pageSize: 10,
+			whereJson: {
+
+			}
 		});
 		// 对应的sql:
-		// select * from vk-test where user_id == '001' limit 0,100;
+		// select * from vk-test limit 0,100;
 		// 业务逻辑结束-----------------------------------------------------------
 		return res;
 	}
