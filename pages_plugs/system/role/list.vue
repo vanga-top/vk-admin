@@ -161,12 +161,25 @@
 								return str;
 							}
 						},
-						// 对应的权限是否启用
-						{ key:"enable", title:"是否启用", type:"tag",
-							data:[
-								{ value:true, label:"启用", tagType:"success" },
-								{ value:false, label:"禁用", tagType:"danger" }
-							]
+						{
+							key: "enable", title: "是否启用", type: "switch",
+							activeValue: true,
+							inactiveValue: false,
+							width: 80,
+							watch: (res) => {
+								let { value, row, change } = res;
+								vk.callFunction({
+									url: "admin/system/role/sys/updateBase",
+									title: value ? "启用中..." : "关闭中...",
+									data: {
+										_id: row._id,
+										enable: value
+									},
+									success: data => {
+										change(value); // 这一步是让表格行内的开关改变显示状态
+									}
+								});
+							}
 						}
 					],
 					// 多选框选中的值
