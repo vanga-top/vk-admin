@@ -124,8 +124,8 @@ export default {
 				formData: {},
 				// 查询表单的字段规则 fieldName:指定数据库字段名,不填默认等于key
 				columns: [
-					{ key: "out_trade_no", title: "商户订单号", type: "text", width:160, mode: "%%", },
-					{ key: "transaction_id", title: "支付平台订单号", type: "text", width:160, mode: "%%", },
+					{ key: "out_trade_no", title: "商户订单号", type: "text", width:150, mode: "%%", },
+					{ key: "transaction_id", title: "支付平台订单号", type: "text", width:150, mode: "%%", },
 					{
 						key: "type", title: "订单类型", type: "select", width:150, mode: "=",
 						data: orderTypeData
@@ -133,7 +133,7 @@ export default {
 					{ key: "status", title: "订单状态", type: "select", width: 150, mode: "=",
 						data: statusData
 					},
-					{ key: "_add_time", title: "添加时间", type: "datetimerange", width:350, mode: "[]" },
+					{ key: "_add_time", title: "添加时间", type: "datetimerange", width:340, mode: "[]" },
 					{
 						key: "pay_type", title: "支付类型", type: "select", mode: "=",
 						data: payTypeData
