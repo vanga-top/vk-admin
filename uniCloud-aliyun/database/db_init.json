@@ -413,13 +413,24 @@
 				"parent_id":"system-uni"
 			},
 			{
+				"_id": "system-uni-vk-pay-orders",
+				"sort": 4,
+				"url": "/pages_plugs/system_uni/vk-pay-orders",
+				"_add_time": 1596416400000,
+				"enable": true,
+				"icon": "",
+				"menu_id": "system-uni-vk-pay-orders",
+				"name": "支付订单明细",
+				"parent_id": "system-uni"
+			},
+			{
 				"_id": "system-uni-uni-id-log",
 				"_add_time": 1596416400000,
 				"permission_id":"system-uni-uni-id-log",
 				"permission_name": "系统 - 用户登录日志管理",
 				"comment":"",
 				"url": ["admin/system_uni/uni-id-log/sys/*"],
-				"sort": 4,
+				"sort": 8,
 				"enable":true,
 				"match_mode":1,
 				"parent_id":"system-uni"
@@ -431,7 +442,7 @@
 				"permission_name": "系统 - 操作日志管理",
 				"comment":"",
 				"url": ["admin/system_uni/admin-log/sys/*"],
-				"sort": 5,
+				"sort": 9,
 				"enable":true,
 				"match_mode":1,
 				"parent_id":"system-uni"

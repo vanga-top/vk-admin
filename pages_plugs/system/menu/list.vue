@@ -22,7 +22,12 @@
 			@delete="deleteBtn"
 			@current-change="currentChange"
 			@selection-change="selectionChange"
-		></vk-data-table>
+		>
+			<!-- 排序值 -->
+			<template v-slot:sort="{ row, column, index }">
+				<el-input v-model="row.sort" size="mini" @change="sortChange($event, row)"/>
+			</template>
+		</vk-data-table>
 		<!-- 表格组件结束 -->
 
 		<!-- 添加或编辑的弹窗开始 -->
@@ -112,20 +117,48 @@
 						{ key:"url", title:"菜单URL", type:"text", width:250, align:"left" },
 						{ key:"comment", title:"备注", type:"text", width:200, align:"left" },
 						{ key:"permission", title:"菜单内置权限表", type:"text", width:120, defaultValue:"无" },
-						// 对应的权限是否启用
-						{ key:"enable", title:"是否启用", type:"tag", defaultValue:false,
-							data:[
-								{ value:true, label:"启用", tagType:"success" },
-								{ value:false, label:"禁用", tagType:"danger" },
-							]
+						{ key:"sort", title:"排序值", type:"number", width:100 },
+						{
+							key: "enable", title: "是否启用", type: "switch",
+							activeValue: true,
+							inactiveValue: false,
+							width: 80,
+							watch: (res) => {
+								let { value, row, change } = res;
+								vk.callFunction({
+									url: "admin/system/menu/sys/updateBase",
+									title: value ? "启用中..." : "关闭中...",
+									data: {
+										_id: row._id,
+										enable: value
+									},
+									success: data => {
+										change(value); // 这一步是让表格行内的开关改变显示状态
+									}
+								});
+							}
 						},
-						{ key:"hidden_menu", title:"是否隐藏", type:"tag", defaultValue:false,
-							data:[
-								{ value:true, label:"隐藏", tagType:"danger" },
-								{ value:false, label:"显示", tagType:"success" },
-							]
+						{
+							key: "hidden_menu", title: "是否显示", type: "switch",
+							activeValue: false,
+							inactiveValue: true,
+							width: 80,
+							watch: (res) => {
+								let { value, row, change } = res;
+								vk.callFunction({
+									url: "admin/system/menu/sys/updateBase",
+									title: "请求中...",
+									data: {
+										_id: row._id,
+										hidden_menu: value
+									},
+									success: data => {
+										change(value); // 这一步是让表格行内的开关改变显示状态
+									}
+								});
+							}
 						},
-						{ key:"sort", title:"排序值", type:"number", width:120 },
+
 						{ key:"parent_id", title:"父级菜单Id", type:"text", width:250, align:"left" },
 					],
 					// 多选框选中的值
@@ -301,7 +334,20 @@
 			addMenuByJsonBtn(){
 				let item = that.getCurrentRow();
 				vk.pubfn.openForm('addMenuByJson',{ item });
-			}
+			},
+			// 修改排序值
+			sortChange(sort, item){
+				vk.callFunction({
+					url: 'admin/system/menu/sys/updateBase',
+					data: {
+						_id: item._id,
+						sort: Number(sort)
+					},
+					success: (data) => {
+
+					}
+				});
+			},
 		},
 		// 监听属性
 		watch: {

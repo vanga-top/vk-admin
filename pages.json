@@ -26,7 +26,8 @@
 				{ "path": "system_uni/uni-id-log" },
 				{ "path": "system_uni/opendb-admin-log" },
 				{ "path": "system_uni/vk-components-dynamic" },
-				{ "path": "system_uni/uni-id-files/list" }
+				{ "path": "system_uni/uni-id-files/list" },
+				{ "path": "system_uni/vk-pay-orders" }
 			]
 		},
 		

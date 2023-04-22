@@ -15,13 +15,18 @@
 			:columns="table1.columns"
 			:query-form-param="queryForm1"
 			:right-btns="['detail_auto','update','delete']"
-			:default-expand-all="false"
+			:default-expand-all="true"
 			@update="updateBtn"
 			@delete="deleteBtn"
 			@current-change="currentChange"
 			@selection-change="selectionChange"
 			@cell-click="cellClick"
-		></vk-data-table>
+		>
+			<!-- 排序值 -->
+			<template v-slot:sort="{ row, column, index }">
+				<el-input v-model="row.sort" size="mini" @change="sortChange($event, row)"/>
+			</template>
+		</vk-data-table>
 		<!-- 表格组件结束 -->
 
 		<!-- 添加或编辑的弹窗开始 -->
@@ -115,13 +120,26 @@
 							]
 						},
 						{ key:"sort", title:"排序值", type:"number", width:80 },
-						// 对应的权限是否启用
-						{ key:"enable", title:"是否启用", type:"tag",
-							data:[
-								{ value:true, label:"启用", tagType:"success" },
-								{ value:false, label:"禁用", tagType:"danger" },
-							]
-						},
+						{
+							key: "enable", title: "是否启用", type: "switch",
+							activeValue: true,
+							inactiveValue: false,
+							width: 80,
+							watch: (res) => {
+								let { value, row, change } = res;
+								vk.callFunction({
+									url: "admin/system/permission/sys/updateBase",
+									title: value ? "启用中..." : "关闭中...",
+									data: {
+										_id: row._id,
+										enable: value
+									},
+									success: data => {
+										change(value); // 这一步是让表格行内的开关改变显示状态
+									}
+								});
+							}
+						}
 					],
 					// 多选框选中的值
 					multipleSelection:[],
@@ -334,7 +352,20 @@
 					let item = that.getCurrentRow(true);
 					vk.pubfn.openForm('updateLevel', { item });
 				}
-			}
+			},
+			// 修改排序值
+			sortChange(sort, item){
+				vk.callFunction({
+					url: 'admin/system/permission/sys/updateBase',
+					data: {
+						_id: item._id,
+						sort: Number(sort)
+					},
+					success: (data) => {
+
+					}
+				});
+			},
 		},
 		// 监听属性
 		watch: {

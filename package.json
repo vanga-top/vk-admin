@@ -20,7 +20,7 @@
     "license": "MIT",
     "homepage": "https://vkdoc.fsq.pub/admin/",
     "dependencies": {
-        "element-ui": "2.15.7",
+        "element-ui": "2.15.13",
         "umy-ui": "1.1.6",
         "vk-unicloud-admin-ui": "^1.16.0"
     },
