@@ -597,4 +597,25 @@ dao.resetPwd = async (data) => {
 	return res;
 };
 
+/**
+ * 获取一个未被使用的6位数分享码
+ * 调用示例
+await vk.daoCenter.userDao.getValidInviteCode();
+ */
+dao.getValidInviteCode = async (data) => {
+	let { vk, db, _ } = util;
+	// 数据库操作开始-----------------------------------------------------------
+	let inviteCode = await vk.pubfn.randomAsync(6, "23456789ABCDEFGHJKLMNPQRSTUVWXYZ", async (val)=>{
+		let num = await vk.baseDao.count({
+			dbName: dbName.user,
+			whereJson:{
+				my_invite_code: val
+			}
+		}, 10); // 最大重试10次
+		return num === 0 ? true : false;
+	});
+	// 数据库操作结束-----------------------------------------------------------
+	return inviteCode;
+};
+
 module.exports = dao;
