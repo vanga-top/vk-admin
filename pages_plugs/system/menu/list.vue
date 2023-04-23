@@ -17,7 +17,7 @@
 			:columns="table1.columns"
 			:query-form-param="queryForm1"
 			:right-btns="['detail_auto','update','delete']"
-			:default-expand-all="true"
+			:default-expand-all="false"
 			@update="updateBtn"
 			@delete="deleteBtn"
 			@current-change="currentChange"
